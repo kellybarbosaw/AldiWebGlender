@@ -4,4 +4,8 @@ texto aleatorio
 
 ## Mais um Título Teste
 
-texto para dar conflito
+juntando elas:
+
+* texto para dar conflito
+
+* realizando teste de branchs
