@@ -1,0 +1,48 @@
+.customer-client{
+    // background-color: yellow !important;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+}
+
+form input{
+    width: 100%;
+}
+form{
+    width: 90% !important;
+}
+
+.areasCadastro{
+    border: solid 1px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.currentBody{
+    display: none;
+    width: 100%;
+    justify-content: space-between;
+    
+}
+.current{
+    display: flex !important;
+    flex-direction: column !important;    
+}
+
+.formCadastro{
+    width: 100%;
+}
+.spaceForm{
+    height: 500px;
+    width: 100%;
+    flex-grow: 1;
+}
+.nextSection{
+    width: 100%;
+}
+
+.titleStage{
+    margin-bottom: 30px;
+}
+

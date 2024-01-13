@@ -1,0 +1,72 @@
+.panel{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Nunito", sans-serif;
+    height: 100%;
+    padding: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+}
+.panel .panel-heading{
+    display: flex;
+    justify-content: space-between;
+    background-color: #00092C;
+    padding: 15px;
+    border-radius: 0;
+}
+.panel .panel-heading .btn{
+    color: #000;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 7px 15px;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s ease 0s;
+}
+.panel .panel-heading .btn:hover{ box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+.panel .panel-heading .form-horizontal .form-group{ margin: 0; }
+.panel .panel-heading .form-horizontal label{
+    color: #fff;
+    margin-right: 10px;
+}
+.panel .panel-heading .form-horizontal .form-control{
+    display: inline-block;
+    width: 80px;
+    border: none;
+    border-radius: 0;
+}
+.panel .panel-heading .form-horizontal .form-control:focus{
+    box-shadow: none;
+    border: none;
+}
+
+.panel .panel-footer{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background: #00092C;
+    font-size: 16px;
+    line-height: 33px;
+    padding: 25px 15px;
+    border-radius: 0;
+}
+
+.pagination{ margin: 0; }
+.pagination li a{
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 2px;
+    border: none;
+    border-radius: 0;
+    transition: all 0.3s ease 0s;
+}
+.pagination li a:hover,
+.pagination li a:focus,
+.pagination li.active a{
+    color: #fff;
+    background-color: #B20600;
+    box-shadow: 0 0 5px rgba(0,0,0,0.4);
+}

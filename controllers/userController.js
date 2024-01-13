@@ -40,7 +40,7 @@ const userController = {
     login: async function (req,res){
 
         let user = {
-            'authorization-token-access': '',
+            'authorization': '',
             'msg':''
         }
 
@@ -65,11 +65,11 @@ const userController = {
 
         const token = jwt.sign({ID_user: selectUser[0][0].ID_user, perfil: selectUser[0][0].perfil }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 30 });
         user = {
-            'authorization-token-access': token,
+            'authorization': token,
             'msg':'login autorizado'
         }
 
-        res.header('authorization-token-access',token);
+        res.header('authorization',token);
         res.send(user); 
 
     }

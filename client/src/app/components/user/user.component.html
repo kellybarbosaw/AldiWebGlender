@@ -1,0 +1,53 @@
+<div class='dashboard'>
+    <div class="dashboard-nav">
+        <div>
+            <header>
+                <a href="/user" class="menu-toggle">
+                </a><a href="#" class="brand-logo"><span>ALDIWEB</span></a>
+            </header>
+
+            <nav class="dashboard-nav-list">
+                <a href="/user" class="dashboard-nav-item">Home</a>
+
+                <a href="/user/clients" class="dashboard-nav-item active">Clientes</a>
+                <a class="dashboard-nav-item">Apontamentos</a>
+
+                <div class='dropdown'>
+                    <a class="dashboard-nav-item dashboard-nav-dropdown-toggle">Projetos</a>
+                    <div class='dashboard-nav-dropdown-menu'>
+                        <a href="" class="dashboard-nav-dropdown-item">Tarefas do Projeto</a>
+                        <a href="" class="dashboard-nav-dropdown-item">Apontamentos</a>
+                        <a href="" class="dashboard-nav-dropdown-item">Novo Projeto</a>
+                    </div>
+                </div>
+
+
+                <div class='dashboard-nav-dropdown'>
+                    <a class="dashboard-nav-item dashboard-nav-dropdown-toggle">Tarefas</a>
+                    <div class='dashboard-nav-dropdown-menu'>
+                        <a href="#" class="dashboard-nav-dropdown-item">Todas Tarefas</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Tarefas de Hoje</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Tarefas da Semana</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Tarefas do Mês</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Nova Tarefa</a>
+                    </div>
+                </div>
+
+                <a href="#" class="dashboard-nav-item">Configurações</a>
+                <a href="#" class="dashboard-nav-item">Perfil</a>
+            </nav>
+        </div>
+        <div>
+            <div class="nav-item-divider"></div>
+            <a href="/home" class="dashboard-nav-item">Logout </a>
+        </div>
+
+    </div>
+
+    <div class='dashboard-app'>
+        <header class='dashboard-toolbar'></header>
+        <div class='dashboard-content'>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
