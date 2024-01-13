@@ -161,6 +161,7 @@ a {
 .dashboard-toolbar {
     position: fixed;
     display: flex;
+    justify-content: end;
     align-items: center;
     min-height: 50px;
     background-color: #00092C;
@@ -169,6 +170,22 @@ a {
     right: 0;
     left: 0;
     z-index: 1000;
+}
+
+.user-logged{
+    color: white;
+    font-size: 25px;
+    margin-right: 20px;
+    text-align: center;
+    padding: auto;
+
+}
+.user-logged i{
+    color: #B20600;
+    margin-right: 5px;
+    font-size: 28px;
+
+    padding-bottom: 5px;
 }
 
 .nav-item-divider {
