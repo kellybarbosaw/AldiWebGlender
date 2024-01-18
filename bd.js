@@ -90,4 +90,86 @@ async function deleteZCliente(id){
 }
 
 
-module.exports = {selectUser,selectUsers,insertUser,updateUser,deleteUser,selectUser,selectZClientes,selectZCliente,insertZCliente,updateZCliente,deleteZCliente,selectZClienteID};
+//GERENCIAMENTO DE CONTRATOS/VENDAS
+
+async function selectContracts(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT * FROM avendacomercial;');
+    return rows;
+}
+async function selectContractID(id){
+    const conn = await connect();
+    const client = await conn.query('SELECT * FROM avendacomercial WHERE idvenda = ?',id);
+    return client;
+};
+async function selectContractClient(id){
+    const conn = await connect();
+    const [client] = await conn.query('SELECT * FROM avendacomercial WHERE idcliente = ?',id);
+    return client;
+};
+async function insertContract(contract){
+    const conn = await connect();
+    const sql = 'INSERT INTO avendacomercial (idcliente, descricaovenda, statusvenda, idprojeto, comercialvenda, dtcontato, dtcontrato, dtassinatura, dtconclusao, dtcriacao, dtalteracao, usuariocriacao, usuarioalteracao )  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);';
+    const values = [contract.idcliente, contract.descricaovenda, contract.statusvenda, contract.idprojeto, contract.comercialvenda, contract.dtcontato, contract.dtcontrato, contract.dtassinatura, contract.dtconclusao, contract.dtcriacao, contract.dtalteracao, contract.usuariocriacao, contract.usuarioalteracao];
+    await conn.query(sql,values );
+}
+async function updateContract(id, contract){
+    const conn = await connect();
+    const sql = 'UPDATE avendacomercial SET idcliente=?, descricaovenda=?, statusvenda=?, idprojeto=?, comercialvenda=?, dtcontato=?, dtcontrato=?, dtassinatura=?, dtconclusao=?, dtalteracao=?, usuarioalteracao=? WHERE idvenda = ?';
+    const values = [contract.idcliente, contract.descricaovenda, contract.statusvenda, contract.idprojeto, contract.comercialvenda, contract.dtcontato, contract.dtcontrato, contract.dtassinatura, contract.dtconclusao, contract.dtalteracao, contract.usuarioalteracao, id];
+    return await conn.query(sql,values);
+}
+async function deleteContract(id){
+    const conn = await connect();
+    const sql = 'DELETE FROM avendacomercial WHERE idvenda=?;';
+    const values = [id];
+    return await conn.query(sql,values);
+}
+
+
+//GERENCIAMENTO DE PROJETOS
+
+async function selectAllProjects(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT * FROM aprojeto;');
+    return rows;
+}
+async function selectProject(id){
+    const conn = await connect();
+    const project = await conn.query('SELECT * FROM aprojeto WHERE idprojeto = ?',id);
+    return project;
+};
+async function selectProjectsContract(id){
+    const conn = await connect();
+    const [projects] = await conn.query('SELECT * FROM aprojeto WHERE idvenda = ?',id);
+    return projects;
+};
+async function selectProjectsClients(id){
+    const conn = await connect();
+    const [projects] = await conn.query('SELECT * FROM aprojeto WHERE idcliente = ?',id);
+    return projects;
+};
+async function insertProject(project){
+    const conn = await connect();
+    const sql = 'INSERT INTO aprojeto (titulo, descricao, idcliente, dtcriacao, dtalteracao, usuariocriacao, usuarioalteracao, statusprojeto, idvenda, dtinicioprojeto, dtconclusaoprojeto, horasestimadas, horasgastas, valorprojeto, valorconsumido)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);';
+    const values = [project.titulo, project.descricao, project.idcliente, project.dtcriacao, project.dtalteracao, project.usuariocriacao, project.usuarioalteracao, project.statusprojeto, project.idvenda, project.dtinicioprojeto, project.dtconclusaoprojeto, project.horasestimadas, project.horasgastas, project.valorprojeto, project.valorconsumido];
+    await conn.query(sql,values );
+}
+async function updateProject(id, project){
+    const conn = await connect();
+    const sql = 'UPDATE aprojeto SET titulo=?, descricao=?, idcliente=?, dtcriacao=?, dtalteracao=?, usuariocriacao=?, usuarioalteracao=?, statusprojeto=?, idvenda=?, dtinicioprojeto=?, dtconclusaoprojeto=?, horasestimadas=?, horasgastas=?, valorprojeto=?, valorconsumido=? WHERE idprojeto = ?';
+    const values = [project.titulo, project.descricao, project.idcliente, project.dtcriacao, project.dtalteracao, project.usuariocriacao, project.usuarioalteracao, project.statusprojeto, project.idvenda, project.dtinicioprojeto, project.dtconclusaoprojeto, project.horasestimadas, project.horasgastas, project.valorprojeto, project.valorconsumido, id];
+    return await conn.query(sql,values);
+}
+async function deleteProject(id){
+    const conn = await connect();
+    const sql = 'DELETE FROM aprojeto WHERE idprojeto=?;';
+    const values = [id];
+    return await conn.query(sql,values);
+}
+
+
+
+
+//EXPORTANDO QUERY
+module.exports = {selectProjectsClients,selectAllProjects,selectProject,selectProjectsContract,insertProject,updateProject,deleteProject,selectUser,selectUsers,insertUser,updateUser,deleteUser,selectUser,selectZClientes,selectZCliente,insertZCliente,updateZCliente,deleteZCliente,selectZClienteID,selectContracts,insertContract,selectContractID,selectContractClient,updateContract,deleteContract};

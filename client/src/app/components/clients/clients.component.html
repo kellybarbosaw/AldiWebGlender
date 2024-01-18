@@ -28,6 +28,7 @@
                         <th>Razão Social</th>
                         <th>Nome Fantasia</th>
                         <th>CNPJ</th>
+                        <th style="text-align: center;">360º</th>
                         <th style="text-align: center;">Editar</th>
                         <th style="text-align: center;">Excluir</th>
                     </tr>
@@ -40,10 +41,9 @@
                         <td>{{client.nome}}</td>
                         <td>{{client.nomefantasia}}</td>
                         <td>{{client.cnpj}}</td>
-                        <td style="text-align: center;"><i (click)="editClient(client)" class="bi bi-pencil-square"></i>
-                        </td>
-                        <td style="text-align: center;"><i (click)="deletClient(client.idclient!)"
-                                class="bi bi-trash-fill"></i></td>
+                        <td style="text-align: center;"><i (click)="verClient(client)" class="bi bi-search"></i></td>
+                        <td style="text-align: center;"><i (click)="editClient(client)" class="bi bi-pencil-square"></i></td>
+                        <td style="text-align: center;"><i (click)="deletClient(client.idclient!)"class="bi bi-trash-fill"></i></td>
                     </tr>
                 </tbody>
             </table>

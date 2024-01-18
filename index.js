@@ -4,6 +4,8 @@ const app = express();
 const userRouter = require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const clientRouter = require('./routes/clientesRoute');
+const contractRouter = require('./routes/contractRoutes');
+const projectRouter = require('./routes/projectRoutes');
 const cors = require('cors');
 const path = require('path');
 
@@ -18,6 +20,8 @@ app.use(cors({
 app.use('/user', express.json(), userRouter);
 app.use('/admin', express.json(), adminRouter);
 app.use('/client', express.json(), clientRouter);
+app.use('/contract', express.json(), contractRouter);
+app.use('/project', express.json(), projectRouter);
 
 
 

@@ -102,6 +102,10 @@ a {
     flex-direction: column;
 }
 
+.collapse .dashboard-nav-item{
+    background-color: #b2060051 !important;
+}
+
 .dashboard-nav-item {
     display: flex;
     justify-content: start;

@@ -4,6 +4,11 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { ClientComponent } from './components/client/client.component';
 import { SiteComponent } from './components/site/site.component';
 import { UserComponent } from './components/user/user.component';
+import { VendaComponent } from './components/venda/venda.component';
+import { Client360Component } from './components/client360/client360.component';
+import { ContratoComponent } from "./components/contrato/contrato.component";
+import { ProjetoComponent } from "./components/projeto/projeto.component";
+import { PessoaComponent } from './components/pessoa/pessoa.component';
 
 export const routes: Routes = [
     {
@@ -24,12 +29,37 @@ export const routes: Routes = [
             },
             {
                 path: 'client',
-                component: ClientComponent
+                component: ClientComponent,
+            },
+            {
+                path: 'client360/:id',
+                component: Client360Component
             },
             {
                 path: 'client/:id',
                 component: ClientComponent
             },
+            {
+                path: 'clientes/vendas/:event/:id',
+                component: VendaComponent
+            },
+            {
+                path: 'venda/:id',
+                component: VendaComponent
+            },
+            {
+                path: 'contrato/:id',
+                component: ContratoComponent
+            },
+            {
+                path: 'projeto/:id',
+                component: ProjetoComponent
+            },
+            {
+                path:'pessoa',
+                component: PessoaComponent
+            }
+
         ]
         
     },

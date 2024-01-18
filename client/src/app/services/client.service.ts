@@ -26,7 +26,6 @@ export class ClientService {
   }
 
   editClient(client:Client){
-    console.log(client)
     return this.httpClient.put<Client>(this.url, client)
   }
 

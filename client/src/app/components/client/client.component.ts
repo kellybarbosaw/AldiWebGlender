@@ -159,8 +159,7 @@ export class ClientComponent {
         telfinanceiro: this.client.telfinanceiro,
         celfinanceiro: this.client.celfinanceiro,
         emailfinanceiro: this.client.emailfinanceiro
-      }).subscribe((data) => {
-        console.log(data)
+      }).subscribe(() => {
         this.router.navigate(['/user/clients']) })
 
     } else {

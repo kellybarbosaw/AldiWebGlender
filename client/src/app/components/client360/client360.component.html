@@ -1,0 +1,88 @@
+<div class="panel bg-light">
+
+    <header class="d-flex flex-column align-items-strach p-2">
+
+        <div class="d-flex justify-content-between">
+            <div>
+                <h4><b></b>Dados:</h4>
+                <div><b>ID:</b> {{client.idclient}}</div>
+                <div><b>Razão Social:</b> {{client.nome}}</div>
+                <div><b>Nome Fantasia:</b> {{client.nomefantasia}}</div>
+                <div><b>CNPJ:</b> {{client.cnpj}}</div>
+            </div>
+            <div>
+                <h4>Comercial</h4>
+                <div><b>Nome:</b> {{client.respcomercial}}</div>
+                <div>
+                    <div><b>Tel:</b> {{client.telcomercial}}</div>
+                    <div><b>Cel:</b> {{client.celfinanceiro}}</div>
+                </div>
+                <div><b>E-mail:</b> {{client.emailcomercial}}</div>
+
+            </div>
+            <div>
+                <h4>Financeiro</h4>
+                <div><b>Nome:</b> {{client.respfinanceiro}}</div>
+                <div>
+                    <div><b>Tel:</b> {{client.telfinanceiro}}</div>
+                    <div><b>Cel:</b> {{client.celfinanceiro}}</div>
+                </div>
+                <div><b>E-mail:</b> {{client.emailfinanceiro}}</div>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary">Editar</button>
+        </div>
+    </header>
+    <section class="container-section">
+        <h4>Contratos:</h4>
+        <div class="d-flex flex-wrap gap-1">
+            <div *ngFor="let contractC of contractClient$ | async">
+                <div class="container-contract" (click)="viewContract(contractC.idvenda!)">
+                    <h5>Desc: {{contractC.descricaovenda}}</h5>
+                    <div>Data Inicio: {{contractC.dtassinatura}}</div>
+                    <div>Data Fim: {{contractC.dtconclusao}}</div>
+                    <div>Status: {{contractC.statusvenda}}</div>
+                </div>
+
+            </div>
+
+            <div class="container-contract plus_project" (click)="newContract(client.idclient)">
+                <!-- <h5>Desc: </h5>
+            <div>Data Inicio: </div>
+            <div>Data Fim: </div>
+            <div>Status: </div> -->
+                <p>Novo Contratos</p>
+                <i class="bi bi-plus-circle"></i>
+            </div>
+        </div>
+    </section>
+    <section class="container-section">
+        <h4>Projetos:</h4>
+        <div class="d-flex justify-content-around">
+            <div class="container-project">
+                <h5>Nome: Implantação RM</h5>
+                <div>Desc: Implantar sistema ....</div>
+                <div>Data Inicio: 01/07/2023</div>
+                <div>Data Fim: 01/01/2024</div>
+                <div>Status: Concluido</div>
+            </div>
+            <div class="container-project">
+                <h5>Nome: Implantação Edu Conect</h5>
+                <div>Desc: Implantar sistema ....</div>
+                <div>Data Inicio: 10/01/2024</div>
+                <div>Data Fim: 01/07/2024</div>
+                <div>Status: Em Andamento</div>
+            </div>
+            <div class="container-project">
+                <h5>Nome: Implantação Biblioteca</h5>
+                <div>Desc: Implantar sistema ....</div>
+                <div>Data Inicio: 10/10/2024</div>
+                <div>Data Fim: 31/12/2024</div>
+                <div>Status:Aguardando Aprovação</div>
+            </div>
+        </div>
+    </section>
+
+</div>

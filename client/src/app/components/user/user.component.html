@@ -9,27 +9,41 @@
             <nav class="dashboard-nav-list">
                 <a href="/user" class="dashboard-nav-item">Home</a>
 
-                <a href="/user/clients" class="dashboard-nav-item active">Clientes</a>
-                <a class="dashboard-nav-item">Apontamentos</a>
-
-                <div class='dropdown'>
-                    <a class="dashboard-nav-item dashboard-nav-dropdown-toggle">Projetos</a>
-                    <div class='dashboard-nav-dropdown-menu'>
-                        <a href="" class="dashboard-nav-dropdown-item">Tarefas do Projeto</a>
-                        <a href="" class="dashboard-nav-dropdown-item">Apontamentos</a>
-                        <a href="" class="dashboard-nav-dropdown-item">Novo Projeto</a>
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse " >
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#clientCollapse">Clientes<i class="bi bi-arrow-down-short"></i>
+                    </a>                       
+                    <div class="collapse" id="clientCollapse">
+                        <a class="dashboard-nav-item">Visão 360</a>
+                        <a href="/user/client" class="dashboard-nav-item">Novo Cliente</a>
+                        <a href="/user/clients" class="dashboard-nav-item">Todos Clientes</a>
                     </div>
                 </div>
 
+                <a class="dashboard-nav-item">Apontamentos</a>
 
-                <div class='dashboard-nav-dropdown'>
-                    <a class="dashboard-nav-item dashboard-nav-dropdown-toggle">Tarefas</a>
-                    <div class='dashboard-nav-dropdown-menu'>
-                        <a href="#" class="dashboard-nav-dropdown-item">Todas Tarefas</a>
-                        <a href="#" class="dashboard-nav-dropdown-item">Tarefas de Hoje</a>
-                        <a href="#" class="dashboard-nav-dropdown-item">Tarefas da Semana</a>
-                        <a href="#" class="dashboard-nav-dropdown-item">Tarefas do Mês</a>
-                        <a href="#" class="dashboard-nav-dropdown-item">Nova Tarefa</a>
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse " >
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#projectsCollapse">Projetos<i class="bi bi-arrow-down-short"></i>
+                    </a>                       
+                    <div class="collapse" id="projectsCollapse">
+                        <a href="" class="dashboard-nav-item">Tarefas do Projeto</a>
+                        <a href="" class="dashboard-nav-item">Apontamentos</a>
+                        <a href="" class="dashboard-nav-item">Novo Projeto</a>
+                    </div>
+                </div>
+
+                
+                <div data-ls-module="collapse" data-target="#accordeon1" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item accordion-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#tarefasCollapse">Tarefas<i class="bi bi-arrow-down-short"></i>
+                    </a>
+                        
+                    <div class="collapse" id="tarefasCollapse">
+                        <a href="" class="dashboard-nav-item">Todas Tarefas</a>
+                        <a href="" class="dashboard-nav-item">Tarefas de Hoje</a>
+                        <a href="" class="dashboard-nav-item">Tarefas do Mês</a>
+                        <a href="" class="dashboard-nav-item">Nova Tarefa</a>
                     </div>
                 </div>
 

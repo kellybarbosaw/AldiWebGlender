@@ -32,6 +32,10 @@ export class ClientsComponent {
 
   }
 
+
+  verClient(client: Client){
+    this.router.navigate([`/user/client360/${client.idclient}`]);
+  }
   editClient(client: Client){
     this.router.navigate([`/user/client/${client.idclient}`]);
   }
