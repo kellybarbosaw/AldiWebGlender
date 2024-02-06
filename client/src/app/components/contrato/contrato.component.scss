@@ -1,13 +1,3 @@
-.panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-family: "Nunito", sans-serif;
-    min-height: 100%;
-    padding: 20px;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
-}
 
 .container-section {
     margin: 10px;
@@ -19,7 +9,32 @@
 
 }
 
-.container-contract {
+// .container-contract {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-around;
+//     height: 200px;
+//     width: 300px;
+//     background-color: #FF5F00;
+//     padding: 10px;
+//     border-radius: 20px;
+//     box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+
+// }
+
+// .plus-contract {
+//     font-size: 3;
+//     align-items: center;
+// }
+
+// .container-contract:hover {
+//     background-color: #B20600;
+// }
+
+// .plus-contract i {
+//     font-size: 50px;
+// }
+.container-project{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -28,19 +43,16 @@
     background-color: #FF5F00;
     padding: 10px;
     border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
 
 }
-
-.plus-contract {
+.container-project:hover{
+    background-color: #FF5F00d9;
+}
+.plus-project {
     font-size: 3;
     align-items: center;
 }
-
-.container-contract:hover {
-    background-color: #B20600;
-}
-
-.plus-contract i {
+.plus-project i{
     font-size: 50px;
 }

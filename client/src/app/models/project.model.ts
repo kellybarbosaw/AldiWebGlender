@@ -1,0 +1,39 @@
+export interface Project{
+    IDPROJETO?: number,
+    TITULO: string,
+    DESCRICAO: string,
+    IDCLIENTE: string,
+    DTCRIACAO: string,
+    DTALTERACAO: string,
+    USUARIOCRIACAO: string,
+    USUARIOALTERACAO: string,
+    STATUSPROJETO: number,
+    IDVENDA: number,
+    DTINCIOPROJETO?: string,
+    DTCONCLUSAOPROJETO?: string,
+    HORASESTIMADAS?: string,
+    HORASGASTAS?: string,
+    SALDOHORAS?: string,
+    VALORPROJETO?: number,
+    VALORCONSUMIDO?: number
+}
+
+export interface CreateProject{
+    idprojeto?: number,
+    titulo: string,
+    descricao: string,
+    idcliente: string,
+    dtcriacao: string,
+    dtalteracao: string,
+    usuariocriacao: string,
+    usuarioalteracao: string,
+    statusprojeto: number,
+    idvenda: number,
+    dtinicioprojeto?: string,
+    dtconclusaoprojeto?: string,
+    horasestimadas?: string,
+    horasgastas?: string,
+    saldohoras?: string,
+    valorprojeto?: number,
+    valorconsumido?: number
+}

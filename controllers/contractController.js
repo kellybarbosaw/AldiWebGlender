@@ -26,7 +26,7 @@ const contractController = {
     selectContractsClient: async function (req,res){
         try {
             let selectContracts = await db.selectContractClient(req.params.id);
-            res.status(200).send(selectContracts[0]);
+            res.status(200).send(selectContracts);
         } catch (error) {
             res.status(400).send(error)
         }
@@ -44,7 +44,7 @@ const contractController = {
             descricaovenda: req.body.descricaovenda,
             statusvenda: req.body.statusvenda,
             idprojeto: req.body.idprojeto,
-            comercialvenda: req.body.comercialvenda,
+            comercialvendacol: req.body.comercialvendacol,
     
             dtcontato: req.body.dtcontato,
             dtcontrato:req.body.dtcontrato,
@@ -76,7 +76,7 @@ const contractController = {
             descricaovenda: req.body.descricaovenda,
             statusvenda: req.body.statusvenda,
             idprojeto: req.body.idprojeto,
-            comercialvenda: req.body.comercialvenda,
+            comercialvendacol: req.body.comercialvendacol,
     
             dtcontato: req.body.dtcontato,
             dtcontrato:req.body.dtcontrato,

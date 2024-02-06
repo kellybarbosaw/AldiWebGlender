@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../services/contract.service';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { CommonModule } from "@angular/common";
 
 
@@ -26,9 +26,9 @@ export class VendaComponent {
     idvenda: 0,
     idcliente: 0,
     descricaovenda: '',
-    statusvenda: 'Aguardando validação',
+    statusvenda: 'A',
     idprojeto: 0,
-    comercialvenda: '',
+    comercialvendacol: '',
 
     dtcontato: '',
     dtcontrato: '',
@@ -57,21 +57,21 @@ export class VendaComponent {
       this.contractService.contractCurrent(this.contrato.idvenda)
       .subscribe((datas)=>{
         const data = datas[0];
-        this.contrato.idvenda = data.idvenda!;
-        this.contrato.idcliente = data.idcliente;
-        this.contrato.descricaovenda = data.descricaovenda;
-        this.contrato.statusvenda = data.statusvenda;
-        this.contrato.idprojeto = data.idprojeto!;
-        this.contrato.comercialvenda = data.comercialvenda;
+        this.contrato.idvenda = data.IDVENDA!;
+        this.contrato.idcliente = data.IDCLIENTE;
+        this.contrato.descricaovenda = data.DESCRICAOVENDA;
+        this.contrato.statusvenda = data.STATUSVENDA;
+        this.contrato.idprojeto = data.IDPROJETO!;
+        this.contrato.comercialvendacol = data.COMERCIALVENDAcol;
     
-        this.contrato.dtcontato = data.dtcontato;
-        this.contrato.dtcontrato = data.dtcontrato;
-        this.contrato.dtassinatura = data.dtassinatura;
-        this.contrato.dtconclusao =data.dtconclusao;
-        this.contrato.dtalteracao = data.dtalteracao;
+        this.contrato.dtcontato = data.DTCONTATO;
+        this.contrato.dtcontrato = data.DTCONTRATO;
+        this.contrato.dtassinatura = data.DTASSINATURA;
+        this.contrato.dtconclusao =data.DTCONCLUSAO;
+        this.contrato.dtalteracao = data.DATAALTERACAO;
     
-        this.contrato.usuariocriacao = data.usuariocriacao;
-        this.contrato.usuarioalteracao = data.usuarioalteracao;
+        this.contrato.usuariocriacao = data.USUARIOCRIACAO;
+        this.contrato.usuarioalteracao = data.USUARIOALTERACAO;
 
         // const datepipe: DatePipe = new DatePipe('short') ;
         // let formattedDate = datepipe.transform(data.dtconclusao, 'dd-MMM-YYYY HH:mm:ss');
@@ -98,7 +98,7 @@ export class VendaComponent {
         descricaovenda: this.contrato.descricaovenda,
         statusvenda: this.contrato.statusvenda,
         idprojeto: this.contrato.idprojeto,
-        comercialvenda: this.contrato.comercialvenda,
+        comercialvendacol: this.contrato.comercialvendacol,
         dtcontato: this.contrato.dtcontato,
         dtcontrato: this.contrato.dtcontrato,
         dtassinatura: this.contrato.dtassinatura,
@@ -109,11 +109,15 @@ export class VendaComponent {
         usuarioalteracao: this.contrato.usuarioalteracao
       }).subscribe((data) => { this.router.navigate([`/user/client360/${this.contrato.idcliente}`]) })
     } else if (this.event === 'Editar') {
+
+
       //alteração nas datas para realizar edição - ainda tem que formatar data
       this.contrato.dtalteracao= '2025-05-25',
       this.contractService.editContract(this.contrato).subscribe(()=>{
         this.router.navigate([`/user/contrato/${this.contrato.idvenda}`]) 
       })
+
+
     } else {
       alert('algo deu errado')
     }

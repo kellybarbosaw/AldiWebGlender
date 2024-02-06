@@ -24,23 +24,25 @@ export class ClientsComponent {
 
   allClient$ = new Observable<Client[]>();
 
-  teste =  []
+  teste;
 
   constructor(private clientService:ClientService, private router:Router){
 
     this.allClient$ = this.clientService.allClients();
+    this.teste = this.clientService.allClients()
 
+    console.log(this.teste)
   }
 
 
   verClient(client: Client){
-    this.router.navigate([`/user/client360/${client.idclient}`]);
+    this.router.navigate([`/user/client360/${client.IDCLIENTE}`]);
   }
   editClient(client: Client){
-    this.router.navigate([`/user/client/${client.idclient}`]);
+    this.router.navigate([`/user/client/${client.IDCLIENTE}`]);
   }
 
-  deletClient(id: string){
+  deletClient(id: number){
     alert("deseja realmente deletar esse iten?" +id);
     this.clientService.deleteClient(id).subscribe(()=>{this.allClient$ = this.clientService.allClients()})
   }

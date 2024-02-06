@@ -1,0 +1,58 @@
+<div class="panel">
+    <h4>USUARIOS</h4>
+    <form class="form">
+
+            <div class="form-group">
+                <label>Usuario</label>
+                <input [(ngModel)]="User.usuario" type="text" class="form-control"  name="usuario">
+            </div>
+            <div class="form-group">
+                <label>Nome</label>
+                <input [(ngModel)]="User.nome" type="text" class="form-control"   name="nome">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input [(ngModel)]="User.email" type="text" class="form-control"  name="email">
+            </div>
+            <div class="form-group">
+                <label>Perfil</label>
+                <input [(ngModel)]="User.perfil" type="text" class="form-control"  name="perfil">
+            </div>
+            <div class="form-group">
+                <label>Ativo</label>
+                <input [(ngModel)]="User.ativo" type="text" class="form-control" disabled name="ativo">
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                <input [(ngModel)]="User.senha" type="textarea" class="form-control"  name="senha">
+            </div>
+
+
+        <div>
+            <div class="d-flex justify-content-between pt-3 pb-3">
+                <div class="form-group">
+                    <label>Usuario Criação</label>
+                    <input [(ngModel)]="User.usuariocriacao" type="text" class="form-control"  name="usuariocriacao">
+                </div>
+                <div class="form-group">
+                    <label>Usuario Alteração</label>
+                    <input [(ngModel)]="User.usuarioalteracao" type="text" class="form-control"  name="usuarioalteracao">
+                </div>
+                <div class="form-group">
+                    <label>Data Criação</label>
+                    <input [(ngModel)]="User.datacriacao" type="date" class="form-control"   name="datacriacao">
+                </div>
+                <div class="form-group">
+                    <label>Data Alteração Projeto</label>
+                    <input [(ngModel)]="User.dataalteracao" type="date" class="form-control"   name="dataalteracao">
+                </div>
+            </div>
+            
+        </div>
+
+    </form>
+    <div class="btn btn-primary mt-4" (click)="registerUser()">{{event}}</div>
+
+
+
+</div>

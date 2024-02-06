@@ -1,13 +1,4 @@
-.panel{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-family: "Nunito", sans-serif;
-    min-height: 100%;
-    padding: 0;
-    border: none;
-    box-shadow: 0 0 10px rgba(0,0,0,0.08);
-}
+
 
 .container-section{
     margin: 10px;
@@ -45,10 +36,13 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.08);
 
 }
-.plus_project {
+.container-project:hover{
+    background-color: #FF5F00d9;
+}
+.plus {
     font-size: 3;
     align-items: center;
 }
-.plus_project i{
+.plus i{
     font-size: 50px;
 }

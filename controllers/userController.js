@@ -8,6 +8,18 @@ const {loginValidate,regiterValidate} = require('./validates/LoginValidate');
 
 
 const userController = {
+
+    select: async function (req, res) {
+
+        let Users = [];
+        try {
+            Users = await db.selectUsers();
+            res.send(Users);
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    },
+
     register: async function (req,res){
 
         const {error} = regiterValidate(req.body)
@@ -21,11 +33,16 @@ const userController = {
         
 
         const newUser = new Object ({
+            usuario: req.body.usuario,
             nome: req.body.nome,
-            email: req.body.email,
-            senha: bcrypt.hashSync(req.body.senha,salt),
+            ativo: req.body.ativo,
             perfil: req.body.perfil,
-            status: req.body.status
+            datacriacao: req.body.datacriacao,
+            dataalteracao: req.body.dataalteracao,
+            usuariocriacao: req.body.usuariocriacao,
+            usuarioalteracao: req.body.usuarioalteracao,
+            senha: bcrypt.hashSync(req.body.senha,salt),
+            email: req.body.email
         })
 
         try {
@@ -56,14 +73,14 @@ const userController = {
             return res.status(400).send(user);
         }
 
-        const passwordAndUserMatch = bcrypt.compareSync(req.body.senha,selectUser[0][0].senha);
+        const passwordAndUserMatch = bcrypt.compareSync(req.body.senha, selectUser[0][0].SENHA);
 
         if(!passwordAndUserMatch){
             user.msg='Email or Password incorret';
             return res.status(400).send(user);
         }
 
-        const token = jwt.sign({ID_user: selectUser[0][0].ID_user, perfil: selectUser[0][0].perfil }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 30 });
+        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 600 });
         user = {
             'authorization': token,
             'msg':'login autorizado'
@@ -72,6 +89,57 @@ const userController = {
         res.header('authorization',token);
         res.send(user); 
 
+    },
+
+    selectUser: async function (req, res) {
+        try {
+            let selectClient = await db.selectForUser(req.params.user);
+            res.status(200).send(selectClient[0]);
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    },
+
+    update: async function (req, res) {
+
+        const { error } = regiterValidate(req.body)
+        if (error) { return res.status(400).send(error.message) };
+
+        const selectUser = await db.selectForUser(req.body.usuario);
+
+        if (selectUser[0] !== null && selectUser[0].length > 1) {
+            return res.status(400).send('User already exists');
+        }
+
+        const UpdateUser = new Object({
+            usuario: req.body.usuario,
+            nome: req.body.nome,
+            ativo: req.body.ativo,
+            perfil: req.body.perfil,
+            datacriacao: req.body.datacriacao,
+            dataalteracao: req.body.dataalteracao,
+            usuariocriacao: req.body.usuariocriacao,
+            usuarioalteracao: req.body.usuarioalteracao,
+            senha: bcrypt.hashSync(req.body.senha,salt),
+            email: req.body.email
+        })
+
+        try {
+            const savedUser = await db.updateUser(req.body.usuario, UpdateUser);
+            res.status(200).send(savedUser);
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    },
+
+    delete: async function (req, res) {
+        console.log("chegou aqui")
+        try {
+            const delUser = await db.deleteUser(req.params.user);
+            res.status(200).send(delUser);
+        } catch (error) {
+            res.status(400).send(error)
+        }
     }
 }
 

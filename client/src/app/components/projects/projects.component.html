@@ -1,0 +1,91 @@
+<div class="panel">
+    <h4>Projeto: Titulo do Projeto</h4>
+    <form class="form">
+        <div class="d-flex justify-content-between">
+            <div class="form-group">
+                <label>ID_projeto</label>
+                <input [(ngModel)]="Project.idprojeto" type="text" class="form-control" disabled name="idprojeto">
+            </div>
+            <div class="form-group">
+                <label>Cliente</label>
+                <input [(ngModel)]="Project.idcliente" type="text" class="form-control"  disabled name="idcliente">
+            </div>
+            <div class="form-group">
+                <label>Contrato</label>
+                <input [(ngModel)]="Project.idvenda" type="text" class="form-control"  disabled name="idvenda">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <input [(ngModel)]="Project.statusprojeto" type="text" class="form-control"  disabled name="statusprojeto">
+            </div>
+            <div class="form-group">
+                <label>Responsável</label>
+                <input type="text" class="form-control" disabled name="responsavel">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Titulo:</label>
+            <input [(ngModel)]="Project.titulo" type="textarea" class="form-control"  name="titulo">
+        </div>
+        <div class="form-group">
+            <label>Descrição:</label>
+            <input [(ngModel)]="Project.descricao" type="textarea" class="form-control"  name="descricao">
+        </div>
+        <div>
+            <div class="form-group">
+                <label>Inicio Projeto</label>
+                <input [(ngModel)]="Project.dtinicioprojeto" type="date" class="form-control"  name="dtinicioprojeto">
+            </div>
+            <div class="form-group">
+                <label>Fim Previsto Projeto</label>
+                <input [(ngModel)]="Project.dtconclusaoprojeto" type="date" class="form-control"  name="dtconclusaoprojeto">
+            </div>
+            
+        </div>
+        <div class="pt-3">
+            <h5><b>Horas:</b></h5>
+            <div class="form-group">
+                <label>Horas Estimadas</label>
+                <input [(ngModel)]="Project.horasestimadas" type="text" class="form-control"  name="horasestimadas">
+            </div>
+            <div class="form-group">
+                <label>Horas Gastas</label>
+                <input [(ngModel)]="Project.horasgastas" type="text" class="form-control"  name="horasgastas">
+            </div>
+            <div class="form-group">
+                <label>Saldo Restante</label>
+                <input [(ngModel)]="Project.saldohoras" type="text" class="form-control"  name="saldohoras">
+            </div>
+        </div>
+        <div class="pt-3">
+            <h5><b>Valor:</b></h5>
+            <div class="form-group">
+                <label>Valor Estimado</label>
+                <input [(ngModel)]="Project.valorprojeto" type="text" class="form-control"  name="valorprojeto">
+            </div>
+            <div class="form-group">
+                <label>Valor Gasto</label>
+                <input [(ngModel)]="Project.valorconsumido" type="text" class="form-control"  name="valorconsumido">
+            </div>
+        </div>
+        <div class="d-flex justify-content-between pt-3 pb-3">
+            <div class="form-group">
+                <label>Usuario Alteração</label>
+                <input [(ngModel)]="Project.usuarioalteracao" type="text" class="form-control"  name="userAlterado">
+            </div>
+            <div class="form-group">
+                <label>Data Criação</label>
+                <input [(ngModel)]="Project.dtcriacao" type="date" class="form-control"   name="dtcriacao">
+            </div>
+            <div class="form-group">
+                <label>Data Alteração Projeto</label>
+                <input [(ngModel)]="Project.dtalteracao" type="date" class="form-control"   name="dtalteracao">
+            </div>
+        </div>
+    </form>
+    <div class="btn btn-primary mt-4" (click)="registerProject()">{{event}}</div>
+
+
+
+</div>

@@ -14,6 +14,7 @@ export class ClientService {
   constructor(private httpClient: HttpClient) { }
 
   registerClient(newClient: CreateClient) {
+    console.log(newClient);
     return this.httpClient.post<CreateClient>(this.url, newClient)
   }
 
@@ -25,11 +26,13 @@ export class ClientService {
     return this.httpClient.get<Client[]>(`${this.url}/${id}`)    
   }
 
-  editClient(client:Client){
+  editClient(client:CreateClient){
+    console.log(client);
+
     return this.httpClient.put<Client>(this.url, client)
   }
 
-  deleteClient(id:string){
+  deleteClient(id:number){
     return this.httpClient.delete<void>(`${this.url}/${id}`)
   }
 

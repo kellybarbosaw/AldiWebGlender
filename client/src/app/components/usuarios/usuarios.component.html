@@ -3,8 +3,8 @@
 
         <div class="panel-heading">
 
-            <a href="/user/client" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> New
-                Client</a>
+            <a href="/user/usuario" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> New
+                User</a>
 
             <form class="form-horizontal pull-right">
                 <div class="form-group">
@@ -24,26 +24,26 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Razão Social</th>
-                        <th>Nome Fantasia</th>
-                        <th>CNPJ</th>
-                        <th style="text-align: center;">360º</th>
+                        <th>Usuario</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Perfil</th>
+                        <th style="text-align: center;">Ativo</th>
                         <th style="text-align: center;">Editar</th>
                         <th style="text-align: center;">Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let client of allClient$ | async">
+                    <tr *ngFor="let usuario of allUsers$ | async">
                         <td>
-                            {{client.IDCLIENTE}}
+                            {{usuario.USUARIO}}
                         </td>
-                        <td>{{client.NOME}}</td>
-                        <td>{{client.NOMEFANTASIA}}</td>
-                        <td>{{client.CGCCFO}}</td>
-                        <td style="text-align: center;"><i (click)="verClient(client)" class="bi bi-search"></i></td>
-                        <td style="text-align: center;"><i (click)="editClient(client)" class="bi bi-pencil-square"></i></td>
-                        <td style="text-align: center;"><i (click)="deletClient(client.IDCLIENTE!)"class="bi bi-trash-fill"></i></td>
+                        <td>{{usuario.NOME}}</td>
+                        <td>{{usuario.EMAIL}}</td>
+                        <td>{{usuario.PERFIL}}</td>
+                        <td style="text-align: center;">{{usuario.ATIVO}}</td>
+                        <td style="text-align: center;"><i (click)="editUser(usuario)" class="bi bi-pencil-square"></i></td>
+                        <td style="text-align: center;"><i (click)="deletUser(usuario.USUARIO)"class="bi bi-trash-fill"></i></td>
                     </tr>
                 </tbody>
             </table>

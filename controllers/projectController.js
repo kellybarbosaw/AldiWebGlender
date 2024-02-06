@@ -26,15 +26,16 @@ const projectController = {
     selectProjectsContract: async function (req,res){
         try {
             let selectProjects = await db.selectProjectsContract(req.params.id);
-            res.status(200).send(selectProjects[0]);
+            res.status(200).send(selectProjects);
         } catch (error) {
             res.status(400).send(error)
         }
     },
+
     selectProjectsClients: async function (req,res){
         try {
             let selectProjects = await db.selectProjectsClients(req.params.id);
-            res.status(200).send(selectProjects[0]);
+            res.status(200).send(selectProjects);
         } catch (error) {
             res.status(400).send(error)
         }
@@ -61,6 +62,7 @@ const projectController = {
             dtconclusaoprojeto: req.body.dtconclusaoprojeto, 
             horasestimadas: req.body.horasestimadas ,
             horasgastas: req.body.horasgastas,
+            saldohoras: req.body.saldohoras,
             valorprojeto: req.body.valorprojeto,
             valorconsumido: req.body.valorconsumido 
         })
@@ -94,6 +96,7 @@ const projectController = {
             dtconclusaoprojeto: req.body.dtconclusaoprojeto, 
             horasestimadas: req.body.horasestimadas ,
             horasgastas: req.body.horasgastas,
+            saldohoras: req.body.saldohoras,
             valorprojeto: req.body.valorprojeto,
             valorconsumido: req.body.valorconsumido 
         })

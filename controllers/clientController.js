@@ -1,11 +1,11 @@
 const db = require('../bd');
-const {regiterValidate,regiterValidateUpdate} = require('./validates/ClientValidate');
+const { regiterValidate, regiterValidateUpdate } = require('./validates/ClientValidate');
 
 
 
 
 const clientController = {
-    select: async function (req,res){
+    select: async function (req, res) {
 
         let clients = [];
         try {
@@ -16,7 +16,7 @@ const clientController = {
         }
     },
 
-    selectId: async function (req,res){
+    selectId: async function (req, res) {
         try {
             let selectClient = await db.selectZClienteID(req.params.id);
             res.status(200).send(selectClient[0]);
@@ -25,51 +25,75 @@ const clientController = {
         }
     },
 
-    register: async function (req,res){
+    register: async function (req, res) {
 
 
-        const {error} = regiterValidate(req.body)
-        if(error){return res.status(400).send(error.message)};
+        const { error } = regiterValidate(req.body)
+        if (error) { return res.status(400).send(error.message) };
 
-        const selectClient = await db.selectZCliente(req.body.cnpj);
-        
+        const selectClient = await db.selectZCliente(req.body.cgccfo);
 
-        if(selectClient[0] !== null && selectClient[0].length > 0){
+
+        if (selectClient[0] !== null && selectClient[0].length > 0) {
             return res.status(400).send('CNPJ already exists');
-        }     
+        }
 
-        const newClient = new Object ({
-            cnpj: req.body.cnpj,
-            nome: req.body.nome,
+        const newClient = new Object({
             nomefantasia: req.body.nomefantasia,
+            nome: req.body.nome,
+            cgccfo: req.body.cgccfo,
             inscrestadual: req.body.inscrestadual,
-            inscrmunicipal: req.body.inscrmunicipal,
-    
-            telefone: req.body.telefone,
-            celular: req.body.celular,
-            email: req.body.email,
+            pagrec: req.body.pagrec,
             rua: req.body.rua,
             numero: req.body.numero,
             complemento: req.body.complemento,
             bairro: req.body.bairro,
             cidade: req.body.cidade,
-            estado: req.body.estado,
-            pais: req.body.pais,
+            codetd: req.body.codetd,
             cep: req.body.cep,
-    
-            respcomercial: req.body.respcomercial,
-            telcomercial: req.body.telcomercial,
-            celcomercial: req.body.celcomercial,
-            emailcomercial: req.body.emailcomercial,
-    
-            respfinanceiro: req.body.respfinanceiro,
-            telfinanceiro: req.body.telfinanceiro,
-            celfinanceiro: req.body.celfinanceiro,
-            emailfinanceiro: req.body.emailfinanceiro
+            telefone: req.body.telefone,
+
+            ruapgto: req.body.ruapgto,
+            numeropgto: req.body.numeropgto,
+            complementopgto: req.body.complementopgto,
+            bairropgto: req.body.bairropgto,
+            cidadepgto: req.body.cidadepgto,
+            codetdpgto: req.body.codetdpgto,
+            ceppgto: req.body.ceppgto,
+            telefonepgto: req.body.telefonepgto,
+
+            ruaentrega: req.body.ruaentrega,
+            numeroentrega: req.body.numeroentrega,
+            complementoentrega: req.body.complementoentrega,
+            bairroentrega: req.body.bairroentrega,
+            cidadeentrega: req.body.cidadeentrega,
+            codetdentrega: req.body.codetdentrega,
+            cepentrega: req.body.cepentrega,
+            telefoneentrega: req.body.telefoneentrega,
+
+            email: req.body.email,
+            ativo: req.body.ativo,
+            inscrmunicipal: req.body.inscrmunicipal,
+            pessoafisoujur: req.body.pessoafisoujur,
+            pais: req.body.pais,
+            paispgto: req.body.paispgto,
+            paisentrega: req.body.paisentrega,
+            emailentrega: req.body.emailentrega,
+            emailpgto: req.body.emailpgto,
+
+            codmunicipiopgto: req.body.codmunicipiopgto,
+            codmunicipioentrega: req.body.codmunicipioentrega,
+            dtcriacao: req.body.dtcriacao,
+            dtmodificacao: req.body.dtmodificacao,
+            usuariocriacao: req.body.usuariocriacao,
+            usuarioalteracao: req.body.usuarioalteracao,
+            tipocliente: req.body.tipocliente
         })
+
 
         try {
             const savedClient = await db.insertZCliente(newClient);
+            console.log("chegou aqui")
             res.status(200).send(savedClient);
         } catch (error) {
             res.status(400).send(error)
@@ -77,56 +101,78 @@ const clientController = {
 
     },
 
-    update: async function (req,res){
-        
-        const {error} = regiterValidateUpdate(req.body)
-        if(error){return res.status(400).send(error.message)};
+    update: async function (req, res) {
 
-        const selectClient = await db.selectZCliente(req.body.cnpj);
-        
-        if(selectClient[0] !== null && selectClient[0].length > 1){
+        const { error } = regiterValidateUpdate(req.body)
+        if (error) { return res.status(400).send(error.message) };
+
+        const selectClient = await db.selectZCliente(req.body.cgccfo);
+
+        if (selectClient[0] !== null && selectClient[0].length > 1) {
             return res.status(400).send('CNPJ already exists');
-        }     
+        }
 
-        const UpdateClient = new Object ({
-            cnpj: req.body.cnpj,
-            nome: req.body.nome,
+        const UpdateClient = new Object({
             nomefantasia: req.body.nomefantasia,
+            nome: req.body.nome,
+            cgccfo: req.body.cgccfo,
             inscrestadual: req.body.inscrestadual,
-            inscrmunicipal: req.body.inscrmunicipal,
-    
-            telefone: req.body.telefone,
-            celular: req.body.celular,
-            email: req.body.email,
+            pagrec: req.body.pagrec,
             rua: req.body.rua,
             numero: req.body.numero,
             complemento: req.body.complemento,
             bairro: req.body.bairro,
             cidade: req.body.cidade,
-            estado: req.body.estado,
-            pais: req.body.pais,
+            codetd: req.body.codetd,
             cep: req.body.cep,
-    
-            respcomercial: req.body.respcomercial,
-            telcomercial: req.body.telcomercial,
-            celcomercial: req.body.celcomercial,
-            emailcomercial: req.body.emailcomercial,
-    
-            respfinanceiro: req.body.respfinanceiro,
-            telfinanceiro: req.body.telfinanceiro,
-            celfinanceiro: req.body.celfinanceiro,
-            emailfinanceiro: req.body.emailfinanceiro
+            telefone: req.body.telefone,
+
+            ruapgto: req.body.ruapgto,
+            numeropgto: req.body.numeropgto,
+            complementopgto: req.body.complementopgto,
+            bairropgto: req.body.bairropgto,
+            cidadepgto: req.body.cidadepgto,
+            codetdpgto: req.body.codetdpgto,
+            ceppgto: req.body.ceppgto,
+            telefonepgto: req.body.telefonepgto,
+
+            ruaentrega: req.body.ruaentrega,
+            numeroentrega: req.body.numeroentrega,
+            complementoentrega: req.body.complementoentrega,
+            bairroentrega: req.body.bairroentrega,
+            cidadeentrega: req.body.cidadeentrega,
+            codetdentrega: req.body.codetdentrega,
+            cepentrega: req.body.cepentrega,
+            telefoneentrega: req.body.telefoneentrega,
+
+            email: req.body.email,
+            ativo: req.body.ativo,
+            inscrmunicipal: req.body.inscrmunicipal,
+            pessoafisoujur: req.body.pessoafisoujur,
+            pais: req.body.pais,
+            paispgto: req.body.paispgto,
+            paisentrega: req.body.paisentrega,
+            emailentrega: req.body.emailentrega,
+            emailpgto: req.body.emailpgto,
+
+            codmunicipiopgto: req.body.codmunicipiopgto,
+            codmunicipioentrega: req.body.codmunicipioentrega,
+            dtcriacao: req.body.dtcriacao,
+            dtmodificacao: req.body.dtmodificacao,
+            usuariocriacao: req.body.usuariocriacao,
+            usuarioalteracao: req.body.usuarioalteracao,
+            tipocliente: req.body.tipocliente
         })
 
         try {
-            const savedClient = await db.updateZCliente(req.body.idclient,UpdateClient);
+            const savedClient = await db.updateZCliente(req.body.idcliente, UpdateClient);
             res.status(200).send(savedClient);
         } catch (error) {
             res.status(400).send(error)
         }
     },
 
-    delete: async function (req,res){
+    delete: async function (req, res) {
 
         try {
             const delClient = await db.deleteZCliente(req.params.id);

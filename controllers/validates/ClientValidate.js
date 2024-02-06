@@ -1,36 +1,57 @@
 const Joi = require('@hapi/joi');
 
-
 const regiterValidate = (data) => {
 
     const schema = Joi.object({
-        cnpj: Joi.string().required().min(14).max(14),
-        nome: Joi.string().required().min(3).max(100),
         nomefantasia: Joi.string().required().min(6).max(100),
-        inscrestadual:Joi.string().required().min(10).max(20),
-        inscrmunicipal:Joi.string().required().min(2).max(20),
+        nome: Joi.string().required().min(3).max(100),
+        cgccfo: Joi.string().required().min(11).max(20),        
+        inscrestadual: Joi.string().allow(null, '').max(20),
+        pagrec: Joi.number().allow(null, ''),
+        rua: Joi.string().max(100).allow(null, ''),
+        numero: Joi.string().max(8).allow(null, ''),
+        complemento: Joi.string().allow(null, '').min(2).max(60),
+        bairro: Joi.string().allow(null, '').min(2).max(80),
+        cidade: Joi.string().allow(null, '').min(2).max(32),
+        codetd: Joi.string().allow(null, '').max(2),
+        cep: Joi.string().allow(null, '').max(9),
+        telefone: Joi.string().allow(null, '').min(9).max(15),
 
-        telefone:Joi.string().required().min(9).max(15),
-        celular:Joi.string().allow(null, '').min(9).max(15),
-        email:Joi.string().required().min(2).max(100),
-        rua:Joi.string().required().min(2).max(100),
-        numero:Joi.string().required().min(2).max(10),
-        complemento:Joi.string().allow(null, '').min(2).max(100),
-        bairro:Joi.string().required().min(2).max(70),
-        cidade:Joi.string().required().min(2).max(70),
-        estado:Joi.string().required().min(2).max(70),
-        pais:Joi.string().required().min(2).max(70),
-        cep:Joi.string().required().min(8).max(8),
+        ruapgto: Joi.string().allow(null, '').max(100),
+        numeropgto: Joi.string().allow(null, '').max(8),
+        complementopgto: Joi.string().allow(null, '').min(2).max(60),
+        bairropgto: Joi.string().allow(null, '').min(2).max(80),
+        cidadepgto: Joi.string().allow(null, '').min(2).max(32),
+        codetdpgto: Joi.string().allow(null, '').max(2),
+        ceppgto: Joi.string().allow(null, '').max(9),
+        telefonepgto: Joi.string().allow(null, '').min(9).max(15),
+        
+        ruaentrega: Joi.string().allow(null, '').max(100),
+        numeroentrega: Joi.string().allow(null, '').max(8),
+        complementoentrega: Joi.string().allow(null, '').min(2).max(60),
+        bairroentrega: Joi.string().allow(null, '').min(2).max(80),
+        cidadeentrega: Joi.string().allow(null, '').min(2).max(32),
+        codetdentrega: Joi.string().allow(null, '').max(2),
+        cepentrega: Joi.string().allow(null, '').max(9),
+        telefoneentrega: Joi.string().allow(null, '').min(9).max(15),
 
-        respcomercial:Joi.string().required().min(3).max(100),
-        telcomercial:Joi.string().required().min(9).max(15),
-        celcomercial:Joi.string().allow(null, '').min(9).max(15),
-        emailcomercial:Joi.string().required().min(2).max(100),
+        email: Joi.string().allow(null, '').max(250),
+        ativo: Joi.number().required().valid(1,2),
+        inscrmunicipal: Joi.string().allow(null, '').max(20),
+        pessoafisoujur: Joi.string().allow(null, '').max(1),
+        pais: Joi.string().allow(null, '').max(20),
+        paispgto: Joi.string().allow(null, '').max(20),
+        paisentrega: Joi.string().allow(null, '').max(20),
+        emailentrega: Joi.string().allow(null, '').max(250),
+        emailpgto: Joi.string().allow(null, '').max(250),
 
-        respfinanceiro:Joi.string().required().min(3).max(100),
-        telfinanceiro:Joi.string().required().min(9).max(15),
-        celfinanceiro:Joi.string().allow(null, '').min(9).max(15),
-        emailfinanceiro:Joi.string().required().min(2).max(100)
+        codmunicipiopgto: Joi.string().allow(null, '').max(20),
+        codmunicipioentrega: Joi.string().allow(null, '').max(20),
+        dtcriacao: Joi.string().allow(null, ''),
+        dtmodificacao: Joi.string().allow(null, ''),
+        usuariocriacao: Joi.string().allow(null, '').max(50),
+        usuarioalteracao: Joi.string().allow(null, '').max(50),
+        tipocliente: Joi.string().max(1)
 
     })
     return schema.validate(data);
@@ -39,40 +60,59 @@ const regiterValidate = (data) => {
 const regiterValidateUpdate = (data) => {
 
     const schema = Joi.object({
-        idclient: Joi.string().required(),
-        cnpj: Joi.string().required().min(14).max(14),
-        nome: Joi.string().required().min(3).max(100),
+        idcliente: Joi.number().required(),
         nomefantasia: Joi.string().required().min(6).max(100),
-        inscrestadual:Joi.string().required().min(10).max(20),
-        inscrmunicipal:Joi.string().required().min(2).max(20),
+        nome: Joi.string().required().min(3).max(100),
+        cgccfo: Joi.string().required().min(11).max(20),        
+        inscrestadual: Joi.string().allow(null, '').max(20),
+        pagrec: Joi.number().allow(null, ''),
+        rua: Joi.string().max(100).allow(null, ''),
+        numero: Joi.string().max(8).allow(null, ''),
+        complemento: Joi.string().allow(null, '').min(2).max(60),
+        bairro: Joi.string().allow(null, '').min(2).max(80),
+        cidade: Joi.string().allow(null, '').min(2).max(32),
+        codetd: Joi.string().allow(null, '').max(2),
+        cep: Joi.string().allow(null, '').max(9),
+        telefone: Joi.string().allow(null, '').min(9).max(15),
 
-        telefone:Joi.string().required().min(9).max(15),
-        celular:Joi.string().allow(null, '').min(4).max(15),
-        email:Joi.string().required().min(2).max(100),
-        rua:Joi.string().required().min(2).max(100),
-        numero:Joi.string().required().min(2).max(10),
-        complemento:Joi.string().allow(null, '').min(2).max(100),
-        bairro:Joi.string().required().min(2).max(70),
-        cidade:Joi.string().required().min(2).max(70),
-        estado:Joi.string().required().min(2).max(70),
-        pais:Joi.string().required().min(2).max(70),
-        cep:Joi.string().required().min(8).max(8),
+        ruapgto: Joi.string().allow(null, '').max(100),
+        numeropgto: Joi.string().allow(null, '').max(8),
+        complementopgto: Joi.string().allow(null, '').min(2).max(60),
+        bairropgto: Joi.string().allow(null, '').min(2).max(80),
+        cidadepgto: Joi.string().allow(null, '').min(2).max(32),
+        codetdpgto: Joi.string().allow(null, '').max(2),
+        ceppgto: Joi.string().allow(null, '').max(9),
+        telefonepgto: Joi.string().allow(null, '').min(9).max(15),
+        
+        ruaentrega: Joi.string().allow(null, '').max(100),
+        numeroentrega: Joi.string().allow(null, '').max(8),
+        complementoentrega: Joi.string().allow(null, '').min(2).max(60),
+        bairroentrega: Joi.string().allow(null, '').min(2).max(80),
+        cidadeentrega: Joi.string().allow(null, '').min(2).max(32),
+        codetdentrega: Joi.string().allow(null, '').max(2),
+        cepentrega: Joi.string().allow(null, '').max(9),
+        telefoneentrega: Joi.string().allow(null, '').min(9).max(15),
 
-        respcomercial:Joi.string().required().min(3).max(100),
-        telcomercial:Joi.string().required().min(9).max(15),
-        celcomercial:Joi.string().allow(null, '').min(4).max(15),
-        emailcomercial:Joi.string().required().min(2).max(100),
+        email: Joi.string().allow(null, '').max(250),
+        ativo: Joi.number().required().valid(1,2),
+        inscrmunicipal: Joi.string().allow(null, '').max(20),
+        pessoafisoujur: Joi.string().allow(null, '').max(1),
+        pais: Joi.string().allow(null, '').max(20),
+        paispgto: Joi.string().allow(null, '').max(20),
+        paisentrega: Joi.string().allow(null, '').max(20),
+        emailentrega: Joi.string().allow(null, '').max(250),
+        emailpgto: Joi.string().allow(null, '').max(250),
 
-        respfinanceiro:Joi.string().required().min(3).max(100),
-        telfinanceiro:Joi.string().required().min(4).max(15),
-        celfinanceiro:Joi.string().allow(null, '').min(4).max(15),
-        emailfinanceiro:Joi.string().required().min(2).max(100)
-
+        codmunicipiopgto: Joi.string().allow(null, '').max(20),
+        codmunicipioentrega: Joi.string().allow(null, '').max(20),
+        dtcriacao: Joi.string().allow(null, ''),
+        dtmodificacao: Joi.string().allow(null, ''),
+        usuariocriacao: Joi.string().allow(null, '').max(50),
+        usuarioalteracao: Joi.string().allow(null, '').max(50),
+        tipocliente: Joi.string().max(1)
     })
     return schema.validate(data);
 }
-
-
 
 module.exports.regiterValidate = regiterValidate;
 module.exports.regiterValidateUpdate = regiterValidateUpdate;

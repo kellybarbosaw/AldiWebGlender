@@ -15,38 +15,68 @@ import { ActivatedRoute, Router } from '@angular/router'
 export class ClientComponent {
 
   client = {
-    idclient: '',
-    cnpj: '',
-    nome: '',
+    idcliente: 0,
     nomefantasia: '',
+    nome: '',
+    cgccfo: '',
     inscrestadual: '',
-    inscrmunicipal: '',
-    telefone: '',
-    celular: '',
-    email: '',
+    pagrec: 0,
     rua: '',
     numero: '',
     complemento: '',
     bairro: '',
     cidade: '',
-    estado: '',
-    pais: '',
+    codetd: '',
     cep: '',
-    respcomercial: '',
-    telcomercial: '',
-    celcomercial: '',
-    emailcomercial: '',
-    respfinanceiro: '',
-    telfinanceiro: '',
-    celfinanceiro: '',
-    emailfinanceiro: ''
+    telefone: '',
+    ruapgto: '',
+    numeropgto: '',
+    complementopgto: '',
+    bairropgto: '',
+    cidadepgto: '',
+    codetdpgto: '',
+    ceppgto: '',
+    telefonepgto: '',
+    ruaentrega: '',
+    numeroentrega: '',
+    complementoentrega: '',
+    bairroentrega: '',
+    cidadeentrega: '',
+    codetdentrega: '',
+    cepentrega: '',
+    telefoneentrega: '',
+    email: '',
+    ativo: 2,
+    inscrmunicipal: '',
+    pessoafisoujur: '',
+    pais: '',
+    paispgto: '',
+    paisentrega: '',
+    emailentrega: '',
+    emailpgto: '',
+    codmunicipiopgto: '',
+    codmunicipioentrega: '',
+    dtcriacao: '',
+    dtmodificacao: '',
+    usuariocriacao: '',
+    usuarioalteracao: '',
+    tipocliente: '',
+    teste: true
+  }
+
+  dadosFicticios = {
+    dtcriacao: '2024-01-29 12:26:00',
+    dtmodificacao: '2024-01-29 12:26:00',
+    usuariocriacao: 'usuario teste criacao',
+    usuarioalteracao: 'usuario teste alteracao',
+    tipocliente: '1'
   }
   event = 'Cadastrar';
 
 
   constructor(private clientService: ClientService, private router: Router, private route: ActivatedRoute) {
 
-    this.client.idclient = this.route.snapshot.params['id']
+    this.client.idcliente = this.route.snapshot.params['id']
 
     if (this.route.snapshot.params['id'] === undefined) {
       this.event = "Cadastrar"
@@ -56,46 +86,94 @@ export class ClientComponent {
         .subscribe((datas) => {
           const data = datas[0];
 
-          this.client.cnpj = data.cnpj,
-            this.client.nome = data.nome,
-            this.client.nomefantasia = data.nomefantasia,
-            this.client.inscrestadual = data.inscrestadual,
-            this.client.inscrmunicipal = data.inscrmunicipal,
-            this.client.telefone = data.telefone,
-            this.client.celular = data.celular!,
-            this.client.email = data.email,
-            this.client.rua = data.rua,
-            this.client.numero = data.numero,
-            this.client.complemento = data.complemento!,
-            this.client.bairro = data.bairro,
-            this.client.cidade = data.cidade,
-            this.client.estado = data.estado,
-            this.client.pais = data.pais,
-            this.client.cep = data.cep,
-            this.client.respcomercial = data.respcomercial,
-            this.client.telcomercial = data.telcomercial,
-            this.client.celcomercial = data.celcomercial!,
-            this.client.emailcomercial = data.emailcomercial,
-            this.client.respfinanceiro = data.respfinanceiro,
-            this.client.telfinanceiro = data.telfinanceiro,
-            this.client.celfinanceiro = data.celfinanceiro!,
-            this.client.emailfinanceiro = data.emailfinanceiro
+          this.client.idcliente = data.IDCLIENTE!,
+            this.client.nomefantasia = data.NOMEFANTASIA,
+            this.client.nome = data.NOME,
+            this.client.cgccfo = data.CGCCFO,
+            this.client.inscrestadual = data.INSCRESTADUAL,
+            this.client.pagrec = data.PAGREC,
+            this.client.rua = data.RUA,
+            this.client.numero = data.NUMERO,
+            this.client.complemento = data.COMPLEMENTO,
+            this.client.bairro = data.BAIRRO,
+            this.client.cidade = data.CIDADE,
+            this.client.codetd = data.CODETD,
+            this.client.cep = data.CEP,
+            this.client.telefone = data.TELEFONE,
+            this.client.ruapgto = data.RUAPGTO,
+            this.client.numeropgto = data.NUMEROPGTO,
+            this.client.complementopgto = data.COMPLEMENTOPGTO,
+            this.client.bairropgto = data.BAIRROPGTO,
+            this.client.cidadepgto = data.CIDADEPGTO,
+            this.client.codetdpgto = data.CODETDPGTO,
+            this.client.ceppgto = data.CEPPGTO,
+            this.client.telefonepgto = data.TELEFONEPAGTO,
+            this.client.ruaentrega = data.RUAENTREGA,
+            this.client.numeroentrega = data.NUMEROENTREGA,
+            this.client.complementoentrega = data.COMPLEMENTOENTREGA,
+            this.client.bairroentrega = data.BAIRROENTREGA,
+            this.client.cidadeentrega = data.CIDADEENTREGA,
+            this.client.codetdentrega = data.CODETDENTREGA,
+            this.client.cepentrega = data.CEPENTREGA,
+            this.client.telefoneentrega = data.TELEFONEENTREGA,
+            this.client.email = data.EMAIL,
+            this.client.ativo = data.ATIVO,
+            this.client.inscrmunicipal = data.INSCRMUNICIPAL,
+            this.client.pessoafisoujur = data.PESSOAFISOUJUR,
+            this.client.pais = data.PAIS,
+            this.client.paispgto = data.PAISPGTO,
+            this.client.paisentrega = data.PAISENTREGA,
+            this.client.emailentrega = data.EMAILENTREGA,
+            this.client.emailpgto = data.EMAILPGTO,
+            this.client.codmunicipiopgto = data.CODMUNICIPIOPGTO,
+            this.client.codmunicipioentrega = data.CODMUNICIPIOENTREGA,
+            this.client.dtcriacao = data.DTCRIACAO,
+            this.client.dtmodificacao = data.DTMODIFICACAO,
+            this.client.usuariocriacao = data.USUARIOCRIACAO,
+            this.client.usuarioalteracao = data.USUARIOALTERACAO,
+            this.client.tipocliente = data.TIPOCLIENTE
         })
 
       // console.log(this.client)
       this.event = "Editar"
     }
+    if (this.client.ativo == 2) {
+    }
+
   }
+
+  teste() {
+    // let teste3 = <any> document.getElementsByName("ativo")
+    // console.log(teste3[0].checked)
+
+    // document.getElementsByName('ativo')[0].checked = true;
+
+    const div = document.getElementsByName("ativo")
+    // div[0].attributes[5]. = false
+    // div[0].attributes[3].checked = "false";
+    // console.log(div[0].checked)
+    console.log(div[1])
+    console.log(div[0].attributes)
+    console.log(div[1].attributes)
+    
+    // console.log(div[1].attributes)
+    
+    // let div = document.querySelector('.stage_1') as HTMLLIElement
+    // console.log(div);
+  }
+
+
+
 
   registerClient() {
 
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
-    if (!this.client.cnpj || !this.client.nome || !this.client.nomefantasia ||
+    if (!this.client.cgccfo || !this.client.nome || !this.client.nomefantasia ||
       !this.client.inscrestadual || !this.client.inscrmunicipal || !this.client.telefone ||
       !this.client.email || !this.client.rua || !this.client.numero ||
       !this.client.complemento || !this.client.bairro || !this.client.cep ||
-      !this.client.respcomercial || !this.client.telcomercial || !this.client.emailcomercial ||
-      !this.client.respfinanceiro || !this.client.telfinanceiro || !this.client.emailfinanceiro) {
+      !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
+      !this.client.cep || !this.client.email || !this.client.pais ) {
       alert("preencha os campos");
       return;
     }
@@ -104,70 +182,117 @@ export class ClientComponent {
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === "Cadastrar") {
 
+        this.client.dtcriacao = this.dadosFicticios.dtcriacao,
+        this.client.dtmodificacao = this.dadosFicticios.dtmodificacao,
+        this.client.usuariocriacao = this.dadosFicticios.usuariocriacao,
+        this.client.usuarioalteracao = this.dadosFicticios.usuarioalteracao,
+        this.client.tipocliente = this.dadosFicticios.tipocliente
+
       this.clientService.registerClient({
-        cnpj: this.client.cnpj,
-        nome: this.client.nome,
         nomefantasia: this.client.nomefantasia,
+        nome: this.client.nome,
+        cgccfo: this.client.cgccfo,
         inscrestadual: this.client.inscrestadual,
-        inscrmunicipal: this.client.inscrmunicipal,
-        telefone: this.client.telefone,
-        celular: this.client.celular,
-        email: this.client.email,
+        pagrec: this.client.pagrec,
         rua: this.client.rua,
         numero: this.client.numero,
         complemento: this.client.complemento,
         bairro: this.client.bairro,
         cidade: this.client.cidade,
-        estado: this.client.estado,
-        pais: this.client.pais,
+        codetd: this.client.codetd,
         cep: this.client.cep,
-        respcomercial: this.client.respcomercial,
-        telcomercial: this.client.telcomercial,
-        celcomercial: this.client.celcomercial,
-        emailcomercial: this.client.emailcomercial,
-        respfinanceiro: this.client.respfinanceiro,
-        telfinanceiro: this.client.telfinanceiro,
-        celfinanceiro: this.client.celfinanceiro,
-        emailfinanceiro: this.client.emailfinanceiro
-      }).subscribe((data) => {this.router.navigate(['/user/clients']) })
+        telefone: this.client.telefone,
+        ruapgto: this.client.ruapgto,
+        numeropgto: this.client.numeropgto,
+        complementopgto: this.client.complementopgto,
+        bairropgto: this.client.bairropgto,
+        cidadepgto: this.client.cidadepgto,
+        codetdpgto: this.client.codetdpgto,
+        ceppgto: this.client.ceppgto,
+        telefonepgto: this.client.telefonepgto,
+        ruaentrega: this.client.ruaentrega,
+        numeroentrega: this.client.numeroentrega,
+        complementoentrega: this.client.complementoentrega,
+        bairroentrega: this.client.bairroentrega,
+        cidadeentrega: this.client.cidadeentrega,
+        codetdentrega: this.client.codetdentrega,
+        cepentrega: this.client.cepentrega,
+        telefoneentrega: this.client.telefoneentrega,
+        email: this.client.email,
+        ativo: this.client.ativo,
+        inscrmunicipal: this.client.inscrmunicipal,
+        pessoafisoujur: this.client.pessoafisoujur,
+        pais: this.client.pais,
+        paispgto: this.client.paispgto,
+        paisentrega: this.client.paisentrega,
+        emailentrega: this.client.emailentrega,
+        emailpgto: this.client.emailpgto,
+        codmunicipiopgto: this.client.codmunicipiopgto,
+        codmunicipioentrega: this.client.codmunicipioentrega,
+        dtcriacao: this.client.dtcriacao,
+        dtmodificacao: this.client.dtmodificacao,
+        usuariocriacao: this.client.usuariocriacao,
+        usuarioalteracao: this.client.usuarioalteracao,
+        tipocliente: this.client.tipocliente,
+      }).subscribe((data) => { this.router.navigate(['/user/clients']) })
     } else if (this.event === "Editar") {
-      console.log("editando")
+
+      this.client.dtcriacao = this.dadosFicticios.dtcriacao,
+      this.client.dtmodificacao = this.dadosFicticios.dtmodificacao,
 
       this.clientService.editClient({
-        idclient: this.client.idclient,
-        cnpj: this.client.cnpj,
-        nome: this.client.nome,
+        idcliente: this.client.idcliente,
         nomefantasia: this.client.nomefantasia,
+        nome: this.client.nome,
+        cgccfo: this.client.cgccfo,
         inscrestadual: this.client.inscrestadual,
-        inscrmunicipal: this.client.inscrmunicipal,
-        telefone: this.client.telefone,
-        celular: this.client.celular,
-        email: this.client.email,
+        pagrec: this.client.pagrec,
         rua: this.client.rua,
         numero: this.client.numero,
         complemento: this.client.complemento,
         bairro: this.client.bairro,
         cidade: this.client.cidade,
-        estado: this.client.estado,
-        pais: this.client.pais,
+        codetd: this.client.codetd,
         cep: this.client.cep,
-        respcomercial: this.client.respcomercial,
-        telcomercial: this.client.telcomercial,
-        celcomercial: this.client.celcomercial,
-        emailcomercial: this.client.emailcomercial,
-        respfinanceiro: this.client.respfinanceiro,
-        telfinanceiro: this.client.telfinanceiro,
-        celfinanceiro: this.client.celfinanceiro,
-        emailfinanceiro: this.client.emailfinanceiro
+        telefone: this.client.telefone,
+        ruapgto: this.client.ruapgto,
+        numeropgto: this.client.numeropgto,
+        complementopgto: this.client.complementopgto,
+        bairropgto: this.client.bairropgto,
+        cidadepgto: this.client.cidadepgto,
+        codetdpgto: this.client.codetdpgto,
+        ceppgto: this.client.ceppgto,
+        telefonepgto: this.client.telefonepgto,
+        ruaentrega: this.client.ruaentrega,
+        numeroentrega: this.client.numeroentrega,
+        complementoentrega: this.client.complementoentrega,
+        bairroentrega: this.client.bairroentrega,
+        cidadeentrega: this.client.cidadeentrega,
+        codetdentrega: this.client.codetdentrega,
+        cepentrega: this.client.cepentrega,
+        telefoneentrega: this.client.telefoneentrega,
+        email: this.client.email,
+        ativo: this.client.ativo,
+        inscrmunicipal: this.client.inscrmunicipal,
+        pessoafisoujur: this.client.pessoafisoujur,
+        pais: this.client.pais,
+        paispgto: this.client.paispgto,
+        paisentrega: this.client.paisentrega,
+        emailentrega: this.client.emailentrega,
+        emailpgto: this.client.emailpgto,
+        codmunicipiopgto: this.client.codmunicipiopgto,
+        codmunicipioentrega: this.client.codmunicipioentrega,
+        dtcriacao: this.client.dtcriacao,
+        dtmodificacao: this.client.dtmodificacao,
+        usuariocriacao: this.client.usuariocriacao,
+        usuarioalteracao: this.client.usuarioalteracao,
+        tipocliente: this.client.tipocliente,
       }).subscribe(() => {
         this.router.navigate(['/user/clients']) })
 
     } else {
       alert("Error!")
     }
-
-
-
   }
 
 
@@ -180,29 +305,45 @@ export class ClientComponent {
 
 
   stage = 1;
+  stageName = "GERAL";
   mudarEtapa(stage: number) {
 
     this.stage = stage;
     let element1 = document.querySelector('.stage_1') as HTMLLIElement
     let element2 = document.querySelector('.stage_2') as HTMLLIElement
     let element3 = document.querySelector('.stage_3') as HTMLLIElement
+    let element4 = document.querySelector('.stage_4') as HTMLLIElement
 
     switch (stage) {
       case 1:
         element1.classList.add("current")
         element2.classList.remove("current")
         element3.classList.remove("current")
-
+        element3.classList.remove("current")
+        element4.classList.remove("current")
+        this.stageName = "GERAL";
+        // this.teste();
         break;
       case 2:
         element1.classList.remove("current")
         element2.classList.add("current")
         element3.classList.remove("current")
+        element4.classList.remove("current")
+        this.stageName = "ENDEREÇO";
         break;
       case 3:
         element1.classList.remove("current")
         element2.classList.remove("current")
         element3.classList.add("current")
+        element4.classList.remove("current")
+        this.stageName = "ENTREGA";
+        break;
+      case 4:
+        element1.classList.remove("current")
+        element2.classList.remove("current")
+        element3.classList.remove("current")
+        element4.classList.add("current")
+        this.stageName = "FINANCEIRO";
         break;
 
       default:

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
+import { Observable } from 'rxjs';
+import { Project } from '../../models/project.model';
 import { ContractService } from '../../services/contract.service';
 
 @Component({
@@ -31,38 +33,42 @@ export class ContratoComponent {
     usuariocriacao: '',
     usuarioalteracao: '',
   }
+  projectClient$ = new Observable<Project[]>();
+
 
   constructor(private router: Router, private route: ActivatedRoute, private contractService: ContractService) {
 
 
     this.contrato.idcliente = this.route.snapshot.params['id'];
+    this.projectClient$ = this.contractService.projectsClient(this.route.snapshot.params['id'])
+
 
     this.contractService.contractCurrent(this.route.snapshot.params['id'])
       .subscribe((datas) => {
         const data = datas[0];
         console.log(data);
-        this.contrato.idvenda = data.idvenda!;
-        this.contrato.idcliente = data.idcliente;
-        this.contrato.descricaovenda = data.descricaovenda;
-        this.contrato.statusvenda = data.statusvenda;
-        this.contrato.idprojeto = data.idprojeto!;
-        this.contrato.comercialvenda = data.comercialvenda;
+        this.contrato.idvenda = data.IDVENDA!;
+        this.contrato.idcliente = data.IDCLIENTE;
+        this.contrato.descricaovenda = data.DESCRICAOVENDA;
+        this.contrato.statusvenda = data.STATUSVENDA;
+        this.contrato.idprojeto = data.IDPROJETO!;
+        this.contrato.comercialvenda = data.COMERCIALVENDAcol;
 
-        this.contrato.dtcontato = data.dtcontato;
-        this.contrato.dtcontrato = data.dtcontrato;
-        this.contrato.dtassinatura = data.dtassinatura;
-        this.contrato.dtconclusao = data.dtconclusao;
-        this.contrato.dtalteracao = data.dtalteracao;
+        this.contrato.dtcontato = data.DTCONTATO;
+        this.contrato.dtcontrato = data.DTCONTRATO;
+        this.contrato.dtassinatura = data.DTASSINATURA;
+        this.contrato.dtconclusao = data.DTCONCLUSAO;
+        this.contrato.dtalteracao = data.DATAALTERACAO;
 
-        this.contrato.usuariocriacao = data.usuariocriacao;
-        this.contrato.usuarioalteracao = data.usuarioalteracao;
+        this.contrato.usuariocriacao = data.USUARIOCRIACAO;
+        this.contrato.usuarioalteracao = data.USUARIOALTERACAO;
 
       });
   }
 
 
   verProjeto(id: number) {
-    this.router.navigate([`/user/projeto/${id}`]);
+    // this.router.navigate([`/user/contract/projeto/${id}`]);
   }
 
   editContract() {
@@ -71,8 +77,16 @@ export class ContratoComponent {
 
   deleteContract(){
     alert("deseja realmente deletar?")
-    this.contractService.deleteContract(this.contrato.idvenda.toString())
+    this.contractService.deleteContract(this.contrato.idvenda)
     .subscribe(()=>{this.router.navigate([`/user/client360/${this.contrato.idcliente}`])})
+  }
+
+  viewProject(id: number) {
+    this.router.navigate([`/user/contract/projeto/${id}`]);
+  }
+
+  newProject(id: number) {
+    this.router.navigate([`/user/projeto/${'new'}/${id}`]);
   }
 
 }

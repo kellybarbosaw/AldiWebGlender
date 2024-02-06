@@ -5,29 +5,21 @@
         <div class="d-flex justify-content-between">
             <div>
                 <h4><b></b>Dados:</h4>
-                <div><b>ID:</b> {{client.idclient}}</div>
+                <div><b>ID:</b> {{client.idcliente}}</div>
                 <div><b>Razão Social:</b> {{client.nome}}</div>
                 <div><b>Nome Fantasia:</b> {{client.nomefantasia}}</div>
-                <div><b>CNPJ:</b> {{client.cnpj}}</div>
+                <div><b>CNPJ:</b> {{client.cgccfo}}</div>
             </div>
             <div>
                 <h4>Comercial</h4>
-                <div><b>Nome:</b> {{client.respcomercial}}</div>
-                <div>
-                    <div><b>Tel:</b> {{client.telcomercial}}</div>
-                    <div><b>Cel:</b> {{client.celfinanceiro}}</div>
-                </div>
-                <div><b>E-mail:</b> {{client.emailcomercial}}</div>
+                <div><b>Telefone:</b> {{client.telefone}}</div>
+                <div><b>E-mail:</b> {{client.email}}</div>
 
             </div>
             <div>
                 <h4>Financeiro</h4>
-                <div><b>Nome:</b> {{client.respfinanceiro}}</div>
-                <div>
-                    <div><b>Tel:</b> {{client.telfinanceiro}}</div>
-                    <div><b>Cel:</b> {{client.celfinanceiro}}</div>
-                </div>
-                <div><b>E-mail:</b> {{client.emailfinanceiro}}</div>
+                <div><b>Telefone:</b> {{client.telefonepgto}}</div>
+                <div><b>E-mail:</b> {{client.emailpgto}}</div>
             </div>
 
         </div>
@@ -39,20 +31,15 @@
         <h4>Contratos:</h4>
         <div class="d-flex flex-wrap gap-1">
             <div *ngFor="let contractC of contractClient$ | async">
-                <div class="container-contract" (click)="viewContract(contractC.idvenda!)">
-                    <h5>Desc: {{contractC.descricaovenda}}</h5>
-                    <div>Data Inicio: {{contractC.dtassinatura}}</div>
-                    <div>Data Fim: {{contractC.dtconclusao}}</div>
-                    <div>Status: {{contractC.statusvenda}}</div>
+                <div class="container-contract" (click)="viewContract(contractC.IDVENDA!)">
+                    <h5>Desc: {{contractC.DESCRICAOVENDA}}</h5>
+                    <div>Data Inicio: {{contractC.DTCONTRATO}}</div>
+                    <div>Data Fim: {{contractC.DTCONCLUSAO}}</div>
+                    <div>Status: {{contractC.STATUSVENDA}}</div>
                 </div>
-
             </div>
 
-            <div class="container-contract plus_project" (click)="newContract(client.idclient)">
-                <!-- <h5>Desc: </h5>
-            <div>Data Inicio: </div>
-            <div>Data Fim: </div>
-            <div>Status: </div> -->
+            <div class="container-contract plus" (click)="newContract(client.idcliente)">
                 <p>Novo Contratos</p>
                 <i class="bi bi-plus-circle"></i>
             </div>
@@ -60,28 +47,21 @@
     </section>
     <section class="container-section">
         <h4>Projetos:</h4>
-        <div class="d-flex justify-content-around">
-            <div class="container-project">
-                <h5>Nome: Implantação RM</h5>
-                <div>Desc: Implantar sistema ....</div>
-                <div>Data Inicio: 01/07/2023</div>
-                <div>Data Fim: 01/01/2024</div>
-                <div>Status: Concluido</div>
+        <div class="d-flex flex-wrap gap-1">
+            <div *ngFor="let projectC of projectClient$ | async">
+                <div class="container-project" (click)="viewProject(projectC.IDPROJETO!)">
+                    <h5>Desc: {{projectC.DESCRICAO}}</h5>
+                    <div>Data Inicio: {{projectC.DTINCIOPROJETO}}</div>
+                    <div>Data Fim: {{projectC.DTCONCLUSAOPROJETO}}</div>
+                    <div>Status: {{projectC.STATUSPROJETO}}</div>
+                </div>
+
             </div>
-            <div class="container-project">
-                <h5>Nome: Implantação Edu Conect</h5>
-                <div>Desc: Implantar sistema ....</div>
-                <div>Data Inicio: 10/01/2024</div>
-                <div>Data Fim: 01/07/2024</div>
-                <div>Status: Em Andamento</div>
-            </div>
-            <div class="container-project">
-                <h5>Nome: Implantação Biblioteca</h5>
-                <div>Desc: Implantar sistema ....</div>
-                <div>Data Inicio: 10/10/2024</div>
-                <div>Data Fim: 31/12/2024</div>
-                <div>Status:Aguardando Aprovação</div>
-            </div>
+            <!-- 
+            <div class="container-project plus">
+                <p>Novo Projeto</p>
+                <i class="bi bi-plus-circle"></i>
+            </div> -->
         </div>
     </section>
 

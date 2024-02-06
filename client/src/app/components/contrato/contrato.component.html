@@ -37,22 +37,17 @@
     </form>
     <section class="container-section">
         <h4>Projetos:</h4>
-        <div class="d-flex justify-content-around">
-            <div class="container-contract" (click)="verProjeto(5)">
-                <h5>Nome: Implantação RM</h5>
-                <div>Desc: Implantar sistema ....</div>
-                <div>Data Inicio: 01/07/2023</div>
-                <div>Data Fim: 01/01/2024</div>
-                <div>Status: Concluido</div>
+        <div class="d-flex flex-wrap gap-1">
+            <div *ngFor="let projectC of projectClient$ | async">
+                <div class="container-project" (click)="viewProject(projectC.IDPROJETO!)">
+                    <h5>Desc: {{projectC.DESCRICAO}}</h5>
+                    <div>Data Inicio: {{projectC.DTINCIOPROJETO}}</div>
+                    <div>Data Fim: {{projectC.DTCONCLUSAOPROJETO}}</div>
+                    <div>Status: {{projectC.STATUSPROJETO}}</div>
+                </div>
+
             </div>
-            <div class="container-contract" (click)="verProjeto(5)">
-                <h5>Nome: Implantação Edu Conect</h5>
-                <div>Desc: Implantar sistema ....</div>
-                <div>Data Inicio: 10/01/2024</div>
-                <div>Data Fim: 01/07/2024</div>
-                <div>Status: Em Andamento</div>
-            </div>
-            <div class="container-contract plus-contract">
+            <div class="container-project plus-project" (click)="newProject(contrato.idvenda)">
                 <!-- <h5>Desc: </h5>
                 <div>Data Inicio: </div>
                 <div>Data Fim: </div>
