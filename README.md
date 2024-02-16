@@ -6,3 +6,5 @@ teste para git
 outro teste
 
 alteração feita por mim
+
+alteração feita por outro
