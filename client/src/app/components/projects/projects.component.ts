@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../services/contract.service';
 import { ProjectService } from '../../services/project.service';
+import { FormatsService } from "../../services/formats.service";
 
 @Component({
   selector: 'app-projects',
@@ -45,7 +46,8 @@ export class ProjectsComponent {
     }
   event = 'Cadastrar';
 
-  constructor(private projectService: ProjectService,private contractService: ContractService ,private router: Router, private route: ActivatedRoute) {
+
+  constructor(private formatService: FormatsService,private projectService: ProjectService,private contractService: ContractService ,private router: Router, private route: ActivatedRoute) {
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'
       this.Project.idvenda = this.route.snapshot.params['id'];
@@ -77,6 +79,9 @@ export class ProjectsComponent {
         this.Project.saldohoras = data.SALDOHORAS!,
         this.Project.valorprojeto = data.VALORPROJETO!,
         this.Project.valorconsumido = data.VALORCONSUMIDO!
+
+        this.Project.dtinicioprojeto = this.formatService.formatTime(data.DTINCIOPROJETO!,"dtinicioprojeto")
+        this.Project.dtconclusaoprojeto = this.formatService.formatTime(data.DTCONCLUSAOPROJETO!,"dtconclusaoprojeto")
 
       })
     }else{
@@ -119,7 +124,7 @@ export class ProjectsComponent {
       this.Project.usuarioalteracao = this.dadosFicticios.usuarioalteracao,
 
       this.projectService.editProject(this.Project).subscribe(()=>{
-        this.router.navigate([`/user/contrato/${this.Project.idvenda}`]) 
+        this.router.navigate([`/user/contract/projeto/${this.Project.idprojeto}`]) 
       })
 
 

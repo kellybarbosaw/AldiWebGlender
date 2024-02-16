@@ -33,8 +33,8 @@
             <div *ngFor="let contractC of contractClient$ | async">
                 <div class="container-contract" (click)="viewContract(contractC.IDVENDA!)">
                     <h5>Desc: {{contractC.DESCRICAOVENDA}}</h5>
-                    <div>Data Inicio: {{contractC.DTCONTRATO}}</div>
-                    <div>Data Fim: {{contractC.DTCONCLUSAO}}</div>
+                    <div>Data Inicio: {{contractC.DTCONTRATO | date:'longDate'}}</div>
+                    <div>Data Fim: {{contractC.DTCONCLUSAO | date:'longDate'}}</div>
                     <div>Status: {{contractC.STATUSVENDA}}</div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
             <div *ngFor="let projectC of projectClient$ | async">
                 <div class="container-project" (click)="viewProject(projectC.IDPROJETO!)">
                     <h5>Desc: {{projectC.DESCRICAO}}</h5>
-                    <div>Data Inicio: {{projectC.DTINCIOPROJETO}}</div>
-                    <div>Data Fim: {{projectC.DTCONCLUSAOPROJETO}}</div>
+                    <div>Data Inicio: {{projectC.DTINCIOPROJETO | date:'longDate'}}</div>
+                    <div>Data Fim: {{projectC.DTCONCLUSAOPROJETO | date:'longDate'}}</div>
                     <div>Status: {{projectC.STATUSPROJETO}}</div>
                 </div>
 

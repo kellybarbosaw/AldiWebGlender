@@ -43,7 +43,7 @@ export class UsuarioComponent {
       this.usuarioService.userCurrent(this.route.snapshot.params['user'])
         .subscribe((datas) => {
           const data = datas[0];
-          this.User.usuario = data.USUARIO,
+            this.User.usuario = data.USUARIO,
             this.User.nome = data.NOME,
             this.User.ativo = data.ATIVO,
             this.User.perfil = data.PERFIL,

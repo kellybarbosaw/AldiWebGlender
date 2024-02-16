@@ -6,7 +6,6 @@ const { regiterValidate, regiterValidateUpdate } = require('./validates/ClientVa
 
 const clientController = {
     select: async function (req, res) {
-
         let clients = [];
         try {
             clients = await db.selectZClientes();

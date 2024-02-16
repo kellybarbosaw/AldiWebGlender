@@ -80,10 +80,12 @@ const userController = {
             return res.status(400).send(user);
         }
 
-        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 600 });
+        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 120 });
         user = {
             'authorization': token,
-            'msg':'login autorizado'
+            'msg':'login autorizado',
+            'user':selectUser[0][0].USUARIO,
+            'perfil':selectUser[0][0].PERFIL
         }
 
         res.header('authorization',token);
@@ -92,6 +94,7 @@ const userController = {
     },
 
     selectUser: async function (req, res) {
+
         try {
             let selectClient = await db.selectForUser(req.params.user);
             res.status(200).send(selectClient[0]);
@@ -133,7 +136,7 @@ const userController = {
     },
 
     delete: async function (req, res) {
-        console.log("chegou aqui")
+
         try {
             const delUser = await db.deleteUser(req.params.user);
             res.status(200).send(delUser);

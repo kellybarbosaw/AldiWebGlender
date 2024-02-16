@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { User } from '../../models/users.model';
 import { UsuariosService } from "../../services/usuarios.service";
 
@@ -27,7 +27,12 @@ export class UsuariosComponent {
 
   deletUser(usuario: string){
     alert("deseja realmente deletar esse iten?" + usuario);
-    this.usuariosService.deleteUser(usuario).subscribe(()=>{this.allUsers$ = this.usuariosService.allUsers()})
+    this.usuariosService.deleteUser(usuario).pipe(
+      catchError(err => {
+        alert(err.statusText)
+        return of();
+      })
+    ).subscribe(()=>{this.allUsers$ = this.usuariosService.allUsers()})
   }
 
 

@@ -13,8 +13,8 @@ async function connect() {
         user: process.env.USER_DB,
         password: process.env.PASSWORD_DB,
         port: process.env.PORT_DB,
-        database: process.env.DATABASE_DB
-
+        database: process.env.DATABASE_DB,
+        // debug: true
     });
 
     global.connection = connection;

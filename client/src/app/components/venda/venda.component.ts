@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContractService } from '../../services/contract.service';
+import { FormatsService } from '../../services/formats.service';
 // import { DatePipe } from '@angular/common';
 import { CommonModule } from "@angular/common";
 
@@ -42,7 +43,7 @@ export class VendaComponent {
   }
   event = 'Cadastrar';
 
-  constructor(private contractService: ContractService, private router: Router, private route: ActivatedRoute) {
+  constructor(private formatService: FormatsService,private contractService: ContractService, private router: Router, private route: ActivatedRoute) {
 
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'
@@ -64,11 +65,11 @@ export class VendaComponent {
         this.contrato.idprojeto = data.IDPROJETO!;
         this.contrato.comercialvendacol = data.COMERCIALVENDAcol;
     
-        this.contrato.dtcontato = data.DTCONTATO;
-        this.contrato.dtcontrato = data.DTCONTRATO;
-        this.contrato.dtassinatura = data.DTASSINATURA;
-        this.contrato.dtconclusao =data.DTCONCLUSAO;
-        this.contrato.dtalteracao = data.DATAALTERACAO;
+        this.contrato.dtcontato = this.formatService.formatTime( data.DTCONTATO,"dtcontato");
+        this.contrato.dtcontrato = this.formatService.formatTime( data.DTCONTRATO,"dtcontrato");
+        this.contrato.dtassinatura = this.formatService.formatTime( data.DTASSINATURA,"dtassinatura");
+        this.contrato.dtconclusao =this.formatService.formatTime( data.DTCONCLUSAO,"dtconclusao");
+        this.contrato.dtalteracao =this.formatService.formatTime( data.DATAALTERACAO,"dtalteracao");
     
         this.contrato.usuariocriacao = data.USUARIOCRIACAO;
         this.contrato.usuarioalteracao = data.USUARIOALTERACAO;

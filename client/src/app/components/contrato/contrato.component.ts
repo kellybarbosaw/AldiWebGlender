@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs';
 import { Project } from '../../models/project.model';
 import { ContractService } from '../../services/contract.service';
+import { FormatsService } from '../../services/formats.service';
 
 @Component({
   selector: 'app-contrato',
@@ -36,7 +37,7 @@ export class ContratoComponent {
   projectClient$ = new Observable<Project[]>();
 
 
-  constructor(private router: Router, private route: ActivatedRoute, private contractService: ContractService) {
+  constructor(private formatService : FormatsService,private router: Router, private route: ActivatedRoute, private contractService: ContractService) {
 
 
     this.contrato.idcliente = this.route.snapshot.params['id'];
@@ -56,8 +57,8 @@ export class ContratoComponent {
 
         this.contrato.dtcontato = data.DTCONTATO;
         this.contrato.dtcontrato = data.DTCONTRATO;
-        this.contrato.dtassinatura = data.DTASSINATURA;
-        this.contrato.dtconclusao = data.DTCONCLUSAO;
+        this.contrato.dtassinatura = this.formatService.formatTime(data.DTASSINATURA!, "dtassinatura");
+        this.contrato.dtconclusao = this.formatService.formatTime(data.DTCONCLUSAO!, "dtconclusao");
         this.contrato.dtalteracao = data.DATAALTERACAO;
 
         this.contrato.usuariocriacao = data.USUARIOCRIACAO;

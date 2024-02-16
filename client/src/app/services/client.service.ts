@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Client, CreateClient } from '../models/client.model';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class ClientService {
 
   private url = `${environment.api}/client`;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private loginService: LoginService) { }
+
+
 
   registerClient(newClient: CreateClient) {
     console.log(newClient);
@@ -20,6 +23,7 @@ export class ClientService {
 
   allClients(){
     return this.httpClient.get<Client[]>(this.url)
+    // {headers: this.loginService.constructorHeadres()}
   }
 
   clientCurrent(id:String){
@@ -27,8 +31,6 @@ export class ClientService {
   }
 
   editClient(client:CreateClient){
-    console.log(client);
-
     return this.httpClient.put<Client>(this.url, client)
   }
 

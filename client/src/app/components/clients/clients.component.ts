@@ -2,49 +2,71 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router} from '@angular/router'
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router'
+import { catchError, Observable, of, Subject } from 'rxjs';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
+import { LoginService } from '../../services/login.service';
 
-// import { ActivatedRoute } from '@angular/router';
-// import { Observable } from 'rxjs';
-// import { switchMap } from 'rxjs/operators';
 
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,FormsModule,CommonModule],
+  imports: [FormsModule, HttpClientModule, FormsModule, CommonModule],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.scss'
 })
 export class ClientsComponent {
 
+  error$ = new Subject<boolean>();
 
   allClient$ = new Observable<Client[]>();
 
-  teste;
 
-  constructor(private clientService:ClientService, private router:Router){
+  constructor(private clientService: ClientService, private router: Router, private loginService: LoginService) {
 
-    this.allClient$ = this.clientService.allClients();
-    this.teste = this.clientService.allClients()
+    //setTimeout para teste de lentidão
+    setTimeout(() => {
 
-    console.log(this.teste)
+      this.allClient$ = this.clientService.allClients()
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+
+            setTimeout(() => {
+
+              if (err.statusText === "Unauthorized") {
+                alert("Seu iToken foi expirado! Realize o login novamente")
+                this.loginService.deslogar();
+              }
+
+            }, 500);
+            return of();
+          })
+        );
+        
+    }, 3000);
+    this.error$.next(true)
+
   }
 
-
-  verClient(client: Client){
+  verClient(client: Client) {
     this.router.navigate([`/user/client360/${client.IDCLIENTE}`]);
   }
-  editClient(client: Client){
+  editClient(client: Client) {
     this.router.navigate([`/user/client/${client.IDCLIENTE}`]);
   }
 
-  deletClient(id: number){
-    alert("deseja realmente deletar esse iten?" +id);
-    this.clientService.deleteClient(id).subscribe(()=>{this.allClient$ = this.clientService.allClients()})
+  deletClient(id: number) {
+    alert("deseja realmente deletar esse iten?" + id);
+    this.clientService.deleteClient(id).pipe(
+      catchError(err => {
+        console.log(err)
+        alert(err.error.message)
+        return of();
+      })
+    ).subscribe(() => { this.allClient$ = this.clientService.allClients() })
   }
 
 }

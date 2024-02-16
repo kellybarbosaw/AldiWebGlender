@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
+const auth = require('../controllers/authController');
+const authProfile = require('../controllers/accessController');
 
 
-router.get('/',projectController.select);
-router.get('/:id',projectController.selectId);
-router.get('/client/:id',projectController.selectProjectsClients);
-router.get('/contract/:id',projectController.selectProjectsContract);
-router.post('/',projectController.register);
-router.put('/',projectController.update);
-router.delete('/:id',projectController.delete);
+router.get('/',auth,projectController.select);
+router.get('/:id',auth,projectController.selectId);
+router.get('/client/:id',auth,projectController.selectProjectsClients);
+router.get('/contract/:id',auth,projectController.selectProjectsContract);
+router.post('/',auth,projectController.register);
+router.put('/',auth,authProfile,projectController.update);
+router.delete('/:id',auth,authProfile,projectController.delete);
 
 module.exports = router;

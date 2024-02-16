@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User,CreateUser } from "../models/users.model";
 import { environment } from '../../environments/environment';
+import { LoginService } from './login.service';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class UsuariosService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private loginService: LoginService) { }
   private url = `${environment.api}/user`;
   
 
@@ -33,7 +34,6 @@ export class UsuariosService {
   }
 
   deleteUser(user:string){
-    console.log(user)
     return this.httpClient.delete<void>(`${this.url}/${user}`)
   }
 }

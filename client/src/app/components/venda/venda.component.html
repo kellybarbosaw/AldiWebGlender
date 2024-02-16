@@ -23,20 +23,24 @@
         </div>
         <div class="form-group">
             <label>Data contato</label>
-            <input [(ngModel)]="contrato.dtcontato" type="datetime" class="form-control" name="dtcontato">
+            <input [(ngModel)]="contrato.dtcontato" type="datetime" class="form-control" id="dtcontato" name="dtcontato">
         </div>
         <div class="form-group">
             <label>Data contrato</label>
-            <input [(ngModel)]="contrato.dtcontrato" type="datetime" class="form-control" name="dtcontrato">
+            <input [(ngModel)]="contrato.dtcontrato" type="datetime" class="form-control" id="dtcontrato" name="dtcontrato">
         </div>
         <div class="form-group">
             <label>Data assinatura</label>
             <!-- <label>{{contrato.dtassinatura | date:'short'}}</label> -->
-            <input [(ngModel)]="contrato.dtassinatura" type="datetime" class="form-control" name="dtassinatura">
+            <input [(ngModel)]="contrato.dtassinatura" type="datetime" class="form-control" id="dtassinatura" name="dtassinatura">
         </div>
         <div class="form-group">
             <label>Data conclusao</label>
-            <input [(ngModel)]="contrato.dtconclusao" type="datetime" class="form-control" name="dtconclusao">
+            <input [(ngModel)]="contrato.dtconclusao" type="datetime" class="form-control" id="dtconclusao" name="dtconclusao">
+        </div>
+        <div class="form-group">
+            <label>Ultima Alteração</label>
+            <input [(ngModel)]="contrato.dtalteracao" type="datetime" class="form-control" disabled id="dtalteracao" name="dtalteracao">
         </div>
         <div class="form-group">
             <label>Valor Previsto</label>

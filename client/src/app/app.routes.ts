@@ -12,6 +12,7 @@ import { PessoaComponent } from './components/pessoa/pessoa.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { authorizedGuard } from './guard/authorized.guard';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,7 @@ export const routes: Routes = [
     {
         path: 'user',
         component: UserComponent,
+        canActivate:[authorizedGuard],
         children: [
             {
                 path: 'clients',
@@ -78,10 +80,7 @@ export const routes: Routes = [
                 path:'usuario/:event/:user',
                 component: UsuarioComponent
             },
-
-
         ]
-        
     },
 
     {

@@ -32,7 +32,7 @@ export class LoginComponent {
     }
 
     this.loginService.login({ email: this.username, senha: this.password })
-      .subscribe((data) => { this.loginService.validate(data) })
+      .subscribe((data) => { this.loginService.saveValidate(data)})
 
   }
 
