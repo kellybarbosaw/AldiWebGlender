@@ -6,59 +6,66 @@
                 </a><a href="#" class="brand-logo"><span>ALDIWEB</span></a>
             </header>
 
+
             <nav class="dashboard-nav-list">
                 <a href="/user" class="dashboard-nav-item">Home</a>
 
-                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse " >
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#clientCollapse">Clientes<i class="bi bi-arrow-down-short"></i>
-                    </a>                       
+                    </a>
                     <div class="collapse" id="clientCollapse">
                         <a class="dashboard-nav-item">Visão 360</a>
                         <a href="/user/client" class="dashboard-nav-item">Novo Cliente</a>
-                        <a href="/user/clients" class="dashboard-nav-item">Todos Clientes</a>
+                        <a [routerLink]="['/user/clients']" class="dashboard-nav-item">Todos Clientes</a>
                     </div>
                 </div>
 
                 <a class="dashboard-nav-item">Apontamentos</a>
 
-                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse " >
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#projectsCollapse">Projetos<i class="bi bi-arrow-down-short"></i>
-                    </a>                       
-                    <div class="collapse" id="projectsCollapse">
-                        <a  class="dashboard-nav-item">Tarefas do Projeto</a>
-                        <a  class="dashboard-nav-item">Apontamentos</a>
-                        <a  class="dashboard-nav-item">Novo Projeto</a>
-                    </div>
-                </div>
-
-                
-                <div data-ls-module="collapse" data-target="#accordeon1" class="ls-collapse ">
-                    <a class="d-flex justify-content-between dashboard-nav-item accordion-item" data-bs-toggle="collapse"
-                        data-bs-targeT="#tarefasCollapse">Tarefas<i class="bi bi-arrow-down-short"></i>
                     </a>
-                        
-                    <div class="collapse" id="tarefasCollapse">
-                        <a  class="dashboard-nav-item">Todas Tarefas</a>
-                        <a  class="dashboard-nav-item">Tarefas de Hoje</a>
-                        <a  class="dashboard-nav-item">Tarefas do Mês</a>
-                        <a  class="dashboard-nav-item">Nova Tarefa</a>
+                    <div class="collapse" id="projectsCollapse">
+                        <a class="dashboard-nav-item">Tarefas do Projeto</a>
+                        <a class="dashboard-nav-item">Apontamentos</a>
+                        <a class="dashboard-nav-item">Novo Projeto</a>
                     </div>
                 </div>
 
-                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse " >
-                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
-                        data-bs-targeT="#configCollapse">Configurações<i class="bi bi-arrow-down-short"></i>
-                    </a>                       
-                    <div class="collapse" id="configCollapse">
-                        <a href= "/user/usuario/new/0" class="dashboard-nav-item">Cadastrar Usuários</a>
-                        <a href="/user/usuarios" class="dashboard-nav-item">Gestão de Usuários</a>
-                        <a  class="dashboard-nav-item">Outros</a>
+
+                <div data-ls-module="collapse" data-target="#accordeon1" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item accordion-item"
+                        data-bs-toggle="collapse" data-bs-targeT="#tarefasCollapse">Tarefas<i
+                            class="bi bi-arrow-down-short"></i>
+                    </a>
+
+                    <div class="collapse" id="tarefasCollapse">
+                        <a class="dashboard-nav-item">Todas Tarefas</a>
+                        <a class="dashboard-nav-item">Tarefas de Hoje</a>
+                        <a class="dashboard-nav-item">Tarefas do Mês</a>
+                        <a class="dashboard-nav-item">Nova Tarefa</a>
                     </div>
                 </div>
+                <div [ngSwitch]="perfil">
+                    <div *ngSwitchCase="'admin'">
+                        <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                            <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                                data-bs-targeT="#configCollapse">Configurações<i class="bi bi-arrow-down-short"></i>
+                            </a>
+                            <div class="collapse" id="configCollapse">
+                                <a href="/user/usuario/new/0" class="dashboard-nav-item">Cadastrar Usuários</a>
+                                <a href="/user/usuarios" class="dashboard-nav-item">Gestão de Usuários</a>
+                                <a class="dashboard-nav-item">Outros</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <a href="#" class="dashboard-nav-item">Perfil</a>
             </nav>
+
         </div>
         <div>
             <div class="nav-item-divider"></div>

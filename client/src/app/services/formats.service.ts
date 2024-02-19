@@ -7,8 +7,41 @@ export class FormatsService {
 
   constructor() { }
 
-  formatTime(time: string, id: string){
-    function formatMes(i:number){
+  format(time: string, id: string, type: string) {
+    var dateTimeFormat = '';
+
+    switch (type) {
+      case 'date':
+        dateTimeFormat = this.formatDate(time)
+        break;
+      case 'time':
+        break;
+      case 'dateTime':
+        var date = this.formatDate(time);
+        var time = this.formatTime(time);
+        dateTimeFormat = `${date} ${time}`
+
+        break;
+
+      default:
+        console.log("err")
+        break;
+    }
+
+    var dataInicioProjeto = document.getElementById(id) as HTMLInputElement;
+
+
+    if (typeof document !== 'undefined') {
+      window.onload = () => {
+        dataInicioProjeto.value = dateTimeFormat
+      }
+    }
+    return dateTimeFormat;
+
+  }
+
+  formatDate(time: string) {
+    function formatMes(i: number) {
       switch (i) {
         case 0:
           return '01'
@@ -33,14 +66,14 @@ export class FormatsService {
         case 10:
           return '12'
         case 11:
-          return '12'     
+          return '12'
         default:
           return 'error'
       }
     }
 
-    function formatDay(day:number){
-      if(day < 10) return `0${day}`
+    function formatDay(day: number) {
+      if (day < 10) return `0${day}`
       else return day
     }
 
@@ -50,15 +83,18 @@ export class FormatsService {
     var ano = date.getFullYear();
     var dateFormat = `${ano}-${mes}-${dia}`
 
-    var dataInicioProjeto = document.getElementById(id) as HTMLInputElement;
-
-    setTimeout(() => {
-      if (typeof document !== 'undefined') {
-        dataInicioProjeto.value = dateFormat
-      }
-    }, 100);
-
     return dateFormat;
+  };
+
+  formatTime(time: string) {
+
+    var date = new Date(time)
+    var hora = ("0" + date.getHours()).slice(-2); // adiciona um zero à esquerda se necessário
+    var minuto = ("0" + date.getMinutes()).slice(-2);
+    var segundo = ("0" + date.getSeconds()).slice(-2);
+    var timeFormat = `${hora}:${minuto}:${segundo}`
+
+    return timeFormat;
   };
 
   ativo(ativo: number) {

@@ -57,8 +57,8 @@ export class ContratoComponent {
 
         this.contrato.dtcontato = data.DTCONTATO;
         this.contrato.dtcontrato = data.DTCONTRATO;
-        this.contrato.dtassinatura = this.formatService.formatTime(data.DTASSINATURA!, "dtassinatura");
-        this.contrato.dtconclusao = this.formatService.formatTime(data.DTCONCLUSAO!, "dtconclusao");
+        this.contrato.dtassinatura = this.formatService.format(data.DTASSINATURA!, "dtassinatura","date");
+        this.contrato.dtconclusao = this.formatService.format(data.DTCONCLUSAO!, "dtconclusao","date");
         this.contrato.dtalteracao = data.DATAALTERACAO;
 
         this.contrato.usuariocriacao = data.USUARIOCRIACAO;

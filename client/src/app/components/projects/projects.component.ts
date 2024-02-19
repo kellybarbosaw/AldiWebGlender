@@ -80,8 +80,8 @@ export class ProjectsComponent {
         this.Project.valorprojeto = data.VALORPROJETO!,
         this.Project.valorconsumido = data.VALORCONSUMIDO!
 
-        this.Project.dtinicioprojeto = this.formatService.formatTime(data.DTINCIOPROJETO!,"dtinicioprojeto")
-        this.Project.dtconclusaoprojeto = this.formatService.formatTime(data.DTCONCLUSAOPROJETO!,"dtconclusaoprojeto")
+        this.Project.dtinicioprojeto = this.formatService.format(data.DTINCIOPROJETO!,"dtinicioprojeto","date")
+        this.Project.dtconclusaoprojeto = this.formatService.format(data.DTCONCLUSAOPROJETO!,"dtconclusaoprojeto","date")
 
       })
     }else{

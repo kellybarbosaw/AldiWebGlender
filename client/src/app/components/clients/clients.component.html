@@ -41,8 +41,8 @@
                         <td>{{client.NOME}}</td>
                         <td>{{client.NOMEFANTASIA}}</td>
                         <td>{{client.CGCCFO}}</td>
-                        <td style="text-align: center;"><i (click)="verClient(client)" class="bi bi-search"></i></td>
-                        <td style="text-align: center;"><i (click)="editClient(client)" class="bi bi-pencil-square"></i>
+                        <td style="text-align: center;"><i [routerLink]="['/user/client360/',client.IDCLIENTE]" class="bi bi-search"></i></td>
+                        <td style="text-align: center;"><i [routerLink]="['/user/client/',client.IDCLIENTE]" class="bi bi-pencil-square"></i>
                         </td>
                         <td style="text-align: center;"><i (click)="deletClient(client.IDCLIENTE!)"
                                 class="bi bi-trash-fill"></i></td>

@@ -65,11 +65,11 @@ export class VendaComponent {
         this.contrato.idprojeto = data.IDPROJETO!;
         this.contrato.comercialvendacol = data.COMERCIALVENDAcol;
     
-        this.contrato.dtcontato = this.formatService.formatTime( data.DTCONTATO,"dtcontato");
-        this.contrato.dtcontrato = this.formatService.formatTime( data.DTCONTRATO,"dtcontrato");
-        this.contrato.dtassinatura = this.formatService.formatTime( data.DTASSINATURA,"dtassinatura");
-        this.contrato.dtconclusao =this.formatService.formatTime( data.DTCONCLUSAO,"dtconclusao");
-        this.contrato.dtalteracao =this.formatService.formatTime( data.DATAALTERACAO,"dtalteracao");
+        this.contrato.dtcontato = this.formatService.format( data.DTCONTATO,"dtcontato","date");
+        this.contrato.dtcontrato = this.formatService.format( data.DTCONTRATO,"dtcontrato","date");
+        this.contrato.dtassinatura = this.formatService.format( data.DTASSINATURA,"dtassinatura","date");
+        this.contrato.dtconclusao =this.formatService.format( data.DTCONCLUSAO,"dtconclusao","date");
+        this.contrato.dtalteracao =this.formatService.format( data.DATAALTERACAO,"dtalteracao","date");
     
         this.contrato.usuariocriacao = data.USUARIOCRIACAO;
         this.contrato.usuarioalteracao = data.USUARIOALTERACAO;

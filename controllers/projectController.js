@@ -1,4 +1,4 @@
-const db = require('../bd');
+const db = require('../db_Querys/db_projects');
 const {regiterValidate,regiterValidateUpdate} = require('./validates/ProjectValidate');
 
 

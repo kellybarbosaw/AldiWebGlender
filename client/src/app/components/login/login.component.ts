@@ -19,11 +19,7 @@ export class LoginComponent {
   username = ''
   password = ''
 
-  // user$ = new Observable<Login>;
-
   constructor(private loginService: LoginService) { }
-
-
 
   login() {
     if (!this.password || !this.password) {

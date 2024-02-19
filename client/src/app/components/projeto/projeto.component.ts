@@ -66,8 +66,8 @@ export class ProjetoComponent {
         this.Project.valorprojeto = data.VALORPROJETO!;
         this.Project.valorconsumido = data.VALORCONSUMIDO!;
 
-        this.formatService.formatTime(data.DTINCIOPROJETO!, "dtcriacao");
-        this.formatService.formatTime(data.DTCONCLUSAOPROJETO!, "dtconclusaoprojeto");
+        // this.Project.dtinicioprojeto = this.formatService.format(data.DTINCIOPROJETO!, "dtcriacao","date");
+        // this.Project.dtconclusaoprojeto = this.formatService.format(data.DTCONCLUSAOPROJETO!, "dtconclusaoprojeto","date");
       });
 
 

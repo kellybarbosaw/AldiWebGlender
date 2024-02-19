@@ -1,11 +1,8 @@
-const db = require('../bd');
+const db = require('../db_Querys/db_users');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(15);
 const jwt = require('jsonwebtoken');
 const {loginValidate,regiterValidate} = require('./validates/LoginValidate');
-
-
-
 
 const userController = {
 

@@ -18,16 +18,26 @@ import { HttpClientModule } from '@angular/common/http';
 export class LoginService {
 
   private url = `${environment.api}/user/login`;
+
   private mensagem = '';
   private token = '';
 
-  public isloggedIn = false;
-  public name = '';
-  public perfil = '';
+  private user = {
+    isloggedIn: false,
+    name: '',
+    perfil: ''
+  }
 
 
 
-  constructor(private httpClient: HttpClient, private router: Router ) {}
+  constructor(private httpClient: HttpClient, private router: Router ) {
+    console.log("login service")
+
+  }
+
+  ngOnInit(){
+    console.log("login service")
+  }
 
   login(user: Login) {
     this.clearValidate();
@@ -36,12 +46,18 @@ export class LoginService {
 
   saveValidate(data: any) {
 
+
     this.mensagem = data.msg;
     this.token = data.authorization;
-    this.name = data.user;
-    this.perfil = data.perfil;
+    this.user.name = data.user;
+    this.user.perfil = data.perfil;
+    this.user.isloggedIn = true;
 
     localStorage.setItem('authorization-token-access', this.token);
+    localStorage.setItem('user', this.user.name);
+    localStorage.setItem('perfil', this.user.perfil);
+    localStorage.setItem('isloggedIn', this.user.isloggedIn.toString());
+
 
 
     this.deslogarTime();
@@ -71,7 +87,7 @@ export class LoginService {
   deslogarTime(){ 
     setTimeout(() => {
       this.deslogar();
-    }, 30000);
+    }, 120000);
   }
 
   direcionar() {

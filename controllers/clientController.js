@@ -1,4 +1,4 @@
-const db = require('../bd');
+const db = require('../db_Querys/db_clients');
 const { regiterValidate, regiterValidateUpdate } = require('./validates/ClientValidate');
 
 
@@ -34,7 +34,7 @@ const clientController = {
 
 
         if (selectClient[0] !== null && selectClient[0].length > 0) {
-            return res.status(400).send('CNPJ already exists');
+            return res.status(400).send({'msg':'CNPJ already exists'});
         }
 
         const newClient = new Object({
@@ -92,7 +92,6 @@ const clientController = {
 
         try {
             const savedClient = await db.insertZCliente(newClient);
-            console.log("chegou aqui")
             res.status(200).send(savedClient);
         } catch (error) {
             res.status(400).send(error)
@@ -108,7 +107,7 @@ const clientController = {
         const selectClient = await db.selectZCliente(req.body.cgccfo);
 
         if (selectClient[0] !== null && selectClient[0].length > 1) {
-            return res.status(400).send('CNPJ already exists');
+            return res.status(400).send({'msg':'CNPJ already exists'});
         }
 
         const UpdateClient = new Object({
