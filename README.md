@@ -9,6 +9,8 @@ alteração feita por mim
 
 alteração feita por outro
 
-ALTERAÇÃO FORK
+
 
 ALTERAÇÃO LUCAS
+ALTERAÇÃO KELLY
+ALTERAÇAO RONIE
