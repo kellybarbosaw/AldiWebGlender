@@ -12,8 +12,13 @@ alteração feita por outro
 
 
 ALTERAÇÃO LUCAS ALTER
+
 ALTERAÇÃO KELLY
+
 ALTERAÇAO RONIE
+
 TESTE ALTER
+
 PROXIMA ALTERAÇÃO
+
 
