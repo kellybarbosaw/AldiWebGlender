@@ -11,6 +11,6 @@ alteração feita por outro
 
 
 
-ALTERAÇÃO LUCAS
+ALTERAÇÃO LUCAS.
 ALTERAÇÃO KELLY
 ALTERAÇAO RONIE
