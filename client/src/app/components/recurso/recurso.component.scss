@@ -1,0 +1,46 @@
+
+form input{
+    //display: inline-block;
+    width: 100%;
+}
+form{
+    width: 90%;
+}
+
+.formCadastro{
+    width: 100%;
+    padding: 15px;
+}
+
+.btn-stage{
+    width: 100px;
+    margin: 0%;
+    margin-top: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.espacoCampo{
+    padding-inline: 20px;
+}
+.espaco{
+    padding-block: 5px;
+}
+
+.botao-com-espaco {
+    margin-bottom: 15px;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.onoff input.toggle {
+    display: none;
+}
+
+.fonte{
+    font-family: 'Bebas Neue', sans-serif bold;
+}

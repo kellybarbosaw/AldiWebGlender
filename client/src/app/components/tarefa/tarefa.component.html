@@ -1,0 +1,57 @@
+<div class="customer-pessoa bg-light">
+    <div class="formCadastro d-flex justify-content-center ">
+        <form>
+                <div>
+                    <h2 class="fonte">TAREFA</h2><hr>
+                    <div class="form-group">
+                        <label>Título da tarefa:</label>
+                        <input [(ngModel)]="tarefa.titulotarefa" type="text" class="form-control"
+                            placeholder="Título da tarefa" name="titulotarefa">
+                    </div>
+
+                    <div class="form-group espaco">
+                        <label>Descrição da tarefa:</label>
+                        <input [(ngModel)]="tarefa.descricaotarefa" type="text" class="form-control"
+                            placeholder="Descrição da tarefa" name="descricaotarefa">
+                    </div>
+                    <div class="form-group espaco">
+                        <label>Horas estimadas:</label>
+                        <input [(ngModel)]="tarefa.horasestimadas" type="time" class="form-control"
+                            placeholder="Horas estimadas" name="horasestimadas">
+                    </div>
+                    
+                    <div class="form-group d-flex flex-row">
+                        
+                        <div class="form-group espaco espacoCampo">
+                            <label>Data da criação da tarefa:</label>
+                            <input [(ngModel)]="tarefa.datacriacao" type="date" class="form-control" name="datacriacao">
+                        </div>
+                        <div class="form-group espaco">
+                            <label>Data da alteração da tarefa:</label>
+                            <input [(ngModel)]="tarefa.dataalteracao" type="date" class="form-control" name="dataalteracao">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group espaco">
+                        <label>Criação do usuário:</label>
+                        <input [(ngModel)]="tarefa.usuariocriacao" type="text" class="form-control"
+                            placeholder="Criação do usuário" name="usuariocriacao">
+                    </div>
+
+                    <div class="form-group espaco">
+                        <label>Alteração do usuário:</label>
+                        <input [(ngModel)]="tarefa.usuarioalteracao" type="text" class="form-control"
+                            placeholder="Alteração do usuário" name="usuarioalteracao">
+                    </div>
+                </div>
+                <div style='text-align:right'>
+                    <div class="btn btn-primary btn-stage" (click)="registerTarefa()">{{event}}</div>
+                </div>
+        </form>
+        <div class="botao-com-espaco" >
+            <div>
+                <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+            </div>
+        </div>
+    </div>
+</div>

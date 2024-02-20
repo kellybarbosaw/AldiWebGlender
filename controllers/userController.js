@@ -77,7 +77,7 @@ const userController = {
             return res.status(400).send(user);
         }
 
-        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 120 });
+        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 600 });
         user = {
             'authorization': token,
             'msg':'login autorizado',

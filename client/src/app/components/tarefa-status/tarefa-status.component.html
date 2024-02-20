@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<div class="customer-pessoa bg-light">
+    <div class="formCadastro d-flex justify-content-center ">
+        <form>
+                <div>
+                    <h2 class="fonte">TAREFA STATUS</h2><hr>
+                    <div class="form-group espaco">
+                        <label>Título da tarefa:</label>
+                        <input [(ngModel)]="tarefaStatus.titulo" type="text" class="form-control"
+                            placeholder="Título da tarefa" name="titulo">
+                    </div>
+
+                    <div class="form-group espaco">
+                        <label>Descrição da tarefa:</label>
+                        <input [(ngModel)]="tarefaStatus.descricao" type="text" class="form-control"
+                            placeholder="Descrição da tarefa" name="descricao">
+                    </div>
+
+                <div class="form-group d-flex flex-row">
+                    <div class="form-group espacoD">
+                        <label>Ativo?</label>
+                        <label style="display: inline-block;" class="espacoD">Sim</label>
+                        <input type="radio" [(ngModel)]="tarefaStatus.ativo" id="ativo" name="ativo" value=1 style="width: 5%;">
+                        <label style="display: inline-block;" class="espacoCampo">Não</label>
+                        <input type="radio" [(ngModel)]="tarefaStatus.ativo" id="desativo" name="desativo" value=2 style="width: 5%;">
+                    </div>
+                    <div class="form-group espacoCampo">
+                        <label>Situação da Tarefa: Concluída?</label>
+                        <label style="display: inline-block;" class="espacoD"> Sim</label>
+                        <input type="radio" [(ngModel)]="tarefaStatus.concluido" id="concluido" name="concluido" value=3 style="width: 5%;">
+                        <label style="display: inline-block;" class="espacoCampo">Não</label>
+                        <input type="radio" [(ngModel)]="tarefaStatus.concluido" id="nconcluido" name="nconcluido" value=4 style="width: 5%;">
+                    </div>
+                    <div class="form-group espacoCampo">
+                        <label>Situação da Tarefa: Cancelada?</label>
+                        <label style="display: inline-block;" class="espacoD">Sim</label>
+                        <input type="radio" [(ngModel)]="tarefaStatus.cancelado" id="cancelado" name="cancelado" value=5 style="width: 5%;">
+                        <label style="display: inline-block;" class="espacoCampo">Não</label>
+                        <input type="radio" [(ngModel)]="tarefaStatus.cancelado" id="ncancelado" name="ncancelado" value=6 style="width: 5%;">
+                    </div>
+                </div>
+
+                    <div class="form-group d-flex flex-row">
+                        <div class="form-group espaco">
+                            <label>Data da criação da tarefa:</label>
+                            <input [(ngModel)]="tarefaStatus.datacriacao" type="date" class="form-control" name="datacriacao" id="datacriacao">
+                            <!-- {{tarefaStatus.datacriacao | date:"dd/MM/yyyy"}}  -->
+                        </div>
+                        <div class="form-group espacoCampo espaco">
+                            <label>Data da alteração da tarefa:</label>
+                            <input [(ngModel)]="tarefaStatus.dataalteracao" type="date" class="form-control" name="dataalteracao" id="dataalteracao">
+                            <!-- {{tarefaStatus.dataalteracao | date:"dd/MM/yyyy"}}  -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group espaco">
+                        <label>Criação do usuário:</label>
+                        <input [(ngModel)]="tarefaStatus.usuariocriacao" type="text" class="form-control" placeholder="Criação do usuário" name="usuariocriacao">
+                    </div>
+
+                    <div class="form-group espaco">
+                        <label>Alteração do usuário:</label>
+                        <input [(ngModel)]="tarefaStatus.usuarioalteracao" type="text" class="form-control" placeholder="Alteração do usuário" name="usuarioalteracao">
+                    </div>
+                    <div class="form-group espaco">
+                        <label>Tarefa Status col:</label>
+                        <input [(ngModel)]="tarefaStatus.atarefastatuscol" type="text" class="form-control" placeholder="Tarefa status" name="atarefastatuscol">
+                    </div>
+                </div>
+                <div style='text-align:right'>
+                    <div class="btn btn-primary btn-stage" (click)="registerTarefa()">{{event}}</div>
+                </div>
+        </form>
+        <div class="botao-com-espaco" >
+            <div>
+                <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+            </div>
+        </div>
+    </div>
+</div>

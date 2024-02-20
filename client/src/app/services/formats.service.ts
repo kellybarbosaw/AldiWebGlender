@@ -113,6 +113,5 @@ export class FormatsService {
         checkAtivo.checked = false;
       }
     }
-
   }
 }

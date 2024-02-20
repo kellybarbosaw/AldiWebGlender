@@ -6,6 +6,13 @@ const adminRouter = require('./routes/adminRoutes');
 const clientRouter = require('./routes/clientesRoute');
 const contractRouter = require('./routes/contractRoutes');
 const projectRouter = require('./routes/projectRoutes');
+const recursoRouter = require('./routes/recursoRoutes');
+const tarefaStatusRouter = require('./routes/tarefaStatusRoutes');
+const apontamentoRouter = require('./routes/apontamentoRoutes');
+const pessoaRouter = require('./routes/pessoaRoutes');
+const tarefaRouter = require("./routes/tarefaRoutes");
+const projetoTarefaRouter = require('./routes/projetoTarefaRoutes');
+
 const cors = require('cors');
 const path = require('path');
 
@@ -18,10 +25,15 @@ app.use(cors({
 
 //Gerenciamento de Rotas inicial.
 app.use('/user', express.json(), userRouter);
-app.use('/admin', express.json(), adminRouter);
 app.use('/client', express.json(), clientRouter);
 app.use('/contract', express.json(), contractRouter);
 app.use('/project', express.json(), projectRouter);
+app.use('/recurso', express.json(), recursoRouter);
+app.use('/tarefaStatus', express.json(), tarefaStatusRouter);
+app.use('/apontamento', express.json(), apontamentoRouter);
+app.use('/pessoa', express.json(), pessoaRouter);
+app.use('/tarefa', express.json(), tarefaRouter);
+app.use('/projetoTarefa', express.json(), projetoTarefaRouter);
 
 
 

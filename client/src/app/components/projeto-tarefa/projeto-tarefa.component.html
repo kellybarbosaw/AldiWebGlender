@@ -1,0 +1,153 @@
+<div class="customer-pessoa bg-light">
+    <div class="formCadastro d-flex justify-content-center">
+      <form>
+        <div>
+          <h2 class="fonte">TAREFAS DO PROJETO</h2>
+          <hr />
+          <div class="form-group">
+            <label>Id tarefa</label>
+            <input [(ngModel)]="projetoTarefa.idtarefa" type="number" class="form-control"
+            placeholder="Id tarefa já precisa estar criado" name="idtarefa">
+        </div>
+        <div class="form-group">
+          <label>Id projeto</label>
+          <input [(ngModel)]="projetoTarefa.idprojeto" type="number" class="form-control" 
+          placeholder="Id projeto já precisa estar criado" name="idprojeto">
+      </div>
+      <div class="form-group">
+        <label>Status da Tarefa</label>
+        <input [(ngModel)]="projetoTarefa.statustarefa" type="number" class="form-control"
+        placeholder="Status da Tarefa já precisa estar criado" name="statustarefa">
+    </div>
+           <div class="form-group">
+            <label>Título da tarefa</label>
+            <input
+              [(ngModel)]="projetoTarefa.titulotarefa"
+              type="text"
+              class="form-control"
+              name="titulotarefa"
+              placeholder="Título da tarefa"
+            />
+          </div>
+  
+          <div class="form-group espaco">
+            <label>Descrição da tarefa:</label>
+            <input
+              [(ngModel)]="projetoTarefa.descricaotarefa"
+              type="text"
+              class="form-control"
+              placeholder="Descrição da tarefa"
+              name="descricaotarefa"
+            />
+          </div>
+  
+          <div class="form-group d-flex flex-row ">
+            <div class="form-group ">
+              <label>Data de inicio: </label>
+              <input
+                [(ngModel)]="projetoTarefa.datainicioprevista"
+                type="date"
+                class="form-control"
+                name="datainicioprevista"
+              />
+            </div>
+  
+            <div class="form-group espacoCampo">
+              <label>Data Final: </label>
+              <input
+                [(ngModel)]="projetoTarefa.datafimprevista"
+                type="date"
+                class="form-control"
+                name="datafimprevista"
+              />
+            </div>
+  
+            <div class="form-group">
+              <label>Data de criação: </label>
+              <input
+                [(ngModel)]="projetoTarefa.dtcriacao"
+                type="date"
+                class="form-control"
+                name="dtcriacao"
+              />
+            </div>
+  
+            <div class="form-group espacoCampo">
+              <label>Data de alteração:</label>
+              <input
+                [(ngModel)]="projetoTarefa.dtalteracao"
+                type="date"
+                class="form-control"
+                name="dtalteracao"
+              />
+            </div>
+          </div>
+  
+          <div class="form-group espaco">
+            <label>Criação do usuário:</label>
+            <input
+              [(ngModel)]="projetoTarefa.usuariocriacao"
+              type="text"
+              class="form-control"
+              placeholder="Criação do usuário"
+              name="usuariocriacao"
+            />
+          </div>
+  
+          <div class="form-group">
+            <label>Alteração do usuário:</label>
+            <input
+              [(ngModel)]="projetoTarefa.usuarioalteracao"
+              type="text"
+              class="form-control"
+              placeholder="Alteração do usuário"
+              name="usuarioalteracao"
+            />
+          </div>
+  
+          <div class="form-group d-flex flex-row">
+  
+          <div class="form-group">
+  
+              <label>Horas estimadas: </label>
+              <input [(ngModel)]="projetoTarefa.horasestimadas" type="time" class="form-control"
+               name="horasestimadas" style="width: auto">
+  
+          </div>
+  
+          <div class="form-group espacoCampo">
+  
+              <label>Horas gastas: </label>
+              <input [(ngModel)]="projetoTarefa.horasgastas" type="time" class="form-control"
+               name="horasgastas" style="width: auto">
+  
+          </div>
+  
+          <div class="form-group ">
+  
+              <label>Saldo de horas: </label>
+              <input [(ngModel)]="projetoTarefa.saldohoras" type="time" class="form-control"
+               name="saldohoras" style="width: auto">
+  
+          </div>
+      </div>
+      <div class="form-group">
+        <label>Etapa</label>
+        <input [(ngModel)]="projetoTarefa.etapa" type="number" class="form-control"
+        placeholder="Qual a etapa?" name="etapa">
+    </div>
+  
+        </div>
+        <div style="text-align: right"> 
+          <div class="btn btn-primary btn-stage" (click)="registerProjetoTarefa()">
+            {{ event }}
+          </div>
+        </div>
+      </form>
+      <div class="botao-com-espaco">
+        <div>
+          <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+        </div>
+      </div>
+    </div>
+  </div>

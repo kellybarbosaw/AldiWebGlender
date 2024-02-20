@@ -47,7 +47,7 @@ export class ClientsComponent {
         );
         
     }, 3000);
-    this.error$.next(true)
+    // this.error$.next(true)
 
   }
 

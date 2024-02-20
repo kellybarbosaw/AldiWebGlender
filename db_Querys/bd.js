@@ -9,6 +9,7 @@ async function connect() {
     }
 
     const connection = await mysql.createConnection({
+        // connectTimeout: 60000,
         host: process.env.HOST_DB,
         user: process.env.USER_DB,
         password: process.env.PASSWORD_DB,
