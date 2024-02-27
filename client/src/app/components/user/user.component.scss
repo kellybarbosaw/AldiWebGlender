@@ -103,7 +103,7 @@ a {
 }
 
 .collapse .dashboard-nav-item{
-    background-color: #b2060051 !important;
+    background-color: #b2060051 ;
 }
 
 .dashboard-nav-item {
@@ -197,6 +197,10 @@ a {
     margin: 1rem 0;
     overflow: hidden;
     background-color: rgba(236, 238, 239, 0.7);
+}
+
+.activated{
+    background-color: #f68926 !important; 
 }
 
 @media (min-width: 992px) {

@@ -7,14 +7,14 @@ export class FormatsService {
 
   constructor() { }
 
-  format(time: string, id: string, type: string) {
+  format(time: string, id: string | null, type: string) {
     var dateTimeFormat = '';
-
     switch (type) {
       case 'date':
         dateTimeFormat = this.formatDate(time)
         break;
       case 'time':
+        dateTimeFormat = this.formatTime(time)
         break;
       case 'dateTime':
         var date = this.formatDate(time);
@@ -28,17 +28,16 @@ export class FormatsService {
         break;
     }
 
-    var dataInicioProjeto = document.getElementById(id) as HTMLInputElement;
-
-
-    if (typeof document !== 'undefined') {
-      window.onload = () => {
-        dataInicioProjeto.value = dateTimeFormat
+    if (id !== null) {
+      var dataInicioProjeto = document.getElementById(id) as HTMLInputElement;
+      if (typeof document !== 'undefined') {
+        window.onload = () => {
+          dataInicioProjeto.value = dateTimeFormat
+        }
       }
     }
     return dateTimeFormat;
-
-  }
+  };
 
   formatDate(time: string) {
     function formatMes(i: number) {
@@ -113,7 +112,7 @@ export class FormatsService {
         checkAtivo.checked = false;
       }
     }
-  }
+  };
 
   concluido(concluido: number){
 
@@ -130,7 +129,7 @@ export class FormatsService {
         checkConcluido.checked = false;
       }
     }
-  }
+  };
 
   cancelado(cancelado:number){
 
@@ -147,5 +146,16 @@ export class FormatsService {
         checkCancelado.checked = false;
       }
     }
-  }
+  };
+
+  dateNow(): string {
+    var date = new Date(Date.now())
+    // const options = { timeZone: 'America/Sao_Paulo' };
+    // const dataHoraBrasil = date.toLocaleString('pt-BR', options);
+  
+    var dateFormat = this.format(date.toString(), null, 'dateTime')
+  
+    return dateFormat
+  };
+
 }

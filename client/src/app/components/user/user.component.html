@@ -2,30 +2,30 @@
     <div class="dashboard-nav">
         <div>
             <header>
-                <a href="/user" class="menu-toggle">
-                </a><a href="#" class="brand-logo"><span>ALDIWEB</span></a>
+                <a [routerLink]="['/user']" class="menu-toggle">
+                </a><a [routerLink]="['/user']" class="brand-logo"><span>ALDIWEB</span></a>
             </header>
 
 
             <nav class="dashboard-nav-list">
-                <a [routerLink]="['/user/home']" class="dashboard-nav-item">Home</a>
+                <a [routerLink]="['/user']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}" class="dashboard-nav-item">Home</a>
 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#clientCollapse">Clientes<i class="bi bi-arrow-down-short"></i>
                     </a>
                     <div class="collapse" id="clientCollapse">
-                        <a [routerLink]="['/user/client360']" class="dashboard-nav-item">Visão 360</a>
-                        <a href="/user/client" class="dashboard-nav-item">Novo Cliente</a>
-                        <a [routerLink]="['/user/clients']" class="dashboard-nav-item">Todos Clientes</a>
+                        <a class="dashboard-nav-item">Visão 360</a>
+                        <a [routerLink]="['/user/client']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Novo Cliente</a>
+                        <a [routerLink]="['/user/clients']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todos Clientes</a>
                     </div>
                 </div>
-                <a href="/user/pessoa" class="dashboard-nav-item">Pessoa</a>
-                <a href="/user/recurso" class="dashboard-nav-item">Recurso</a>
-                <a href="/user/tarefa" class="dashboard-nav-item">Tarefa</a>
-                <a href="/user/tarefaStatus" class="dashboard-nav-item">Tarefa Status</a>
-                <a href="/user/apontamento" class="dashboard-nav-item">Apontamento</a>
-                <a href="/user/projetoTarefa" class="dashboard-nav-item">Projeto Tarefa</a>
+                <a [routerLink]="['/user/pessoa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Pessoa</a>
+                <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Recurso</a>
+                <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa</a>
+                <a [routerLink]="['/user/tarefaStatus']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa Status</a>
+                <a [routerLink]="['/user/apontamento']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Apontamento</a>
+                <a [routerLink]="['/user/projetoTarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Projeto Tarefa</a>
 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"

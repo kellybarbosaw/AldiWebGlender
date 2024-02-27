@@ -34,11 +34,7 @@ export class ProjetoComponent {
     saldohoras: '',
     valorprojeto: 0,
     valorconsumido: 0
-  }
-  dateObj = '2024-10-05T13:58:00.000Z';
-
-
-
+    }
 
   constructor(private projectService: ProjectService, private router: Router, private route: ActivatedRoute, private formatService: FormatsService) {
 
@@ -47,7 +43,6 @@ export class ProjetoComponent {
     this.projectService.projectCurrent(this.route.snapshot.params['id'])
       .subscribe((datas) => {
         const data = datas[0];
-        // console.log(data);
         this.Project.idprojeto = data.IDPROJETO!;
         this.Project.titulo = data.TITULO;
         this.Project.descricao = data.DESCRICAO;
@@ -58,19 +53,14 @@ export class ProjetoComponent {
         this.Project.usuarioalteracao = data.USUARIOALTERACAO;
         this.Project.statusprojeto = data.STATUSPROJETO;
         this.Project.idvenda = data.IDVENDA;
-        // this.dataInicioProjeto.value = '2024-05-28';
-        // this.Project.dtconclusaoprojeto = data.DTCONCLUSAOPROJETO!;
         this.Project.horasestimadas = data.HORASESTIMADAS!;
         this.Project.horasgastas = data.HORASGASTAS!;
         this.Project.saldohoras = data.SALDOHORAS!;
         this.Project.valorprojeto = data.VALORPROJETO!;
         this.Project.valorconsumido = data.VALORCONSUMIDO!;
-
-        // this.Project.dtinicioprojeto = this.formatService.format(data.DTINCIOPROJETO!, "dtcriacao","date");
-        // this.Project.dtconclusaoprojeto = this.formatService.format(data.DTCONCLUSAOPROJETO!, "dtconclusaoprojeto","date");
+        this.Project.dtinicioprojeto = this.formatService.format(data.DTCRIACAO!, "dtinicioprojeto","date");
+        this.Project.dtconclusaoprojeto = this.formatService.format(data.DTCONCLUSAOPROJETO!, "dtconclusaoprojeto","date");
       });
-
-
   }
 
 

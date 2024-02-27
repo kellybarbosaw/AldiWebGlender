@@ -22,7 +22,7 @@ export class LoginService {
   private mensagem = '';
   private token = '';
 
-  private user = {
+  public user = {
     isloggedIn: false,
     name: '',
     perfil: ''
@@ -31,12 +31,9 @@ export class LoginService {
 
 
   constructor(private httpClient: HttpClient, private router: Router ) {
-    console.log("login service")
-
   }
 
   ngOnInit(){
-    console.log("login service")
   }
 
   login(user: Login) {

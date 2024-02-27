@@ -36,6 +36,10 @@ export const routes: Routes = [
         canActivate:[authorizedGuard],
         children: [
             {
+                path: '',
+                component: HomeComponent
+            },
+            {
                 path: 'clients',
                 component: ClientsComponent
             },
@@ -153,6 +157,10 @@ export const routes: Routes = [
                 path: 'projetoTarefa/:id',
                 component: ProjetoTarefaComponent
 
+            },
+            {
+                path: '**',
+                component: HomeComponent
             }
 
         ]

@@ -13,6 +13,7 @@ export class ProjectService {
   constructor(private httpClient: HttpClient) { }
 
   registerProject(newProject: CreateProject) {
+    console.log('servicePROJECT');
     console.log(newProject);
     return this.httpClient.post<CreateProject>(this.url, newProject)
   }

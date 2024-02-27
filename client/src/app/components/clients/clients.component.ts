@@ -13,7 +13,7 @@ import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, FormsModule, CommonModule,RouterLink],
+  imports: [FormsModule, HttpClientModule, FormsModule, CommonModule, RouterLink],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.scss'
 })
@@ -33,20 +33,15 @@ export class ClientsComponent {
         .pipe(
           catchError(err => {
             this.error$.next(true)
-
-            setTimeout(() => {
-
-              if (err.statusText === "Unauthorized") {
-                alert("Seu iToken foi expirado! Realize o login novamente")
-                this.loginService.deslogar();
-              }
-
-            }, 500);
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
             return of();
           })
         );
-        
-    }, 3000);
+
+    }, 1000);
     // this.error$.next(true)
 
   }

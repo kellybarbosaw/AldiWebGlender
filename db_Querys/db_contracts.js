@@ -10,13 +10,14 @@ async function selectContracts() {
 }
 async function selectContractID(id) {
     const conn = await connect();
-    const client = await conn.query('SELECT * FROM AVENDACOMERCIAL WHERE IDVENDA = ?', id);
-    return client;
+    // const client = await conn.query('SELECT * FROM AVENDACOMERCIAL WHERE IDVENDA = ?', id);
+    const contract = await conn.query('SELECT *,Z.NOME as NOMECLIENTE FROM AVENDACOMERCIAL A INNER JOIN ZCLIENTE Z ON A.IDCLIENTE = Z.IDCLIENTE WHERE IDVENDA = ?', id);
+    return contract;
 };
 async function selectContractClient(id) {
     const conn = await connect();
-    const [client] = await conn.query('SELECT * FROM AVENDACOMERCIAL WHERE IDCLIENTE = ?', id);
-    return client;
+    const [contract] = await conn.query('SELECT * FROM AVENDACOMERCIAL WHERE IDCLIENTE = ?', id);
+    return contract;
 };
 async function insertContract(contract) {
     const conn = await connect();
