@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormatsService } from '../../services/formats.service';
 import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
@@ -34,7 +35,7 @@ export class UsuarioComponent {
   }
   event = "Cadastrar"
 
-  constructor(private usuarioService: UsuariosService, private router: Router, private route: ActivatedRoute) {
+  constructor(private usuarioService: UsuariosService, private router: Router, private route: ActivatedRoute,private formatService: FormatsService) {
 
     if (this.route.snapshot.params['event'] === "new") {
       this.event = "Cadastrar"
@@ -47,11 +48,10 @@ export class UsuarioComponent {
             this.User.nome = data.NOME,
             this.User.ativo = data.ATIVO,
             this.User.perfil = data.PERFIL,
-            this.User.datacriacao = data.DATACRIACAO,
-            this.User.dataalteracao = data.DATAALTERACAO,
+            this.User.datacriacao = this.formatService.format(data.DATACRIACAO!,"datacriacao","dateTime"),
+            this.User.dataalteracao = this.formatService.format(data.DATAALTERACAO!,"dataalteracao","dateTime"),
             this.User.usuariocriacao = data.USUARIOCRIACAO,
             this.User.usuarioalteracao = data.USUARIOALTERACAO,
-            this.User.senha = data.SENHA,
             this.User.email = data.EMAIL
         })
       this.event = "Editar"
@@ -63,10 +63,11 @@ export class UsuarioComponent {
   registerUser() {
     if (this.event === 'Cadastrar') {
 
-      this.User.datacriacao = this.dadosFicticios.dtcriacao,
-      this.User.dataalteracao = this.dadosFicticios.dtmodificacao,
-      this.User.usuariocriacao = this.dadosFicticios.usuariocriacao,
-      this.User.usuarioalteracao = this.dadosFicticios.usuarioalteracao
+      this.User.datacriacao = this.formatService.dateNow(),
+      this.User.dataalteracao = this.formatService.dateNow(),
+      this.User.usuariocriacao = localStorage.getItem('user')!,
+      this.User.usuarioalteracao = localStorage.getItem('user')!
+
 
       this.usuarioService.registerUser({
         usuario: this.User.usuario,
@@ -83,12 +84,9 @@ export class UsuarioComponent {
 
     }else if (this.event === 'Editar') {
       alert("editar")
-      this.User.datacriacao = this.dadosFicticios.dtcriacao,
-      this.User.dataalteracao = this.dadosFicticios.dtmodificacao,
-      this.User.usuariocriacao = this.dadosFicticios.usuariocriacao,
-      this.User.usuarioalteracao = this.dadosFicticios.usuarioalteracao
+      this.User.dataalteracao = this.formatService.dateNow(),
+      this.User.usuarioalteracao = localStorage.getItem('user')!
 
-      
       this.usuarioService.editUser(this.User).subscribe(()=>{
         this.router.navigate([`/user/usuarios`]) 
       })

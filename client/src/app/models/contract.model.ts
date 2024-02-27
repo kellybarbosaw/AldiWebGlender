@@ -15,7 +15,8 @@ export interface Contract{
     DATAALTERACAO: string,
 
     USUARIOCRIACAO: string,
-    USUARIOALTERACAO: string
+    USUARIOALTERACAO: string,
+    NOMECLIENTE: string
 }
 export interface CreateContract{
     idvenda?: number,

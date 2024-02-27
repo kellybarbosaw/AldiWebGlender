@@ -33,6 +33,7 @@ export class ContratoComponent {
 
     usuariocriacao: '',
     usuarioalteracao: '',
+    nomeCliente:''
   }
   projectClient$ = new Observable<Project[]>();
 
@@ -50,6 +51,7 @@ export class ContratoComponent {
         console.log(data);
         this.contrato.idvenda = data.IDVENDA!;
         this.contrato.idcliente = data.IDCLIENTE;
+        this.contrato.nomeCliente = data.NOMECLIENTE;
         this.contrato.descricaovenda = data.DESCRICAOVENDA;
         this.contrato.statusvenda = data.STATUSVENDA;
         this.contrato.idprojeto = data.IDPROJETO!;

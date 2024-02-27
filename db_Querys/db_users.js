@@ -26,8 +26,8 @@ async function insertUser(user) {
 }
 async function updateUser(user, data) {
     const conn = await connect();
-    const sql = 'UPDATE ZUSUARIO SET NOME=?, ATIVO=?, PERFIL=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, SENHA=?, EMAIL=? WHERE USUARIO = ?';
-    const values = [data.nome, data.ativo, data.perfil, data.datacriacao, data.dataalteracao, data.usuariocriacao, data.usuarioalteracao, data.senha, data.email, user];
+    const sql = 'UPDATE ZUSUARIO SET NOME=?, ATIVO=?, PERFIL=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, EMAIL=? WHERE USUARIO = ?';
+    const values = [data.nome, data.ativo, data.perfil, data.datacriacao, data.dataalteracao, data.usuariocriacao, data.usuarioalteracao, data.email, user];
     return await conn.query(sql, values);
 
 }

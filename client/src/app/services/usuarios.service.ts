@@ -19,6 +19,7 @@ export class UsuariosService {
   }
 
   registerUser(newUser: CreateUser) {
+    console.log(newUser)
     return this.httpClient.post<CreateUser>(`${this.url}/register`, newUser)
   }
 

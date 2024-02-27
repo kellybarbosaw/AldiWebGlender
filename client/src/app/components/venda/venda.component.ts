@@ -18,11 +18,6 @@ import { CommonModule } from "@angular/common";
 })
 export class VendaComponent {
 
-  date:Date = new Date();
-
-  datenow = '2024-01-16';
-
-
   contrato = {
     idvenda: 0,
     idcliente: 0,
@@ -35,11 +30,11 @@ export class VendaComponent {
     dtcontrato: '',
     dtassinatura: '',
     dtconclusao: '',
-    dtcriacao: this.datenow,
-    dtalteracao: this.datenow,
+    dtcriacao: '',
+    dtalteracao: '',
 
-    usuariocriacao: 'usuario logado',
-    usuarioalteracao: 'usuario logado',
+    usuariocriacao: '',
+    usuarioalteracao: '',
   }
   event = 'Cadastrar';
 
@@ -69,31 +64,30 @@ export class VendaComponent {
         this.contrato.dtcontrato = this.formatService.format( data.DTCONTRATO,"dtcontrato","date");
         this.contrato.dtassinatura = this.formatService.format( data.DTASSINATURA,"dtassinatura","date");
         this.contrato.dtconclusao =this.formatService.format( data.DTCONCLUSAO,"dtconclusao","date");
-        this.contrato.dtalteracao =this.formatService.format( data.DATAALTERACAO,"dtalteracao","date");
-    
+
+        this.contrato.dtalteracao =this.formatService.format( data.DATAALTERACAO,"dtalteracao","dateTime");
+        this.contrato.dtcriacao = this.formatService.format( data.DATACRIACAO,null,"dateTime");
         this.contrato.usuariocriacao = data.USUARIOCRIACAO;
         this.contrato.usuarioalteracao = data.USUARIOALTERACAO;
 
         // const datepipe: DatePipe = new DatePipe('short') ;
         // let formattedDate = datepipe.transform(data.dtconclusao, 'dd-MMM-YYYY HH:mm:ss');
         // console.log(formattedDate)
-
-      
-
       })
 
     } else {
       alert("algo deu errado")
     }
-
-
-
-
   }
 
   registerContract() {
 
     if (this.event === 'Cadastrar') {
+      this.contrato.dtcriacao = this.formatService.dateNow(),
+      this.contrato.dtalteracao = this.formatService.dateNow(),
+      this.contrato.usuariocriacao = localStorage.getItem('user')!,
+      this.contrato.usuarioalteracao = localStorage.getItem('user')!,
+
       this.contractService.registerContract({
         idcliente: this.contrato.idcliente!,
         descricaovenda: this.contrato.descricaovenda,
@@ -111,9 +105,9 @@ export class VendaComponent {
       }).subscribe((data) => { this.router.navigate([`/user/client360/${this.contrato.idcliente}`]) })
     } else if (this.event === 'Editar') {
 
+      this.contrato.dtalteracao = this.formatService.dateNow(),
+      this.contrato.usuarioalteracao = localStorage.getItem('user')!,
 
-      //alteração nas datas para realizar edição - ainda tem que formatar data
-      this.contrato.dtalteracao= '2025-05-25',
       this.contractService.editContract(this.contrato).subscribe(()=>{
         this.router.navigate([`/user/contrato/${this.contrato.idvenda}`]) 
       })

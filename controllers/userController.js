@@ -120,7 +120,6 @@ const userController = {
             dataalteracao: req.body.dataalteracao,
             usuariocriacao: req.body.usuariocriacao,
             usuarioalteracao: req.body.usuarioalteracao,
-            senha: bcrypt.hashSync(req.body.senha,salt),
             email: req.body.email
         })
 

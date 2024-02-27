@@ -67,11 +67,7 @@ export class ClientComponent {
   }
 
   dadosFicticios = {
-    dtcriacao: '2024-01-29 12:26:00',
-    dtmodificacao: '2024-01-29 12:26:00',
-    usuariocriacao: 'usuario teste criacao',
-    usuarioalteracao: 'usuario teste alteracao',
-    tipocliente: '1'
+    tipocliente: 'P'
   }
   event = 'Cadastrar';
 
@@ -151,6 +147,7 @@ export class ClientComponent {
   registerClient() {
 
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
+
     if (!this.client.cgccfo || !this.client.nome || !this.client.nomefantasia ||
       !this.client.inscrestadual || !this.client.inscrmunicipal || !this.client.telefone ||
       !this.client.email || !this.client.rua || !this.client.numero ||
@@ -165,10 +162,10 @@ export class ClientComponent {
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === "Cadastrar") {
 
-      this.client.dtcriacao = this.dadosFicticios.dtcriacao,
-        this.client.dtmodificacao = this.dadosFicticios.dtmodificacao,
-        this.client.usuariocriacao = this.dadosFicticios.usuariocriacao,
-        this.client.usuarioalteracao = this.dadosFicticios.usuarioalteracao,
+        this.client.dtcriacao = this.formatService.dateNow(),
+        this.client.dtmodificacao = this.formatService.dateNow(),
+        this.client.usuariocriacao = localStorage.getItem('user')!,
+        this.client.usuarioalteracao = localStorage.getItem('user')!,
         this.client.tipocliente = this.dadosFicticios.tipocliente
 
       this.clientService.registerClient({
@@ -218,10 +215,11 @@ export class ClientComponent {
         usuarioalteracao: this.client.usuarioalteracao,
         tipocliente: this.client.tipocliente,
       }).subscribe((data) => { this.router.navigate(['/user/clients']) })
+
     } else if (this.event === "Editar") {
 
-      this.client.dtcriacao = this.dadosFicticios.dtcriacao,
-        this.client.dtmodificacao = this.dadosFicticios.dtmodificacao,
+        this.client.dtmodificacao = this.formatService.dateNow(),
+        this.client.usuarioalteracao = localStorage.getItem('user')!,
 
         this.clientService.editClient({
           idcliente: this.client.idcliente,
@@ -273,7 +271,6 @@ export class ClientComponent {
         }).subscribe(() => {
           this.router.navigate(['/user/clients'])
         })
-
     } else {
       alert("Error!")
     }

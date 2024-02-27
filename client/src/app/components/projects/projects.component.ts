@@ -37,13 +37,6 @@ export class ProjectsComponent {
       valorprojeto: 0,
       valorconsumido: 0
     }
-
-    dadosFicticios = {
-      dtcriacao: '2024-01-29 12:26:00',
-      dtmodificacao: '2024-01-29 12:26:00',
-      usuariocriacao: 'usuario teste criacao',
-      usuarioalteracao: 'usuario teste alteracao',
-    }
   event = 'Cadastrar';
 
 
@@ -66,8 +59,8 @@ export class ProjectsComponent {
         this.Project.titulo = data.TITULO,
         this.Project.descricao = data.DESCRICAO,
         this.Project.idcliente = data.IDCLIENTE,
-        this.Project.dtcriacao = data.DTCRIACAO,
-        this.Project.dtalteracao = data.DTALTERACAO,
+        this.Project.dtcriacao = this.formatService.format(data.DTCRIACAO!,null,"dateTime"),
+        this.Project.dtalteracao = this.formatService.format(data.DTALTERACAO!,null,"dateTime"),
         this.Project.usuariocriacao = data.USUARIOCRIACAO,
         this.Project.usuarioalteracao = data.USUARIOALTERACAO,
         this.Project.statusprojeto = data.STATUSPROJETO,
@@ -93,10 +86,10 @@ export class ProjectsComponent {
   registerProject () { 
     if (this.event === 'Cadastrar') {
 
-      this.Project.dtcriacao = this.dadosFicticios.dtcriacao,
-      this.Project.dtalteracao = this.dadosFicticios.dtmodificacao,
-      this.Project.usuariocriacao = this.dadosFicticios.usuariocriacao,
-      this.Project.usuarioalteracao = this.dadosFicticios.usuarioalteracao,
+      this.Project.dtcriacao = this.formatService.dateNow(),
+      this.Project.dtalteracao = this.formatService.dateNow(),
+      this.Project.usuariocriacao = localStorage.getItem('user')!,
+      this.Project.usuarioalteracao = localStorage.getItem('user')!,
 
       this.projectService.registerProject({
         titulo: this.Project.titulo,
@@ -117,17 +110,12 @@ export class ProjectsComponent {
         valorconsumido: this.Project.valorconsumido
       }).subscribe((data) => { this.router.navigate([`/user/contrato/${this.Project.idvenda}`]) })
     } else if (this.event === 'Editar') {
-
-      this.Project.dtcriacao = this.dadosFicticios.dtcriacao,
-      this.Project.dtalteracao = this.dadosFicticios.dtmodificacao,
-      this.Project.usuariocriacao = this.dadosFicticios.usuariocriacao,
-      this.Project.usuarioalteracao = this.dadosFicticios.usuarioalteracao,
+      this.Project.dtalteracao = this.formatService.dateNow(),
+      this.Project.usuarioalteracao = localStorage.getItem('user')!,
 
       this.projectService.editProject(this.Project).subscribe(()=>{
         this.router.navigate([`/user/contract/projeto/${this.Project.idprojeto}`]) 
       })
-
-
     } else {
       alert('algo deu errado')
     }
