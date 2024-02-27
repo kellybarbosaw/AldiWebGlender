@@ -1,8 +1,16 @@
+<div class="panel">
+
+    <h2 class="fonte"><b>PESSOA</b><hr></h2>
+    <div class="btn-group">
+        <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA 1</button>
+        <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA 2</button>
+        <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA 3</button>
+        <button class="btn btn-light" (click)="mudarEtapa(4)">ETAPA 4</button>
+    </div><br><br><br>
+
 <div class="customer-pessoa bg-light">
     <div class="formCadastro d-flex justify-content-left ">
-
         <form class="form d-flex flex-column justify-content-between">
-            <h2 class="fonte">PESSOA</h2><hr>
             <h5 class="titleStage">ETAPA: {{stage}}</h5>
             <section class="stage_1 currentBody spaceForm current ">
                 <div class="nextSection">
@@ -11,23 +19,22 @@
                         <input [(ngModel)]="pessoa.idpessoa" type="text" class="form-control" 
                         disabled name="idpessoa">
                     </div>
-                     -->
-                <div class="form-group d-flex flex-row">
-                    <div class="form-group espaco">
+                    -->
+                    <div class="form-group mb-3">
                         <label>Nome:</label>
-                        <div class="flex-grow-1">
+                        <div class="form-group mb-3">
                             <input [(ngModel)]="pessoa.nome" type="text" class="form-control"
-                                placeholder="Nome" name="nome" style="width: 815px">
+                                placeholder="Nome" name="nome">
                         </div>
                     </div>
 
-                    <div class="flex-grow-1 espaco espacoCampo">
+                    <div class="form-group mb-3">
                         <label>CPF:</label>
                         <input [(ngModel)]="pessoa.cpf" type="text" class="form-control" placeholder="CPF"
                             name="cpf" style="width: 400px">
                     </div>
-                </div>
-                    <div class="form-group espaco">
+
+                    <div class="form-group mb-3">
                         <label>Data de Nascimento:</label>
                         <input [(ngModel)]="pessoa.dtnascimento" type="date" class="form-control"
                             placeholder="Data de Nascimento" name="dtnascimento" style="width: auto">
@@ -124,4 +131,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

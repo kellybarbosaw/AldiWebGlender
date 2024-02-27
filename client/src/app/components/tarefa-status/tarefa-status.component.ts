@@ -19,9 +19,9 @@ export class TarefaStatusComponent {
     idstatus: '',
     titulo: '',
     descricao:'',
-    ativo: 0,
-    concluido: 0,
-    cancelado: 0,
+    ativo: 2,
+    concluido: 4,
+    cancelado: 6,
     datacriacao: '',
     dataalteracao: '',
     usuariocriacao:'',
@@ -64,7 +64,16 @@ event = 'Cadastrar';
     }
   }
 
-
+  ngOnInit() {
+    setTimeout(() => {
+      if (typeof document !== 'undefined') {
+        // alert("teste NG ONinit")
+        this.formatService.ativo(this.tarefaStatus.ativo)
+        this.formatService.concluido(this.tarefaStatus.concluido)
+        this.formatService.cancelado(this.tarefaStatus.cancelado)
+      }
+    }, 100);
+  }
   registerTarefa() {
     /*
     console.log(this.tarefaStatus.titulo)

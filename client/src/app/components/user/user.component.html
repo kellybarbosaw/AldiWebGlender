@@ -8,14 +8,14 @@
 
 
             <nav class="dashboard-nav-list">
-                <a href="/user" class="dashboard-nav-item">Home</a>
+                <a [routerLink]="['/user/home']" class="dashboard-nav-item">Home</a>
 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#clientCollapse">Clientes<i class="bi bi-arrow-down-short"></i>
                     </a>
                     <div class="collapse" id="clientCollapse">
-                        <a class="dashboard-nav-item">Visão 360</a>
+                        <a [routerLink]="['/user/client360']" class="dashboard-nav-item">Visão 360</a>
                         <a href="/user/client" class="dashboard-nav-item">Novo Cliente</a>
                         <a [routerLink]="['/user/clients']" class="dashboard-nav-item">Todos Clientes</a>
                     </div>
@@ -26,8 +26,6 @@
                 <a href="/user/tarefaStatus" class="dashboard-nav-item">Tarefa Status</a>
                 <a href="/user/apontamento" class="dashboard-nav-item">Apontamento</a>
                 <a href="/user/projetoTarefa" class="dashboard-nav-item">Projeto Tarefa</a>
-
-                <a class="dashboard-nav-item">Apontamentos</a>
 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
