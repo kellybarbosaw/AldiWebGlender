@@ -58,8 +58,8 @@ export class ApontamentoComponent {
             this.apontamento.dtcriacao = this.formatService.formatDate(data.DTCRIACAO!);
             this.apontamento.dtmodificacao = this.formatService.formatDate(data.DTMODIFICACAO!);
 
-            this.apontamento.horainicio = this.formatService.format(data.HORAINICIO, "horainicio", "time");
-            this.apontamento.horafinal = this.formatService.format(data.HORAFINAL, "horafinal", "time");
+            this.apontamento.horainicio = this.formatService.formatTime(data.HORAINICIO);
+            this.apontamento.horafinal = this.formatService.formatTime(data.HORAFINAL);
         })
       this.event = "Editar"
     }

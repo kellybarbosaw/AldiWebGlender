@@ -10,7 +10,8 @@ export interface Recurso{
     usuariocriacao: string,
     usuarioalteracao: string,
     ativo: number,
-    valorhr: number
+    valorhr: number,
+    nomepessoa: string
     
     }
     

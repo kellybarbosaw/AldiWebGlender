@@ -42,11 +42,24 @@ form{
 
 .titleStage{
     margin-bottom: 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+    font-weight: bold;
 }
 
 .btn-stage{
-    width: 150px;
+    width: 100px;
+    margin: 0%;
+    margin-top: 15px;
 }
-
-
-
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+.espacoCampo{
+    padding-inline: 20px;
+}
+.espaco{
+    padding-block: 5px;
+}

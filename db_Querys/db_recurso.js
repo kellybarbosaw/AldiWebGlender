@@ -10,7 +10,7 @@ async function selectZRecursos(){
 }
 async function selectZRecurso(id){
     const conn = await connect();
-    const recurso = await conn.query('SELECT * FROM ZRECURSOS WHERE IDRECURSO = ?',id);
+    const recurso = await conn.query('SELECT *, P.NOME AS NOMEPESSOA FROM ZRECURSOS R INNER JOIN ZPESSOA P ON R.IDPESSOA = P.IDPESSOA  WHERE IDRECURSO = ?',id);
     return recurso;
 }
 async function selectZRecursoTipo(tipo, idpessoa){
@@ -44,10 +44,10 @@ async function updateZRecurso(id, recurso){
 
         recurso.idpessoa,
         recurso.tiporecurso,
-        recurso.datainicio.format('dd/MM/yyyy'),
-        recurso.datafim.format('dd/MM/yyyy'),
-        recurso.datacriacao.format('dd/MM/yyyy'),
-        recurso.dataalteracao.format('dd/MM/yyyy'),
+        recurso.datainicio,
+        recurso.datafim,
+        recurso.datacriacao,
+        recurso.dataalteracao,
         recurso.usuariocriacao,
         recurso.usuarioalteracao,
         recurso.ativo,

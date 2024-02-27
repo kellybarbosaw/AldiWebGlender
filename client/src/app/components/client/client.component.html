@@ -1,80 +1,70 @@
 <div class="panel">
 
-    <div class="customer-client bg-light">
-        <div class="d-flex flex-column justify-content-between align-items-start">
+    <h2 class="fonte"><b>NOVO CLIENTE</b></h2><hr>
+    <div class="btn-group">
+        <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA 1</button>
+        <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA 2</button>
+        <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA 3</button>
+        <button class="btn btn-light" (click)="mudarEtapa(4)">ETAPA 4</button>
+    </div><br>
 
-            <div>
-                <div>
-                    <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA 1</button>
-                </div>
-                <div>
-                    <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA 2</button>
-                </div>
-                <div>
-                    <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA 3</button>
-                </div>
-                <div>
-                    <button class="btn btn-light" (click)="mudarEtapa(4)">ETAPA 4</button>
-                </div>
-
-            </div>
-            <div>
-                <a href="/user/clients" class="btn btn-danger">Sair</a>
-            </div>
-
-        </div>
+    <div class="customer-client bg-light">        
         <div class="formCadastro d-flex justify-content-center overflow-auto" data-bs-spy="scroll">
 
             <form class="form d-flex flex-column justify-content-between">
-                <H4 class="titleStage">ETAPA: {{stageName}}</H4>
+                <H5 class="titleStage">ETAPA: {{stageName}}</H5>
                 <section class="stage_1 currentBody spaceForm current ">
                     <div class="nextSection">
                         <!-- <h6>GERAL</h6> -->
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>ID_Cliente</label>
                             <input [(ngModel)]="client.idcliente" type="text" class="form-control" disabled
                                 name="idclient">
                         </div>
-                        <div class="form-group d-flex ">
-                            <label>Ativo</label>
-                            <input type="radio" [(ngModel)]="client.ativo" id="ativo" name="ativo" value=1>
-                            <label>Desativo</label>
-                            <input type="radio" [(ngModel)]="client.ativo" id="desativo" name="ativo" value=2>
+                        <div class="form-group mb-3">
+                            <label>Situação do usuário:</label>
+                            <label style="display: inline-block;">Ativo</label>
+                            <input type="radio" [(ngModel)]="client.ativo" id="ativo" name="ativo" value=1 style="display: inline-block; width: 5%;">
+                            
+                            <label style="display: inline-block;">Desativo</label>
+                            <input type="radio" [(ngModel)]="client.ativo" id="desativo" name="desativo" value=2 style="display: inline-block; width: 5%;">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Pessoa Física ou Juridica</label>
                             <input [(ngModel)]="client.pessoafisoujur" type="text" class="form-control"
                                 name="pessoafisoujur">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>CNPJ/CPF</label>
-                            <div class="d-flex ">
+                            <div class="d-flex mb-3">
                                 <input [(ngModel)]="client.cgccfo" type="text" class="form-control"
                                     placeholder="00.000.000/0000-00" name="cnpj">
+                                </div>
                                 <div class="btn btn-dark">Buscar</div>
-                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Razão Social:</label>
                             <input [(ngModel)]="client.nome" type="text" class="form-control" placeholder="Razão Social"
                                 name="nome">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Nome Fantasia:</label>
                             <input [(ngModel)]="client.nomefantasia" type="text" class="form-control"
                                 placeholder="Nome Fantasia" name="nomefantasia">
                         </div>
-                        <div class="form-group">
+                    <div class="form-group d-flex flex-row">
+                        <div class="form-group mb-3">
                             <label>I.E:</label>
                             <input [(ngModel)]="client.inscrestadual" type="text" class="form-control"
                                 placeholder="Inscrição Estadual" name="inscrEstadual">
 
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3 espacoCampo">
                             <label>I.M:</label>
                             <input [(ngModel)]="client.inscrmunicipal" type="text" class="form-control"
                                 placeholder="Inscrição Municipal" name="inscrmunicipal">
                         </div>
+                    </div>
                         <div class="form-group">
                             <label>PAGREC:</label>
                             <input [(ngModel)]="client.pagrec" type="text" class="form-control" placeholder="PAGREC"
@@ -86,68 +76,70 @@
 
                     <div class="d-flex justify-content-between w-100 mt-2">
                         <div></div>
-                        <div class="btn btn-success btn-stage" (click)="mudarEtapa(2)">Next</div>
+                        <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(2)">Próximo</div>
                     </div>
                 </section>
 
                 <section class="stage_2 currentBody spaceForm ">
                     <div class="nextSection">
                         <!-- <h6>ENDEREÇO</h6> -->
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.rua" type="text" class="form-control" placeholder="Rua"
                                 name="rua">
                         </div>
-                        <div class="form-group">
+                    <div class="form-group d-flex flex-row">
+                        <div class="form-group mb-3">
                             <label>Número:</label>
                             <input [(ngModel)]="client.numero" type="text" class="form-control" placeholder="Nº"
                                 name="numero">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3 espacoCampo">
                             <label>Complemento:</label>
                             <input [(ngModel)]="client.complemento" type="text" class="form-control"
                                 placeholder="Complemento" name="complemento">
                         </div>
-                        <div class="form-group">
+                    </div>
+                        <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairro" type="text" class="form-control" placeholder="Bairro"
                                 name="bairro">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Cidade:</label>
-                            <input [(ngModel)]="client.cidade" type="text" class="form-control" placeholder="cidade"
+                            <input [(ngModel)]="client.cidade" type="text" class="form-control" placeholder="Cidade"
                                 name="cidade">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Estado:</label>
                             <input [(ngModel)]="client.codetd" type="text" class="form-control" placeholder="UF"
                                 name="estado">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>CEP:</label>
                             <input [(ngModel)]="client.cep" type="text" class="form-control" placeholder="XX XXX-XXX"
                                 name="cep">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>País:</label>
                             <input [(ngModel)]="client.pais" type="text" class="form-control" placeholder="País"
                                 name="pais">
                         </div>
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 form-group mb-3">
                             <label>E-mail:</label>
                             <input [(ngModel)]="client.email" type="text" class="form-control" placeholder="E-mail"
                                 name="email">
                         </div>
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone</label>
                             <input [(ngModel)]="client.telefone" type="text" class="form-control"
                                 placeholder="(99) 9999-9999" name="telefone">
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between w-100 mt-2">
-                        <div class="btn btn-success btn-stage" (click)="mudarEtapa(1)">Previus</div>
-                        <div class="btn btn-success btn-stage" (click)="mudarEtapa(3)">Next</div>
+                    <div class="d-flex justify-content-between w-100">
+                        <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(1)">Voltar</div>
+                        <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(3)">Próximo</div>
                     </div>
                 </section>
 
@@ -155,58 +147,61 @@
                     <div class="nextSection">
 
                         <!-- <h6>ENTREGA</h6> -->
-                        <div class="form-group">
+                        
+                        <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.ruaentrega" type="text" class="form-control"
                                 placeholder="Rua Entrega" name="ruaentrega    ">
                         </div>
-                        <div class="form-group">
+                    <div class="form-group d-flex flex-row">
+                        <div class="form-group mb-3">
                             <label>Número:</label>
                             <input [(ngModel)]="client.numeroentrega" type="text" class="form-control"
                                 placeholder="Nº Entrega" name="numeroentrega">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3 espacoCampo">
                             <label>Complemento:</label>
                             <input [(ngModel)]="client.complementoentrega" type="text" class="form-control"
                                 placeholder="Complemento Entrega" name="complementopgto">
                         </div>
-                        <div class="form-group">
+                    </div>
+                        <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairroentrega" type="text" class="form-control"
                                 placeholder="Bairro Entrega" name="bairroentrega">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Cidade:</label>
                             <input [(ngModel)]="client.cidadeentrega" type="text" class="form-control"
                                 placeholder="cidade Entrega" name="cidadeentrega">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Estado:</label>
                             <input [(ngModel)]="client.codetdentrega" type="text" class="form-control"
                                 placeholder="UF Entrega" name="codetdentrega">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>CEP Entrega:</label>
                             <input [(ngModel)]="client.cepentrega" type="text" class="form-control"
                                 placeholder="XX XXX-XXX" name="cepentrega">
                         </div>
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone Entrega</label>
                             <input [(ngModel)]="client.telefoneentrega" type="text" class="form-control"
                                 placeholder="(99) 9999-9999" name="telefoneentrega">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Municipio:</label>
                             <input [(ngModel)]="client.codmunicipioentrega" type="text" class="form-control"
                                 placeholder="UF Entrega" name="codmunicipioentrega">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>País:</label>
                             <input [(ngModel)]="client.paisentrega" type="text" class="form-control"
                                 placeholder="País Entrega" name="paisentrega">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>E-mail:</label>
                             <input [(ngModel)]="client.emailentrega" type="text" class="form-control"
                                 placeholder="E-mail para Entrega" name="emailentrega">
@@ -214,8 +209,8 @@
                     </div>
 
                     <div class="d-flex justify-content-between w-100 mt-2">
-                        <div class="btn btn-success btn-stage" (click)="mudarEtapa(2)">Previus</div>
-                        <div class="btn btn-success btn-stage" (click)="mudarEtapa(4)">Next</div>
+                        <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(2)">Voltar</div>
+                        <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(4)">Próximo</div>
                     </div>
                 </section>
 
@@ -223,58 +218,60 @@
                     <div class="nextSection">
 
                         <!-- <h6>PAGAMENTO</h6> -->
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.ruapgto" type="text" class="form-control"
                                 placeholder="Rua Pagamento" name="ruapgto">
                         </div>
-                        <div class="form-group">
+                    <div class="form-group d-flex flex-row">
+                        <div class="form-group mb-3">
                             <label>Número:</label>
                             <input [(ngModel)]="client.numeropgto" type="text" class="form-control"
                                 placeholder="Nº Pagamento" name="numeropgto">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3 espacoCampo">
                             <label>Complemento:</label>
                             <input [(ngModel)]="client.complementopgto" type="text" class="form-control"
                                 placeholder="Complemento Pagamento" name="complementopgto">
                         </div>
-                        <div class="form-group">
+                    </div>
+                        <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairropgto" type="text" class="form-control"
                                 placeholder="Bairro Pagamento" name="bairropgto">
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Cidade:</label>
                             <input [(ngModel)]="client.cidadepgto" type="text" class="form-control"
                                 placeholder="cidade Pagamento" name="cidadepgto">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Estado:</label>
                             <input [(ngModel)]="client.codetdpgto" type="text" class="form-control"
                                 placeholder="UF Pagamento" name="codetdpgto">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>CEP Pagamento:</label>
                             <input [(ngModel)]="client.ceppgto" type="text" class="form-control"
                                 placeholder="XX XXX-XXX" name="ceppgto">
                         </div>
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone Pagamento:</label>
                             <input [(ngModel)]="client.telefonepgto" type="text" class="form-control"
                                 placeholder="(99) 9999-9999" name="telefone">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>Municipio:</label>
                             <input [(ngModel)]="client.codmunicipiopgto" type="text" class="form-control"
                                 placeholder="UF Pagamento" name="codmunicipiopgto">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>País:</label>
                             <input [(ngModel)]="client.paispgto" type="text" class="form-control"
                                 placeholder="País pagamento" name="paispgto">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label>E-mail:</label>
                             <input [(ngModel)]="client.emailpgto" type="text" class="form-control"
                                 placeholder="E-mail para Pagamentos" name="emailpgto">
@@ -282,13 +279,16 @@
                     </div>
 
                     <div class="d-flex justify-content-between w-100 mt-2">
-                        <div class="btn btn-success btn-stage" (click)="mudarEtapa(3)">Previus</div>
-                        <div class="btn btn-primary btn-stage" (click)="registerClient()">{{event}}</div>
+                        <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(3)">Voltar</div>
+                        <div class="btn btn-primary btn-stage mb-3" (click)="registerClient()">{{event}}</div>
                     </div>
                 </section>
 
 
             </form>
+            <div>
+                <a href="/user/clients" class="btn btn-danger btn-stage">Sair</a>
+            </div>
         </div>
     </div>
 </div>

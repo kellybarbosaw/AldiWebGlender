@@ -37,7 +37,7 @@ export class FormatsService {
       }
     }
     return dateTimeFormat;
-  }
+  };
 
   formatDate(time: string) {
     function formatMes(i: number) {
@@ -112,15 +112,50 @@ export class FormatsService {
         checkAtivo.checked = false;
       }
     }
-  }
+  };
+
+  concluido(concluido: number){
+
+    if (typeof document !== 'undefined') {
+      var checkConcluido = document.getElementById('concluido') as HTMLInputElement;
+      var checknConcluido = document.getElementById('nconcluido') as HTMLInputElement;
+
+      if (concluido === 3) {
+        checkConcluido.checked = true;
+      } else if (concluido === 4) {
+        checknConcluido.checked = true;
+      } else {
+        checknConcluido.checked = false;
+        checkConcluido.checked = false;
+      }
+    }
+  };
+
+  cancelado(cancelado:number){
+
+    if (typeof document !== 'undefined') {
+      var checkCancelado = document.getElementById('cancelado') as HTMLInputElement;
+      var checknCancelado = document.getElementById('ncancelado') as HTMLInputElement;
+
+      if (cancelado === 5) {
+        checkCancelado.checked = true;
+      } else if (cancelado === 6) {
+        checknCancelado.checked = true;
+      } else {
+        checknCancelado.checked = false;
+        checkCancelado.checked = false;
+      }
+    }
+  };
 
   dateNow(): string {
     var date = new Date(Date.now())
     // const options = { timeZone: 'America/Sao_Paulo' };
     // const dataHoraBrasil = date.toLocaleString('pt-BR', options);
-
+  
     var dateFormat = this.format(date.toString(), null, 'dateTime')
-
+  
     return dateFormat
-  }
+  };
+
 }
