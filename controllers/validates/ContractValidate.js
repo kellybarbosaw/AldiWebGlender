@@ -1,7 +1,7 @@
 const { allow } = require('@hapi/joi');
 const Joi = require('@hapi/joi');
 
-const regiterValidate = (data) => {
+const registerValidate = (data) => {
 
     const schema = Joi.object({
         idcliente: Joi.number().required(),
@@ -21,7 +21,7 @@ const regiterValidate = (data) => {
     })
     return schema.validate(data);
 }
-const regiterValidateUpdate = (data) => {
+const registerValidateUpdate = (data) => {
 
     const schema = Joi.object({
         idvenda: Joi.number().required(),
@@ -45,5 +45,5 @@ const regiterValidateUpdate = (data) => {
 
 
 
-module.exports.regiterValidate = regiterValidate;
-module.exports.regiterValidateUpdate = regiterValidateUpdate;
+module.exports.registerValidate = registerValidate;
+module.exports.registerValidateUpdate = registerValidateUpdate;

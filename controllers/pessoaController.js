@@ -1,7 +1,7 @@
 const db = require("../db_Querys/db_pessoas");
 const {
-  regiterValidate,
-  regiterValidateUpdate,
+  registerValidate,
+  registerValidateUpdate,
 } = require("./validates/PessoaValidate");
 
 const pessoaController = {
@@ -25,7 +25,9 @@ const pessoaController = {
   },
 
   register: async function (req, res) {
-    const { error } = regiterValidate(req.body);
+    console.log(req.body)
+
+    const { error } = registerValidate(req.body);
     if (error) {
       return res.status(400).send(error.message);
     }
@@ -50,7 +52,11 @@ const pessoaController = {
       nroidentidade: req.body.nroidentidade,
       orgaoemissorident: req.body.orgaoemissorident,
       estadoemissorident: req.body.estadoemissorident,
-      zusuario_usuario: req.body.zusuario_usuario
+      zusuario_usuario: req.body.zusuario_usuario,
+      dtcriacao: req.body.dtcriacao,
+      dtalteracao: req.body.dtalteracao,
+      usuariocriacao: req.body.usuariocriacao,
+      usuarioalteracao: req.body.usuarioalteracao
     });
     try {
       const salvarPessoa = await db.insertZPessoa(novaPessoa);
@@ -61,7 +67,7 @@ const pessoaController = {
   },
 
   update: async function (req, res) {
-    const { error } = regiterValidateUpdate(req.body);
+    const { error } = registerValidateUpdate(req.body);
     if (error) {
       return res.status(400).send(error.message);
     }
@@ -87,7 +93,9 @@ const pessoaController = {
       nroidentidade: req.body.nroidentidade,
       orgaoemissorident: req.body.orgaoemissorident,
       estadoemissorident: req.body.estadoemissorident,
-      zusuario_usuario: req.body.zusuario_usuario
+      zusuario_usuario: req.body.zusuario_usuario,
+      dtalteracao: req.body.dtalteracao,
+      usuarioalteracao: req.body.usuarioalteracao
       
     });
 

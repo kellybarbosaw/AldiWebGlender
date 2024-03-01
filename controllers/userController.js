@@ -2,7 +2,7 @@ const db = require('../db_Querys/db_users');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(15);
 const jwt = require('jsonwebtoken');
-const {loginValidate,regiterValidate} = require('./validates/LoginValidate');
+const {loginValidate,registerValidate} = require('./validates/LoginValidate');
 
 const userController = {
 
@@ -19,7 +19,7 @@ const userController = {
 
     register: async function (req,res){
 
-        const {error} = regiterValidate(req.body)
+        const {error} = registerValidate(req.body)
         if(error){return res.status(400).send(error.message)};
 
         const selectUser = await db.selectUser(req.body.email);
@@ -77,7 +77,7 @@ const userController = {
             return res.status(400).send(user);
         }
 
-        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 600 });
+        const token = jwt.sign({ID_user: selectUser[0][0].USUARIO, perfil: selectUser[0][0].PERFIL }, process.env.TOKEN_SECRET_ACCESS, { expiresIn: 1200 });
         user = {
             'authorization': token,
             'msg':'login autorizado',
@@ -102,7 +102,7 @@ const userController = {
 
     update: async function (req, res) {
 
-        const { error } = regiterValidate(req.body)
+        const { error } = registerValidate(req.body)
         if (error) { return res.status(400).send(error.message) };
 
         const selectUser = await db.selectForUser(req.body.usuario);

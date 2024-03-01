@@ -21,29 +21,7 @@ async function selectZPessoas() {
   async function insertZPessoa(pessoa) {
     const conn = await connect();
     const sql =
-    "INSERT INTO ZPESSOA (NOME, CPF, DTNASCIMENTO, RUA, NUMERO, COMPLEMENTO, BAIRRO, NATURALIDADE, NACIONALIDADE, USUARIO, NROIDENTIDADE, ORGAOEMISSORIDENT, ESTADOEMISSORIDENT, ZUSUARIO_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
-    const values = [
-        pessoa.nome,
-        pessoa.cpf,
-        pessoa.dtnascimento,
-        pessoa.rua,
-        pessoa.numero,
-        pessoa.complemento,
-        pessoa.bairro,
-        pessoa.naturalidade,
-        pessoa.nacionalidade,
-        pessoa.usuario,
-        pessoa.nroidentidade,
-        pessoa.orgaoemissorident,
-        pessoa.estadoemissorident,
-        pessoa.zusuario_usuario
-    ];
-    await conn.query(sql, values);
-  }
-  async function updateZPessoa(id, pessoa) {
-    const conn = await connect();
-    const sql =
-    "UPDATE ZPESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, RUA=?, NUMERO=?, COMPLEMENTO=?, BAIRRO=?, NATURALIDADE=?, NACIONALIDADE=?, USUARIO=?, NROIDENTIDADE=?, ORGAOEMISSORIDENT=?, ESTADOEMISSORIDENT=?, ZUSUARIO_USUARIO=? WHERE IDPESSOA =?;"
+    "INSERT INTO ZPESSOA (NOME, CPF, DTNASCIMENTO, RUA, NUMERO, COMPLEMENTO, BAIRRO, NATURALIDADE, NACIONALIDADE, USUARIO, NROIDENTIDADE, ORGAOEMISSORIDENT, ESTADOEMISSORIDENT, ZUSUARIO_USUARIO, DTCRIACAO, DTALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
     const values = [
         pessoa.nome,
         pessoa.cpf,
@@ -59,6 +37,34 @@ async function selectZPessoas() {
         pessoa.orgaoemissorident,
         pessoa.estadoemissorident,
         pessoa.zusuario_usuario,
+        pessoa.dtcriacao,
+        pessoa.dtalteracao,
+        pessoa.usuariocriacao,
+        pessoa.usuarioalteracao
+    ];
+    await conn.query(sql, values);
+  }
+  async function updateZPessoa(id, pessoa) {
+    const conn = await connect();
+    const sql =
+    "UPDATE ZPESSOA SET NOME=?, CPF=?, DTNASCIMENTO=?, RUA=?, NUMERO=?, COMPLEMENTO=?, BAIRRO=?, NATURALIDADE=?, NACIONALIDADE=?, USUARIO=?, NROIDENTIDADE=?, ORGAOEMISSORIDENT=?, ESTADOEMISSORIDENT=?, ZUSUARIO_USUARIO=?, DTALTERACAO=?, USUARIOALTERACAO=? WHERE IDPESSOA =?;"
+    const values = [
+        pessoa.nome,
+        pessoa.cpf,
+        pessoa.dtnascimento,
+        pessoa.rua,
+        pessoa.numero,
+        pessoa.complemento,
+        pessoa.bairro,
+        pessoa.naturalidade,
+        pessoa.nacionalidade,
+        pessoa.usuario,
+        pessoa.nroidentidade,
+        pessoa.orgaoemissorident,
+        pessoa.estadoemissorident,
+        pessoa.zusuario_usuario,
+        pessoa.dtalteracao,
+        pessoa.usuarioalteracao,
         id
     ];
     return await conn.query(sql, values);

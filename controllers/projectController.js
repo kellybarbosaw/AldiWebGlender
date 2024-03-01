@@ -1,5 +1,5 @@
 const db = require('../db_Querys/db_projects');
-const {regiterValidate,regiterValidateUpdate} = require('./validates/ProjectValidate');
+const {registerValidate,registerValidateUpdate} = require('./validates/ProjectValidate');
 
 
 const projectController = {
@@ -44,7 +44,7 @@ const projectController = {
     register: async function (req,res){
 
 
-        const {error} = regiterValidate(req.body)
+        const {error} = registerValidate(req.body)
         if(error){return res.status(400).send(error.message)};
         
 
@@ -78,7 +78,7 @@ const projectController = {
 
     update: async function (req,res){
 
-        const {error} = regiterValidateUpdate(req.body)
+        const {error} = registerValidateUpdate(req.body)
         if(error){return res.status(400).send(error.message)};
    
         const updateProject = new Object ({

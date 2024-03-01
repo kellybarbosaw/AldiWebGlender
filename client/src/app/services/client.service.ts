@@ -14,16 +14,12 @@ export class ClientService {
 
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
-
-
   registerClient(newClient: CreateClient) {
-    console.log(newClient);
     return this.httpClient.post<CreateClient>(this.url, newClient)
   }
 
   allClients(){
     return this.httpClient.get<Client[]>(this.url)
-    // {headers: this.loginService.constructorHeadres()}
   }
 
   clientCurrent(id:String){

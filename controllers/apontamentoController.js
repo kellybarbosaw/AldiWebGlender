@@ -1,5 +1,5 @@
 const db = require('../db_Querys/db_apontamento');
-const {regiterValidate,regiterValidateUpdate} = require('./validates/ApontamentoValidate');
+const {registerValidate,registerValidateUpdate} = require('./validates/ApontamentoValidate');
 
 
 const apontamentoController = {
@@ -25,7 +25,7 @@ const apontamentoController = {
 
     register: async function (req,res){
 
-        const {error} = regiterValidate(req.body)
+        const {error} = registerValidate(req.body)
         if(error){return res.status(400).send(error.message)};
 
         // const selectApontamento = await db.selectAapontamento(req.body.idprojetotarefa);
@@ -58,7 +58,7 @@ const apontamentoController = {
 
     update: async function (req,res){
         
-        const {error} = regiterValidateUpdate(req.body)
+        const {error} = registerValidateUpdate(req.body)
         if(error){return res.status(400).send(error.message)};
 
         const selectApontamento = await db.selectATarefaStatus(req.body.idprojetotarefa);

@@ -1,5 +1,5 @@
 const db = require('../db_Querys/db_contracts');
-const {regiterValidate,regiterValidateUpdate} = require('./validates/ContractValidate');
+const {registerValidate,registerValidateUpdate} = require('./validates/ContractValidate');
 
 
 const contractController = {
@@ -34,8 +34,7 @@ const contractController = {
 
     register: async function (req,res){
 
-
-        const {error} = regiterValidate(req.body)
+        const {error} = registerValidate(req.body)
         if(error){return res.status(400).send(error.message)};
         
 
@@ -68,7 +67,7 @@ const contractController = {
 
     update: async function (req,res){
         
-        const {error} = regiterValidateUpdate(req.body)
+        const {error} = registerValidateUpdate(req.body)
         if(error){return res.status(400).send(error.message)};
    
         const updateContract = new Object ({

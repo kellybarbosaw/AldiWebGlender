@@ -1,5 +1,5 @@
 const db = require('../db_Querys/db_clients');
-const { regiterValidate, regiterValidateUpdate } = require('./validates/ClientValidate');
+const { registerValidate, registerValidateUpdate } = require('./validates/ClientValidate');
 
 
 
@@ -27,7 +27,7 @@ const clientController = {
     register: async function (req, res) {
 
 
-        const { error } = regiterValidate(req.body)
+        const { error } = registerValidate(req.body)
         if (error) { return res.status(400).send(error.message) };
 
         const selectClient = await db.selectZCliente(req.body.cgccfo);
@@ -101,7 +101,7 @@ const clientController = {
 
     update: async function (req, res) {
 
-        const { error } = regiterValidateUpdate(req.body)
+        const { error } = registerValidateUpdate(req.body)
         if (error) { return res.status(400).send(error.message) };
 
         const selectClient = await db.selectZCliente(req.body.cgccfo);
@@ -155,9 +155,7 @@ const clientController = {
 
             codmunicipiopgto: req.body.codmunicipiopgto,
             codmunicipioentrega: req.body.codmunicipioentrega,
-            dtcriacao: req.body.dtcriacao,
             dtmodificacao: req.body.dtmodificacao,
-            usuariocriacao: req.body.usuariocriacao,
             usuarioalteracao: req.body.usuarioalteracao,
             tipocliente: req.body.tipocliente
         })

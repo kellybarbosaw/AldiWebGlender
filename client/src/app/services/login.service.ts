@@ -84,7 +84,7 @@ export class LoginService {
   deslogarTime(){ 
     setTimeout(() => {
       this.deslogar();
-    }, 120000);
+    }, 1200000);
   }
 
   direcionar() {

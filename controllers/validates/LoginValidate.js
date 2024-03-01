@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 
 
-const regiterValidate = (data) => {
+const registerValidate = (data) => {
 
     // usando valores para definir ATIVO
     // 1 ativo 
@@ -22,7 +22,7 @@ const regiterValidate = (data) => {
     return schema.validate(data);
 }
 
-const regiterValidateUpdate = (data) => {
+const registerValidateUpdate = (data) => {
 
     const schema = Joi.object({
         usuario: Joi.string().required().min(3).max(50),
@@ -50,5 +50,5 @@ const loginValidate = (data) => {
 }
 
 module.exports.loginValidate = loginValidate;
-module.exports.regiterValidate = regiterValidate;
-module.exports.regiterValidateUpdate = regiterValidateUpdate;
+module.exports.registerValidate = registerValidate;
+module.exports.registerValidateUpdate = registerValidateUpdate;

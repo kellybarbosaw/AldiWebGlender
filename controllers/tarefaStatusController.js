@@ -1,5 +1,5 @@
 const db = require('../db_Querys/db.tarefaStatus');
-const {regiterValidate,regiterValidateUpdate} = require('./validates/TarefaStatusValidate');
+const {registerValidate,registerValidateUpdate} = require('./validates/TarefaStatusValidate');
 
 
 const tarefaStatusController = {
@@ -25,7 +25,7 @@ const tarefaStatusController = {
 
     register: async function (req,res){
 
-        const {error} = regiterValidate(req.body)
+        const {error} = registerValidate(req.body)
         if(error){return res.status(400).send(error.message)};
 
         const selectTarefaS = await db.selectATarefaStatus(req.body.titulo);
@@ -60,7 +60,7 @@ const tarefaStatusController = {
 
     update: async function (req,res){
         
-        const {error} = regiterValidateUpdate(req.body)
+        const {error} = registerValidateUpdate(req.body)
         if(error){return res.status(400).send(error.message)};
 
         const selectTarefaS = await db.selectATarefaStatus(req.body.titulo);

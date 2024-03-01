@@ -1,7 +1,7 @@
 const db = require("../db_Querys/db_projetoTarefa");
 const {
-  regiterValidate,
-  regiterValidateUpdate,
+  registerValidate,
+  registerValidateUpdate,
 } = require("./validates/ProjetoTarefaValidate");
 
 const projetoTarefaController = {
@@ -25,7 +25,7 @@ const projetoTarefaController = {
   },
 
   register: async function (req, res) {
-    const { error } = regiterValidate(req.body);
+    const { error } = registerValidate(req.body);
     if (error) {
       return res.status(400).send(error.message);
     }
@@ -62,7 +62,7 @@ const projetoTarefaController = {
   },
 
   update: async function (req, res) {
-    const { error } = regiterValidateUpdate(req.body);
+    const { error } = registerValidateUpdate(req.body);
     if (error) {
       return res.status(400).send(error.message);
     }

@@ -146,23 +146,19 @@ export const routes: Routes = [
             {
                 path: 'tarefa/:id',
                 component: TarefaComponent
-            }
-            ,            
+            },            
             {
                 path: 'projetoTarefa',
                 component: ProjetoTarefaComponent
-
             },
             {
                 path: 'projetoTarefa/:id',
                 component: ProjetoTarefaComponent
-
             },
             {
                 path: '**',
                 component: HomeComponent
             }
-
         ]
     },
 

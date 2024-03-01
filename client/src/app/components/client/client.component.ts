@@ -4,17 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
 import { FormatsService } from '../../services/formats.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { catchError, of, Subject } from 'rxjs';
+import { LoginService } from '../../services/login.service';
 
 
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule, HttpClientModule, CommonModule],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
 export class ClientComponent {
+  error$ = new Subject<boolean>();
 
   client = {
     idcliente: 0,
@@ -62,8 +66,7 @@ export class ClientComponent {
     dtmodificacao: '',
     usuariocriacao: '',
     usuarioalteracao: '',
-    tipocliente: '',
-    teste: true
+    tipocliente: ''
   }
 
   dadosFicticios = {
@@ -71,72 +74,85 @@ export class ClientComponent {
   }
   event = 'Cadastrar';
 
-  constructor(private formatService: FormatsService,private clientService: ClientService, private router: Router, private route: ActivatedRoute) {
-
+  constructor(
+    private formatService: FormatsService,
+    private clientService: ClientService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private loginService: LoginService
+  ) {
     this.client.idcliente = this.route.snapshot.params['id']
+  }
 
+  ngOnInit() {
     if (this.route.snapshot.params['id'] === undefined) {
       this.event = "Cadastrar"
 
     } else {
-      this.clientService.clientCurrent(this.route.snapshot.params['id'])
+      this.clientService
+        .clientCurrent(this.route.snapshot.params['id'])
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
         .subscribe((datas) => {
           const data = datas[0];
-
-          this.client.idcliente = data.IDCLIENTE!,
-            this.client.nomefantasia = data.NOMEFANTASIA,
-            this.client.nome = data.NOME,
-            this.client.cgccfo = data.CGCCFO,
-            this.client.inscrestadual = data.INSCRESTADUAL,
-            this.client.pagrec = data.PAGREC,
-            this.client.rua = data.RUA,
-            this.client.numero = data.NUMERO,
-            this.client.complemento = data.COMPLEMENTO,
-            this.client.bairro = data.BAIRRO,
-            this.client.cidade = data.CIDADE,
-            this.client.codetd = data.CODETD,
-            this.client.cep = data.CEP,
-            this.client.telefone = data.TELEFONE,
-            this.client.ruapgto = data.RUAPGTO,
-            this.client.numeropgto = data.NUMEROPGTO,
-            this.client.complementopgto = data.COMPLEMENTOPGTO,
-            this.client.bairropgto = data.BAIRROPGTO,
-            this.client.cidadepgto = data.CIDADEPGTO,
-            this.client.codetdpgto = data.CODETDPGTO,
-            this.client.ceppgto = data.CEPPGTO,
-            this.client.telefonepgto = data.TELEFONEPAGTO,
-            this.client.ruaentrega = data.RUAENTREGA,
-            this.client.numeroentrega = data.NUMEROENTREGA,
-            this.client.complementoentrega = data.COMPLEMENTOENTREGA,
-            this.client.bairroentrega = data.BAIRROENTREGA,
-            this.client.cidadeentrega = data.CIDADEENTREGA,
-            this.client.codetdentrega = data.CODETDENTREGA,
-            this.client.cepentrega = data.CEPENTREGA,
-            this.client.telefoneentrega = data.TELEFONEENTREGA,
-            this.client.email = data.EMAIL,
-            this.client.ativo = data.ATIVO,
-            this.client.inscrmunicipal = data.INSCRMUNICIPAL,
-            this.client.pessoafisoujur = data.PESSOAFISOUJUR,
-            this.client.pais = data.PAIS,
-            this.client.paispgto = data.PAISPGTO,
-            this.client.paisentrega = data.PAISENTREGA,
-            this.client.emailentrega = data.EMAILENTREGA,
-            this.client.emailpgto = data.EMAILPGTO,
-            this.client.codmunicipiopgto = data.CODMUNICIPIOPGTO,
-            this.client.codmunicipioentrega = data.CODMUNICIPIOENTREGA,
-            this.client.dtcriacao = data.DTCRIACAO,
-            this.client.dtmodificacao = data.DTMODIFICACAO,
-            this.client.usuariocriacao = data.USUARIOCRIACAO,
-            this.client.usuarioalteracao = data.USUARIOALTERACAO,
-            this.client.tipocliente = data.TIPOCLIENTE
+          this.client.idcliente = data.IDCLIENTE!;
+          this.client.nomefantasia = data.NOMEFANTASIA;
+          this.client.nome = data.NOME;
+          this.client.cgccfo = data.CGCCFO;
+          this.client.inscrestadual = data.INSCRESTADUAL;
+          this.client.pagrec = data.PAGREC;
+          this.client.rua = data.RUA;
+          this.client.numero = data.NUMERO;
+          this.client.complemento = data.COMPLEMENTO;
+          this.client.bairro = data.BAIRRO;
+          this.client.cidade = data.CIDADE;
+          this.client.codetd = data.CODETD;
+          this.client.cep = data.CEP;
+          this.client.telefone = data.TELEFONE;
+          this.client.ruapgto = data.RUAPGTO;
+          this.client.numeropgto = data.NUMEROPGTO;
+          this.client.complementopgto = data.COMPLEMENTOPGTO;
+          this.client.bairropgto = data.BAIRROPGTO;
+          this.client.cidadepgto = data.CIDADEPGTO;
+          this.client.codetdpgto = data.CODETDPGTO;
+          this.client.ceppgto = data.CEPPGTO;
+          this.client.telefonepgto = data.TELEFONEPAGTO;
+          this.client.ruaentrega = data.RUAENTREGA;
+          this.client.numeroentrega = data.NUMEROENTREGA;
+          this.client.complementoentrega = data.COMPLEMENTOENTREGA;
+          this.client.bairroentrega = data.BAIRROENTREGA;
+          this.client.cidadeentrega = data.CIDADEENTREGA;
+          this.client.codetdentrega = data.CODETDENTREGA;
+          this.client.cepentrega = data.CEPENTREGA;
+          this.client.telefoneentrega = data.TELEFONEENTREGA;
+          this.client.email = data.EMAIL;
+          this.client.ativo = data.ATIVO;
+          this.client.inscrmunicipal = data.INSCRMUNICIPAL;
+          this.client.pessoafisoujur = data.PESSOAFISOUJUR;
+          this.client.pais = data.PAIS;
+          this.client.paispgto = data.PAISPGTO;
+          this.client.paisentrega = data.PAISENTREGA;
+          this.client.emailentrega = data.EMAILENTREGA;
+          this.client.emailpgto = data.EMAILPGTO;
+          this.client.codmunicipiopgto = data.CODMUNICIPIOPGTO;
+          this.client.codmunicipioentrega = data.CODMUNICIPIOENTREGA;
+          this.client.dtcriacao = this.formatService.format(data.DTCRIACAO!, null, "dateTime");
+          this.client.dtmodificacao = this.formatService.format(data.DTMODIFICACAO!, null, "dateTime");
+          this.client.usuariocriacao = data.USUARIOCRIACAO;
+          this.client.usuarioalteracao = data.USUARIOALTERACAO;
+          this.client.tipocliente = data.TIPOCLIENTE;
         })
-
       this.event = "Editar"
-
     }
-  }
 
-  ngOnInit() {
     setTimeout(() => {
       if (typeof document !== 'undefined') {
         // alert("teste NG ONinit")
@@ -144,29 +160,41 @@ export class ClientComponent {
       }
     }, 100);
   }
+
   registerClient() {
-
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
-
-    if (!this.client.cgccfo || !this.client.nome || !this.client.nomefantasia ||
-      !this.client.inscrestadual || !this.client.inscrmunicipal || !this.client.telefone ||
-      !this.client.email || !this.client.rua || !this.client.numero ||
-      !this.client.complemento || !this.client.bairro || !this.client.cep ||
-      !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
-      !this.client.cep || !this.client.email || !this.client.pais) {
+    if (
+      !this.client.cgccfo ||
+      !this.client.nome ||
+      !this.client.nomefantasia ||
+      !this.client.inscrestadual ||
+      !this.client.inscrmunicipal ||
+      !this.client.telefone ||
+      !this.client.email ||
+      !this.client.rua ||
+      !this.client.numero ||
+      !this.client.complemento ||
+      !this.client.bairro ||
+      !this.client.cep ||
+      !this.client.pagrec ||
+      !this.client.cidade ||
+      !this.client.codetd ||
+      !this.client.cep ||
+      !this.client.email ||
+      !this.client.pais
+    ) {
       alert("preencha os campos");
       return;
     }
 
-
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === "Cadastrar") {
 
-        this.client.dtcriacao = this.formatService.dateNow(),
-        this.client.dtmodificacao = this.formatService.dateNow(),
-        this.client.usuariocriacao = localStorage.getItem('user')!,
-        this.client.usuarioalteracao = localStorage.getItem('user')!,
-        this.client.tipocliente = this.dadosFicticios.tipocliente
+      this.client.dtcriacao = this.formatService.dateNow();
+      this.client.dtmodificacao = this.formatService.dateNow();
+      this.client.usuariocriacao = localStorage.getItem('user')!;
+      this.client.usuarioalteracao = localStorage.getItem('user')!;
+      this.client.tipocliente = this.dadosFicticios.tipocliente;
 
       this.clientService.registerClient({
         nomefantasia: this.client.nomefantasia,
@@ -214,61 +242,35 @@ export class ClientComponent {
         usuariocriacao: this.client.usuariocriacao,
         usuarioalteracao: this.client.usuarioalteracao,
         tipocliente: this.client.tipocliente,
-      }).subscribe((data) => { this.router.navigate(['/user/clients']) })
+      })
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
+        .subscribe((data) => { this.router.navigate(['/user/clients']) })
 
     } else if (this.event === "Editar") {
+      this.client.dtmodificacao = this.formatService.dateNow();
+      this.client.usuarioalteracao = localStorage.getItem('user')!;
 
-        this.client.dtmodificacao = this.formatService.dateNow(),
-        this.client.usuarioalteracao = localStorage.getItem('user')!,
-
-        this.clientService.editClient({
-          idcliente: this.client.idcliente,
-          nomefantasia: this.client.nomefantasia,
-          nome: this.client.nome,
-          cgccfo: this.client.cgccfo,
-          inscrestadual: this.client.inscrestadual,
-          pagrec: this.client.pagrec,
-          rua: this.client.rua,
-          numero: this.client.numero,
-          complemento: this.client.complemento,
-          bairro: this.client.bairro,
-          cidade: this.client.cidade,
-          codetd: this.client.codetd,
-          cep: this.client.cep,
-          telefone: this.client.telefone,
-          ruapgto: this.client.ruapgto,
-          numeropgto: this.client.numeropgto,
-          complementopgto: this.client.complementopgto,
-          bairropgto: this.client.bairropgto,
-          cidadepgto: this.client.cidadepgto,
-          codetdpgto: this.client.codetdpgto,
-          ceppgto: this.client.ceppgto,
-          telefonepgto: this.client.telefonepgto,
-          ruaentrega: this.client.ruaentrega,
-          numeroentrega: this.client.numeroentrega,
-          complementoentrega: this.client.complementoentrega,
-          bairroentrega: this.client.bairroentrega,
-          cidadeentrega: this.client.cidadeentrega,
-          codetdentrega: this.client.codetdentrega,
-          cepentrega: this.client.cepentrega,
-          telefoneentrega: this.client.telefoneentrega,
-          email: this.client.email,
-          ativo: this.client.ativo,
-          inscrmunicipal: this.client.inscrmunicipal,
-          pessoafisoujur: this.client.pessoafisoujur,
-          pais: this.client.pais,
-          paispgto: this.client.paispgto,
-          paisentrega: this.client.paisentrega,
-          emailentrega: this.client.emailentrega,
-          emailpgto: this.client.emailpgto,
-          codmunicipiopgto: this.client.codmunicipiopgto,
-          codmunicipioentrega: this.client.codmunicipioentrega,
-          dtcriacao: this.client.dtcriacao,
-          dtmodificacao: this.client.dtmodificacao,
-          usuariocriacao: this.client.usuariocriacao,
-          usuarioalteracao: this.client.usuarioalteracao,
-          tipocliente: this.client.tipocliente,
-        }).subscribe(() => {
+      this.clientService.editClient(this.client)
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
+        .subscribe(() => {
           this.router.navigate(['/user/clients'])
         })
     } else {

@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { PessoaService } from '../../services/pessoa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
+import { catchError, of, Subject } from 'rxjs';
+import { LoginService } from '../../services/login.service';
+
 
 @Component({
   selector: 'app-pessoa',
@@ -13,6 +16,8 @@ import { FormatsService } from '../../services/formats.service';
   styleUrl: './pessoa.component.scss',
 })
 export class PessoaComponent {
+  error$ = new Subject<boolean>();
+
   pessoa = {
     idpessoa: '',
     nome: '',
@@ -29,41 +34,66 @@ export class PessoaComponent {
     orgaoemissorident: '',
     estadoemissorident: '',
     zusuario_usuario: '',
+    dtcriacao: '',
+    dtalteracao: '',
+    usuariocriacao: '',
+    usuarioalteracao: ''
   };
 
   event = 'Cadastrar';
 
-  constructor(private formatService: FormatsService,private pessoaService: PessoaService,private router: Router,private route: ActivatedRoute
+  constructor(
+    private formatService: FormatsService,
+    private pessoaService: PessoaService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private loginService: LoginService
   ) {
     this.pessoa.idpessoa = this.route.snapshot.params['id'];
+  }
 
+  ngOnInit() {
     if (this.route.snapshot.params['id'] === undefined) {
       this.event = 'Cadastrar';
     } else {
       this.pessoaService
         .pessoaCurrent(this.route.snapshot.params['id'])
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
         .subscribe((datas: any) => {
           const data = datas[0];
-          (this.pessoa.nome = data.NOME),
-            (this.pessoa.cpf = data.CPF),
-            (this.pessoa.dtnascimento = data.DTNASCIMENTO),
-            (this.pessoa.rua = data.RUA),
-            (this.pessoa.numero = data.NUMERO),
-            (this.pessoa.complemento = data.COMPLEMENTO),
-            (this.pessoa.bairro = data.BAIRRO),
-            (this.pessoa.naturalidade = data.NATURALIDADE),
-            (this.pessoa.nacionalidade = data.NACIONALIDADE),
-            (this.pessoa.usuario = data.USUARIO),
-            (this.pessoa.nroidentidade = data.NROIDENTIDADE),
-            (this.pessoa.orgaoemissorident = data.ORGAOEMISSORIDENT),
-            (this.pessoa.estadoemissorident = data.ESTADOEMISSORIDENT),
-            (this.pessoa.zusuario_usuario = data.ZUSUARIO_USUARIO);
-
-            this.pessoa.dtnascimento = this.formatService.formatDate(data.DTNASCIMENTO!);
+          (this.pessoa.nome = data.NOME);
+          (this.pessoa.cpf = data.CPF);
+          (this.pessoa.dtnascimento = data.DTNASCIMENTO);
+          (this.pessoa.rua = data.RUA);
+          (this.pessoa.numero = data.NUMERO);
+          (this.pessoa.complemento = data.COMPLEMENTO);
+          (this.pessoa.bairro = data.BAIRRO);
+          (this.pessoa.naturalidade = data.NATURALIDADE);
+          (this.pessoa.nacionalidade = data.NACIONALIDADE);
+          (this.pessoa.usuario = data.USUARIO);
+          (this.pessoa.nroidentidade = data.NROIDENTIDADE);
+          (this.pessoa.orgaoemissorident = data.ORGAOEMISSORIDENT);
+          (this.pessoa.estadoemissorident = data.ESTADOEMISSORIDENT);
+          (this.pessoa.zusuario_usuario = data.ZUSUARIO_USUARIO);
+          this.pessoa.dtcriacao = this.formatService.format(data.DTCRIACAO!, null, "dateTime");
+          this.pessoa.dtalteracao = this.formatService.format(data.DTMODIFICACAO!, null, "dateTime");
+          this.pessoa.usuariocriacao = data.USUARIOCRIACAO;
+          this.pessoa.usuarioalteracao = data.USUARIOALTERACAO;
+          this.pessoa.dtnascimento = this.formatService.formatDate(data.DTNASCIMENTO!);
         });
       this.event = 'Editar';
     }
   }
+
   registerPessoa() {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
     if (
@@ -83,15 +113,16 @@ export class PessoaComponent {
       !this.pessoa.zusuario_usuario
     ) {
       alert('preencha os campos');
-      console.log(this.pessoa);
       return;
-    } else {
-      alert('Formulário enviado!');
-      console.log(this.pessoa);
     }
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === 'Cadastrar') {
+      this.pessoa.dtcriacao = this.formatService.dateNow();
+      this.pessoa.dtalteracao = this.formatService.dateNow();
+      this.pessoa.usuariocriacao = localStorage.getItem('user')!;
+      this.pessoa.usuarioalteracao = localStorage.getItem('user')!;
+
       this.pessoaService
         .registerPessoa({
           nome: this.pessoa.nome,
@@ -108,33 +139,42 @@ export class PessoaComponent {
           orgaoemissorident: this.pessoa.orgaoemissorident,
           estadoemissorident: this.pessoa.estadoemissorident,
           zusuario_usuario: this.pessoa.zusuario_usuario,
+          dtcriacao: this.pessoa.dtcriacao,
+          dtalteracao: this.pessoa.dtalteracao,
+          usuariocriacao: this.pessoa.usuariocriacao,
+          usuarioalteracao: this.pessoa.usuarioalteracao,
         })
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
         .subscribe(() => {
+          alert("cadastrado")
           this.router.navigate(['/user/pessoa']);
         });
     } else if (this.event === 'Editar') {
-      console.log('editando');
+      this.pessoa.dtalteracao = this.formatService.dateNow();
+      this.pessoa.usuarioalteracao = localStorage.getItem('user')!;
 
       this.pessoaService
-        .editPessoa({
-          idpessoa: this.pessoa.idpessoa,
-          nome: this.pessoa.nome,
-          cpf: this.pessoa.cpf,
-          dtnascimento: this.pessoa.dtnascimento,
-          rua: this.pessoa.rua,
-          numero: this.pessoa.numero,
-          complemento: this.pessoa.complemento,
-          bairro: this.pessoa.bairro,
-          naturalidade: this.pessoa.naturalidade,
-          nacionalidade: this.pessoa.nacionalidade,
-          usuario: this.pessoa.usuario,
-          nroidentidade: this.pessoa.nroidentidade,
-          orgaoemissorident: this.pessoa.orgaoemissorident,
-          estadoemissorident: this.pessoa.estadoemissorident,
-          zusuario_usuario: this.pessoa.zusuario_usuario
-        })
-        .subscribe((data: any) => {
-          console.log(data);
+        .editPessoa(this.pessoa)
+        .pipe(
+          catchError(err => {
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
+        .subscribe(() => {
           this.router.navigate(['/user/pessoa']);
         });
     } else {

@@ -1,7 +1,7 @@
 const db = require('../db_Querys/db_recurso');
 const {
-    regiterValidate,
-    regiterValidateUpdate
+    registerValidate,
+    registerValidateUpdate
 } = require("./validates/RecursoValidate");
 
 const recursoController = {
@@ -25,7 +25,7 @@ const recursoController = {
     },
 
     register: async function (req,res){
-        const {error} = regiterValidate(req.body)
+        const {error} = registerValidate(req.body)
         if(error){
             return res.status(400).send(error.message)
         };
@@ -61,7 +61,7 @@ const recursoController = {
 
     update: async function (req,res){
         
-        const {error} = regiterValidateUpdate(req.body)
+        const {error} = registerValidateUpdate(req.body)
         if(error){
             return res.status(400).send(error.message)
         };
