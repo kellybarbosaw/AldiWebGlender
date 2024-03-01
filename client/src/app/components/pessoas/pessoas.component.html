@@ -1,0 +1,79 @@
+<div class="panel">
+    <div>
+
+        <div class="panel-heading">
+
+            <a href="/user/pessoa" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> New
+                Pessoa</a>
+
+            <form class="form-horizontal pull-right">
+                <div class="form-group">
+                    <label>Show : </label>
+                    <select class="form-control">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="conteudo">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Naturalidade</th>
+                        <th style="text-align: center;">Editar</th>
+                        <th style="text-align: center;">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="allPessoa$ | async as pessoa; else loadingError">
+                    <tr *ngFor="let pessoa of allPessoa$ | async">
+                        <td>
+                            {{pessoa.IDPESSOA}}
+                        </td>
+                        <td>{{pessoa.NOME}}</td>
+                        <td>{{pessoa.CPF}}</td>
+                        <td>{{pessoa.NATURALIDADE}}</td>
+                        <td style="text-align: center;"><i [routerLink]="['/user/pessoa/',pessoa.IDPESSOA]" class="bi bi-pencil-square"></i>
+                        </td>
+                        <td style="text-align: center;"><i (click)="deletPessoa(pessoa.IDPESSOA!)"
+                                class="bi bi-trash-fill"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #loadingError>
+                <div *ngIf="error$ |async; else loading">
+                    <span class="loadingMensage alert alert-warning">Error ao Carregar, Tente mais tarde</span>
+                </div>
+                <ng-template #loading>
+                    <span class="loadingMensage alert alert-warning">Carregando...</span>
+                </ng-template>
+            </ng-template>
+
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="d-flex flex-column align-items-center">
+            <div>showing <b>5</b> out of <b>25</b> entries</div>
+            <div>
+                <ul class="pagination">
+                    <li><a href="#">«</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

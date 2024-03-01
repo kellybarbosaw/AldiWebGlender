@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { PessoaService } from '../../services/pessoa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
@@ -11,15 +11,17 @@ import { LoginService } from '../../services/login.service';
 @Component({
   selector: 'app-pessoa',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterOutlet],
+  imports: [FormsModule, CommonModule, RouterOutlet, CommonModule],
   templateUrl: './pessoa.component.html',
   styleUrl: './pessoa.component.scss',
 })
 export class PessoaComponent {
   error$ = new Subject<boolean>();
-
+  camposPreenchidos: boolean = true;
+  botaoClicado: boolean = false;
+  
   pessoa = {
-    idpessoa: '',
+    idpessoa: 0,
     nome: '',
     cpf: '',
     dtnascimento: '',
@@ -93,8 +95,7 @@ export class PessoaComponent {
       this.event = 'Editar';
     }
   }
-
-  registerPessoa() {
+  registerPessoa(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
     if (
       !this.pessoa.nome ||
@@ -113,6 +114,25 @@ export class PessoaComponent {
       !this.pessoa.zusuario_usuario
     ) {
       alert('preencha os campos');
+      console.log(this.pessoa);
+      this.camposPreenchidos = (
+        form.controls['nome'].valid && 
+        form.controls['cpf'].valid &&
+        form.controls['dtnascimento'].valid &&
+        form.controls['rua'].valid &&
+        form.controls['numero'].valid &&
+        form.controls['complemento'].valid &&
+        form.controls['bairro'].valid &&
+        form.controls['naturalidade'].valid &&
+        form.controls['nacionalidade'].valid &&
+        form.controls['usuario'].valid &&
+        form.controls['nroidentidade'].valid &&
+        form.controls['orgaoemissorident'].valid &&
+        form.controls['estadoemissorident'].valid &&
+        form.controls['zusuario_usuario'].valid
+        
+        );
+        this.botaoClicado = true;
       return;
     }
 
