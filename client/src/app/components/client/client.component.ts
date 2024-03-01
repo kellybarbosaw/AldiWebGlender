@@ -1,20 +1,26 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
 import { FormatsService } from '../../services/formats.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule, HttpClientModule],
+  imports: [FormsModule, HttpClientModule,RouterOutlet,CommonModule],
+  providers: [],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
+
 export class ClientComponent {
+  camposPreenchidos: boolean = true;
+  botaoClicado: boolean = false;
 
   client = {
     idcliente: 0,
@@ -144,7 +150,7 @@ export class ClientComponent {
       }
     }, 100);
   }
-  registerClient() {
+  registerClient(form: NgForm) {
 
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
 
@@ -153,10 +159,37 @@ export class ClientComponent {
       !this.client.email || !this.client.rua || !this.client.numero ||
       !this.client.complemento || !this.client.bairro || !this.client.cep ||
       !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
-      !this.client.cep || !this.client.email || !this.client.pais) {
-      alert("preencha os campos");
-      return;
-    }
+      !this.client.cep || !this.client.email || !this.client.pais
+      ) {
+        alert('preencha os campos');
+        console.log(this.client);
+        this.camposPreenchidos = (
+          form.controls['cgccfo'].valid && 
+          form.controls['nome'].valid &&
+          form.controls['nomefantasia'].valid &&
+          form.controls['inscrestadual'].valid &&
+          form.controls['inscrmunicipal'].valid &&
+          form.controls['telefone'].valid &&
+          form.controls['email'].valid &&
+          form.controls['rua'].valid &&
+          form.controls['numero'].valid &&
+          form.controls['complemento'].valid &&
+          form.controls['bairro'].valid &&
+          form.controls['cep'].valid &&
+          form.controls['pagrec'].valid &&
+          form.controls['cidade'].valid &&
+          form.controls['codetd'].valid &&
+          form.controls['cep'].valid &&
+          form.controls['email'].valid && 
+          form.controls['pais'].valid
+          
+          );
+          this.botaoClicado = true;
+        return;
+      } else {
+        alert('Formulário enviado!');
+        console.log(this.client);
+      }
 
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
