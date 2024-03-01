@@ -20,7 +20,15 @@
                         <a [routerLink]="['/user/clients']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todos Clientes</a>
                     </div>
                 </div>
-                <a [routerLink]="['/user/pessoa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Pessoa</a>
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#pessoaCollapse">Pessoas<i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="pessoaCollapse">
+                        <a [routerLink]="['/user/pessoa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Nova Pessoa</a>
+                        <a [routerLink]="['/user/pessoas']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todas Pessoa</a>
+                    </div>
+                </div>
                 <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Recurso</a>
                 <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa</a>
                 <a [routerLink]="['/user/tarefaStatus']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa Status</a>

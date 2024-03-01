@@ -19,6 +19,7 @@ import { ApontamentoComponent } from './components/apontamento/apontamento.compo
 import { PessoaComponent } from './components/pessoa/pessoa.component';
 import { ProjetoTarefaComponent } from './components/projeto-tarefa/projeto-tarefa.component';
 import { authorizedGuard } from './guard/authorized.guard';
+import { PessoasComponent } from './components/pessoas/pessoas.component';
 
 
 export const routes: Routes = [
@@ -88,6 +89,10 @@ export const routes: Routes = [
                 component: UsuarioComponent
             },
             {
+                path: 'pessoas',
+                component: PessoasComponent
+            },
+            {
                 path: 'pessoa',
                 component: PessoaComponent
             },
@@ -146,23 +151,19 @@ export const routes: Routes = [
             {
                 path: 'tarefa/:id',
                 component: TarefaComponent
-            }
-            ,            
+            },            
             {
                 path: 'projetoTarefa',
                 component: ProjetoTarefaComponent
-
             },
             {
                 path: 'projetoTarefa/:id',
                 component: ProjetoTarefaComponent
-
             },
             {
                 path: '**',
                 component: HomeComponent
             }
-
         ]
     },
 

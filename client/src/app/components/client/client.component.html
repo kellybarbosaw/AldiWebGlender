@@ -2,16 +2,16 @@
 
     <h2 class="fonte"><b>NOVO CLIENTE</b></h2><hr>
     <div class="btn-group">
-        <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA 1</button>
-        <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA 2</button>
-        <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA 3</button>
-        <button class="btn btn-light" (click)="mudarEtapa(4)">ETAPA 4</button>
+        <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA GERAL</button>
+        <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA ENDEREÇO</button>
+        <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA ENTREGA</button>
+        <button class="btn btn-light" (click)="mudarEtapa(4)">ETAPA FINANCEIRO</button>
     </div><br>
 
     <div class="customer-client bg-light">        
         <div class="formCadastro d-flex justify-content-center overflow-auto" data-bs-spy="scroll">
 
-            <form class="form d-flex flex-column justify-content-between">
+            <form class="form d-flex flex-column justify-content-between" #form="ngForm" (ngSubmit)="registerClient(form)">
                 <H5 class="titleStage">ETAPA: {{stageName}}</H5>
                 <section class="stage_1 currentBody spaceForm current ">
                     <div class="nextSection">
@@ -31,44 +31,51 @@
                         </div>
                         <div class="form-group mb-3">
                             <label>Pessoa Física ou Juridica</label>
-                            <input [(ngModel)]="client.pessoafisoujur" type="text" class="form-control"
-                                name="pessoafisoujur">
+                            <select [(ngModel)]="client.pessoafisoujur" type="text" class="form-control" name="pessoafisoujur">
+                                <option value="" disabled selected hidden>Selecione</option> 
+                                <option value="F">Física</option>
+                                <option value="J">Jurídica</option>
+                            </select>
                         </div>
                         <div class="form-group mb-3">
                             <label>CNPJ/CPF</label>
                             <div class="d-flex mb-3">
-                                <input [(ngModel)]="client.cgccfo" type="text" class="form-control"
-                                    placeholder="00.000.000/0000-00" name="cnpj">
+                                <input [(ngModel)]="client.cgccfo" type="text" mask="000.000.000-000||00.000.000/0000-00" class="form-control"   
+                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}">
                                 </div>
                                 <div class="btn btn-dark">Buscar</div>
                         </div>
                         <div class="form-group mb-3">
                             <label>Razão Social:</label>
                             <input [(ngModel)]="client.nome" type="text" class="form-control" placeholder="Razão Social"
-                                name="nome">
+                                name="nome" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.nome}">
                         </div>
                         <div class="form-group mb-3">
                             <label>Nome Fantasia:</label>
                             <input [(ngModel)]="client.nomefantasia" type="text" class="form-control"
-                                placeholder="Nome Fantasia" name="nomefantasia">
+                                placeholder="Nome Fantasia" name="nomefantasia" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.nomefantasia}">
                         </div>
                     <div class="form-group d-flex flex-row">
                         <div class="form-group mb-3">
                             <label>I.E:</label>
-                            <input [(ngModel)]="client.inscrestadual" type="text" class="form-control"
-                                placeholder="Inscrição Estadual" name="inscrEstadual">
+                            <input [(ngModel)]="client.inscrestadual" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrestadual}"
+                                placeholder="Inscrição Estadual" name="inscrestadual">
 
                         </div>
                         <div class="form-group mb-3 espacoCampo">
                             <label>I.M:</label>
                             <input [(ngModel)]="client.inscrmunicipal" type="text" class="form-control"
-                                placeholder="Inscrição Municipal" name="inscrmunicipal">
+                                placeholder="Inscrição Municipal" name="inscrmunicipal" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrmunicipal}">
                         </div>
                     </div>
                         <div class="form-group">
                             <label>PAGREC:</label>
-                            <input [(ngModel)]="client.pagrec" type="text" class="form-control" placeholder="PAGREC"
-                                name="pagrec">
+                            <select [(ngModel)]="client.pagrec" type="text" class="form-control" name="pagrec" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.pagrec}">
+                                <option value="" disabled selected hidden>Selecione</option> 
+                                <option value=1>Cliente</option>
+                                <option value=2>Fornecedor</option>
+                                <option value=3>Ambos</option>
+                            </select>
                         </div>
 
 
@@ -86,55 +93,55 @@
                         <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.rua" type="text" class="form-control" placeholder="Rua"
-                                name="rua">
+                                name="rua" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.rua}">
                         </div>
                     <div class="form-group d-flex flex-row">
                         <div class="form-group mb-3">
                             <label>Número:</label>
                             <input [(ngModel)]="client.numero" type="text" class="form-control" placeholder="Nº"
-                                name="numero">
+                                name="numero" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numero}">
                         </div>
                         <div class="form-group mb-3 espacoCampo">
                             <label>Complemento:</label>
                             <input [(ngModel)]="client.complemento" type="text" class="form-control"
-                                placeholder="Complemento" name="complemento">
+                                placeholder="Complemento" name="complemento" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complemento}">
                         </div>
                     </div>
                         <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairro" type="text" class="form-control" placeholder="Bairro"
-                                name="bairro">
+                                name="bairro" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairro}">
                         </div>
 
                         <div class="form-group mb-3">
                             <label>Cidade:</label>
                             <input [(ngModel)]="client.cidade" type="text" class="form-control" placeholder="Cidade"
-                                name="cidade">
+                                name="cidade" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cidade}">
                         </div>
                         <div class="form-group mb-3">
                             <label>Estado:</label>
                             <input [(ngModel)]="client.codetd" type="text" class="form-control" placeholder="UF"
-                                name="estado">
+                                name="estado" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codetd}">
                         </div>
                         <div class="form-group mb-3">
                             <label>CEP:</label>
                             <input [(ngModel)]="client.cep" type="text" class="form-control" placeholder="XX XXX-XXX"
-                                name="cep">
+                                name="cep" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cep}">
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
                             <input [(ngModel)]="client.pais" type="text" class="form-control" placeholder="País"
-                                name="pais">
+                                name="pais" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.pais}">
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>E-mail:</label>
                             <input [(ngModel)]="client.email" type="text" class="form-control" placeholder="E-mail"
-                                name="email">
+                                name="email" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.email}">
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone</label>
-                            <input [(ngModel)]="client.telefone" type="text" class="form-control"
-                                placeholder="(99) 9999-9999" name="telefone">
+                            <input [(ngModel)]="client.telefone" type="tel" class="form-control" id="telefone"
+                                placeholder="(99) 9999-9999" name="telefone" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefone}">
                         </div>
                     </div>
                     <div class="d-flex justify-content-between w-100">
@@ -151,60 +158,60 @@
                         <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.ruaentrega" type="text" class="form-control"
-                                placeholder="Rua Entrega" name="ruaentrega    ">
+                                placeholder="Rua Entrega" name="ruaentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ruaentrega}">
                         </div>
                     <div class="form-group d-flex flex-row">
                         <div class="form-group mb-3">
                             <label>Número:</label>
                             <input [(ngModel)]="client.numeroentrega" type="text" class="form-control"
-                                placeholder="Nº Entrega" name="numeroentrega">
+                                placeholder="Nº Entrega" name="numeroentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numeroentrega}">
                         </div>
                         <div class="form-group mb-3 espacoCampo">
                             <label>Complemento:</label>
                             <input [(ngModel)]="client.complementoentrega" type="text" class="form-control"
-                                placeholder="Complemento Entrega" name="complementopgto">
+                                placeholder="Complemento Entrega" name="complementopgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complementopgto}">
                         </div>
                     </div>
                         <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairroentrega" type="text" class="form-control"
-                                placeholder="Bairro Entrega" name="bairroentrega">
+                                placeholder="Bairro Entrega" name="bairroentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairroentrega}">
                         </div>
 
                         <div class="form-group mb-3">
                             <label>Cidade:</label>
                             <input [(ngModel)]="client.cidadeentrega" type="text" class="form-control"
-                                placeholder="cidade Entrega" name="cidadeentrega">
+                                placeholder="cidade Entrega" name="cidadeentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cidadeentrega}">
                         </div>
                         <div class="form-group mb-3">
                             <label>Estado:</label>
                             <input [(ngModel)]="client.codetdentrega" type="text" class="form-control"
-                                placeholder="UF Entrega" name="codetdentrega">
+                                placeholder="UF Entrega" name="codetdentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codetdentrega}">
                         </div>
                         <div class="form-group mb-3">
                             <label>CEP Entrega:</label>
                             <input [(ngModel)]="client.cepentrega" type="text" class="form-control"
-                                placeholder="XX XXX-XXX" name="cepentrega">
+                                placeholder="XX XXX-XXX" name="cepentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cepentrega}">
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone Entrega</label>
-                            <input [(ngModel)]="client.telefoneentrega" type="text" class="form-control"
-                                placeholder="(99) 9999-9999" name="telefoneentrega">
+                            <input [(ngModel)]="client.telefoneentrega" type="tel" class="form-control" id="telefoneentrega"
+                                placeholder="(99) 9999-9999" name="telefoneentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefoneentrega}">
                         </div>
                         <div class="form-group mb-3">
                             <label>Municipio:</label>
                             <input [(ngModel)]="client.codmunicipioentrega" type="text" class="form-control"
-                                placeholder="UF Entrega" name="codmunicipioentrega">
+                                placeholder="UF Entrega" name="codmunicipioentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codmunicipioentrega}">
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
                             <input [(ngModel)]="client.paisentrega" type="text" class="form-control"
-                                placeholder="País Entrega" name="paisentrega">
+                                placeholder="País Entrega" name="paisentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.paisentrega}">
                         </div>
                         <div class="form-group mb-3">
                             <label>E-mail:</label>
                             <input [(ngModel)]="client.emailentrega" type="text" class="form-control"
-                                placeholder="E-mail para Entrega" name="emailentrega">
+                                placeholder="E-mail para Entrega" name="emailentrega" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.emailentrega}">
                         </div>
                     </div>
 
@@ -221,66 +228,66 @@
                         <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.ruapgto" type="text" class="form-control"
-                                placeholder="Rua Pagamento" name="ruapgto">
+                                placeholder="Rua Pagamento" name="ruapgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ruapgto}">
                         </div>
                     <div class="form-group d-flex flex-row">
                         <div class="form-group mb-3">
                             <label>Número:</label>
                             <input [(ngModel)]="client.numeropgto" type="text" class="form-control"
-                                placeholder="Nº Pagamento" name="numeropgto">
+                                placeholder="Nº Pagamento" name="numeropgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numeropgto}">
                         </div>
                         <div class="form-group mb-3 espacoCampo">
                             <label>Complemento:</label>
                             <input [(ngModel)]="client.complementopgto" type="text" class="form-control"
-                                placeholder="Complemento Pagamento" name="complementopgto">
+                                placeholder="Complemento Pagamento" name="complementopgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complementopgto}">
                         </div>
                     </div>
                         <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairropgto" type="text" class="form-control"
-                                placeholder="Bairro Pagamento" name="bairropgto">
+                                placeholder="Bairro Pagamento" name="bairropgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairropgto}">
                         </div>
 
                         <div class="form-group mb-3">
                             <label>Cidade:</label>
                             <input [(ngModel)]="client.cidadepgto" type="text" class="form-control"
-                                placeholder="cidade Pagamento" name="cidadepgto">
+                                placeholder="cidade Pagamento" name="cidadepgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cidadepgto}">
                         </div>
                         <div class="form-group mb-3">
                             <label>Estado:</label>
                             <input [(ngModel)]="client.codetdpgto" type="text" class="form-control"
-                                placeholder="UF Pagamento" name="codetdpgto">
+                                placeholder="UF Pagamento" name="codetdpgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codetdpgto}">
                         </div>
                         <div class="form-group mb-3">
                             <label>CEP Pagamento:</label>
                             <input [(ngModel)]="client.ceppgto" type="text" class="form-control"
-                                placeholder="XX XXX-XXX" name="ceppgto">
+                                placeholder="XX XXX-XXX" name="ceppgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ceppgto}">
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone Pagamento:</label>
-                            <input [(ngModel)]="client.telefonepgto" type="text" class="form-control"
-                                placeholder="(99) 9999-9999" name="telefone">
+                            <input [(ngModel)]="client.telefonepgto" type="tel" class="form-control" id="telefonepgto"
+                                placeholder="(99) 9999-9999" name="telefone" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefonepgto}">
                         </div>
                         <div class="form-group mb-3">
                             <label>Municipio:</label>
                             <input [(ngModel)]="client.codmunicipiopgto" type="text" class="form-control"
-                                placeholder="UF Pagamento" name="codmunicipiopgto">
+                                placeholder="UF Pagamento" name="codmunicipiopgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codmunicipiopgto}">
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
                             <input [(ngModel)]="client.paispgto" type="text" class="form-control"
-                                placeholder="País pagamento" name="paispgto">
+                                placeholder="País pagamento" name="paispgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.paispgto}">
                         </div>
                         <div class="form-group mb-3">
                             <label>E-mail:</label>
                             <input [(ngModel)]="client.emailpgto" type="text" class="form-control"
-                                placeholder="E-mail para Pagamentos" name="emailpgto">
+                                placeholder="E-mail para Pagamentos" name="emailpgto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.emailpgto}">
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-between w-100 mt-2">
                         <div class="btn btn-success btn-stage mb-3" (click)="mudarEtapa(3)">Voltar</div>
-                        <div class="btn btn-primary btn-stage mb-3" (click)="registerClient()">{{event}}</div>
+                        <div class="btn btn-primary btn-stage mb-3" (click)="registerClient(form)">{{event}}</div>
                     </div>
                 </section>
 
@@ -289,6 +296,15 @@
             <div>
                 <a href="/user/clients" class="btn btn-danger btn-stage">Sair</a>
             </div>
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+            <script>
+                $('#cgccfo').mask('000.000.000-00', {reverse: true});
+                //$('#telefone').mask('00.000.000/0000-00', {reverse: true});
+                $('#telefone').mask('(00) 0000-0000');
+                $('#telefoneentrega').mask('(00) 0000-0000');
+                $('#telefonepgto').mask('(00) 0000-0000');
+            </script>
         </div>
     </div>
 </div>

@@ -1,5 +1,23 @@
+export interface Pessoas {
+    IDPESSOA?: number;
+    NOME: string;
+    CPF: string;
+    DTNASCIMENTO: string;
+    RUA: string;
+    NUMERO: string;
+    COMPLEMENTO: string;
+    BAIRRO: string;
+    NATURALIDADE: string;
+    NACIONALIDADE: string;
+    USUARIO: string;
+    NROIDENTIDADE: string;
+    ORGAOEMISSORIDENT: string;
+    ESTADOEMISSORIDENT: string;
+    ZUSUARIO_USUARIO: string;
+    }
+
 export interface Pessoa {
-    idpessoa?: string;
+    idpessoa?: number;
     nome: string;
     cpf: string;
     dtnascimento: string;
