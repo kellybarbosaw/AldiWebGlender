@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PessoaService } from '../../services/pessoa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
-import { catchError, of, Subject,Observable } from 'rxjs';
+import { catchError, of, Subject, Observable } from 'rxjs';
 import { LoginService } from '../../services/login.service';
 import { CepService } from '../../services/cep.service';
 import { Pais } from '../../models/cep/pais.model';
@@ -24,7 +24,7 @@ export class PessoaComponent {
   error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
-  
+
   pessoa = {
     idpessoa: 0,
     nome: '',
@@ -66,7 +66,7 @@ export class PessoaComponent {
   }
 
   ngOnInit() {
-    this.paises$ = this.cep.buscarPais();
+    this.paises$ = this.cep.burcaCep('pais', null);
     this.orgaoEmissor$ = this.cep.buscarOrgaoEmissor();
 
     if (this.route.snapshot.params['id'] === undefined) {
@@ -105,8 +105,9 @@ export class PessoaComponent {
           this.pessoa.usuariocriacao = data.USUARIOCRIACAO;
           this.pessoa.usuarioalteracao = data.USUARIOALTERACAO;
           this.pessoa.dtnascimento = this.formatService.formatDate(data.DTNASCIMENTO!);
-          this.buscaruf(this.pessoa.nacionalidade);
-          this.buscarCidade(this.pessoa.estadoemissorident);
+
+          this.estado$ = this.cep.burcaCep('estado', this.pessoa.nacionalidade);
+          this.cidade$ = this.cep.burcaCep('cidade', this.pessoa.estadoemissorident);
         });
       this.event = 'Editar';
     }
@@ -132,7 +133,7 @@ export class PessoaComponent {
       alert('preencha os campos');
       console.log(this.pessoa);
       this.camposPreenchidos = (
-        form.controls['nome'].valid && 
+        form.controls['nome'].valid &&
         form.controls['cpf'].valid &&
         form.controls['dtnascimento'].valid &&
         form.controls['rua'].valid &&
@@ -146,9 +147,9 @@ export class PessoaComponent {
         form.controls['orgaoemissorident'].valid &&
         form.controls['estadoemissorident'].valid &&
         form.controls['zusuario_usuario'].valid
-        
-        );
-        this.botaoClicado = true;
+
+      );
+      this.botaoClicado = true;
       return;
     }
 
@@ -218,13 +219,18 @@ export class PessoaComponent {
     }
   }
 
-  buscaruf(codPais:string){
-    if (codPais == '') return
-    this.estado$ = this.cep.buscareEstado(codPais);
-  }
-  buscarCidade(uf:string){
-    if (uf == '') return
-    this.cidade$ = this.cep.buscarCidade(uf);
+  buscarCep(type: string, key: string,): void {
+    if (key == '') return
+    switch (type) {
+      case 'estado':
+        this.estado$ = this.cep.burcaCep(type, key);
+        break
+      case 'cidade':
+        this.cidade$ = this.cep.burcaCep(type, key);
+        break
+      default:
+        break;
+    }
   }
 
   stage = 1;

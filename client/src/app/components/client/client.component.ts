@@ -76,14 +76,13 @@ export class ClientComponent {
     usuarioalteracao: '',
     tipocliente: ''
   }
-
   dadosFicticios = {
     tipocliente: 'P'
   }
   dtnascimento = '';
   event = 'Cadastrar';
 
-
+  //objetos para cep
   paises$ = new Observable<Pais[]>();
   estado$ = new Observable<Estado[]>();
   cidade$ = new Observable<Cidade[]>();
@@ -95,7 +94,6 @@ export class ClientComponent {
   paisesPgto$ = new Observable<Pais[]>();
   estadoPgto$ = new Observable<Estado[]>();
   cidadePgto$ = new Observable<Cidade[]>();
-
 
   constructor(
     private formatService: FormatsService,
@@ -109,7 +107,7 @@ export class ClientComponent {
   }
 
   ngOnInit() {
-    this.paises$ = this.cep.buscarPais();
+    this.paises$ = this.cep.burcaCep('pais', null);
     this.paisesEntrega$ = this.paises$;
     this.paisesPgto$ = this.paises$;
 
@@ -373,10 +371,6 @@ export class ClientComponent {
     }
 
   }
-  // buscarCidade(uf: string) {
-  //   if (uf == '') return
-  //   this.cidade$ = this.cep.buscarCidade(uf);
-  // }
 
   stage = 1;
   stageName = "GERAL";

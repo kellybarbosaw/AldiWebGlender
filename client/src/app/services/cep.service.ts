@@ -16,7 +16,7 @@ export class CepService {
 
   constructor(private httpClient: HttpClient) { }
 
-  burcaCep(type: string, key:string):any{
+  burcaCep(type: string, key:string|null):any{
 
     switch (type) {
       case 'pais':
@@ -30,15 +30,6 @@ export class CepService {
     }
   }
 
-  buscarPais() {
-    return this.httpClient.get<any>(`${this.urlpais}`)
-  }
-  buscareEstado(idPais: string) {
-    return this.httpClient.get<any>(`${this.urlestado}/${idPais}`)
-  }
-  buscarCidade(uf: string) {
-    return this.httpClient.get<any>(`${this.urlcidade}/${uf}`)
-  }
   buscarOrgaoEmissor() {
     return this.httpClient.get<any>(`${this.urlcep}/orgaoemissor`)
   }
