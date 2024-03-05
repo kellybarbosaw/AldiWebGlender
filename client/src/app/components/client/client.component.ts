@@ -4,16 +4,20 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
 import { FormatsService } from '../../services/formats.service';
 import { CommonModule } from '@angular/common';
-import { catchError, of, Subject } from 'rxjs';
+import { catchError, of, Subject, Observable } from 'rxjs';
 import { LoginService } from '../../services/login.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { CepService } from '../../services/cep.service';
+import { Pais } from '../../models/cep/pais.model';
+import { Estado } from '../../models/cep/estado.model';
+import { Cidade } from '../../models/cep/cidade.model';
 
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule, HttpClientModule,RouterOutlet,CommonModule],
+  imports: [FormsModule, HttpClientModule, RouterOutlet, CommonModule],
   providers: [],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
@@ -76,19 +80,39 @@ export class ClientComponent {
   dadosFicticios = {
     tipocliente: 'P'
   }
+  dtnascimento = '';
   event = 'Cadastrar';
+
+
+  paises$ = new Observable<Pais[]>();
+  estado$ = new Observable<Estado[]>();
+  cidade$ = new Observable<Cidade[]>();
+
+  paisesEntrega$ = new Observable<Pais[]>();
+  estadoEntrega$ = new Observable<Estado[]>();
+  cidadeEntrega$ = new Observable<Cidade[]>();
+
+  paisesPgto$ = new Observable<Pais[]>();
+  estadoPgto$ = new Observable<Estado[]>();
+  cidadePgto$ = new Observable<Cidade[]>();
+
 
   constructor(
     private formatService: FormatsService,
     private clientService: ClientService,
     private router: Router,
     private route: ActivatedRoute,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private cep: CepService
   ) {
     this.client.idcliente = this.route.snapshot.params['id']
   }
 
   ngOnInit() {
+    this.paises$ = this.cep.buscarPais();
+    this.paisesEntrega$ = this.paises$;
+    this.paisesPgto$ = this.paises$;
+
     if (this.route.snapshot.params['id'] === undefined) {
       this.event = "Cadastrar"
 
@@ -153,6 +177,18 @@ export class ClientComponent {
           this.client.usuariocriacao = data.USUARIOCRIACAO;
           this.client.usuarioalteracao = data.USUARIOALTERACAO;
           this.client.tipocliente = data.TIPOCLIENTE;
+
+          this.estado$ = this.cep.burcaCep('estado', this.client.pais);
+          this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
+
+          this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
+          this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
+
+          this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
+          this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
+
+          // this.buscaruf(this.client.pais);
+          // this.buscarCidade(this.client.codetd);
         })
       this.event = "Editar"
     }
@@ -160,7 +196,7 @@ export class ClientComponent {
     setTimeout(() => {
       if (typeof document !== 'undefined') {
         // alert("teste NG ONinit")
-        this.formatService.ativo(this.client.ativo)
+        this.formatService.ativo(this.client.ativo);
       }
     }, 100);
   }
@@ -174,36 +210,33 @@ export class ClientComponent {
       !this.client.complemento || !this.client.bairro || !this.client.cep ||
       !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
       !this.client.cep || !this.client.email || !this.client.pais
-      ) {
-        alert('preencha os campos');
-        console.log(this.client);
-        this.camposPreenchidos = (
-          form.controls['cgccfo'].valid && 
-          form.controls['nome'].valid &&
-          form.controls['nomefantasia'].valid &&
-          form.controls['inscrestadual'].valid &&
-          form.controls['inscrmunicipal'].valid &&
-          form.controls['telefone'].valid &&
-          form.controls['email'].valid &&
-          form.controls['rua'].valid &&
-          form.controls['numero'].valid &&
-          form.controls['complemento'].valid &&
-          form.controls['bairro'].valid &&
-          form.controls['cep'].valid &&
-          form.controls['pagrec'].valid &&
-          form.controls['cidade'].valid &&
-          form.controls['codetd'].valid &&
-          form.controls['cep'].valid &&
-          form.controls['email'].valid && 
-          form.controls['pais'].valid
-          
-          );
-          this.botaoClicado = true;
-        return;
-      } else {
-        alert('Formulário enviado!');
-        console.log(this.client);
-      }
+    ) {
+      alert('preencha os campos');
+      console.log(this.client);
+      this.camposPreenchidos = (
+        form.controls['cgccfo'].valid &&
+        form.controls['nome'].valid &&
+        form.controls['nomefantasia'].valid &&
+        form.controls['inscrestadual'].valid &&
+        form.controls['inscrmunicipal'].valid &&
+        form.controls['telefone'].valid &&
+        form.controls['email'].valid &&
+        form.controls['rua'].valid &&
+        form.controls['numero'].valid &&
+        form.controls['complemento'].valid &&
+        form.controls['bairro'].valid &&
+        form.controls['cep'].valid &&
+        form.controls['pagrec'].valid &&
+        form.controls['cidade'].valid &&
+        form.controls['codetd'].valid &&
+        form.controls['cep'].valid &&
+        form.controls['email'].valid &&
+        form.controls['pais'].valid
+
+      );
+      this.botaoClicado = true;
+      return;
+    }
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === "Cadastrar") {
@@ -214,64 +247,80 @@ export class ClientComponent {
       this.client.usuarioalteracao = localStorage.getItem('user')!;
       this.client.tipocliente = this.dadosFicticios.tipocliente;
 
-      this.clientService.registerClient({
-        nomefantasia: this.client.nomefantasia,
-        nome: this.client.nome,
-        cgccfo: this.client.cgccfo,
-        inscrestadual: this.client.inscrestadual,
-        pagrec: this.client.pagrec,
-        rua: this.client.rua,
-        numero: this.client.numero,
-        complemento: this.client.complemento,
-        bairro: this.client.bairro,
-        cidade: this.client.cidade,
-        codetd: this.client.codetd,
-        cep: this.client.cep,
-        telefone: this.client.telefone,
-        ruapgto: this.client.ruapgto,
-        numeropgto: this.client.numeropgto,
-        complementopgto: this.client.complementopgto,
-        bairropgto: this.client.bairropgto,
-        cidadepgto: this.client.cidadepgto,
-        codetdpgto: this.client.codetdpgto,
-        ceppgto: this.client.ceppgto,
-        telefonepgto: this.client.telefonepgto,
-        ruaentrega: this.client.ruaentrega,
-        numeroentrega: this.client.numeroentrega,
-        complementoentrega: this.client.complementoentrega,
-        bairroentrega: this.client.bairroentrega,
-        cidadeentrega: this.client.cidadeentrega,
-        codetdentrega: this.client.codetdentrega,
-        cepentrega: this.client.cepentrega,
-        telefoneentrega: this.client.telefoneentrega,
-        email: this.client.email,
-        ativo: this.client.ativo,
-        inscrmunicipal: this.client.inscrmunicipal,
-        pessoafisoujur: this.client.pessoafisoujur,
-        pais: this.client.pais,
-        paispgto: this.client.paispgto,
-        paisentrega: this.client.paisentrega,
-        emailentrega: this.client.emailentrega,
-        emailpgto: this.client.emailpgto,
-        codmunicipiopgto: this.client.codmunicipiopgto,
-        codmunicipioentrega: this.client.codmunicipioentrega,
-        dtcriacao: this.client.dtcriacao,
-        dtmodificacao: this.client.dtmodificacao,
-        usuariocriacao: this.client.usuariocriacao,
-        usuarioalteracao: this.client.usuarioalteracao,
-        tipocliente: this.client.tipocliente,
-      })
-        .pipe(
-          catchError(err => {
-            this.error$.next(true)
-            if (err.statusText === "Unauthorized") {
-              alert("Seu iToken foi expirado! Realize o login novamente")
-              this.loginService.deslogar();
-            }
-            return of();
-          })
-        )
-        .subscribe((data) => { this.router.navigate(['/user/clients']) })
+      if (this.client.pessoafisoujur === 'F') {
+        this.clientService.registerPessoaFisica(this.client, this.dtnascimento)
+          .pipe(
+            catchError(err => {
+              this.error$.next(true)
+              if (err.statusText === "Unauthorized") {
+                alert("Seu iToken foi expirado! Realize o login novamente")
+                this.loginService.deslogar();
+              }
+              return of();
+            })
+          )
+          .subscribe((data) => { this.router.navigate(['/user/clients']) })
+
+      } else {
+        this.clientService.registerClient({
+          nomefantasia: this.client.nomefantasia,
+          nome: this.client.nome,
+          cgccfo: this.client.cgccfo,
+          inscrestadual: this.client.inscrestadual,
+          pagrec: this.client.pagrec,
+          rua: this.client.rua,
+          numero: this.client.numero,
+          complemento: this.client.complemento,
+          bairro: this.client.bairro,
+          cidade: this.client.cidade,
+          codetd: this.client.codetd,
+          cep: this.client.cep,
+          telefone: this.client.telefone,
+          ruapgto: this.client.ruapgto,
+          numeropgto: this.client.numeropgto,
+          complementopgto: this.client.complementopgto,
+          bairropgto: this.client.bairropgto,
+          cidadepgto: this.client.cidadepgto,
+          codetdpgto: this.client.codetdpgto,
+          ceppgto: this.client.ceppgto,
+          telefonepgto: this.client.telefonepgto,
+          ruaentrega: this.client.ruaentrega,
+          numeroentrega: this.client.numeroentrega,
+          complementoentrega: this.client.complementoentrega,
+          bairroentrega: this.client.bairroentrega,
+          cidadeentrega: this.client.cidadeentrega,
+          codetdentrega: this.client.codetdentrega,
+          cepentrega: this.client.cepentrega,
+          telefoneentrega: this.client.telefoneentrega,
+          email: this.client.email,
+          ativo: this.client.ativo,
+          inscrmunicipal: this.client.inscrmunicipal,
+          pessoafisoujur: this.client.pessoafisoujur,
+          pais: this.client.pais,
+          paispgto: this.client.paispgto,
+          paisentrega: this.client.paisentrega,
+          emailentrega: this.client.emailentrega,
+          emailpgto: this.client.emailpgto,
+          codmunicipiopgto: this.client.codmunicipiopgto,
+          codmunicipioentrega: this.client.codmunicipioentrega,
+          dtcriacao: this.client.dtcriacao,
+          dtmodificacao: this.client.dtmodificacao,
+          usuariocriacao: this.client.usuariocriacao,
+          usuarioalteracao: this.client.usuarioalteracao,
+          tipocliente: this.client.tipocliente,
+        })
+          .pipe(
+            catchError(err => {
+              this.error$.next(true)
+              if (err.statusText === "Unauthorized") {
+                alert("Seu iToken foi expirado! Realize o login novamente")
+                this.loginService.deslogar();
+              }
+              return of();
+            })
+          )
+          .subscribe((data) => { this.router.navigate(['/user/clients']) })
+      }
 
     } else if (this.event === "Editar") {
       this.client.dtmodificacao = this.formatService.dateNow();
@@ -295,6 +344,39 @@ export class ClientComponent {
       alert("Error!")
     }
   }
+  buscarCep(entidade: string, type: string, key: string,): void {
+    if (key == '') return
+
+    switch (type) {
+      case 'estado':
+        if (entidade === 'geral') {
+          this.estado$ = this.cep.burcaCep(type, key);
+        } else if (entidade === 'entrega') {
+          this.estadoEntrega$ = this.cep.burcaCep(type, key);
+        } else if (entidade === 'pgto') {
+          this.estadoPgto$ = this.cep.burcaCep(type, key);
+        }
+        break;
+
+      case 'cidade':
+        if (entidade === 'geral') {
+          this.cidade$ = this.cep.burcaCep(type, key);
+        } else if (entidade === 'entrega') {
+          this.cidadeEntrega$ = this.cep.burcaCep(type, key);
+        } else if (entidade === 'pgto') {
+          this.cidadePgto$ = this.cep.burcaCep(type, key);
+        }
+        break;
+
+      default:
+        break;
+    }
+
+  }
+  // buscarCidade(uf: string) {
+  //   if (uf == '') return
+  //   this.cidade$ = this.cep.buscarCidade(uf);
+  // }
 
   stage = 1;
   stageName = "GERAL";

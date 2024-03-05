@@ -4,8 +4,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PessoaService } from '../../services/pessoa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
-import { catchError, of, Subject } from 'rxjs';
+import { catchError, of, Subject,Observable } from 'rxjs';
 import { LoginService } from '../../services/login.service';
+import { CepService } from '../../services/cep.service';
+import { Pais } from '../../models/cep/pais.model';
+import { Estado } from '../../models/cep/estado.model';
+import { Cidade } from '../../models/cep/cidade.model';
+import { OrgaoEmissor } from '../../models/cep/orgaoEmissor.model';
 
 
 @Component({
@@ -42,6 +47,11 @@ export class PessoaComponent {
     usuarioalteracao: ''
   };
 
+  paises$ = new Observable<Pais[]>();
+  estado$ = new Observable<Estado[]>();
+  cidade$ = new Observable<Cidade[]>();
+  orgaoEmissor$ = new Observable<OrgaoEmissor[]>();
+
   event = 'Cadastrar';
 
   constructor(
@@ -49,12 +59,16 @@ export class PessoaComponent {
     private pessoaService: PessoaService,
     private router: Router,
     private route: ActivatedRoute,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private cep: CepService
   ) {
     this.pessoa.idpessoa = this.route.snapshot.params['id'];
   }
 
   ngOnInit() {
+    this.paises$ = this.cep.buscarPais();
+    this.orgaoEmissor$ = this.cep.buscarOrgaoEmissor();
+
     if (this.route.snapshot.params['id'] === undefined) {
       this.event = 'Cadastrar';
     } else {
@@ -91,6 +105,8 @@ export class PessoaComponent {
           this.pessoa.usuariocriacao = data.USUARIOCRIACAO;
           this.pessoa.usuarioalteracao = data.USUARIOALTERACAO;
           this.pessoa.dtnascimento = this.formatService.formatDate(data.DTNASCIMENTO!);
+          this.buscaruf(this.pessoa.nacionalidade);
+          this.buscarCidade(this.pessoa.estadoemissorident);
         });
       this.event = 'Editar';
     }
@@ -176,7 +192,7 @@ export class PessoaComponent {
         )
         .subscribe(() => {
           alert("cadastrado")
-          this.router.navigate(['/user/pessoa']);
+          this.router.navigate(['/user/pessoas']);
         });
     } else if (this.event === 'Editar') {
       this.pessoa.dtalteracao = this.formatService.dateNow();
@@ -195,11 +211,20 @@ export class PessoaComponent {
           })
         )
         .subscribe(() => {
-          this.router.navigate(['/user/pessoa']);
+          this.router.navigate(['/user/pessoas']);
         });
     } else {
       alert('Error!');
     }
+  }
+
+  buscaruf(codPais:string){
+    if (codPais == '') return
+    this.estado$ = this.cep.buscareEstado(codPais);
+  }
+  buscarCidade(uf:string){
+    if (uf == '') return
+    this.cidade$ = this.cep.buscarCidade(uf);
   }
 
   stage = 1;

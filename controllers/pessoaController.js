@@ -25,7 +25,6 @@ const pessoaController = {
   },
 
   register: async function (req, res) {
-    console.log(req.body)
 
     const { error } = registerValidate(req.body);
     if (error) {

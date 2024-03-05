@@ -114,7 +114,7 @@ export class FormatsService {
     }
   };
 
-  concluido(concluido: number){
+  concluido(concluido: number) {
 
     if (typeof document !== 'undefined') {
       var checkConcluido = document.getElementById('concluido') as HTMLInputElement;
@@ -131,7 +131,7 @@ export class FormatsService {
     }
   };
 
-  cancelado(cancelado:number){
+  cancelado(cancelado: number) {
 
     if (typeof document !== 'undefined') {
       var checkCancelado = document.getElementById('cancelado') as HTMLInputElement;
@@ -152,10 +152,23 @@ export class FormatsService {
     var date = new Date(Date.now())
     // const options = { timeZone: 'America/Sao_Paulo' };
     // const dataHoraBrasil = date.toLocaleString('pt-BR', options);
-  
+
     var dateFormat = this.format(date.toString(), null, 'dateTime')
-  
+
     return dateFormat
   };
+
+  pegarUsuarioEmail(email: string): string {
+    var emailArray = email.split(''); // ["o", "i"]
+    let usuario = ''
+    for (let element of emailArray) {
+      if (element !== '@') {
+        usuario += element
+      } else {
+        break 
+      }
+    }
+    return usuario
+  }
 
 }

@@ -74,6 +74,7 @@ const registerValidateUpdate = (data) => {
         codetd: Joi.string().allow(null, '').max(2),
         cep: Joi.string().allow(null, '').max(9),
         telefone: Joi.string().allow(null, '').min(9).max(15),
+        email: Joi.string().allow(null, '').max(250),
 
         ruapgto: Joi.string().allow(null, '').max(100),
         numeropgto: Joi.string().allow(null, '').max(8),
@@ -93,7 +94,6 @@ const registerValidateUpdate = (data) => {
         cepentrega: Joi.string().allow(null, '').max(9),
         telefoneentrega: Joi.string().allow(null, '').min(9).max(15),
 
-        email: Joi.string().allow(null, '').max(250),
         ativo: Joi.number().required().valid(1,2),
         inscrmunicipal: Joi.string().allow(null, '').max(20),
         pessoafisoujur: Joi.string().allow(null, '').max(1),

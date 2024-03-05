@@ -12,6 +12,7 @@ const apontamentoRouter = require('./routes/apontamentoRoutes');
 const pessoaRouter = require('./routes/pessoaRoutes');
 const tarefaRouter = require("./routes/tarefaRoutes");
 const projetoTarefaRouter = require('./routes/projetoTarefaRoutes');
+const serviceCepRouter = require('./routes/serviceCepRoutes');
 
 const cors = require('cors');
 const path = require('path');
@@ -34,6 +35,9 @@ app.use('/apontamento', express.json(), apontamentoRouter);
 app.use('/pessoa', express.json(), pessoaRouter);
 app.use('/tarefa', express.json(), tarefaRouter);
 app.use('/projetoTarefa', express.json(), projetoTarefaRouter);
+
+//Serviços Auxiliares
+app.use('/cep', express.json(), serviceCepRouter);
 
 
 
