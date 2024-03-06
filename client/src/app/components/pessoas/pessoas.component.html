@@ -28,8 +28,8 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Naturalidade</th>
-                        <th style="text-align: center;">Editar</th>
-                        <th style="text-align: center;">Excluir</th>
+                        <th style="text-align: left;">Editar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody *ngIf="allPessoa$ | async as pessoa; else loadingError">
@@ -40,10 +40,31 @@
                         <td>{{pessoa.NOME}}</td>
                         <td>{{pessoa.CPF}}</td>
                         <td>{{pessoa.NATURALIDADE}}</td>
-                        <td style="text-align: center;"><i [routerLink]="['/user/pessoa/',pessoa.IDPESSOA]" class="bi bi-pencil-square"></i>
+                        <td style="text-align: left;"><i [routerLink]="['/user/pessoa/',pessoa.IDPESSOA]" class="bi bi-pencil-square"></i>
                         </td>
-                        <td style="text-align: center;"><i (click)="deletPessoa(pessoa.IDPESSOA!)"
-                                class="bi bi-trash-fill"></i></td>
+                        <!-- <td style="text-align: center;"><i (click)="deletPessoa(pessoa.IDPESSOA!)"
+                                class="bi bi-trash-fill"></i></td> -->
+
+                    <!-- <td>
+                            <button type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="bi bi-trash-fill"></i></button>
+
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Excluir</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">Tem certeza que deseja excluir esse item? {{pessoa.IDPESSOA}}</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                                    <button (click)="deletPessoa(pessoa.IDPESSOA!)" type="button" class="btn btn-danger btn-stage">{{pessoa.IDPESSOA}}</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td> -->
                     </tr>
                 </tbody>
             </table>

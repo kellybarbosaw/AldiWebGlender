@@ -5,10 +5,15 @@
         <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA 1</button>
         <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA 2</button>
         <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA 3</button>
-    </div><br><br><br>
+    </div>
 
 <div class="customer-pessoa bg-light">
-    <div class="formCadastro d-flex justify-content-left ">
+    <div class="formCadastro justify-content-left ">
+        <div class="botao-com-espaco" >
+            <div>
+                <a href="/user/pessoas" class="btn btn-danger btn-stage">Sair</a>
+            </div>
+        </div>
         <form class="form d-flex flex-column justify-content-between" #form="ngForm" (ngSubmit)="registerPessoa(form)">
             <h5 class="titleStage">ETAPA: {{stage}}</h5>
             <section class="stage_1 currentBody spaceForm current ">
@@ -29,7 +34,7 @@
 
                     <div class="form-group mb-3">
                         <label>CPF:</label>
-                        <input [(ngModel)]="pessoa.cpf" type="text" class="form-control" placeholder="CPF"
+                        <input [(ngModel)]="pessoa.cpf" type="text" class="form-control" placeholder="CPF" id="cpf"
                             name="cpf" style="width: 400px" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.cpf}">
                     </div>
 
@@ -124,11 +129,19 @@
                 </div>
             </section>
         </form>
-        <div class="botao-com-espaco" >
-            <div>
-                <a href="/user" class="btn btn-danger btn-stage">Sair</a>
-            </div>
-        </div>
+        
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- jQuery Mask Plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+        <script>
+            $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00', {reverse: true});
+            });
+        </script>
+
     </div>
 </div>
 </div>

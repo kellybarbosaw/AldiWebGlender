@@ -4,10 +4,12 @@
 
 .flip-card {
     background-color: transparent;
-    width: 450px;
-    height: 450px;
+    width: 290px;
+    height: 260px;
     perspective: 1000px;
-    //border-radius: 10px;
+    position: absolute;
+    top: 170px;
+    right: 90px;
 }
 
 .flip-card-inner {
@@ -48,11 +50,80 @@
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
 }
-.teste{
-    margin: 0 90px;
-    margin-bottom: 60px;
-}
 .espacamento{
     padding-right: 20px;
     padding-left: 20px;
+}
+
+// SLIDER HOME
+section.slider{
+    width: 75%;
+    height: auto;
+    padding: 0 !important;
+    overflow: hidden;
+    border: 5px solid #000000;
+}
+
+.slider-content{
+    width: 400%;
+    height: auto;
+    display: flex;
+}
+
+.slider-content input{
+    display: none;
+}
+
+.slide-box{
+    width: 25%;
+    height: auto;
+    position: relative;
+    text-align: center;
+    transition: 1s;
+}
+
+.slide-box img{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+.nav-manual, .nav-auto{
+    position: absolute;
+    width: 50%;
+    margin-top: 35%;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-manual .manual-btn, .nav-auto div{
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-manual .manual-btn:not(:last-child), .nav-auto div:not(:last-child){
+    margin-right: 10px;
+}
+
+.nav-manual .manual-btn:hover{
+    background-color: #000000;
+}
+
+#radio1:checked ~ .nav-auto .auto-btn1, #radio2:checked ~ .nav-auto .auto-btn2, #radio3:checked ~ .nav-auto .auto-btn3{
+    background-color: #000000;
+}
+
+#radio1:checked ~ .primeiro{
+    margin-left: 0%;
+}
+
+#radio2:checked ~ .primeiro{
+    margin-left: -25%;
+}
+
+#radio3:checked ~ .primeiro{
+    margin-left: -50%;
 }

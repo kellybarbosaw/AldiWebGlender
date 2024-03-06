@@ -26,7 +26,7 @@ const clientController = {
 
     register: async function (req, res) {
 
-
+        console.log(req.body);
         const { error } = registerValidate(req.body)
         if (error) { return res.status(400).send(error.message) };
 

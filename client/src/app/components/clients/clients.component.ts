@@ -22,6 +22,7 @@ export class ClientsComponent {
   error$ = new Subject<boolean>();
 
   allClient$ = new Observable<Client[]>();
+  modalService: any;
 
 
   constructor(private clientService: ClientService, private loginService: LoginService) { }
@@ -40,8 +41,9 @@ export class ClientsComponent {
       );
   }
 
+  event ="Excluir";
   deletClient(id: number) {
-    alert("deseja realmente deletar esse iten?" + id);
+    //alert("deseja realmente deletar esse iten?" + id);
     this.clientService.deleteClient(id)
       .pipe(
         catchError(err => {
