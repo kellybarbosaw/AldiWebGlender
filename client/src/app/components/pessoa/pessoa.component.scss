@@ -70,7 +70,11 @@ form{
 }
 
 .botao-com-espaco {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-group{
     margin-bottom: 15px;
-    margin-left: 20px;
-    display: inline-block;
+    margin-top: 10px;
 }
