@@ -117,6 +117,16 @@ const pessoaController = {
       res.status(400).send(error);
     }
   },
+
+  selectZusuarios:async function (req, res) {
+    let usuarios = [];
+    try {
+      usuarios = await db.selectZusuarios();
+      res.send(usuarios);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  },
 };
 
 module.exports = pessoaController;

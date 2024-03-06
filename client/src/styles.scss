@@ -19,3 +19,13 @@
     border-color: red;
     background-color: rgba(255, 0, 0, 0.1);
 }
+
+.botaoExcluir {
+    width: 65px;
+    height: 40px;
+    font-size: 15px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+}

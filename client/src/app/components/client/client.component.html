@@ -35,9 +35,8 @@
                         </div>
                         <div class="form-group mb-3">
                             <label>Pessoa Física ou Juridica</label>
-                            <select [(ngModel)]="client.pessoafisoujur" type="text" class="form-control"
-                                name="pessoafisoujur">
-                                <option value="" disabled selected hidden>Selecione</option>
+                            <select [(ngModel)]="client.pessoafisoujur" type="text" class="form-control" name="pessoafisoujur" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}">
+                                <option value="" disabled selected hidden>Selecione</option> 
                                 <option value="F">Física</option>
                                 <option value="J">Jurídica</option>
                             </select>
@@ -58,12 +57,10 @@
                         <div class="form-group mb-3">
                             <label>CNPJ/CPF</label>
                             <div class="d-flex mb-3">
-                                <input [(ngModel)]="client.cgccfo" type="text"
-                                    mask="000.000.000-000||00.000.000/0000-00" class="form-control"
-                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}">
-                            </div>
-                            <div class="btn btn-dark">Buscar</div>
+                                <input [(ngModel)]="client.cgccfo" type="text" class="form-control"   
+                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}">
+                                </div>
+                                <div class="btn btn-dark">Buscar</div>
                         </div>
                         <div class="form-group mb-3">
                             <label>Razão Social:</label>
@@ -191,9 +188,8 @@
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone</label>
-                            <input [(ngModel)]="client.telefone" type="tel" class="form-control" id="telefone"
-                                placeholder="(99) 9999-9999" name="telefone" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefone}">
+                            <input [(ngModel)]="client.telefone" type="text" class="form-control" id="telefone"
+                                placeholder="(99) 9999-9999" name="telefone" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefone}">
                         </div>
                     </div>
                     <div class="d-flex justify-content-between w-100">
@@ -402,14 +398,18 @@
             <div>
                 <a href="/user/clients" class="btn btn-danger btn-stage">Sair</a>
             </div>
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+            
+            <!-- jQuery -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+            <!-- jQuery Mask Plugin -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
             <script>
-                $('#cgccfo').mask('000.000.000-00', { reverse: true });
-                //$('#telefone').mask('00.000.000/0000-00', {reverse: true});
+                $(document).ready(function(){
                 $('#telefone').mask('(00) 0000-0000');
-                $('#telefoneentrega').mask('(00) 0000-0000');
-                $('#telefonepgto').mask('(00) 0000-0000');
+                $('#cgccfo').mask('000.000.000-00', {reverse: true});
+                });
             </script>
         </div>
     </div>

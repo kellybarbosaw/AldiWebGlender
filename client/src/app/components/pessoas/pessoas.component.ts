@@ -41,9 +41,13 @@ export class PessoasComponent {
 
   }
 
+  event = "Excluir";
   deletPessoa(id: number) {
-    alert("deseja realmente deletar esse item?" + id);
+    console.log("teste");
+    console.log(id);
+    //alert("deseja realmente deletar esse item?" + id);
     this.pessoaService.deletePessoa(id).pipe(
+
       catchError(err => {
         alert(err.error.msg)
         return of();

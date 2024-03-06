@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Pessoa, CreatePessoa, Pessoas } from '../models/pessoa.model';
 import { LoginService } from './login.service';
+import { User } from "../models/users.model";
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,6 @@ export class PessoaService {
   constructor(private httpClient: HttpClient, private loginService: LoginService) {}
 
   registerPessoa(newPessoa: CreatePessoa) {
-    console.log(newPessoa)
     return this.httpClient.post<CreatePessoa>(this.url, newPessoa);
   }
 
@@ -32,5 +32,9 @@ export class PessoaService {
 
   deletePessoa(id: number) {
     return this.httpClient.delete<void>(`${this.url}/${id}`);
+  }
+
+  usuariosPessoa(){
+    return this.httpClient.get<any>(`${this.url}/zusuarios`);
   }
 }

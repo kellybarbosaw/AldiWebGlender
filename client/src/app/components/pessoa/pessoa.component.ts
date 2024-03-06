@@ -10,6 +10,7 @@ import { CepService } from '../../services/cep.service';
 import { Pais } from '../../models/cep/pais.model';
 import { Estado } from '../../models/cep/estado.model';
 import { Cidade } from '../../models/cep/cidade.model';
+import { User } from '../../models/users.model';
 import { OrgaoEmissor } from '../../models/cep/orgaoEmissor.model';
 
 
@@ -51,6 +52,7 @@ export class PessoaComponent {
   estado$ = new Observable<Estado[]>();
   cidade$ = new Observable<Cidade[]>();
   orgaoEmissor$ = new Observable<OrgaoEmissor[]>();
+  zusuarios$ = new Observable<User[]>();
 
   event = 'Cadastrar';
 
@@ -68,6 +70,7 @@ export class PessoaComponent {
   ngOnInit() {
     this.paises$ = this.cep.burcaCep('pais', null);
     this.orgaoEmissor$ = this.cep.buscarOrgaoEmissor();
+    this.zusuarios$ = this.pessoaService.usuariosPessoa();
 
     if (this.route.snapshot.params['id'] === undefined) {
       this.event = 'Cadastrar';
@@ -218,7 +221,6 @@ export class PessoaComponent {
       alert('Error!');
     }
   }
-
   buscarCep(type: string, key: string,): void {
     if (key == '') return
     switch (type) {

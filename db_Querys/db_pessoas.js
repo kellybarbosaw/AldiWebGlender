@@ -75,6 +75,11 @@ async function selectZPessoas() {
     const values = [pessoa];
     return await conn.query(sql, values);
   }
+  async function selectZusuarios() {
+    const conn = await connect();
+    const [rows] = await conn.query("SELECT USUARIO,NOME FROM ZUSUARIO;");
+    return rows;
+  }
 
 
-  module.exports = {selectZPessoas,selectZPessoa,selectZPessoaCpf,insertZPessoa,updateZPessoa,deleteZPessoa};
+  module.exports = {selectZPessoas,selectZPessoa,selectZPessoaCpf,insertZPessoa,updateZPessoa,deleteZPessoa,selectZusuarios};

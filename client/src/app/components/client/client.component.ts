@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ClientService } from '../../services/client.service';
 import { FormatsService } from '../../services/formats.service';
@@ -12,6 +12,8 @@ import { CepService } from '../../services/cep.service';
 import { Pais } from '../../models/cep/pais.model';
 import { Estado } from '../../models/cep/estado.model';
 import { Cidade } from '../../models/cep/cidade.model';
+//import 'jquery-mask-plugin/dist/jquery.mask.min.js';
+
 
 
 @Component({
@@ -208,33 +210,54 @@ export class ClientComponent {
       !this.client.complemento || !this.client.bairro || !this.client.cep ||
       !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
       !this.client.cep || !this.client.email || !this.client.pais
-    ) {
-      alert('preencha os campos');
-      console.log(this.client);
-      this.camposPreenchidos = (
-        form.controls['cgccfo'].valid &&
-        form.controls['nome'].valid &&
-        form.controls['nomefantasia'].valid &&
-        form.controls['inscrestadual'].valid &&
-        form.controls['inscrmunicipal'].valid &&
-        form.controls['telefone'].valid &&
-        form.controls['email'].valid &&
-        form.controls['rua'].valid &&
-        form.controls['numero'].valid &&
-        form.controls['complemento'].valid &&
-        form.controls['bairro'].valid &&
-        form.controls['cep'].valid &&
-        form.controls['pagrec'].valid &&
-        form.controls['cidade'].valid &&
-        form.controls['codetd'].valid &&
-        form.controls['cep'].valid &&
-        form.controls['email'].valid &&
-        form.controls['pais'].valid
-
-      );
-      this.botaoClicado = true;
-      return;
-    }
+      ) {
+        alert('preencha os campos');
+        console.log(this.client);
+        this.camposPreenchidos = (
+          form.controls['pessoafisoujur'].valid && 
+          //form.controls['cgccfo'].valid && 
+          form.controls['nome'].valid &&
+          form.controls['nomefantasia'].valid &&
+          form.controls['inscrestadual'].valid &&
+          form.controls['inscrmunicipal'].valid &&
+          form.controls['pagrec'].valid &&
+          form.controls['rua'].valid &&
+          form.controls['numero'].valid &&
+          form.controls['complemento'].valid &&
+          form.controls['bairro'].valid &&
+          form.controls['cidade'].valid &&
+          form.controls['codetd'].valid &&
+          form.controls['cep'].valid &&
+          form.controls['pais'].valid &&
+          form.controls['email'].valid &&
+          form.controls['telefone'].valid
+          // form.controls['ruaentrega'].valid &&
+          // form.controls['numeroentrega'].valid &&
+          // form.controls['complementoentrega'].valid &&
+          // form.controls['bairroentrega'].valid &&
+          // form.controls['cidadeentrega'].valid &&
+          // form.controls['codetdentrega'].valid &&
+          // form.controls['cepentrega'].valid &&
+          // form.controls['telefoneentrega'].valid &&
+          // form.controls['codmunicipioentrega'].valid &&
+          // form.controls['paisentrega'].valid &&
+          // form.controls['emailentrega'].valid &&
+          // form.controls['ruapgto'].valid &&
+          // form.controls['numeropgto'].valid &&
+          // form.controls['complementopgto'].valid &&
+          // form.controls['bairropgto'].valid &&
+          // form.controls['cidadepgto'].valid &&
+          // form.controls['codetdpgto'].valid &&
+          // form.controls['ceppgto'].valid &&
+          // form.controls['telefonepgto'].valid &&
+          // form.controls['codmunicipiopgto'].valid &&
+          // form.controls['paispgto'].valid &&
+          // form.controls['emailpgto'].valid 
+          
+          );
+          this.botaoClicado = true;
+        return;
+      } 
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === "Cadastrar") {
