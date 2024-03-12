@@ -40,7 +40,7 @@
                         </td>
                         <td>{{client.NOME}}</td>
                         <td>{{client.NOMEFANTASIA}}</td>
-                        <td>{{client.CGCCFO}}</td>
+                        <td>{{client.CGCCFO | mask: 'CPF_CNPJ'}}</td>
                         <td style="text-align: center;"><i [routerLink]="['/user/client360/',client.IDCLIENTE]" class="bi bi-search"></i></td>
                         <td style="text-align: center;"><i [routerLink]="['/user/client/',client.IDCLIENTE]" class="bi bi-pencil-square"></i>
                         </td>

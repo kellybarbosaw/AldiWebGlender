@@ -7,19 +7,18 @@ import { CommonModule } from '@angular/common';
 import { catchError, of, Subject, Observable } from 'rxjs';
 import { LoginService } from '../../services/login.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { NgxMaskDirective } from 'ngx-mask';
 import { CepService } from '../../services/cep.service';
 import { Pais } from '../../models/cep/pais.model';
 import { Estado } from '../../models/cep/estado.model';
 import { Cidade } from '../../models/cep/cidade.model';
-//import 'jquery-mask-plugin/dist/jquery.mask.min.js';
 
 
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, RouterOutlet, CommonModule],
+  imports: [FormsModule, HttpClientModule, RouterOutlet, CommonModule, NgxMaskDirective],
   providers: [],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
@@ -178,17 +177,15 @@ export class ClientComponent {
           this.client.usuarioalteracao = data.USUARIOALTERACAO;
           this.client.tipocliente = data.TIPOCLIENTE;
 
-          this.estado$ = this.cep.burcaCep('estado', this.client.pais);
-          this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
+          if(this.client.pais) this.estado$ = this.cep.burcaCep('estado', this.client.pais);
+          if(this.client.codetd) this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
 
-          this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
-          this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
+          if(this.client.paisentrega) this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
+          if(this.client.codetdentrega) this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
 
-          this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
-          this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
+          if(this.client.paispgto) this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
+          if(this.client.codetdpgto) this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
 
-          // this.buscaruf(this.client.pais);
-          // this.buscarCidade(this.client.codetd);
         })
       this.event = "Editar"
     }

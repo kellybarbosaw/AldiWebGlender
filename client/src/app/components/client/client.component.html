@@ -41,7 +41,7 @@
                                 <option value="J">Jurídica</option>
                             </select>
                         </div>
-                        <div [ngSwitch]="client.pessoafisoujur">
+                        <div [ngSwitch]="client.pessoafisoujur" *ngIf="event === 'Cadastrar'">
                             <div *ngSwitchCase="'F'">
                                 <div class="form-group mb-3">
                                     <label>Data Nascimento</label>
@@ -58,34 +58,39 @@
                             <label>CNPJ/CPF</label>
                             <div class="d-flex mb-3">
                                 <input [(ngModel)]="client.cgccfo" type="text" class="form-control"   
-                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}">
+                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}"
+                                    mask="CPF_CNPJ">
                                 </div>
-                                <div class="btn btn-dark">Buscar</div>
+                                <div [ngSwitch]="client.pessoafisoujur">
+                                    <div *ngSwitchCase="'J'">
+                                        <div class="btn btn-dark">Buscar</div>
+                                    </div>
+                                </div>
                         </div>
                         <div class="form-group mb-3">
                             <label>Razão Social:</label>
                             <input [(ngModel)]="client.nome" type="text" class="form-control" placeholder="Razão Social"
-                                name="nome" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.nome}">
+                                name="nome" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.nome}" maxLength="100">
                         </div>
                         <div class="form-group mb-3">
                             <label>Nome Fantasia:</label>
                             <input [(ngModel)]="client.nomefantasia" type="text" class="form-control"
                                 placeholder="Nome Fantasia" name="nomefantasia" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.nomefantasia}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.nomefantasia}" maxLength="100">
                         </div>
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mb-3">
                                 <label>I.E:</label>
                                 <input [(ngModel)]="client.inscrestadual" type="text" class="form-control" required
                                     [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrestadual}"
-                                    placeholder="Inscrição Estadual" name="inscrestadual">
+                                    placeholder="Inscrição Estadual" name="inscrestadual" maxLength="20">
 
                             </div>
                             <div class="form-group mb-3 espacoCampo">
                                 <label>I.M:</label>
                                 <input [(ngModel)]="client.inscrmunicipal" type="text" class="form-control"
                                     placeholder="Inscrição Municipal" name="inscrmunicipal" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrmunicipal}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrmunicipal}" maxLength="20">
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,7 +119,7 @@
                         <div class="form-group mb-3">
                             <label>CEP:</label>
                             <input [(ngModel)]="client.cep" type="text" class="form-control" placeholder="XX XXX-XXX"
-                                name="cep" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cep}">
+                                name="cep" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cep}" mask="00 000-000">                  
                         </div>
 
                         <div class="form-group mb-3">
@@ -158,25 +163,25 @@
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairro" type="text" class="form-control" placeholder="Bairro"
                                 name="bairro" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairro}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairro}" maxlength="80">
                         </div>
                         <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.rua" type="text" class="form-control" placeholder="Rua"
-                                name="rua" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.rua}">
+                                name="rua" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.rua}" maxlength="100">
                         </div>
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mb-3">
                                 <label>Número:</label>
                                 <input [(ngModel)]="client.numero" type="text" class="form-control" placeholder="Nº"
                                     name="numero" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numero}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numero}" maxlength="8" mask="0*">
                             </div>
                             <div class="form-group mb-3 espacoCampo">
                                 <label>Complemento:</label>
                                 <input [(ngModel)]="client.complemento" type="text" class="form-control"
                                     placeholder="Complemento" name="complemento" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complemento}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complemento}" maxlength="60">
                             </div>
                         </div>
 
@@ -189,7 +194,8 @@
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone</label>
                             <input [(ngModel)]="client.telefone" type="text" class="form-control" id="telefone"
-                                placeholder="(99) 9999-9999" name="telefone" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefone}">
+                                placeholder="(99) 9999-9999" name="telefone" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefone}"
+                                mask="(00) 00000-0000">
                         </div>
                     </div>
                     <div class="d-flex justify-content-between w-100">
@@ -206,7 +212,7 @@
                             <label>CEP Entrega:</label>
                             <input [(ngModel)]="client.cepentrega" type="text" class="form-control"
                                 placeholder="XX XXX-XXX" name="cepentrega" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cepentrega}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cepentrega}" mask="00 000-000">
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
@@ -247,39 +253,39 @@
                             <label>Municipio:</label>
                             <input [(ngModel)]="client.codmunicipioentrega" type="text" class="form-control"
                                 placeholder="UF Entrega" name="codmunicipioentrega" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codmunicipioentrega}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codmunicipioentrega}" maxlength="20">
                         </div>
                         <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairroentrega" type="text" class="form-control"
                                 placeholder="Bairro Entrega" name="bairroentrega" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairroentrega}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairroentrega}" maxlength="80">
                         </div>
                         <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.ruaentrega" type="text" class="form-control"
                                 placeholder="Rua Entrega" name="ruaentrega" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ruaentrega}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ruaentrega}" maxlength="100">
                         </div>
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mb-3">
                                 <label>Número:</label>
                                 <input [(ngModel)]="client.numeroentrega" type="text" class="form-control"
                                     placeholder="Nº Entrega" name="numeroentrega" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numeroentrega}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numeroentrega}" maxlength="8" mask="0*">
                             </div>
                             <div class="form-group mb-3 espacoCampo">
                                 <label>Complemento:</label>
                                 <input [(ngModel)]="client.complementoentrega" type="text" class="form-control"
                                     placeholder="Complemento Entrega" name="complementopgto" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complementopgto}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complementopgto}" maxlength="60">
                             </div>
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone Entrega</label>
                             <input [(ngModel)]="client.telefoneentrega" type="tel" class="form-control"
                                 id="telefoneentrega" placeholder="(99) 9999-9999" name="telefoneentrega" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefoneentrega}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefoneentrega}" mask="(00) 00000-0000">
                         </div>
                         <div class="form-group mb-3">
                             <label>E-mail:</label>
@@ -303,7 +309,7 @@
                             <label>CEP Pagamento:</label>
                             <input [(ngModel)]="client.ceppgto" type="text" class="form-control"
                                 placeholder="XX XXX-XXX" name="ceppgto" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ceppgto}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ceppgto}" mask="00 000-000">
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
@@ -344,40 +350,40 @@
                             <label>Municipio:</label>
                             <input [(ngModel)]="client.codmunicipiopgto" type="text" class="form-control"
                                 placeholder="UF Pagamento" name="codmunicipiopgto" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codmunicipiopgto}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.codmunicipiopgto}" maxlength="20">
                         </div>
 
                         <div class="form-group mb-3">
                             <label>Bairro:</label>
                             <input [(ngModel)]="client.bairropgto" type="text" class="form-control"
                                 placeholder="Bairro Pagamento" name="bairropgto" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairropgto}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.bairropgto}" maxlength="80">
                         </div>
                         <div class="form-group mb-3">
                             <label>Rua:</label>
                             <input [(ngModel)]="client.ruapgto" type="text" class="form-control"
                                 placeholder="Rua Pagamento" name="ruapgto" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ruapgto}">
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ruapgto}" maxlength="100">
                         </div>
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mb-3">
                                 <label>Número:</label>
                                 <input [(ngModel)]="client.numeropgto" type="text" class="form-control"
                                     placeholder="Nº Pagamento" name="numeropgto" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numeropgto}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.numeropgto}" maxlength="8" mask="0*">
                             </div>
                             <div class="form-group mb-3 espacoCampo">
                                 <label>Complemento:</label>
                                 <input [(ngModel)]="client.complementopgto" type="text" class="form-control"
                                     placeholder="Complemento Pagamento" name="complementopgto" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complementopgto}">
+                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.complementopgto}" maxlength="60">
                             </div>
                         </div>
                         <div class="flex-grow-1 form-group mb-3">
                             <label>Telefone Pagamento:</label>
                             <input [(ngModel)]="client.telefonepgto" type="tel" class="form-control" id="telefonepgto"
-                                placeholder="(99) 9999-9999" name="telefone" required
-                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefonepgto}">
+                                placeholder="(99) 9999-9999" name="telefonepgto" required
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.telefonepgto}" mask="(00) 00000-0000">
                         </div>
                         <div class="form-group mb-3">
                             <label>E-mail:</label>
@@ -399,18 +405,6 @@
                 <a href="/user/clients" class="btn btn-danger btn-stage">Sair</a>
             </div>
             
-            <!-- jQuery -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-            <!-- jQuery Mask Plugin -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
-            <script>
-                $(document).ready(function(){
-                $('#telefone').mask('(00) 0000-0000');
-                $('#cgccfo').mask('000.000.000-00', {reverse: true});
-                });
-            </script>
         </div>
     </div>
 </div>

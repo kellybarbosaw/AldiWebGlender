@@ -7,13 +7,15 @@ import { catchError, Observable, of, Subject } from 'rxjs';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 import { LoginService } from '../../services/login.service';
+import { NgxMaskPipe } from 'ngx-mask';
+
 
 
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, CommonModule, RouterLink],
+  imports: [FormsModule, HttpClientModule, CommonModule, RouterLink, NgxMaskPipe],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.scss'
 })

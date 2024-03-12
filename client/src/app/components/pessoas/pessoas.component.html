@@ -38,7 +38,7 @@
                             {{pessoa.IDPESSOA}}
                         </td>
                         <td>{{pessoa.NOME}}</td>
-                        <td>{{pessoa.CPF}}</td>
+                        <td>{{pessoa.CPF | mask: 'CPF_CNPJ'}}</td>
                         <td>{{pessoa.NATURALIDADE}}</td>
                         <td style="text-align: left;"><i [routerLink]="['/user/pessoa/',pessoa.IDPESSOA]" class="bi bi-pencil-square"></i>
                         </td>
