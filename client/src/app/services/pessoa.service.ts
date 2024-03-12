@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Pessoa, CreatePessoa, Pessoas } from '../models/pessoa.model';
 import { LoginService } from './login.service';
-import { User } from "../models/users.model";
 
 @Injectable({
   providedIn: 'root',
