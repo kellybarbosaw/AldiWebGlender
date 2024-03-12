@@ -177,14 +177,14 @@ export class ClientComponent {
           this.client.usuarioalteracao = data.USUARIOALTERACAO;
           this.client.tipocliente = data.TIPOCLIENTE;
 
-          if(this.client.pais) this.estado$ = this.cep.burcaCep('estado', this.client.pais);
-          if(this.client.codetd) this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
+          if (this.client.pais) this.estado$ = this.cep.burcaCep('estado', this.client.pais);
+          if (this.client.codetd) this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
 
-          if(this.client.paisentrega) this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
-          if(this.client.codetdentrega) this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
+          if (this.client.paisentrega) this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
+          if (this.client.codetdentrega) this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
 
-          if(this.client.paispgto) this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
-          if(this.client.codetdpgto) this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
+          if (this.client.paispgto) this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
+          if (this.client.codetdpgto) this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
 
         })
       this.event = "Editar"
@@ -196,7 +196,8 @@ export class ClientComponent {
         this.formatService.ativo(this.client.ativo);
       }
     }, 100);
-  }
+  };
+
   registerClient(form: NgForm) {
 
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
@@ -207,54 +208,53 @@ export class ClientComponent {
       !this.client.complemento || !this.client.bairro || !this.client.cep ||
       !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
       !this.client.cep || !this.client.email || !this.client.pais
-      ) {
-        alert('preencha os campos');
-        console.log(this.client);
-        this.camposPreenchidos = (
-          form.controls['pessoafisoujur'].valid && 
-          //form.controls['cgccfo'].valid && 
-          form.controls['nome'].valid &&
-          form.controls['nomefantasia'].valid &&
-          form.controls['inscrestadual'].valid &&
-          form.controls['inscrmunicipal'].valid &&
-          form.controls['pagrec'].valid &&
-          form.controls['rua'].valid &&
-          form.controls['numero'].valid &&
-          form.controls['complemento'].valid &&
-          form.controls['bairro'].valid &&
-          form.controls['cidade'].valid &&
-          form.controls['codetd'].valid &&
-          form.controls['cep'].valid &&
-          form.controls['pais'].valid &&
-          form.controls['email'].valid &&
-          form.controls['telefone'].valid
-          // form.controls['ruaentrega'].valid &&
-          // form.controls['numeroentrega'].valid &&
-          // form.controls['complementoentrega'].valid &&
-          // form.controls['bairroentrega'].valid &&
-          // form.controls['cidadeentrega'].valid &&
-          // form.controls['codetdentrega'].valid &&
-          // form.controls['cepentrega'].valid &&
-          // form.controls['telefoneentrega'].valid &&
-          // form.controls['codmunicipioentrega'].valid &&
-          // form.controls['paisentrega'].valid &&
-          // form.controls['emailentrega'].valid &&
-          // form.controls['ruapgto'].valid &&
-          // form.controls['numeropgto'].valid &&
-          // form.controls['complementopgto'].valid &&
-          // form.controls['bairropgto'].valid &&
-          // form.controls['cidadepgto'].valid &&
-          // form.controls['codetdpgto'].valid &&
-          // form.controls['ceppgto'].valid &&
-          // form.controls['telefonepgto'].valid &&
-          // form.controls['codmunicipiopgto'].valid &&
-          // form.controls['paispgto'].valid &&
-          // form.controls['emailpgto'].valid 
-          
-          );
-          this.botaoClicado = true;
-        return;
-      } 
+    ) {
+      alert('preencha os campos');
+      this.camposPreenchidos = (
+        form.controls['pessoafisoujur'].valid &&
+        //form.controls['cgccfo'].valid && 
+        form.controls['nome'].valid &&
+        form.controls['nomefantasia'].valid &&
+        form.controls['inscrestadual'].valid &&
+        form.controls['inscrmunicipal'].valid &&
+        form.controls['pagrec'].valid &&
+        form.controls['rua'].valid &&
+        form.controls['numero'].valid &&
+        form.controls['complemento'].valid &&
+        form.controls['bairro'].valid &&
+        form.controls['cidade'].valid &&
+        form.controls['codetd'].valid &&
+        form.controls['cep'].valid &&
+        form.controls['pais'].valid &&
+        form.controls['email'].valid &&
+        form.controls['telefone'].valid
+        // form.controls['ruaentrega'].valid &&
+        // form.controls['numeroentrega'].valid &&
+        // form.controls['complementoentrega'].valid &&
+        // form.controls['bairroentrega'].valid &&
+        // form.controls['cidadeentrega'].valid &&
+        // form.controls['codetdentrega'].valid &&
+        // form.controls['cepentrega'].valid &&
+        // form.controls['telefoneentrega'].valid &&
+        // form.controls['codmunicipioentrega'].valid &&
+        // form.controls['paisentrega'].valid &&
+        // form.controls['emailentrega'].valid &&
+        // form.controls['ruapgto'].valid &&
+        // form.controls['numeropgto'].valid &&
+        // form.controls['complementopgto'].valid &&
+        // form.controls['bairropgto'].valid &&
+        // form.controls['cidadepgto'].valid &&
+        // form.controls['codetdpgto'].valid &&
+        // form.controls['ceppgto'].valid &&
+        // form.controls['telefonepgto'].valid &&
+        // form.controls['codmunicipiopgto'].valid &&
+        // form.controls['paispgto'].valid &&
+        // form.controls['emailpgto'].valid 
+
+      );
+      this.botaoClicado = true;
+      return;
+    }
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === "Cadastrar") {
@@ -361,7 +361,8 @@ export class ClientComponent {
     } else {
       alert("Error!")
     }
-  }
+  };
+
   buscarCep(entidade: string, type: string, key: string,): void {
     if (key == '') return
 
@@ -390,6 +391,125 @@ export class ClientComponent {
         break;
     }
 
+  };
+
+  consultarCNPJ() {
+    this.cep.buscarCnpj(this.client.cgccfo)
+      .subscribe((data) => {
+        this.popularCNPJ(data)
+      }, error => {
+        console.error(error),
+          alert("cnpj invalido: '" + this.client.cgccfo + "'")
+      });
+
+  };
+
+  popularCNPJ(result: any) {
+    if (result.message == 'CNPJ inválido') {
+      alert("cnpj invalido: '" + this.client.cgccfo + "'")
+    } else {
+      this.client.nomefantasia = result.fantasia;
+      this.client.nome = result.nome;
+      this.client.rua = result.logradouro;
+      this.client.numero = result.numero;
+      this.client.complemento = result.complemento;
+      this.client.bairro = result.bairro;
+      this.client.cidade = result.municipio;
+      this.client.codetd = result.uf;
+      this.client.cep = result.cep;
+      this.client.telefone = result.telefone;
+      this.client.email = result.email;
+      this.client.ruapgto = this.client.rua;
+      this.client.numeropgto = this.client.numero;
+      this.client.complementopgto = this.client.complemento;
+      this.client.bairropgto = this.client.bairro;
+      this.client.cidadepgto = this.client.cidade;
+      this.client.codetdpgto = this.client.codetd;
+      this.client.ceppgto = this.client.cep;
+      this.client.telefonepgto = this.client.telefone;
+      this.client.paispgto = this.client.pais;
+      this.client.emailpgto = this.client.email;
+      this.client.codmunicipiopgto = this.client.cidade;
+      this.client.ruaentrega = this.client.rua;
+      this.client.numeroentrega = this.client.numero;
+      this.client.complementoentrega = this.client.complemento;
+      this.client.bairroentrega = this.client.bairro;
+      this.client.cidadeentrega = this.client.cidade;
+      this.client.codetdentrega = this.client.codetd;
+      this.client.cepentrega = this.client.cep;
+      this.client.telefoneentrega = this.client.telefone;
+      this.client.paisentrega = this.client.pais;
+      this.client.emailentrega = this.client.email;
+      this.client.codmunicipioentrega = this.client.cidade;
+      this.consultarCEP();
+    }
+  };
+
+  consultarCEP() {
+    this.cep.buscarCep(this.client.cep.replace(/[^\d]+/g, ''))
+      .subscribe((data) => {
+        this.popularCEP(data)
+      },
+        error => {
+          alert("cep invalido: '" + this.client.cep + "'")
+        });
+  };
+
+  popularCEP(result: any) {
+    if (result.erro == 'true') {
+      alert("CEP invalido: '" + this.client.cep + "'")
+    } else {
+      this.client.pais = 'BRA';
+      this.client.paisentrega = 'BRA';
+      this.client.paispgto = 'BRA';
+      this.client.codetd = result.uf;
+      this.client.codetdentrega = result.uf;
+      this.client.codetdpgto = result.uf;
+      this.estado$ = this.cep.burcaCep('estado', this.client.pais);
+      this.estadoEntrega$ = this.estado$;
+      this.estadoPgto$ = this.estadoEntrega$
+      this.client.cidade = result.localidade
+      this.client.cidadeentrega = result.localidade;
+      this.client.cidadepgto = result.localidade;
+      this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
+      this.cidadeEntrega$ = this.cidade$;
+      this.cidadePgto$ = this.cidadeEntrega$;
+      this.client.rua = result.logradouro;
+      this.client.complemento = result.complemento;
+      this.client.bairro = result.bairro;
+    }
+  };
+
+  consultarCEP2(cep: string, etapa: string) {
+    this.cep.buscarCep(cep).subscribe((data) => {
+      switch (etapa) {
+        case 'geral':
+          this.client.pais = 'BRA';
+          this.estado$ = this.cep.burcaCep('estado', this.client.pais);
+          this.client.codetd = data.uf;
+          this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
+          this.client.cidade = data.localidade
+          break;
+        case 'entrega':
+          this.client.paisentrega = 'BRA';
+          this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
+          this.client.codetdentrega = data.uf;
+          this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
+          this.client.cidadeentrega = data.localidade
+
+          break;
+        case 'financeiro':
+          this.client.paispgto = 'BRA';
+          this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
+          this.client.codetdpgto = data.uf;
+          this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
+          this.client.cidadepgto = data.localidade
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 
   stage = 1;
