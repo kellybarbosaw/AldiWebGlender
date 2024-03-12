@@ -57,6 +57,7 @@ export class ClientService {
   ) { }
 
   registerClient(newClient: CreateClient) {
+    console.log(newClient)
     return this.httpClient.post<CreateClient>(this.url, newClient)
   }
 

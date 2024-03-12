@@ -12,12 +12,14 @@ import { Estado } from '../../models/cep/estado.model';
 import { Cidade } from '../../models/cep/cidade.model';
 import { User } from '../../models/users.model';
 import { OrgaoEmissor } from '../../models/cep/orgaoEmissor.model';
+import { NgxMaskDirective } from 'ngx-mask';
+
 
 
 @Component({
   selector: 'app-pessoa',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterOutlet, CommonModule],
+  imports: [FormsModule, CommonModule, RouterOutlet, CommonModule, NgxMaskDirective],
   templateUrl: './pessoa.component.html',
   styleUrl: './pessoa.component.scss',
 })

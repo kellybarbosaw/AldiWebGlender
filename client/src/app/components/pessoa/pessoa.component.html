@@ -28,14 +28,14 @@
                         <label>Nome:</label>
                         <div class="form-group mb-3">
                             <input [(ngModel)]="pessoa.nome" type="text" class="form-control"
-                                placeholder="Nome" name="nome" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.nome}">
+                                placeholder="Nome" name="nome" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.nome}" maxlength="100" mask="S*">
                         </div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label>CPF:</label>
                         <input [(ngModel)]="pessoa.cpf" type="text" class="form-control" placeholder="CPF" id="cpf"
-                            name="cpf" style="width: 400px" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.cpf}">
+                            name="cpf" style="width: 400px" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.cpf}" mask="000.000.000-00">
                     </div>
 
                     <div class="form-group mb-3">
@@ -103,23 +103,23 @@
                             <div class="flex-grow-1 espaco">
                                 <label>Bairro</label>
                                 <input [(ngModel)]="pessoa.bairro" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.bairro}"
-                                    placeholder="Bairro" name="bairro">
+                                    placeholder="Bairro" name="bairro" maxlength="45">
                             </div>
                             <label>Complemento:</label>
                             <input [(ngModel)]="pessoa.complemento" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.complemento}"
-                                placeholder="Complemento" name="complemento">
+                                placeholder="Complemento" name="complemento" maxlength="45">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>Rua:</label>
                         <input [(ngModel)]="pessoa.rua" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.rua}"
-                            placeholder="Rua" name="rua">
+                            placeholder="Rua" name="rua" maxlength="45">
                     </div>
                     <div class="form-group espaco">
                         <label>Número:</label>
                         <input [(ngModel)]="pessoa.numero" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.numero}"
-                            placeholder="Número" name="numero">
+                            placeholder="Número" name="numero" maxlength="8" mask="0*">
                     </div>
 
                 </div>
@@ -131,16 +131,16 @@
 
             <section class="stage_3 currentBody spaceForm">
                 <div class="nextSection">
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Usuário:</label>
                         <input [(ngModel)]="pessoa.usuario" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.usuario}"
                         placeholder="Usuário" name="usuario">
-                    </div>
+                    </div> -->
                     <div class="form-group espaco">
                         <label>Número Identidade:</label>
                         <input [(ngModel)]="pessoa.nroidentidade" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.nroidentidade}"
                         placeholder="Nº Identidade"
-                            name="nroidentidade">
+                            name="nroidentidade" mask="00 000 000-0">
                     </div>
                     <div class="form-group espaco">
                         <label>Órgão emissor:</label>

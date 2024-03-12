@@ -7,13 +7,15 @@ import { catchError, Observable, of, Subject } from 'rxjs';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 import { LoginService } from '../../services/login.service';
+import { NgxMaskPipe } from 'ngx-mask';
+
 
 
 
 @Component({
   selector: 'app-clients',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, CommonModule, RouterLink],
+  imports: [FormsModule, HttpClientModule, CommonModule, RouterLink, NgxMaskPipe],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.scss'
 })
@@ -23,6 +25,7 @@ export class ClientsComponent {
 
   allClient$ = new Observable<Client[]>();
   modalService: any;
+  clientExclude = 0;
 
 
   constructor(private clientService: ClientService, private loginService: LoginService) { }
@@ -42,8 +45,11 @@ export class ClientsComponent {
   }
 
   event ="Excluir";
+  excludeClient(id:number,event:string|null){
+    if(!event)this.clientExclude = id;
+    if(event === 'clear') this.clientExclude = 0;
+  }
   deletClient(id: number) {
-    //alert("deseja realmente deletar esse iten?" + id);
     this.clientService.deleteClient(id)
       .pipe(
         catchError(err => {
