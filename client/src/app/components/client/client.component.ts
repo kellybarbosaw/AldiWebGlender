@@ -199,7 +199,8 @@ export class ClientComponent {
         this.formatService.ativo(this.client.ativo);
       }
     }, 100);
-  }
+  };
+
   registerClient(form: NgForm) {
 
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
@@ -212,7 +213,6 @@ export class ClientComponent {
       !this.client.cep || !this.client.email || !this.client.pais
       ) {
         alert('preencha os campos');
-        console.log(this.client);
         this.camposPreenchidos = (
           form.controls['pessoafisoujur'].valid && 
           //form.controls['cgccfo'].valid && 
@@ -364,7 +364,8 @@ export class ClientComponent {
     } else {
       alert("Error!")
     }
-  }
+  };
+
   buscarCep(entidade: string, type: string, key: string,): void {
     if (key == '') return
 
@@ -393,7 +394,91 @@ export class ClientComponent {
         break;
     }
 
-  }
+  };
+
+  consultarCNPJ() {
+    this.cep.buscarCnpj(this.client.cgccfo.replace(/[^\d]+/g, ''))
+      .subscribe((data) =>{
+         this.popularCNPJ(data)
+        },error => {
+          console.error(error),
+          alert("cnpj invalido: '"+this.client.cgccfo+"'")
+        });
+  
+  };
+  
+    popularCNPJ(result: any) {
+      if(result.message == 'CNPJ inválido'){
+        alert("cnpj invalido: '"+this.client.cgccfo+"'")
+      }else{
+      this.client.nomefantasia = result.fantasia;
+      this.client.nome = result.nome;
+      this.client.rua = result.logradouro;
+      this.client.numero = result.numero;
+      this.client.complemento = result.complemento;
+      this.client.bairro = result.bairro;
+      this.client.cidade = result.municipio;
+      this.client.codetd = result.uf;
+      this.client.cep = result.cep;
+      this.client.telefone = result.telefone;
+      this.client.email = result.email;
+      this.client.ruapgto = this.client.rua;
+      this.client.numeropgto = this.client.numero;
+      this.client.complementopgto = this.client.complemento;
+      this.client.bairropgto = this.client.bairro;
+      this.client.cidadepgto = this.client.cidade;
+      this.client.codetdpgto = this.client.codetd;
+      this.client.ceppgto = this.client.cep;
+      this.client.telefonepgto = this.client.telefone;
+      this.client.paispgto = this.client.pais;
+      this.client.emailpgto = this.client.email;
+      this.client.codmunicipiopgto = this.client.cidade;
+      this.client.ruaentrega = this.client.rua;
+      this.client.numeroentrega = this.client.numero;
+      this.client.complementoentrega = this.client.complemento;
+      this.client.bairroentrega = this.client.bairro;
+      this.client.cidadeentrega = this.client.cidade;
+      this.client.codetdentrega = this.client.codetd;
+      this.client.cepentrega = this.client.cep;
+      this.client.telefoneentrega = this.client.telefone;
+      this.client.paisentrega = this.client.pais;
+      this.client.emailentrega = this.client.email;
+      this.client.codmunicipioentrega = this.client.cidade;
+      }
+  };
+  
+    consultarCEP() {
+      this.cep.buscarCep(this.client.cep.replace(/[^\d]+/g, ''))
+        .subscribe((data) =>{
+          this.popularCEP(data)},
+        error=>{
+          alert("cep invalido: '"+this.client.cep+"'")
+        });
+  };
+    
+    popularCEP(result: any) {
+      if(result.erro == 'true'){
+        alert("CEP invalido: '"+this.client.cep+"'")
+      }else{    this.client.pais = 'BRA';
+      this.client.paisentrega =  'BRA';
+      this.client.paispgto = 'BRA';
+      this.client.codetd = result.uf;
+      this.client.codetdentrega = result.uf;
+      this.client.codetdpgto = result.uf;
+      this.estado$ = this.cep.burcaCep('estado', this.client.pais);
+      this.estadoEntrega$ = this.estado$;
+      this.estadoPgto$ = this.estadoEntrega$
+      this.client.cidade = result.localidade
+      this.client.cidadeentrega = result.localidade;
+      this.client.cidadepgto = result.localidade;
+      this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
+      this.cidadeEntrega$ = this.cidade$;
+      this.cidadePgto$ = this.cidadeEntrega$;
+      this.client.rua = result.logradouro;
+      this.client.complemento = result.complemento;
+      this.client.bairro = result.bairro;
+      }
+  };
 
   stage = 1;
   stageName = "GERAL";
