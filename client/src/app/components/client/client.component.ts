@@ -417,6 +417,8 @@ export class ClientComponent {
       this.client.cidade = result.municipio;
       this.client.codetd = result.uf;
       this.client.cep = result.cep;
+      console.log(this.client.cep)
+      console.log(result.cep)
       this.client.telefone = result.telefone;
       this.client.email = result.email;
       this.client.ruapgto = this.client.rua;
