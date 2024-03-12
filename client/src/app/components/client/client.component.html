@@ -58,9 +58,9 @@
                             <label>CNPJ/CPF</label>
                             <div class="d-flex mb-3">
                                 <input [(ngModel)]="client.cgccfo" type="text" class="form-control"   
-                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}">
+                                    placeholder="00.000.000/0000-00" name="cnpj" id="cgccfo" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cgccfo}" >
+                                    <div class="btn btn-primary" type="submit" (click)="consultarCNPJ()">Buscar</div>
                                 </div>
-                                <div class="btn btn-dark">Buscar</div>
                         </div>
                         <div class="form-group mb-3">
                             <label>Razão Social:</label>
@@ -115,7 +115,8 @@
                             <label>CEP:</label>
                             <input [(ngModel)]="client.cep" type="text" class="form-control" placeholder="XX XXX-XXX"
                                 name="cep" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cep}">
-                        </div>
+                                <div class="btn btn-primary" type="submit" (click)="consultarCEP()">Buscar</div>
+                        </div>      
 
                         <div class="form-group mb-3">
                             <label>País:</label>
@@ -207,6 +208,7 @@
                             <input [(ngModel)]="client.cepentrega" type="text" class="form-control"
                                 placeholder="XX XXX-XXX" name="cepentrega" required
                                 [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.cepentrega}">
+                                <div class="btn btn-primary" type="submit" (click)="consultarCEP()">Buscar</div>
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
@@ -304,6 +306,7 @@
                             <input [(ngModel)]="client.ceppgto" type="text" class="form-control"
                                 placeholder="XX XXX-XXX" name="ceppgto" required
                                 [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.ceppgto}">
+                                <div class="btn btn-primary" type="submit" (click)="consultarCEP()">Buscar</div>
                         </div>
                         <div class="form-group mb-3">
                             <label>País:</label>
