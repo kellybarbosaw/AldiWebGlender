@@ -22,6 +22,7 @@ export class PessoasComponent {
   error$ = new Subject<boolean>();
 
   allPessoa$ = new Observable<Pessoas[]>();
+  pessoaExclude = 0;
 
   constructor(private pessoaService: PessoaService, private loginService: LoginService){
     setTimeout(() => {
@@ -42,20 +43,19 @@ export class PessoasComponent {
     // this.error$.next(true)
 
   }
+  event ="Excluir";
+  excludePessoa(id:number,event:string|null){
+    if(!event)this.pessoaExclude = id;
+    if(event === 'clear') this.pessoaExclude = 0;
+  }
 
-  event = "Excluir";
   deletPessoa(id: number) {
-    console.log("teste");
-    console.log(id);
-    //alert("deseja realmente deletar esse item?" + id);
-    this.pessoaService.deletePessoa(id).pipe(
-
+    this.pessoaService.deletePessoa(id)
+    .pipe(
       catchError(err => {
         alert(err.error.msg)
         return of();
       })
     ).subscribe(() => { this.allPessoa$ = this.pessoaService.allPessoa() })
   }
-
-    
-  }
+}
