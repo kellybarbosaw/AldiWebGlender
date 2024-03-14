@@ -33,6 +33,7 @@ form{
 .formCadastro{
     width: 100%;
     padding: 15px;
+    margin-top: 0;
 }
 .spaceForm{
     height: auto;
@@ -41,19 +42,21 @@ form{
 }
 .nextSection{
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .titleStage{
     margin-bottom: 30px;
-    margin-top: 5px;
+    margin-top: 0px;
     margin-left: 5px;
     font-weight: bold;
+    
 }
 
 .btn-stage{
     width: 100px;
     margin: 0%;
-    margin-top: 15px;
+    margin: 0.5rem 0;
 }
 
 .form-group label {
@@ -77,4 +80,17 @@ form{
 .btn-group{
     margin-bottom: 15px;
     margin-top: 10px;
+}
+h2.fonte {
+    margin-top: 0;
+}
+.customer-pessoa {
+    margin-top: 0;
+}
+.stage_1, .stage_2, .stage_3 {
+    margin: 0, 0;
+    padding: 1rem;
+}
+.btn-group{
+    margin-top: 0;
 }
