@@ -61,8 +61,10 @@ export class ClientService {
     return this.httpClient.post<CreateClient>(this.url, newClient)
   }
 
-  allClients() {
-    return this.httpClient.get<Client[]>(this.url)
+  allClients(offset:number,limit:number) {
+    var teste = this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`)
+    console.log(teste)
+    return teste
   }
 
   clientCurrent(id: String) {

@@ -8,11 +8,11 @@
             <form class="form-horizontal pull-right">
                 <div class="form-group">
                     <label>Show : </label>
-                    <select class="form-control">
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
+                    <select [(ngModel)]="limit" name="limit" class="form-control" (change)="buscar()" >
+                        <option value=5 selected>5</option>
+                        <option value=10>10</option>
+                        <option value=15>15</option>
+                        <option value=20>20</option>
                     </select>
                 </div>
             </form>
@@ -77,16 +77,19 @@
 
     <div class="panel-footer">
         <div class="d-flex flex-column align-items-center">
-            <div>showing <b>5</b> out of <b>25</b> entries</div>
+            <div>Mostrando <b>{{offset}}</b> dos <b>{{qtdClients}}</b> Clientes</div>
             <div>
                 <ul class="pagination">
-                    <li><a href="#">«</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">»</a></li>
+                    <li><a >«</a></li>
+
+                    <li class="active" ><a (click)="paginar(1)">1</a></li>
+                    <li><a (click)="paginar(2)">2</a></li>
+                    <li><a (click)="paginar(3)">3</a></li>
+                    <li><a (click)="paginar(4)">4</a></li>
+                    <li><a (click)="paginar(5)">5</a></li>
+
+
+                    <li><a >»</a></li>
                 </ul>
             </div>
         </div>

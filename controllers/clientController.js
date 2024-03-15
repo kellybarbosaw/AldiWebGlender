@@ -6,10 +6,31 @@ const { registerValidate, registerValidateUpdate } = require('./validates/Client
 
 const clientController = {
     select: async function (req, res) {
+        let offset = req.query.offset;
+        let limit = req.query.limit;
         let clients = [];
+        let result = [];
+
+        function estruturar(clients, offset, limit) {
+            let indexClient = parseInt(offset);
+
+            if (!offset && !limit) {
+                result = clients;
+            } else {
+                for (let index = 0; index < limit; index++) {
+
+                    if (clients[indexClient] !== undefined) {
+                        result.push(clients[indexClient])
+                    }
+                    indexClient += 1;
+                }
+            }
+        }
         try {
             clients = await db.selectZClientes();
-            res.send(clients);
+            estruturar(clients, offset, limit)
+            res.header('qtdClients',clients.length);
+            res.send(result);
         } catch (error) {
             res.status(400).send(error)
         }
@@ -33,7 +54,7 @@ const clientController = {
 
 
         if (selectClient[0] !== null && selectClient[0].length > 0) {
-            return res.status(400).send({'msg':'CNPJ already exists'});
+            return res.status(400).send({ 'msg': 'CNPJ already exists' });
         }
 
         const newClient = new Object({
@@ -106,7 +127,7 @@ const clientController = {
         const selectClient = await db.selectZCliente(req.body.cgccfo);
 
         if (selectClient[0] !== null && selectClient[0].length > 1) {
-            return res.status(400).send({'msg':'CNPJ already exists'});
+            return res.status(400).send({ 'msg': 'CNPJ already exists' });
         }
 
         const UpdateClient = new Object({

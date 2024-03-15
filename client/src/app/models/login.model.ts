@@ -12,4 +12,3 @@ export type LoginCrate = {
     senha: string
 }
 
-export type musicaSemId = Omit<LoginCrate,"id">;
