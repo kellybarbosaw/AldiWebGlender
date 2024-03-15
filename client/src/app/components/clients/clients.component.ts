@@ -25,6 +25,7 @@ export class ClientsComponent {
 
   allClient$ = new Observable<Client[]>();
   modalService: any;
+  clientExclude = 0;
 
 
   constructor(private clientService: ClientService, private loginService: LoginService) { }
@@ -44,8 +45,11 @@ export class ClientsComponent {
   }
 
   event ="Excluir";
+  excludeClient(id:number,event:string|null){
+    if(!event)this.clientExclude = id;
+    if(event === 'clear') this.clientExclude = 0;
+  }
   deletClient(id: number) {
-    //alert("deseja realmente deletar esse iten?" + id);
     this.clientService.deleteClient(id)
       .pipe(
         catchError(err => {

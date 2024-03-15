@@ -24,7 +24,7 @@
                         disabled name="idpessoa">
                     </div>
                     -->
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3 mt-0">
                         <label>Nome:</label>
                         <div class="form-group mb-3">
                             <input [(ngModel)]="pessoa.nome" type="text" class="form-control"
@@ -100,7 +100,7 @@
                     </div>
                     <div class="form-group d-flex flex-row">
                         <div class="flex-grow-1 espaco">
-                            <div class="flex-grow-1 espaco espacoCampo">
+                            <div class="flex-grow-1 espaco">
                                 <label>Bairro</label>
                                 <input [(ngModel)]="pessoa.bairro" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.bairro}"
                                     placeholder="Bairro" name="bairro" maxlength="45">
@@ -175,7 +175,6 @@
                 </div>
             </section>
         </form>
-        
     </div>
 </div>
 </div>
