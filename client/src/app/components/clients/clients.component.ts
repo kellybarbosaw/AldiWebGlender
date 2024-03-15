@@ -8,8 +8,6 @@ import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 import { LoginService } from '../../services/login.service';
 import { NgxMaskPipe } from 'ngx-mask';
-import { data } from 'jquery';
-
 
 
 

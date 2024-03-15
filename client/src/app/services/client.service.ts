@@ -123,7 +123,6 @@ export class ClientService {
           return of();
         })
       ).subscribe((data) => {
-        console.log('cadastrou usuario')
         this.pessoaService.registerPessoa(this.pessoa)
           .pipe(
             catchError(err => {
@@ -131,7 +130,6 @@ export class ClientService {
               return of();
             })
           ).subscribe((data) => {
-            console.log('cadastrou Pessoa')
           })
       })
 
