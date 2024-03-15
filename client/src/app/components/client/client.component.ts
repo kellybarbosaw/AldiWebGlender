@@ -292,24 +292,24 @@ export class ClientComponent {
           bairro: this.client.bairro,
           cidade: this.client.cidade,
           codetd: this.client.codetd,
-          cep: this.client.cep,
-          telefone: this.client.telefone,
+          cep: this.client.cep.replace(/[^\d]+/g, ''),
+          telefone: this.client.telefone.replace(/[^\d]+/g, '').substring(0, 11),
           ruapgto: this.client.ruapgto,
           numeropgto: this.client.numeropgto,
           complementopgto: this.client.complementopgto,
           bairropgto: this.client.bairropgto,
           cidadepgto: this.client.cidadepgto,
           codetdpgto: this.client.codetdpgto,
-          ceppgto: this.client.ceppgto,
-          telefonepgto: this.client.telefonepgto,
+          ceppgto: this.client.ceppgto.replace(/[^\d]+/g, ''),
+          telefonepgto: this.client.telefonepgto.replace(/[^\d]+/g, '').substring(0, 11),
           ruaentrega: this.client.ruaentrega,
           numeroentrega: this.client.numeroentrega,
           complementoentrega: this.client.complementoentrega,
           bairroentrega: this.client.bairroentrega,
           cidadeentrega: this.client.cidadeentrega,
           codetdentrega: this.client.codetdentrega,
-          cepentrega: this.client.cepentrega,
-          telefoneentrega: this.client.telefoneentrega,
+          cepentrega: this.client.cepentrega.replace(/[^\d]+/g, ''),
+          telefoneentrega: this.client.telefoneentrega.replace(/[^\d]+/g, '').substring(0, 11),
           email: this.client.email,
           ativo: this.client.ativo,
           inscrmunicipal: this.client.inscrmunicipal,
@@ -337,7 +337,9 @@ export class ClientComponent {
               return of();
             })
           )
-          .subscribe((data) => { this.router.navigate(['/user/clients']) })
+          .subscribe((data) => {
+            alert("cadastrado")
+           this.router.navigate(['/user/clients']) })
       }
 
     } else if (this.event === "Editar") {
@@ -408,13 +410,25 @@ export class ClientComponent {
     if (result.message == 'CNPJ inválido') {
       alert("cnpj invalido: '" + this.client.cgccfo + "'")
     } else {
-      this.client.nomefantasia = result.fantasia;
-      this.client.nome = result.nome;
-      this.client.rua = result.logradouro;
+      this.client.nomefantasia = result.fantasia.toLowerCase().replace(/(?:^|\s)\S/g, function(a: string) {
+        return a.toUpperCase();
+      });
+      this.client.nome = result.nome.toLowerCase().replace(/(?:^|\s)\S/g, function(a: string) {
+        return a.toUpperCase();
+      });
+      this.client.rua = result.logradouro.toLowerCase().replace(/(?:^|\s)\S/g, function(a: string) {
+        return a.toUpperCase();
+      });
+      this.client.complemento = result.complemento.toLowerCase().replace(/(?:^|\s)\S/g, function(a: string) {
+        return a.toUpperCase();
+      });
+      this.client.bairro = result.bairro.toLowerCase().replace(/(?:^|\s)\S/g, function(a: string) {
+        return a.toUpperCase();
+      });
+      this.client.cidade = result.municipio.toLowerCase().replace(/(?:^|\s)\S/g, function(a: string) {
+        return a.toUpperCase();
+      });
       this.client.numero = result.numero;
-      this.client.complemento = result.complemento;
-      this.client.bairro = result.bairro;
-      this.client.cidade = result.municipio;
       this.client.codetd = result.uf;
       this.client.cep = result.cep;
       console.log(this.client.cep)
@@ -477,8 +491,16 @@ export class ClientComponent {
       this.cidadeEntrega$ = this.cidade$;
       this.cidadePgto$ = this.cidadeEntrega$;
       this.client.rua = result.logradouro;
+      this.client.ruaentrega = result.logradouro;
+      this.client.ruapgto = result.logradouro;
       this.client.complemento = result.complemento;
+      this.client.complementoentrega = result.complemento;
+      this.client.complementopgto = result.complemento;
       this.client.bairro = result.bairro;
+      this.client.bairroentrega = result.bairro;
+      this.client.bairropgto = result.bairro;
+      this.client.codmunicipiopgto = result.localidade;
+      this.client.codmunicipioentrega = result.localidade;
     }
   };
 
@@ -491,21 +513,35 @@ export class ClientComponent {
           this.client.codetd = data.uf;
           this.cidade$ = this.cep.burcaCep('cidade', this.client.codetd);
           this.client.cidade = data.localidade
+          this.client.rua = data.logradouro;
+          this.client.complemento = data.complemento;
+          this.client.bairro = data.bairro;
+          this.client.codmunicipioentrega = data.localidade;
           break;
+
         case 'entrega':
           this.client.paisentrega = 'BRA';
           this.estadoEntrega$ = this.cep.burcaCep('estado', this.client.paisentrega);
           this.client.codetdentrega = data.uf;
           this.cidadeEntrega$ = this.cep.burcaCep('cidade', this.client.codetdentrega);
           this.client.cidadeentrega = data.localidade
-
+          this.client.ruaentrega = data.logradouro;
+          this.client.complementoentrega = data.complemento;
+          this.client.bairroentrega = data.bairro;
+          this.client.codmunicipioentrega = data.localidade;
           break;
+
         case 'financeiro':
-          this.client.paispgto = 'BRA';
+          this.client.paispgto = 'BRA',
           this.estadoPgto$ = this.cep.burcaCep('estado', this.client.paispgto);
           this.client.codetdpgto = data.uf;
           this.cidadePgto$ = this.cep.burcaCep('cidade', this.client.codetdpgto);
-          this.client.cidadepgto = data.localidade
+          this.client.cidadepgto = data.localidade;
+          this.client.ruapgto = data.logradouro;
+          this.client.complementopgto = data.complemento;
+          this.client.bairropgto = data.bairro;
+          this.client.codmunicipiopgto = data.localidade;
+          
           break;
 
         default:

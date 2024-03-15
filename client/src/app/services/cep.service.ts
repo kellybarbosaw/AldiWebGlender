@@ -38,7 +38,6 @@ export class CepService {
   };
 
   buscarCnpj(cnpj: any) {
-    console.log(cnpj)
     const headers = new HttpHeaders({
       Accept: 'application/json',
     });
