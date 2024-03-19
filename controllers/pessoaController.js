@@ -6,10 +6,31 @@ const {
 
 const pessoaController = {
   select: async function (req, res) {
-    let pessoa = [];
+    let offset = req.query.offset;
+    let limit = req.query.limit;
+    let result = [];
+    let pessoas = [];
+
+    function estruturar(pessoas, offset, limit) {
+      let indexPessoa = parseInt(offset);
+
+      if (!offset && !limit) {
+        result = pessoas;
+      } else {
+        for (let index = 0; index < limit; index++) {
+
+          if (pessoas[indexPessoa] !== undefined) {
+            result.push(pessoas[indexPessoa])
+          }
+          indexPessoa += 1;
+        }
+      }
+    }
     try {
-      pessoa = await db.selectZPessoas();
-      res.send(pessoa);
+      pessoas = await db.selectZPessoas();
+      estruturar(pessoas, offset, limit)
+      res.setHeader('Quantidades_Registros', pessoas.length);
+      res.send(result);
     } catch (error) {
       res.status(400).send(error);
     }
@@ -37,7 +58,7 @@ const pessoaController = {
       return res.status(400).send("Essa pessoa já existe!");
     }
 
-    const novaPessoa = new Object({ 
+    const novaPessoa = new Object({
       nome: req.body.nome,
       cpf: req.body.cpf,
       dtnascimento: req.body.dtnascimento,
@@ -78,7 +99,7 @@ const pessoaController = {
     }
 
     const updatePessoa = new Object({
-      
+
       nome: req.body.nome,
       cpf: req.body.cpf,
       dtnascimento: req.body.dtnascimento,
@@ -95,7 +116,7 @@ const pessoaController = {
       zusuario_usuario: req.body.zusuario_usuario,
       dtalteracao: req.body.dtalteracao,
       usuarioalteracao: req.body.usuarioalteracao
-      
+
     });
 
     try {
@@ -118,7 +139,7 @@ const pessoaController = {
     }
   },
 
-  selectZusuarios:async function (req, res) {
+  selectZusuarios: async function (req, res) {
     let usuarios = [];
     try {
       usuarios = await db.selectZusuarios();

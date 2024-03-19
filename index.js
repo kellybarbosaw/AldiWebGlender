@@ -21,7 +21,8 @@ const path = require('path');
 //userRouter(gerenciador de rotas de cada modulo) para identificar o restante da rota e mandar para o controlador correto
 app.use(cors({
     origin:"http://localhost:4200",
-    methods:["GET","POST","PUT","DELETE"]
+    methods:["GET","POST","PUT","DELETE"],
+    exposedHeaders: ['Quantidades_Registros']
 }))
 
 //Gerenciamento de Rotas inicial.

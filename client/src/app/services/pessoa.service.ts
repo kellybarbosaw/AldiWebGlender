@@ -1,8 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Pessoa, CreatePessoa, Pessoas } from '../models/pessoa.model';
 import { LoginService } from './login.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +14,25 @@ import { LoginService } from './login.service';
 export class PessoaService {
   private url = `${environment.api}/pessoa`;
 
-  constructor(private httpClient: HttpClient, private loginService: LoginService) {}
+  private pessoasSubject = new BehaviorSubject<Pessoas[]>([]);
+  public allPessoas$ = this.pessoasSubject.asObservable();
+
+  constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
   registerPessoa(newPessoa: CreatePessoa) {
     return this.httpClient.post<CreatePessoa>(this.url, newPessoa);
   }
 
-  allPessoa() {
-    return this.httpClient.get<Pessoas[]>(this.url);
+  getPessoasWithHeaders(offset: number, limit: number): Observable<{ pessoas: Pessoas[], headers: HttpHeaders }> {
+    return this.httpClient.get<Pessoas[]>(`${this.url}/?offset=${offset}&limit=${limit}`, { observe: 'response' })
+    .pipe(
+      map(response => {
+        const pessoas = response.body || []; // Extrai o corpo da resposta corretamente
+        this.pessoasSubject.next(pessoas);
+        const headers = response.headers;
+        return { pessoas, headers };
+      })
+    )
   }
 
   pessoaCurrent(id: String) {
@@ -25,7 +40,6 @@ export class PessoaService {
   }
 
   editPessoa(pessoa: Pessoa) {
-    console.log(pessoa);
     return this.httpClient.put<Pessoa>(this.url, pessoa);
   }
 
@@ -33,7 +47,7 @@ export class PessoaService {
     return this.httpClient.delete<void>(`${this.url}/${id}`);
   }
 
-  usuariosPessoa(){
+  usuariosPessoa() {
     return this.httpClient.get<any>(`${this.url}/zusuarios`);
   }
 }
