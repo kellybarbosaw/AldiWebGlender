@@ -29,7 +29,7 @@ const clientController = {
         try {
             clients = await db.selectZClientes();
             estruturar(clients, offset, limit)
-            res.header('qtdClients',clients.length);
+            res.setHeader('Quantidades_Registros', clients.length);
             res.send(result);
         } catch (error) {
             res.status(400).send(error)

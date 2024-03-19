@@ -21,35 +21,44 @@ import { NgxMaskPipe } from 'ngx-mask';
 export class ClientsComponent {
 
   error$ = new Subject<boolean>();
-
   allClient$ = new Observable<Client[]>();
-  modalService: any;
+
   clientExclude = 0;
+
   offset = 0;
   limit = 5;
-
-  pagina = 0;
-  paginas = 0;
-  qtdClients = 150;
+  paginaAtual = 1;
+  paginas:number[] = [];
+  qtdClients = 0;
+  qtdMostrado = 5;
 
 
   constructor(private clientService: ClientService, private loginService: LoginService) { }
   ngOnInit() {
+    this.paginas = [];
+    this.clientService.getClientsWithHeaders(this.offset, this.limit).pipe(
+      catchError(err => {
+        this.error$.next(true)
+        if (err.statusText === "Unauthorized") {
+          alert("Seu iToken foi expirado! Realize o login novamente")
+          this.loginService.deslogar();
+        }
+        return of();
+      })
+    ).subscribe({
+      next: (result) => {        
+        this.allClient$ = this.clientService.allClientsS$;
+        this.qtdClients = parseInt(result.headers?.get('Quantidades_Registros')!);
 
-    this.allClient$ = this.clientService.allClients(this.offset, this.limit)
-      .pipe(
-        tap((res)=>{
-          console.log(res)
-        }),
-        catchError(err => {
-          this.error$.next(true)
-          if (err.statusText === "Unauthorized") {
-            alert("Seu iToken foi expirado! Realize o login novamente")
-            this.loginService.deslogar();
-          }
-          return of();
-        })
-      )
+        for (let index = 1; index <= Math.ceil(this.qtdClients/this.limit) ; index++) {
+          this.paginas.push(index);
+        }
+
+      },
+      error: (error) => {
+        console.error('Houve um erro ao obter os clientes:', error);
+      }
+    });
   }
 
   event = "Excluir";
@@ -57,6 +66,7 @@ export class ClientsComponent {
     if (!event) this.clientExclude = id;
     if (event === 'clear') this.clientExclude = 0;
   }
+
   deletClient(id: number) {
     this.clientService.deleteClient(id)
       .pipe(
@@ -65,18 +75,37 @@ export class ClientsComponent {
           return of();
         })
       )
-      .subscribe(() => { this.allClient$ = this.clientService.allClients(this.offset, this.limit) })
+      .subscribe(() => { this.ngOnInit() })
   }
 
   buscar() {
     this.offset = 0;
-    this.ngOnInit();
+    this.paginar(1)
   }
 
   paginar(pagina: number) {
+    this.paginaAtual = pagina;
     let of = pagina - 1
     this.offset = (of * this.limit);
+    this.qtdMostrado = (pagina*this.limit)
+    if(this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
     this.ngOnInit()
   }
+
+  passar(type:string){
+    switch (type) {
+      case 'next':
+        if(this.paginaAtual >= this.paginas.length)return
+        this.paginaAtual += 1;
+        this.paginar(this.paginaAtual)     
+        break;
+      case 'back':
+        if(this.paginaAtual === 1)return
+        this.paginaAtual -= 1;
+        this.paginar(this.paginaAtual)
+        break;
+    }
+  }
+
 
 }
