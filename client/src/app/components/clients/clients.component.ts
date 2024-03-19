@@ -53,6 +53,7 @@ export class ClientsComponent {
         for (let index = 1; index <= Math.ceil(this.qtdClients/this.limit) ; index++) {
           this.paginas.push(index);
         }
+        if(this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
 
       },
       error: (error) => {

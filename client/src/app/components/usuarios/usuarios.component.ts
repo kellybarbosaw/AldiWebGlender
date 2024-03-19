@@ -50,6 +50,7 @@ export class UsuariosComponent {
         for (let index = 1; index <= Math.ceil(this.qtdUsuarios/this.limit) ; index++) {
           this.paginas.push(index);
         }
+        if(this.qtdMostrado > this.qtdUsuarios) this.qtdMostrado = this.qtdUsuarios
 
       },
       error: (error) => {
