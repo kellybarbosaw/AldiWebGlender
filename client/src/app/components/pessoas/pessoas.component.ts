@@ -70,6 +70,7 @@ export class PessoasComponent {
         for (let index = 1; index <= Math.ceil(this.qtdPessoas/this.limit) ; index++) {
           this.paginas.push(index);
         }
+        if(this.qtdMostrado > this.qtdPessoas) this.qtdMostrado = this.qtdPessoas
 
       },
       error: (error) => {
