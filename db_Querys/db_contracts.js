@@ -27,8 +27,8 @@ async function insertContract(contract) {
 }
 async function updateContract(id, contract) {
     const conn = await connect();
-    const sql = 'UPDATE AVENDACOMERCIAL SET IDCLIENTE=?, DESCRICAOVENDA=?, STATUSVENDA=?, IDPROJETO=?, COMERCIALVENDAcol=?, DTCONTATO=?, DTCONTRATO=?, DTASSINATURA=?, DTCONCLUSAO=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=? WHERE IDVENDA = ? ';
-    const values = [contract.idcliente, contract.descricaovenda, contract.statusvenda, contract.idprojeto, contract.comercialvendacol, contract.dtcontato, contract.dtcontrato, contract.dtassinatura, contract.dtconclusao, contract.dtcriacao, contract.dtalteracao, contract.usuariocriacao, contract.usuarioalteracao, id];
+    const sql = 'UPDATE AVENDACOMERCIAL SET IDCLIENTE=?, DESCRICAOVENDA=?, STATUSVENDA=?, IDPROJETO=?, COMERCIALVENDAcol=?, DTCONTATO=?, DTCONTRATO=?, DTASSINATURA=?, DTCONCLUSAO=?, DATAALTERACAO=?, USUARIOALTERACAO=? WHERE IDVENDA = ? ';
+    const values = [contract.idcliente, contract.descricaovenda, contract.statusvenda, contract.idprojeto, contract.comercialvendacol, contract.dtcontato, contract.dtcontrato, contract.dtassinatura, contract.dtconclusao, contract.dtalteracao, contract.usuarioalteracao, id];
     return await conn.query(sql, values);
 }
 async function deleteContract(id) {

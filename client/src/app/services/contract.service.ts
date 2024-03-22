@@ -16,6 +16,8 @@ export class ContractService {
   constructor(private httpClient: HttpClient) { }
 
   registerContract(newContract: CreateContract) {
+    console.log(newContract)
+
     return this.httpClient.post<CreateContract>(this.url, newContract)
   }
 
@@ -24,7 +26,6 @@ export class ContractService {
   }
 
   editContract(contract:CreateContract){
-    console.log(contract)
     return this.httpClient.put<CreateContract>(this.url, contract)
   }
 

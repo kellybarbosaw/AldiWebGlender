@@ -1,4 +1,7 @@
 <div class="panel">
+    <div>
+        <div [routerLink]="['/user/client360/',contrato.idcliente]" class="btn btn-danger mb-4">Voltar</div>
+    </div>
     <form class="form">
         <h4>Contratos:</h4>
 
@@ -24,7 +27,8 @@
         <div>
             <div class="form-group">
                 <label>Data assinatura</label>
-                <input [(ngModel)]="contrato.dtassinatura" type="text" class="form-control" id="dtassinatura" disabled name="dtassinatura">
+                <input [(ngModel)]="contrato.dtassinatura" type="text" class="form-control" id="dtassinatura" disabled
+                    name="dtassinatura">
             </div>
             <div class="form-group">
                 <label>Data conclusao</label>

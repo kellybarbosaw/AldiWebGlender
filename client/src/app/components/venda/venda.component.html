@@ -1,4 +1,17 @@
 <div class="panel">
+
+    <div *ngIf="event === 'Editar'; else elseBlock">
+        <div>
+            <div [routerLink]="['/user/contrato/',contrato.idvenda]" class="btn btn-danger mb-4">Voltar</div>
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <div>
+            <div [routerLink]="['/user/client360/',contrato.idcliente]" class="btn btn-danger mb-4">Voltar</div>
+        </div>
+    </ng-template>
+
+
     <h4>Contratos:</h4>
     <form class="form">
         <div class="form-group">
@@ -7,45 +20,41 @@
         </div>
         <div class="form-group">
             <label>Cliente</label>
-            <input [(ngModel)]="contrato.idcliente" type="text" class="form-control" disabled name="idcliente">
+            <input [(ngModel)]="client.nome" type="text" class="form-control" disabled name="nome">
         </div>
         <div class="form-group">
             <label>Status</label>
-            <input [(ngModel)]="contrato.statusvenda" type="text" class="form-control" disabled name="statusvenda">
+            <input [(ngModel)]="contrato.statusvenda" type="text" class="form-control" disabled name="statusvenda" maxLength="1">
         </div>
         <div class="form-group">
             <label>Descrição</label>
-            <input [(ngModel)]="contrato.descricaovenda" type="textarea" class="form-control" name="descricaovenda">
+            <input [(ngModel)]="contrato.descricaovenda" type="textarea" class="form-control" name="descricaovenda" maxLength="50">
+        </div>
+        <div class="form-group">
+            <label>ID PROJETO</label>
+            <input [(ngModel)]="contrato.idprojeto" type="textarea" class="form-control" name="idprojeto">
         </div>
         <div class="form-group">
             <label>Vendedor</label>
-            <input [(ngModel)]="contrato.comercialvendacol" type="textarea" class="form-control" name="comercialvendacol">
+            <input [(ngModel)]="contrato.comercialvendacol" type="textarea" class="form-control" name="comercialvendacol" maxLength="50">
         </div>
         <div class="form-group">
             <label>Data contato</label>
-            <input [(ngModel)]="contrato.dtcontato" type="datetime" class="form-control" id="dtcontato" name="dtcontato">
+            <input [(ngModel)]="contrato.dtcontato" type="date" class="form-control" id="dtcontato" name="dtcontato">
         </div>
         <div class="form-group">
             <label>Data contrato</label>
-            <input [(ngModel)]="contrato.dtcontrato" type="datetime" class="form-control" id="dtcontrato" name="dtcontrato">
+            <input [(ngModel)]="contrato.dtcontrato" type="date" class="form-control" id="dtcontrato" name="dtcontrato">
         </div>
         <div class="form-group">
             <label>Data assinatura</label>
-            <!-- <label>{{contrato.dtassinatura | date:'short'}}</label> -->
-            <input [(ngModel)]="contrato.dtassinatura" type="datetime" class="form-control" id="dtassinatura" name="dtassinatura">
+            <input [(ngModel)]="contrato.dtassinatura" type="date" class="form-control" id="dtassinatura" name="dtassinatura">
         </div>
         <div class="form-group">
             <label>Data conclusao</label>
-            <input [(ngModel)]="contrato.dtconclusao" type="datetime" class="form-control" id="dtconclusao" name="dtconclusao">
+            <input [(ngModel)]="contrato.dtconclusao" type="date" class="form-control" id="dtconclusao" name="dtconclusao">
         </div>
-        <div class="form-group">
-            <label>Ultima Alteração</label>
-            <input [(ngModel)]="contrato.dtalteracao" type="datetime" class="form-control" disabled id="dtalteracao" name="dtalteracao">
-        </div>
-        <!-- <div class="form-group">
-            <label>Valor Previsto</label>
-            <input type="text" class="form-control" name="valorcontrato" placeholder="R$ 0.00">
-        </div> -->
+
         
     </form>
     <div class="btn btn-primary mt-4" (click)="registerContract()">{{event}}</div>

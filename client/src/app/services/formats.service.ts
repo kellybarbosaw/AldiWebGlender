@@ -8,6 +8,7 @@ export class FormatsService {
   constructor() { }
 
   format(time: string, id: string | null, type: string) {
+    if(time === null) return ''
     var dateTimeFormat = '';
     switch (type) {
       case 'date':

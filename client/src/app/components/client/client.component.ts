@@ -345,7 +345,6 @@ export class ClientComponent {
     } else if (this.event === "Editar") {
       this.client.dtmodificacao = this.formatService.dateNow();
       this.client.usuarioalteracao = localStorage.getItem('user')!;
-
       this.clientService.editClient(this.client)
         .pipe(
           catchError(err => {

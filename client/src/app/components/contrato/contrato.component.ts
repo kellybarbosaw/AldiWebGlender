@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { Observable } from 'rxjs';
 import { Project } from '../../models/project.model';
 import { ContractService } from '../../services/contract.service';
@@ -10,7 +10,7 @@ import { FormatsService } from '../../services/formats.service';
 @Component({
   selector: 'app-contrato',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './contrato.component.html',
   styleUrl: './contrato.component.scss'
 })
@@ -48,7 +48,6 @@ export class ContratoComponent {
     this.contractService.contractCurrent(this.route.snapshot.params['id'])
       .subscribe((datas) => {
         const data = datas[0];
-        console.log(data);
         this.contrato.idvenda = data.IDVENDA!;
         this.contrato.idcliente = data.IDCLIENTE;
         this.contrato.nomeCliente = data.NOMECLIENTE;
