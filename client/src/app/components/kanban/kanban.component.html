@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quadro Kanban</title>
+</head>
+<body>
+
+<div class="panel">
+<div cdkDropListGroup>
+  <h2 class="text-center mt-4 mb-4"><b>QUADRO KANBAN</b><hr></h2>
+
+    <!-- <div class="input-group mb-3">
+      <input type="text" class="form-control" [(ngModel)]="newTodo" placeholder="Insira uma nova Tarefa" style="width: 200px; height: 40px;">
+      <div class="input-group-append">
+        <button class="btn btn-dark" (click)="addTodo()" style="margin-left: 10px;">Adicionar Tarefa</button>
+      </div>
+    </div> -->
+
+<div class="row mb-3">
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header emAndamento">
+        <h5>BACKLOG</h5>
+      </div>
+      <div class="card-body" cdkDropList
+        [cdkDropListData]="todo"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          <mat-icon class="mr-2">task</mat-icon>
+          {{item}}
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control  mt-2" [(ngModel)]="newTodo" placeholder="Insira uma nova tarefa" style="width: 200px; height: 40px; margin-left: 10px;">
+          <div class="input-group-append">
+            <button class="btn btn-dark mt-2" (click)="addTodo()" style="margin-left: 10px; margin-right: 10px;"><i class="bi bi-plus  mt-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header backlog">
+        <h5>EM ANDAMENTO</h5>
+      </div>
+      <div class="card-body" cdkDropList
+        [cdkDropListData]="emAndamento"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of emAndamento" cdkDrag>
+          <mat-icon class="mr-2">hourglass_top</mat-icon>
+          {{item}}
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control  mt-2" [(ngModel)]="newEmAndamento" placeholder="Insira uma tarefa em andamento" style="width: 200px; height: 40px; margin-left: 10px;">
+          <div class="input-group-append">
+            <button class="btn btn-dark mt-2" (click)="addEmAndamento()" style="margin-left: 10px; margin-right: 10px;"><i class="bi bi-plus  mt-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header concluido">
+        <h5>CONCLUÍDO</h5>
+      </div>
+      <div class="card-body" cdkDropList
+        [cdkDropListData]="concluido"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of concluido" cdkDrag>
+          <mat-icon class="mr-2">check_circle_outline</mat-icon>
+          {{item}}
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control  mt-2" [(ngModel)]="newConcluido" placeholder="Insira uma tarefa concluída" style="width: 200px; height: 40px; margin-left: 10px;">
+          <div class="input-group-append">
+            <button class="btn btn-dark mt-2" (click)="addConcluido()" style="margin-left: 10px; margin-right: 10px;"><i class="bi bi-plus  mt-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-3">
+  <div class="col-md-3">
+    <div class="card" (click)="openDialog()">
+      <div class="card-header impedidos">
+        <h5>IMPEDIMENTOS</h5>
+      </div>
+      <div class="card-body" cdkDropList
+        [cdkDropListData]="impedidos"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of impedidos" cdkDrag>
+          <mat-icon class="mr-2">warning</mat-icon>
+          {{item}}
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control  mt-2" [(ngModel)]="newImpedidos" placeholder="Insira uma tarefa impedida" style="width: 200px; height: 40px; margin-left: 10px;">
+          <div class="input-group-append">
+            <button class="btn btn-dark mt-2" (click)="addImpedidos()" style="margin-left: 10px; margin-right: 10px;"><i class="bi bi-plus  mt-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header naoPlanejados">
+        <h5>NÃO PLANEJADOS</h5>
+      </div>
+      <div class="card-body" cdkDropList
+        [cdkDropListData]="naoPlanejados"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of naoPlanejados" cdkDrag>
+          <mat-icon class="mr-2">highlight_off</mat-icon>
+          {{item}}
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control  mt-2" [(ngModel)]="newNaoPlanejados" placeholder="Insira uma tarefa não planejada" style="width: 200px; height: 40px; margin-left: 10px;">
+          <div class="input-group-append">
+            <button class="btn btn-dark mt-2" (click)="addNaoPlanejados()" style="margin-left: 10px; margin-right: 10px;"><i class="bi bi-plus  mt-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</body>
+</html>
