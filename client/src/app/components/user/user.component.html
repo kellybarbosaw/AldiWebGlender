@@ -15,6 +15,11 @@
                     <span class="txt-link">Home</span>
                 </a>
 
+                <a [routerLink]="['/user/kanban']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}" class="dashboard-nav-item">
+                    <i class="bi bi-kanban-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="txt-link">Kanban</span>
+                </a>
+
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#clientCollapse">
@@ -56,8 +61,19 @@
                             class="dashboard-nav-item">Todas Contratos</a>
                     </div>
                 </div>
-
-
+                
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#tarefaCollapse">
+                        <i class="bi bi-newspaper"></i>
+                        <span class="txt-link">Tarefas</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="tarefaCollapse">
+                        <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Nova Tarefa</a>
+                        <a [routerLink]="['/user/tarefas']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todas Tarefas</a>
+                    </div>
+                </div>
 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
@@ -82,10 +98,9 @@
                         <a [routerLink]="['/user/projetoTarefa']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Projeto Tarefa</a>
                     </div>
-                </div>
+                </div>                
 
-
-
+<!-- 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#projectsCollapse">Projetos<i class="bi bi-arrow-down-short"></i>
@@ -95,8 +110,8 @@
                         <a class="dashboard-nav-item">Apontamentos</a>
                         <a class="dashboard-nav-item">Novo Projeto</a>
                     </div>
-                </div>
-
+                </div> -->
+<!-- 
 
                 <div data-ls-module="collapse" data-target="#accordeon1" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item accordion-item"
@@ -110,7 +125,7 @@
                         <a class="dashboard-nav-item">Tarefas do Mês</a>
                         <a class="dashboard-nav-item">Nova Tarefa</a>
                     </div>
-                </div>
+                </div> -->
 
                 <div [ngSwitch]="perfil">
                     <div *ngSwitchCase="'admin'">

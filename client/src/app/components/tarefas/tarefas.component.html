@@ -1,0 +1,94 @@
+<div class="panel">
+    <div>
+
+        <div class="panel-heading">
+
+            <a href="/user/tarefa" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> New
+                Tarefa</a>
+
+            <form class="form-horizontal pull-right">
+                <div class="form-group">
+                    <label>Show : </label>
+                    <select class="form-control">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="conteudo">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título Tarefa</th>
+                        <th>Descrição Tarefa</th>
+                        <th>Horas Estimadas</th>
+                        <th>Editar</th>
+                        <th style="text-align: left;">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="allTarefa$ | async as tarefa; else loadingError">
+                    <tr *ngFor="let tarefa of allTarefa$ | async">
+                        <td>
+                            {{tarefa.IDTAREFA}}
+                        </td>
+                        <td>{{tarefa.TITULOTAREFA}}</td>
+                        <td>{{tarefa.DESCRICAOTAREFA}}</td>
+                        <td>{{tarefa.HORASESTIMADAS}}</td>
+                        <td><i [routerLink]="['/user/tarefa/',tarefa.IDTAREFA]" class="bi bi-pencil-square"></i></td>
+                        <td><button (click)="excludeTarefa(tarefa.IDTAREFA!, null)" type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></button>
+                        <td>
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Excluir</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">Tem certeza que deseja excluir esse item?</div>
+                                        <div class="modal-footer">
+                                            <button (click)="excludeTarefa(tarefa.IDTAREFA!,'clear')" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                                            <button (click)="deletTarefa(tarefaExclude)" type="button" class="btn btn-danger btn-stage">{{event}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #loadingError>
+                <div *ngIf="error$ |async; else loading">
+                    <span class="loadingMensage alert alert-warning">Error ao Carregar, Tente mais tarde</span>
+                </div>
+                <ng-template #loading>
+                    <span class="loadingMensage alert alert-warning">Carregando...</span>
+                </ng-template>
+            </ng-template>
+
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="d-flex flex-column align-items-center">
+            <div>showing <b>5</b> out of <b>25</b> entries</div>
+            <div>
+                <ul class="pagination">
+                    <li><a href="#">«</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

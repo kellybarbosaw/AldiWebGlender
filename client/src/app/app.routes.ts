@@ -21,6 +21,8 @@ import { ProjetoTarefaComponent } from './components/projeto-tarefa/projeto-tare
 import { authorizedGuard } from './guard/authorized.guard';
 import { PessoasComponent } from './components/pessoas/pessoas.component';
 import { ContratosComponent } from './components/contratos/contratos.component';
+import { KanbanComponent } from './components/kanban/kanban.component';
+import { TarefasComponent } from './components/tarefas/tarefas.component';
 
 
 export const routes: Routes = [
@@ -44,6 +46,14 @@ export const routes: Routes = [
             {
                 path: 'clients',
                 component: ClientsComponent
+            },
+            {
+                path: 'kanban',
+                component: KanbanComponent,
+            },
+            {
+                path: 'kanban/:id',
+                component: KanbanComponent,
             },
             {
                 path: 'client',
@@ -118,11 +128,15 @@ export const routes: Routes = [
                 component: HomeComponent
             },
             {
+                path: 'tarefas',
+                component: TarefasComponent
+            },
+            {
                 path: 'tarefa',
                 component: TarefaComponent
             },
             {
-                path: 'tarefa/id',
+                path: 'tarefa/:id',
                 component: TarefaComponent
             },
             {

@@ -1,18 +1,21 @@
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, NgForm, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { TarefaService } from '../../services/tarefa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-tarefa',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, RouterOutlet, FormsModule,NgxMaskDirective],
   templateUrl: './tarefa.component.html',
   styleUrl: './tarefa.component.scss',
 })
 export class TarefaComponent {
+  camposPreenchidos: boolean = true;
+  botaoClicado: boolean = false;
   tarefa = {
     idtarefa: '',
     titulotarefa: '',
@@ -22,11 +25,12 @@ export class TarefaComponent {
     dataalteracao: '',
     usuariocriacao: '',
     usuarioalteracao: '',
+    inputValue: '',
   };
 
   event = 'Cadastrar';
 
-  constructor(private formatService: FormatsService,private tarefaService: TarefaService,private router: Router,private route: ActivatedRoute) {
+  constructor(private formatService: FormatsService,private tarefaService: TarefaService,private router: Router,private route: ActivatedRoute, private el: ElementRef) {
     this.tarefa.idtarefa = this.route.snapshot.params['id'];
 
     if (this.route.snapshot.params['id'] === undefined) {
@@ -46,25 +50,32 @@ export class TarefaComponent {
 
             this.tarefa.datacriacao = this.formatService.formatDate(data.DATACRIACAO!);
           this.tarefa.dataalteracao = this.formatService.formatDate(data.DATAALTERACAO!);
+          //this.tarefa.horasestimadas = this.formatService.formatHours(data.horasestimadas);
         });
 
       this.event = 'Editar';
     }
   }
-
-  registerTarefa() {
+  registerTarefa(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
     if (
       !this.tarefa.titulotarefa ||
       !this.tarefa.descricaotarefa ||
-      !this.tarefa.horasestimadas ||
-      !this.tarefa.datacriacao ||
-      !this.tarefa.dataalteracao ||
-      !this.tarefa.usuariocriacao ||
-      !this.tarefa.usuarioalteracao
+      !this.tarefa.horasestimadas
+      // !this.tarefa.datacriacao ||
+      // !this.tarefa.dataalteracao ||
+      // !this.tarefa.usuariocriacao ||
+      // !this.tarefa.usuarioalteracao
     ) {
       alert('Preencha todos os campos');
       console.log(this.tarefa);
+      this.camposPreenchidos = (
+        form.controls['titulotarefa'].valid &&
+        form.controls['descricaotarefa'].valid &&
+        form.controls['horasestimadas'].valid
+
+      );
+      this.botaoClicado = true;
       return;
     } else {
       alert('Formulário enviado!');

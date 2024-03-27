@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Tarefa, CreateTarefa } from '../models/tarefa.model';
+import { Tarefa, CreateTarefa, Tarefas } from '../models/tarefa.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class TarefaService {
   }
 
   allTarefa(){
-    return this.httpClient.get<Tarefa[]>(this.url)
+    return this.httpClient.get<Tarefas[]>(this.url)
   }
 
   tarefaCurrent(id:String){
@@ -28,7 +28,7 @@ export class TarefaService {
     return this.httpClient.put<Tarefa>(this.url, tarefa)
   }
 
-  deleteTarefa(id:string){
+  deleteTarefa(id:number){
     return this.httpClient.delete<void>(`${this.url}/${id}`)
   }
 
