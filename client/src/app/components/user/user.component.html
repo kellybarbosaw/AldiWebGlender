@@ -13,6 +13,11 @@
                     <span class="txt-link">Home</span>
                 </a>
 
+                <a [routerLink]="['/user/kanban']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}" class="dashboard-nav-item">
+                    <i class="bi bi-kanban-fill"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="txt-link">Kanban</span>
+                </a>
+
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#clientCollapse">
@@ -38,9 +43,23 @@
                         <a [routerLink]="['/user/pessoas']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todas Pessoa</a>
                     </div>
                 </div>
+
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#tarefaCollapse">
+                        <i class="bi bi-newspaper"></i>
+                        <span class="txt-link">Tarefas</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="tarefaCollapse">
+                        <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Nova Tarefa</a>
+                        <a [routerLink]="['/user/tarefas']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todas Tarefas</a>
+                    </div>
+                </div>
+
+                
 <!-- 
                 <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Recurso</a>
-                <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa</a>
                 <a [routerLink]="['/user/tarefaStatus']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa Status</a>
                 <a [routerLink]="['/user/apontamento']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Apontamento</a>
                 <a [routerLink]="['/user/projetoTarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Projeto Tarefa</a>
@@ -86,7 +105,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="dashboard-nav-item">Perfil</a>
+                <a class="dashboard-nav-item">Perfil</a>
             </nav>
         
         </div>
