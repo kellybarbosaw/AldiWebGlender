@@ -338,7 +338,6 @@ export class ClientComponent {
             })
           )
           .subscribe((data) => {
-            alert("cadastrado")
            this.router.navigate(['/user/clients']) })
       }
 

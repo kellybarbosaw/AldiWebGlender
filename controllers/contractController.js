@@ -4,11 +4,32 @@ const { registerValidate, registerValidateUpdate } = require('./validates/Contra
 
 const contractController = {
     select: async function (req, res) {
-
+        let offset = req.query.offset;
+        let limit = req.query.limit;
+        let result = [];
         let contract = [];
+
+        function estruturar(clients, offset, limit) {
+            let indexClient = parseInt(offset);
+
+            if (!offset && !limit) {
+                result = clients;
+            } else {
+                for (let index = 0; index < limit; index++) {
+
+                    if (clients[indexClient] !== undefined) {
+                        result.push(clients[indexClient])
+                    }
+                    indexClient += 1;
+                }
+            }
+        }
+
         try {
             contract = await db.selectContracts();
-            res.send(contract);
+            estruturar(contract, offset, limit)
+            res.setHeader('Quantidades_Registros', contract.length);
+            res.send(result);
         } catch (error) {
             res.status(400).send(error)
         }

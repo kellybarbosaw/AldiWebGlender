@@ -5,13 +5,13 @@ const connect = db.connect
 //GERENCIAMENTO DE CONTRATOS/VENDAS
 async function selectContracts() {
     const conn = await connect();
-    const [rows] = await conn.query('SELECT * FROM AVENDACOMERCIAL;');
+    const [rows] = await conn.query('SELECT A.*, Z.NOME as NOMECLIENTE FROM AVENDACOMERCIAL A INNER JOIN ZCLIENTE Z ON A.IDCLIENTE = Z.IDCLIENTE;');
     return rows;
 }
 async function selectContractID(id) {
     const conn = await connect();
     // const client = await conn.query('SELECT * FROM AVENDACOMERCIAL WHERE IDVENDA = ?', id);
-    const contract = await conn.query('SELECT *,Z.NOME as NOMECLIENTE FROM AVENDACOMERCIAL A INNER JOIN ZCLIENTE Z ON A.IDCLIENTE = Z.IDCLIENTE WHERE IDVENDA = ?', id);
+    const contract = await conn.query('SELECT A.*, Z.NOME as NOMECLIENTE FROM AVENDACOMERCIAL A INNER JOIN ZCLIENTE Z ON A.IDCLIENTE = Z.IDCLIENTE WHERE IDVENDA =  ?', id);
     return contract;
 };
 async function selectContractClient(id) {

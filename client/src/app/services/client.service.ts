@@ -67,23 +67,6 @@ export class ClientService {
     return this.httpClient.post<CreateClient>(this.url, newClient)
   }
 
-  // getClientsWithHeaders2(offset: number, limit: number): void {
-  //   this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`, { observe: 'response' })
-  //     .subscribe({
-  //       next: (response) => {
-  //         console.log(response)
-  //         const clients = response.body || [];
-  //         this.clientsSubject.next(clients);
-  //         this.qtdClients = parseInt(response.headers?.get('Quantidades_Registros')!)
-  //       },
-  //       error: (error) => {
-  //         console.error('Houve um erro ao obter os clientes:', error);
-  //       }
-  //     });
-  // }
-
-
-
   getClientsWithHeaders(offset: number, limit: number): Observable<{ clients: Client[], headers: HttpHeaders }> {
     return this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`, { observe: 'response' })
       .pipe(
@@ -95,10 +78,6 @@ export class ClientService {
         })
       );
   }
-
-  // allClients(offset: number, limit: number) {
-  //   return this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`)
-  // }
 
   clientCurrent(id: String) {
     return this.httpClient.get<Client[]>(`${this.url}/${id}`)

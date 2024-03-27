@@ -22,26 +22,24 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Razão Social</th>
-                        <th>Nome Fantasia</th>
-                        <th>CNPJ</th>
-                        <th style="text-align: center;">360º</th>
+                        <th>ID Contrato</th>
+                        <th>Cliente</th>
+                        <th>Descrição</th>
+                        <th>Comercial</th>
                         <th style="text-align: center;">Editar</th>
                         <th style="text-align: justify;">Excluir</th>
                     </tr>
                 </thead>
-                <tbody *ngIf="allClient$ | async as client; else loadingError">
-                    <tr *ngFor="let client of allClient$ | async">
+                <tbody *ngIf="allContratos$ | async as client; else loadingError">
+                    <tr *ngFor="let contrato of allContratos$ | async">
                         <td>
-                            {{client.IDCLIENTE}}
+                            {{contrato.IDVENDA}}
                         </td>
-                        <td>{{client.NOME}}</td>
-                        <td>{{client.NOMEFANTASIA}}</td>
-                        <td>{{client.CGCCFO | mask: 'CPF_CNPJ'}}</td>
-                        <td style="text-align: center;"><i [routerLink]="['/user/client360/',client.IDCLIENTE]" class="bi bi-search"></i></td>
-                        <td style="text-align: center;"><i [routerLink]="['/user/client/',client.IDCLIENTE]" class="bi bi-pencil-square"></i></td>
-                        <td><button (click)="excludeClient(client.IDCLIENTE!,null)" type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></button>
+                        <td>{{contrato.NOMECLIENTE}}</td>
+                        <td>{{contrato.DESCRICAOVENDA}}</td>
+                        <td>{{contrato.COMERCIALVENDAcol}}</td>
+                        <td style="text-align: center;"><i [routerLink]="['/user/clientes/vendas/edit/',contrato.IDVENDA]" class="bi bi-pencil-square"></i></td>
+                        <td><button (click)="excludeContrato(contrato.IDVENDA!,null)" type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></button>
                         <td>
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -52,8 +50,8 @@
                                     </div>
                                     <div class="modal-body">Tem certeza que deseja excluir esse item?</div>
                                     <div class="modal-footer">
-                                        <button (click)="excludeClient(client.IDCLIENTE!,'clear')" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                                        <button (click)="deletClient(clientExclude)" type="button" class="btn btn-danger btn-stage" data-bs-dismiss="modal">Excluir</button>
+                                        <button (click)="excludeContrato(contrato.IDVENDA!,'clear')" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                                        <button (click)="deletContrato(contratoExclude)" type="button" class="btn btn-danger btn-stage" data-bs-dismiss="modal">Excluir</button>
                                     </div>
                                     </div>
                                 </div>
@@ -77,7 +75,7 @@
 
     <div class="panel-footer">
         <div class="d-flex flex-column align-items-center">
-            <div>Mostrando <b>{{qtdMostrado}}</b> dos <b>{{qtdClients}}</b> Clientes</div>
+            <div>Mostrando <b>{{qtdMostrado}}</b> dos <b>{{qtdContrato}}</b> Contratos</div>
             <div>
                 <ul class="pagination">
                     <li><a (click)="passar('back')">«</a></li>

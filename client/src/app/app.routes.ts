@@ -20,6 +20,7 @@ import { PessoaComponent } from './components/pessoa/pessoa.component';
 import { ProjetoTarefaComponent } from './components/projeto-tarefa/projeto-tarefa.component';
 import { authorizedGuard } from './guard/authorized.guard';
 import { PessoasComponent } from './components/pessoas/pessoas.component';
+import { ContratosComponent } from './components/contratos/contratos.component';
 
 
 export const routes: Routes = [
@@ -63,6 +64,10 @@ export const routes: Routes = [
             {
                 path: 'venda/:id',
                 component: VendaComponent
+            },
+            {
+                path: 'contratos',
+                component: ContratosComponent
             },
             {
                 path: 'contrato/:id',

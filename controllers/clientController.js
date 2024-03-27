@@ -54,7 +54,7 @@ const clientController = {
 
 
         if (selectClient[0] !== null && selectClient[0].length > 0) {
-            return res.status(400).send({ 'msg': 'CNPJ already exists' });
+            return res.status(400).send({ 'message': 'CNPJ already exists' });
         }
 
         const newClient = new Object({
@@ -127,7 +127,7 @@ const clientController = {
         const selectClient = await db.selectZCliente(req.body.cgccfo);
 
         if (selectClient[0] !== null && selectClient[0].length > 1) {
-            return res.status(400).send({ 'msg': 'CNPJ already exists' });
+            return res.status(400).send({ 'message': 'CNPJ already exists' });
         }
 
         const UpdateClient = new Object({

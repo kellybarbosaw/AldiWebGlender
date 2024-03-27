@@ -4,11 +4,13 @@
             <header>
                 <a [routerLink]="['/user']" class="menu-toggle">
                 </a><a [routerLink]="['/user']" class="brand-logo"><span>ALDIWEB</span></a>
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                <link rel="stylesheet"
+                    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
             </header>
 
             <nav class="dashboard-nav-list">
-                <a [routerLink]="['/user']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}" class="dashboard-nav-item">
+                <a [routerLink]="['/user']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}"
+                    class="dashboard-nav-item">
                     <i class="bi bi-house-door"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span class="txt-link">Home</span>
                 </a>
@@ -22,8 +24,10 @@
                     </a>
                     <div class="collapse" id="clientCollapse">
                         <a class="dashboard-nav-item">Visão 360</a>
-                        <a [routerLink]="['/user/client']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Novo Cliente</a>
-                        <a [routerLink]="['/user/clients']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todos Clientes</a>
+                        <a [routerLink]="['/user/client']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Novo Cliente</a>
+                        <a [routerLink]="['/user/clients']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Todos Clientes</a>
                     </div>
                 </div>
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
@@ -34,16 +38,53 @@
                         <i class="bi bi-arrow-down-short"></i>
                     </a>
                     <div class="collapse" id="pessoaCollapse">
-                        <a [routerLink]="['/user/pessoa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Nova Pessoa</a>
-                        <a [routerLink]="['/user/pessoas']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todas Pessoa</a>
+                        <a [routerLink]="['/user/pessoa']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Nova Pessoa</a>
+                        <a [routerLink]="['/user/pessoas']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Todas Pessoa</a>
+                    </div>
+                </div>
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#contratosCollapse">
+                        <i class="bi bi-briefcase"></i>
+                        <span class="txt-link">Contratos</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="contratosCollapse">
+                        <a [routerLink]="['/user/contratos']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Todas Contratos</a>
                     </div>
                 </div>
 
-                <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Recurso</a>
-                <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa</a>
-                <a [routerLink]="['/user/tarefaStatus']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Tarefa Status</a>
-                <a [routerLink]="['/user/apontamento']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Apontamento</a>
-                <a [routerLink]="['/user/projetoTarefa']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Projeto Tarefa</a>
+
+
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#CadastroGeralCollapse">
+                        <i class="bi bi-archive"></i>
+                        <span class="txt-link">Cadastros</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="CadastroGeralCollapse">
+                        <a [routerLink]="['/user/pessoa']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Nova Pessoa</a>
+                        <a [routerLink]="['/user/client']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Novo Cliente</a>
+                        <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Recurso</a>
+                        <a [routerLink]="['/user/tarefa']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Tarefa</a>
+                        <a [routerLink]="['/user/tarefaStatus']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Tarefa Status</a>
+                        <a [routerLink]="['/user/apontamento']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Apontamento</a>
+                        <a [routerLink]="['/user/projetoTarefa']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Projeto Tarefa</a>
+                    </div>
+                </div>
+
+
 
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
@@ -88,7 +129,7 @@
 
                 <a class="dashboard-nav-item">Perfil</a>
             </nav>
-        
+
         </div>
         <div>
             <div class="nav-item-divider"></div>
@@ -110,5 +151,6 @@
         <div class='dashboard-content'>
             <router-outlet></router-outlet>
         </div>
+        <div id="messages" class="position-absolute end-0 top-0"></div>
     </div>
 </div>

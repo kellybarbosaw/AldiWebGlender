@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
-import { Observable } from 'rxjs';
+import { catchError, of, Subject, Observable } from 'rxjs';
 import { Project } from '../../models/project.model';
 import { ContractService } from '../../services/contract.service';
 import { FormatsService } from '../../services/formats.service';
+import { LoginService } from '../../services/login.service';
+import { MensageriaService } from '../../services/mensageria.service';
 
 @Component({
   selector: 'app-contrato',
@@ -16,6 +18,8 @@ import { FormatsService } from '../../services/formats.service';
 })
 export class ContratoComponent {
 
+  contratoExclude = 0;
+  error$ = new Subject<boolean>();
 
   contrato = {
     idvenda: 0,
@@ -38,15 +42,30 @@ export class ContratoComponent {
   projectClient$ = new Observable<Project[]>();
 
 
-  constructor(private formatService : FormatsService,private router: Router, private route: ActivatedRoute, private contractService: ContractService) {
+  constructor(
+    private formatService: FormatsService,
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private contractService: ContractService,
+    private loginService: LoginService,
+    private messageriaService: MensageriaService) {
 
 
-    this.contrato.idcliente = this.route.snapshot.params['id'];
-    this.projectClient$ = this.contractService.projectsClient(this.route.snapshot.params['id'])
+    this.contrato.idvenda = this.route.snapshot.params['id'];
+    this.projectClient$ = this.contractService.projectsContract(this.route.snapshot.params['id'])
 
 
     this.contractService.contractCurrent(this.route.snapshot.params['id'])
-      .subscribe((datas) => {
+    .pipe(
+      catchError(err => {
+        this.error$.next(true)
+        if (err.statusText === "Unauthorized") {
+          alert("Seu iToken foi expirado! Realize o login novamente")
+          this.loginService.deslogar();
+        }
+        return of();
+      })
+    ).subscribe((datas) => {
         const data = datas[0];
         this.contrato.idvenda = data.IDVENDA!;
         this.contrato.idcliente = data.IDCLIENTE;
@@ -68,27 +87,25 @@ export class ContratoComponent {
       });
   }
 
-
-  verProjeto(id: number) {
-    // this.router.navigate([`/user/contract/projeto/${id}`]);
-  }
-
   editContract() {
     this.router.navigate([`/user/clientes/vendas/${'edit'}/${this.contrato.idvenda}`]);
   }
 
-  deleteContract(){
-    alert("deseja realmente deletar?")
-    this.contractService.deleteContract(this.contrato.idvenda)
+  
+  excludeContrato(id: number, event: string | null) {
+    if (!event) this.contratoExclude = id;
+    if (event === 'clear') this.contratoExclude = 0;
+  }
+
+  deleteContract(id: number){
+    this.contractService.deleteContract(id)
+    .pipe(
+      catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Erro',err.error.message,'messages','warning')
+        return of();
+      })
+    )
     .subscribe(()=>{this.router.navigate([`/user/client360/${this.contrato.idcliente}`])})
-  }
-
-  viewProject(id: number) {
-    this.router.navigate([`/user/contract/projeto/${id}`]);
-  }
-
-  newProject(id: number) {
-    this.router.navigate([`/user/projeto/${'new'}/${id}`]);
   }
 
 }

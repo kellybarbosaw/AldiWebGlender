@@ -1,42 +1,37 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router'
-import { catchError, Observable, of, Subject, tap } from 'rxjs';
-import { Client } from '../../models/client.model';
-import { ClientService } from '../../services/client.service';
+import { RouterLink } from '@angular/router';
+import { catchError, Observable, of, Subject } from 'rxjs';
+import { Contract } from '../../models/contract.model';
+import { ContractService } from '../../services/contract.service';
 import { LoginService } from '../../services/login.service';
-import { NgxMaskPipe } from 'ngx-mask';
-
-
 
 @Component({
-  selector: 'app-clients',
+  selector: 'app-contratos',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, CommonModule, RouterLink, NgxMaskPipe],
-  templateUrl: './clients.component.html',
-  styleUrl: './clients.component.scss'
+  imports: [CommonModule, FormsModule, RouterLink],
+  templateUrl: './contratos.component.html',
+  styleUrl: './contratos.component.scss'
 })
-export class ClientsComponent {
+export class ContratosComponent {
 
   error$ = new Subject<boolean>();
-  allClient$ = new Observable<Client[]>();
+  allContratos$ = new Observable<Contract[]>();
 
-  clientExclude = 0;
+  contratoExclude = 0;
 
   offset = 0;
   limit = 5;
   paginaAtual = 1;
   paginas:number[] = [];
-  qtdClients = 0;
+  qtdContrato = 0;
   qtdMostrado = 5;
 
-
-  constructor(private clientService: ClientService, private loginService: LoginService) { }
-  ngOnInit() {
+  constructor(private contractService: ContractService, private loginService: LoginService) { }
+  ngOnInit(){
     this.paginas = [];
-    this.clientService.getClientsWithHeaders(this.offset, this.limit).pipe(
+    this.contractService.getContractsWithHeaders(this.offset, this.limit).pipe(
       catchError(err => {
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
@@ -47,13 +42,13 @@ export class ClientsComponent {
       })
     ).subscribe({
       next: (result) => {        
-        this.allClient$ = this.clientService.allClientsS$;
-        this.qtdClients = parseInt(result.headers?.get('Quantidades_Registros')!);
+        this.allContratos$ = this.contractService.allContract$;
+        this.qtdContrato = parseInt(result.headers?.get('Quantidades_Registros')!);
 
-        for (let index = 1; index <= Math.ceil(this.qtdClients/this.limit) ; index++) {
+        for (let index = 1; index <= Math.ceil(this.qtdContrato/this.limit) ; index++) {
           this.paginas.push(index);
         }
-        if(this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
+        if(this.qtdMostrado > this.qtdContrato) this.qtdMostrado = this.qtdContrato
 
       },
       error: (error) => {
@@ -62,14 +57,14 @@ export class ClientsComponent {
     });
   }
 
-  // event = "Excluir";
-  excludeClient(id: number, event: string | null) {
-    if (!event) this.clientExclude = id;
-    if (event === 'clear') this.clientExclude = 0;
+
+  excludeContrato(id: number, event: string | null) {
+    if (!event) this.contratoExclude = id;
+    if (event === 'clear') this.contratoExclude = 0;
   }
 
-  deletClient(id: number) {
-    this.clientService.deleteClient(id)
+  deletContrato(id: number) {
+    this.contractService.deleteContract(id)
       .pipe(
         catchError(err => {
           alert(err.error.message)
@@ -89,7 +84,7 @@ export class ClientsComponent {
     let of = pagina - 1
     this.offset = (of * this.limit);
     this.qtdMostrado = (pagina*this.limit)
-    if(this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
+    if(this.qtdMostrado > this.qtdContrato) this.qtdMostrado = this.qtdContrato
     this.ngOnInit()
   }
 
@@ -107,6 +102,5 @@ export class ClientsComponent {
         break;
     }
   }
-
 
 }
