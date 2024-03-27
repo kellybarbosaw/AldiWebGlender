@@ -129,14 +129,12 @@ export class PessoaComponent {
       !this.pessoa.bairro ||
       !this.pessoa.naturalidade ||
       !this.pessoa.nacionalidade ||
-      !this.pessoa.usuario ||
       !this.pessoa.nroidentidade ||
       !this.pessoa.orgaoemissorident ||
       !this.pessoa.estadoemissorident ||
       !this.pessoa.zusuario_usuario
     ) {
       alert('preencha os campos');
-      console.log(this.pessoa);
       this.camposPreenchidos = (
         form.controls['nome'].valid &&
         form.controls['cpf'].valid &&
@@ -147,7 +145,6 @@ export class PessoaComponent {
         form.controls['bairro'].valid &&
         form.controls['naturalidade'].valid &&
         form.controls['nacionalidade'].valid &&
-        form.controls['usuario'].valid &&
         form.controls['nroidentidade'].valid &&
         form.controls['orgaoemissorident'].valid &&
         form.controls['estadoemissorident'].valid &&
@@ -197,7 +194,6 @@ export class PessoaComponent {
           })
         )
         .subscribe(() => {
-          alert("cadastrado")
           this.router.navigate(['/user/pessoas']);
         });
     } else if (this.event === 'Editar') {

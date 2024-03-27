@@ -1,13 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Client, CreateClient } from '../models/client.model';
-import { LoginService } from './login.service';
-
 import { PessoaService } from "./pessoa.service";
 import { UsuariosService } from "./usuarios.service";
 import { FormatsService } from './formats.service';
-import { catchError, of } from 'rxjs';
+import { catchError, of, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ import { catchError, of } from 'rxjs';
 export class ClientService {
 
   private url = `${environment.api}/client`;
+  public qtdClients: number | null = 0;
 
   private usuario = {
     usuario: '',
@@ -49,6 +52,10 @@ export class ClientService {
     usuarioalteracao: ''
   };
 
+  private clientsSubject = new BehaviorSubject<Client[]>([]);
+  public allClientsS$ = this.clientsSubject.asObservable();
+
+
   constructor(
     private httpClient: HttpClient,
     private formatService: FormatsService,
@@ -57,15 +64,41 @@ export class ClientService {
   ) { }
 
   registerClient(newClient: CreateClient) {
-    console.log(newClient)
     return this.httpClient.post<CreateClient>(this.url, newClient)
   }
 
-  allClients(offset:number,limit:number) {
-    var teste = this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`)
-    console.log(teste)
-    return teste
+  // getClientsWithHeaders2(offset: number, limit: number): void {
+  //   this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`, { observe: 'response' })
+  //     .subscribe({
+  //       next: (response) => {
+  //         console.log(response)
+  //         const clients = response.body || [];
+  //         this.clientsSubject.next(clients);
+  //         this.qtdClients = parseInt(response.headers?.get('Quantidades_Registros')!)
+  //       },
+  //       error: (error) => {
+  //         console.error('Houve um erro ao obter os clientes:', error);
+  //       }
+  //     });
+  // }
+
+
+
+  getClientsWithHeaders(offset: number, limit: number): Observable<{ clients: Client[], headers: HttpHeaders }> {
+    return this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`, { observe: 'response' })
+      .pipe(
+        map(response => {
+          const clients = response.body || []; // Extrai o corpo da resposta corretamente
+          this.clientsSubject.next(clients);
+          const headers = response.headers;
+          return { clients, headers };
+        })
+      );
   }
+
+  // allClients(offset: number, limit: number) {
+  //   return this.httpClient.get<Client[]>(`${this.url}/?offset=${offset}&limit=${limit}`)
+  // }
 
   clientCurrent(id: String) {
     return this.httpClient.get<Client[]>(`${this.url}/${id}`)

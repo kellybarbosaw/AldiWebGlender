@@ -7,11 +7,31 @@ const {loginValidate,registerValidate} = require('./validates/LoginValidate');
 const userController = {
 
     select: async function (req, res) {
-
+        let offset = req.query.offset;
+        let limit = req.query.limit;
+        let result = [];
         let Users = [];
+
+        function estruturar(users, offset, limit) {
+            let indexUsers = parseInt(offset);
+
+            if (!offset && !limit) {
+                result = users;
+            } else {
+                for (let index = 0; index < limit; index++) {
+
+                    if (Users[indexUsers] !== undefined) {
+                        result.push(Users[indexUsers])
+                    }
+                    indexUsers += 1;
+                }
+            }
+        }
         try {
             Users = await db.selectUsers();
-            res.send(Users);
+            estruturar(Users, offset, limit)
+            res.setHeader('Quantidades_Registros', Users.length);
+            res.send(result);
         } catch (error) {
             res.status(400).send(error)
         }

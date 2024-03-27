@@ -1,21 +1,34 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User,CreateUser } from "../models/users.model";
 import { environment } from '../../environments/environment';
 import { LoginService } from './login.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
+  private userSubject = new BehaviorSubject<User[]>([]);
+  public allUsers$ = this.userSubject.asObservable();
 
   constructor(private httpClient: HttpClient, private loginService: LoginService) { }
   private url = `${environment.api}/user`;
   
 
-  allUsers(){
-    return this.httpClient.get<User[]>(this.url)
+  getUsersWithHeaders(offset: number, limit: number): Observable<{ usuarios: User[], headers: HttpHeaders }> {
+    return this.httpClient.get<User[]>(`${this.url}/?offset=${offset}&limit=${limit}`, { observe: 'response' })
+      .pipe(
+        map(response => {
+          const usuarios = response.body || []; // Extrai o corpo da resposta corretamente
+          this.userSubject.next(usuarios);
+          const headers = response.headers;
+          return { usuarios, headers };
+        })
+      );
   }
 
   registerUser(newUser: CreateUser) {

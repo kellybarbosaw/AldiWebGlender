@@ -12,6 +12,3 @@ router.put('/',auth,authProfile,clientController.update);
 router.delete('/:id',auth,authProfile,clientController.delete);
 
 module.exports = router;
-
-
-// const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
