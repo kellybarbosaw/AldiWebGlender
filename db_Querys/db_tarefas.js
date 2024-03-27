@@ -44,14 +44,12 @@ async function selectATarefas() {
   async function updateATarefa(id, tarefa) {
     const conn = await connect();
     const sql =
-      "UPDATE ATAREFA SET TITULOTAREFA= ?, DESCRICAOTAREFA= ?, HORASESTIMADAS= ?, DATACRIACAO= ?, DATAALTERACAO= ?, USUARIOCRIACAO= ?, USUARIOALTERACAO= ? WHERE IDTAREFA= ?";
+      "UPDATE ATAREFA SET TITULOTAREFA= ?, DESCRICAOTAREFA= ?, HORASESTIMADAS= ?, DATAALTERACAO= ?, USUARIOALTERACAO= ? WHERE IDTAREFA= ?";
     const values = [
       tarefa.titulotarefa,
       tarefa.descricaotarefa,
       tarefa.horasestimadas,
-      tarefa.datacriacao,
       tarefa.dataalteracao,
-      tarefa.usuariocriacao,
       tarefa.usuarioalteracao,
       id,
     ];

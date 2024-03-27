@@ -8,8 +8,8 @@ const clientController = {
     select: async function (req, res) {
         let offset = req.query.offset;
         let limit = req.query.limit;
-        let clients = [];
         let result = [];
+        let clients = [];
 
         function estruturar(clients, offset, limit) {
             let indexClient = parseInt(offset);

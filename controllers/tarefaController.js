@@ -6,10 +6,32 @@ const {
 
 const tarefaController = {
   select: async function (req, res) {
+    let offset = req.query.offset;
+    let limit = req.query.limit;
+    let result = [];
     let tarefas = [];
+
+    function estruturar(tarefas, offset, limit) {
+      let indexTarefas = parseInt(offset);
+
+      if (!offset && !limit) {
+        result = tarefas;
+      } else {
+        for (let index = 0; index < limit; index++) {
+
+          if (tarefas[indexTarefas] !== undefined) {
+            result.push(tarefas[indexTarefas])
+          }
+          indexTarefas += 1;
+        }
+      }
+    }
+
     try {
       tarefas = await db.selectATarefas();
-      res.send(tarefas);
+      estruturar(tarefas, offset, limit)
+      res.setHeader('Quantidades_Registros', tarefas.length);
+      res.send(result);
     } catch (error) {
       res.status(400).send(error);
     }

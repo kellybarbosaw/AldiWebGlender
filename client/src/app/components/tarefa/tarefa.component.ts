@@ -25,7 +25,6 @@ export class TarefaComponent {
     dataalteracao: '',
     usuariocriacao: '',
     usuarioalteracao: '',
-    inputValue: '',
   };
 
   event = 'Cadastrar';
@@ -62,10 +61,6 @@ export class TarefaComponent {
       !this.tarefa.titulotarefa ||
       !this.tarefa.descricaotarefa ||
       !this.tarefa.horasestimadas
-      // !this.tarefa.datacriacao ||
-      // !this.tarefa.dataalteracao ||
-      // !this.tarefa.usuariocriacao ||
-      // !this.tarefa.usuarioalteracao
     ) {
       alert('Preencha todos os campos');
       console.log(this.tarefa);
@@ -84,6 +79,11 @@ export class TarefaComponent {
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === 'Cadastrar') {
+      this.tarefa.datacriacao = this.formatService.dateNow();
+      this.tarefa.dataalteracao = this.formatService.dateNow();
+      this.tarefa.usuariocriacao = localStorage.getItem('user')!;
+      this.tarefa.usuarioalteracao = localStorage.getItem('user')!;
+
       this.tarefaService
         .registerTarefa({
           titulotarefa: this.tarefa.titulotarefa,
@@ -98,7 +98,8 @@ export class TarefaComponent {
           this.router.navigate(['/user/tarefa']);
         });
     } else if (this.event === 'Editar') {
-      console.log('editando');
+      this.tarefa.dataalteracao = this.formatService.dateNow();
+      this.tarefa.usuarioalteracao = localStorage.getItem('user')!;
 
       this.tarefaService
         .editTarefa({
