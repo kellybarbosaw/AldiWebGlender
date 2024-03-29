@@ -61,7 +61,6 @@ export class TarefaComponent {
 
             this.tarefa.datacriacao = this.formatService.formatDate(data.DATACRIACAO!);
           this.tarefa.dataalteracao = this.formatService.formatDate(data.DATAALTERACAO!);
-          //this.tarefa.horasestimadas = this.formatService.formatHours(data.horasestimadas);
         });
 
       this.event = 'Editar';
