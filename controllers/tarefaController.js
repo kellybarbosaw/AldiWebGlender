@@ -55,7 +55,7 @@ const tarefaController = {
     const selectTarefa = await db.selectATarefaTitulo(req.body.titulotarefa);
 
     if (selectTarefa[0] !== null && selectTarefa[0].length > 0) {
-      return res.status(400).send("Sua tarefa já existe!");
+      return res.status(400).send({ message: "Sua tarefa já existe!"});
     }
 
     const novaTarefa = new Object({
@@ -81,10 +81,15 @@ const tarefaController = {
       return res.status(400).send(error.message);
     }
 
-    const selectTarefa = await db.selectATarefa(req.body.idtarefa);
+    const selectTarefa = await db.selectATarefaTitulo(req.body.titulotarefa);
+    const TarefaAtual = await db.selectATarefa(req.body.idtarefa);
 
-    if (selectTarefa[0] !== null && selectTarefa[0].length > 1) {
-      return res.status(400).send("Essa tarefa ja existe!");
+    if(selectTarefa[0].length >= 1){
+      if(selectTarefa[0][0].TITULOTAREFA !== TarefaAtual[0][0].TITULOTAREFA){
+        if (selectTarefa[0] !== null && selectTarefa[0].length >= 1 ) {
+          return res.status(400).send({ message:"Essa tarefa ja existe!"});
+        }
+      }
     }
 
     const updateTarefa = new Object({
