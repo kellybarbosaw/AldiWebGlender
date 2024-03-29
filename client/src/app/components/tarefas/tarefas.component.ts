@@ -20,25 +20,60 @@ export class TarefasComponent {
   allTarefa$ = new Observable<Tarefas[]>();
   tarefaExclude = 0;
 
+  offset = 0;
+  limit = 5;
+  paginaAtual = 1;
+  paginas:number[] = [];
+  qtdTarefas = 0;
+  qtdMostrado = 5;
+
   constructor(private tarefaService: TarefaService, private loginService: LoginService){
-    setTimeout(() => {
+    // setTimeout(() => {
 
-      this.allTarefa$ = this.tarefaService.allTarefa()
-        .pipe(
-          catchError(err => {
-            this.error$.next(true)
-            if (err.statusText === "Unauthorized") {
-              alert("Seu iToken foi expirado! Realize o login novamente")
-              this.loginService.deslogar();
-            }
-            return of();
-          })
-        );
+    //   this.allTarefa$ = this.tarefaService.allTarefa()
+    //     .pipe(
+    //       catchError(err => {
+    //         this.error$.next(true)
+    //         if (err.statusText === "Unauthorized") {
+    //           alert("Seu iToken foi expirado! Realize o login novamente")
+    //           this.loginService.deslogar();
+    //         }
+    //         return of();
+    //       })
+    //     );
 
-    }, 1000);
+    // }, 1000);
     // this.error$.next(true)
 
   }
+  ngOnInit() {
+    this.paginas = [];
+    this.tarefaService.getTarefasWithHeaders(this.offset, this.limit).pipe(
+      catchError(err => {
+        this.error$.next(true)
+        if (err.statusText === "Unauthorized") {
+          alert("Seu iToken foi expirado! Realize o login novamente")
+          this.loginService.deslogar();
+        }
+        return of();
+      })
+    ).subscribe({
+      next: (result) => {        
+        this.allTarefa$ = this.tarefaService.allTarefas$;
+        this.qtdTarefas = parseInt(result.headers?.get('Quantidades_Registros')!);
+
+        for (let index = 1; index <= Math.ceil(this.qtdTarefas/this.limit) ; index++) {
+          this.paginas.push(index);
+        }
+        if(this.qtdMostrado > this.qtdTarefas) this.qtdMostrado = this.qtdTarefas
+
+      },
+      error: (error) => {
+        console.error('Houve um erro ao obter tarefas:', error);
+      }
+    });
+  }
+
   event ="Excluir";
   excludeTarefa(id: number, event: string | null){
     if (!event)this.tarefaExclude = id;
@@ -52,6 +87,35 @@ export class TarefasComponent {
         alert(err.error.msg)
         return of();
       })
-    ).subscribe(() => { this.allTarefa$ = this.tarefaService.allTarefa() })
+      ).subscribe(() => { this.ngOnInit() })
+  }
+
+  buscar() {
+    this.offset = 0;
+    this.paginar(1)
+  }
+
+  paginar(pagina: number) {
+    this.paginaAtual = pagina;
+    let of = pagina - 1
+    this.offset = (of * this.limit);
+    this.qtdMostrado = (pagina*this.limit)
+    if(this.qtdMostrado > this.qtdTarefas) this.qtdMostrado = this.qtdTarefas
+    this.ngOnInit()
+  }
+
+  passar(type:string){
+    switch (type) {
+      case 'next':
+        if(this.paginaAtual >= this.paginas.length)return
+        this.paginaAtual += 1;
+        this.paginar(this.paginaAtual)     
+        break;
+      case 'back':
+        if(this.paginaAtual === 1)return
+        this.paginaAtual -= 1;
+        this.paginar(this.paginaAtual)
+        break;
+    }
   }
 }

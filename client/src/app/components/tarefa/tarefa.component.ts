@@ -29,7 +29,12 @@ export class TarefaComponent {
 
   event = 'Cadastrar';
 
-  constructor(private formatService: FormatsService,private tarefaService: TarefaService,private router: Router,private route: ActivatedRoute, private el: ElementRef) {
+  constructor(private formatService: FormatsService,
+    private tarefaService: TarefaService,
+    private router: Router,
+    private route: ActivatedRoute, 
+    private el: ElementRef
+    ) {
     this.tarefa.idtarefa = this.route.snapshot.params['id'];
 
     if (this.route.snapshot.params['id'] === undefined) {
@@ -49,7 +54,6 @@ export class TarefaComponent {
 
             this.tarefa.datacriacao = this.formatService.formatDate(data.DATACRIACAO!);
           this.tarefa.dataalteracao = this.formatService.formatDate(data.DATAALTERACAO!);
-          //this.tarefa.horasestimadas = this.formatService.formatHours(data.horasestimadas);
         });
 
       this.event = 'Editar';
@@ -95,7 +99,7 @@ export class TarefaComponent {
           usuarioalteracao: this.tarefa.usuarioalteracao,
         })
         .subscribe(() => {
-          this.router.navigate(['/user/tarefa']);
+          this.router.navigate(['/user/tarefas']);
         });
     } else if (this.event === 'Editar') {
       this.tarefa.dataalteracao = this.formatService.dateNow();
@@ -114,7 +118,7 @@ export class TarefaComponent {
         })
         .subscribe((data: any) => {
           console.log(data);
-          this.router.navigate(['/user/tarefa']);
+          this.router.navigate(['/user/tarefas']);
         });
     } else {
       alert('Error!');

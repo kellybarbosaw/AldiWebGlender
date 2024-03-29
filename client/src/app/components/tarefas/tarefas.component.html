@@ -6,17 +6,17 @@
             <a href="/user/tarefa" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> New
                 Tarefa</a>
 
-            <form class="form-horizontal pull-right">
-                <div class="form-group">
-                    <label>Show : </label>
-                    <select class="form-control">
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
-                    </select>
-                </div>
-            </form>
+                <form class="form-horizontal pull-right">
+                    <div class="form-group">
+                        <label>Show : </label>
+                        <select [(ngModel)]="limit" name="limit" class="form-control" (change)="buscar()" >
+                            <option value=5 selected>5</option>
+                            <option value=10>10</option>
+                            <option value=15>15</option>
+                            <option value=20>20</option>
+                        </select>
+                    </div>
+                </form>
         </div>
 
 
@@ -77,16 +77,14 @@
 
     <div class="panel-footer">
         <div class="d-flex flex-column align-items-center">
-            <div>showing <b>5</b> out of <b>25</b> entries</div>
+            <div>Mostrando <b>{{qtdMostrado}}</b> das <b>{{qtdTarefas}}</b> Tarefas</div>
             <div>
                 <ul class="pagination">
-                    <li><a href="#">«</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">»</a></li>
+                    <li><a (click)="passar('back')">«</a></li>
+                    <div *ngFor="let pag of paginas">
+                        <li [class.active]="paginaAtual === pag" ><a (click)="paginar(pag)">{{pag}}</a></li>
+                    </div>
+                    <li><a (click)="passar('next')">»</a></li>
                 </ul>
             </div>
         </div>

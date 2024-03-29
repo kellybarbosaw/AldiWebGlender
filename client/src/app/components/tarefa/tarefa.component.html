@@ -15,7 +15,7 @@
                     <div class="form-group espaco">
                         <label>Descrição da tarefa:</label>
                         <textarea [(ngModel)]="tarefa.descricaotarefa" type="text" class="form-control"
-                            placeholder="Descrição da tarefa" name="descricaotarefa" required
+                            placeholder="Descrição da tarefa" name="descricaotarefa" required maxlength="300"
                             [ngClass]="{'campo-nao-preenchido': botaoClicado && !tarefa.descricaotarefa}"></textarea>
                     </div>
                     <div class="form-group d-flex flex-row">
@@ -25,28 +25,10 @@
                                 placeholder="00:00:00" name="horasestimadas" required
                                 [ngClass]="{'campo-nao-preenchido': botaoClicado && !tarefa.horasestimadas}">
                         </div>
-                        <!-- <div class="form-group espaco espacoCampo">
-                            <label>Data da criação da tarefa:</label>
-                            <input [(ngModel)]="tarefa.datacriacao" type="date" class="form-control" name="datacriacao">
-                        </div>
-                        <div class="form-group espaco">
-                            <label>Data da alteração da tarefa:</label>
-                            <input [(ngModel)]="tarefa.dataalteracao" type="date" class="form-control"
-                                name="dataalteracao">
-                        </div> -->
+                        <!--Campos de log aqui: -->
+                        <!-- data criação, usuário criação --> 
+                        <!-- data alteração, usuário alteração -->
                     </div>
-
-                    <!-- <div class="form-group espaco" >
-                        <label>Criação do usuário:</label>
-                        <input [(ngModel)]="tarefa.usuariocriacao" type="text" class="form-control"
-                            placeholder="Criação do usuário" name="usuariocriacao">
-                    </div>
-
-                    <div class="form-group espaco" >
-                        <label>Alteração do usuário:</label>
-                        <input [(ngModel)]="tarefa.usuarioalteracao" type="text" class="form-control"
-                            placeholder="Alteração do usuário" name="usuarioalteracao">
-                    </div> -->
                 </div>
                 <div style='text-align:right'>
                     <div class="btn btn-primary btn-stage" (click)="registerTarefa(form)">{{event}}</div>
