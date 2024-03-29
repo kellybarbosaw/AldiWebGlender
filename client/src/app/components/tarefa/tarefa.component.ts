@@ -5,6 +5,9 @@ import { TarefaService } from '../../services/tarefa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
 import { NgxMaskDirective } from 'ngx-mask';
+import { Subject, catchError, of } from 'rxjs';
+import { MensageriaService } from '../../services/mensageria.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-tarefa',
@@ -14,8 +17,10 @@ import { NgxMaskDirective } from 'ngx-mask';
   styleUrl: './tarefa.component.scss',
 })
 export class TarefaComponent {
+  error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+
   tarefa = {
     idtarefa: '',
     titulotarefa: '',
@@ -29,12 +34,14 @@ export class TarefaComponent {
 
   event = 'Cadastrar';
 
-  constructor(private formatService: FormatsService,
+  constructor(
+    private formatService: FormatsService,
     private tarefaService: TarefaService,
     private router: Router,
     private route: ActivatedRoute, 
-    private el: ElementRef
-    ) {
+    private el: ElementRef,
+    private loginService: LoginService,
+    private messageriaService: MensageriaService) {
     this.tarefa.idtarefa = this.route.snapshot.params['id'];
 
     if (this.route.snapshot.params['id'] === undefined) {
@@ -67,7 +74,6 @@ export class TarefaComponent {
       !this.tarefa.horasestimadas
     ) {
       alert('Preencha todos os campos');
-      console.log(this.tarefa);
       this.camposPreenchidos = (
         form.controls['titulotarefa'].valid &&
         form.controls['descricaotarefa'].valid &&
@@ -76,9 +82,6 @@ export class TarefaComponent {
       );
       this.botaoClicado = true;
       return;
-    } else {
-      alert('Formulário enviado!');
-      console.log(this.tarefa);
     }
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
@@ -97,8 +100,19 @@ export class TarefaComponent {
           dataalteracao: this.tarefa.dataalteracao,
           usuariocriacao: this.tarefa.usuariocriacao,
           usuarioalteracao: this.tarefa.usuarioalteracao,
-        })
-        .subscribe(() => {
+        }).pipe(
+          catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
+            // alert(err.error.message)
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        ).subscribe(() => {
+          this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
           this.router.navigate(['/user/tarefas']);
         });
     } else if (this.event === 'Editar') {
@@ -115,9 +129,20 @@ export class TarefaComponent {
           dataalteracao: this.tarefa.dataalteracao,
           usuariocriacao: this.tarefa.usuariocriacao,
           usuarioalteracao: this.tarefa.usuarioalteracao,
-        })
+        }).pipe(
+          catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
+            // alert(err.error.message)
+            this.error$.next(true)
+            if (err.statusText === "Unauthorized") {
+              alert("Seu iToken foi expirado! Realize o login novamente")
+              this.loginService.deslogar();
+            }
+            return of();
+          })
+        )
         .subscribe((data: any) => {
-          console.log(data);
+          this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
           this.router.navigate(['/user/tarefas']);
         });
     } else {

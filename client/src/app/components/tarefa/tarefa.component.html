@@ -21,7 +21,7 @@
                     <div class="form-group d-flex flex-row">
                         <div class="form-group espaco">
                             <label>Horas estimadas:</label>
-                            <input [(ngModel)]="tarefa.horasestimadas" type="text" class="form-control" mask="Hh0:m0:s0"
+                            <input [(ngModel)]="tarefa.horasestimadas" type="text" class="form-control" mask="0*:00:00"
                                 placeholder="00:00:00" name="horasestimadas" required
                                 [ngClass]="{'campo-nao-preenchido': botaoClicado && !tarefa.horasestimadas}">
                         </div>
