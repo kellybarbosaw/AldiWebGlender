@@ -8,6 +8,7 @@ import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 import { LoginService } from '../../services/login.service';
 import { NgxMaskPipe } from 'ngx-mask';
+import { MensageriaService } from '../../services/mensageria.service';
 
 
 
@@ -28,16 +29,21 @@ export class ClientsComponent {
   offset = 0;
   limit = 5;
   paginaAtual = 1;
-  paginas:number[] = [];
+  paginas: number[] = [];
   qtdClients = 0;
   qtdMostrado = 5;
 
 
-  constructor(private clientService: ClientService, private loginService: LoginService) { }
+  constructor(
+    private clientService: ClientService,
+    private loginService: LoginService,
+    private messageriaService: MensageriaService) { }
   ngOnInit() {
     this.paginas = [];
-    this.clientService.getClientsWithHeaders(this.offset, this.limit).pipe(
+    this.clientService.getClientsWithHeaders(this.offset, this.limit)
+    .pipe(
       catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
           alert("Seu iToken foi expirado! Realize o login novamente")
@@ -46,18 +52,18 @@ export class ClientsComponent {
         return of();
       })
     ).subscribe({
-      next: (result) => {        
+      next: (result) => {
         this.allClient$ = this.clientService.allClientsS$;
         this.qtdClients = parseInt(result.headers?.get('Quantidades_Registros')!);
 
-        for (let index = 1; index <= Math.ceil(this.qtdClients/this.limit) ; index++) {
+        for (let index = 1; index <= Math.ceil(this.qtdClients / this.limit); index++) {
           this.paginas.push(index);
         }
-        if(this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
+        if (this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
 
       },
-      error: (error) => {
-        console.error('Houve um erro ao obter os clientes:', error);
+      error: (err) => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
       }
     });
   }
@@ -72,11 +78,13 @@ export class ClientsComponent {
     this.clientService.deleteClient(id)
       .pipe(
         catchError(err => {
-          alert(err.error.message)
+          this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
           return of();
         })
-      )
-      .subscribe(() => { this.ngOnInit() })
+      ).subscribe(() => {
+        this.messageriaService.messagesRequest('Sucesso!', 'Cliente Excluído Com Sucesso!', 'messages', 'success')
+        this.ngOnInit()
+      })
   }
 
   buscar() {
@@ -88,20 +96,20 @@ export class ClientsComponent {
     this.paginaAtual = pagina;
     let of = pagina - 1
     this.offset = (of * this.limit);
-    this.qtdMostrado = (pagina*this.limit)
-    if(this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
+    this.qtdMostrado = (pagina * this.limit)
+    if (this.qtdMostrado > this.qtdClients) this.qtdMostrado = this.qtdClients
     this.ngOnInit()
   }
 
-  passar(type:string){
+  passar(type: string) {
     switch (type) {
       case 'next':
-        if(this.paginaAtual >= this.paginas.length)return
+        if (this.paginaAtual >= this.paginas.length) return
         this.paginaAtual += 1;
-        this.paginar(this.paginaAtual)     
+        this.paginar(this.paginaAtual)
         break;
       case 'back':
-        if(this.paginaAtual === 1)return
+        if (this.paginaAtual === 1) return
         this.paginaAtual -= 1;
         this.paginar(this.paginaAtual)
         break;

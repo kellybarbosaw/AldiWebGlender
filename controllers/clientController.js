@@ -54,7 +54,7 @@ const clientController = {
 
 
         if (selectClient[0] !== null && selectClient[0].length > 0) {
-            return res.status(400).send({ 'message': 'CNPJ already exists' });
+            return res.status(400).send({ 'message': 'CNPJ já Existe!' });
         }
 
         const newClient = new Object({
@@ -109,7 +109,6 @@ const clientController = {
             tipocliente: req.body.tipocliente
         })
 
-
         try {
             const savedClient = await db.insertZCliente(newClient);
             res.status(200).send(savedClient);
@@ -125,10 +124,20 @@ const clientController = {
         if (error) { return res.status(400).send(error.message) };
 
         const selectClient = await db.selectZCliente(req.body.cgccfo);
+        const ClienteAtual = await db.selectZClienteID(req.body.idcliente);
 
-        if (selectClient[0] !== null && selectClient[0].length > 1) {
-            return res.status(400).send({ 'message': 'CNPJ already exists' });
+
+        if (selectClient[0].length >= 1) {
+            if (selectClient[0][0].CGCCFO !== ClienteAtual[0][0].CGCCFO) {
+                if (selectClient[0] !== null && selectClient[0].length >= 1) {
+                    return res.status(400).send({ 'message': 'CNPJ já existe!' });
+                }
+            }
         }
+
+        // if (selectClient[0] !== null && selectClient[0].length > 1) {
+        //     return res.status(400).send({ 'message': 'CNPJ already exists' });
+        // }
 
         const UpdateClient = new Object({
             nomefantasia: req.body.nomefantasia,

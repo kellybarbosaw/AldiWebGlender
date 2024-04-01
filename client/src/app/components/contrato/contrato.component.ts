@@ -50,14 +50,13 @@ export class ContratoComponent {
     private loginService: LoginService,
     private messageriaService: MensageriaService) {
 
-
     this.contrato.idvenda = this.route.snapshot.params['id'];
     this.projectClient$ = this.contractService.projectsContract(this.route.snapshot.params['id'])
-
 
     this.contractService.contractCurrent(this.route.snapshot.params['id'])
     .pipe(
       catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Erro',err.error.message,'messages','danger')
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
           alert("Seu iToken foi expirado! Realize o login novamente")
@@ -83,7 +82,6 @@ export class ContratoComponent {
 
         this.contrato.usuariocriacao = data.USUARIOCRIACAO;
         this.contrato.usuarioalteracao = data.USUARIOALTERACAO;
-
       });
   }
 
@@ -91,7 +89,6 @@ export class ContratoComponent {
     this.router.navigate([`/user/clientes/vendas/${'edit'}/${this.contrato.idvenda}`]);
   }
 
-  
   excludeContrato(id: number, event: string | null) {
     if (!event) this.contratoExclude = id;
     if (event === 'clear') this.contratoExclude = 0;
@@ -101,11 +98,12 @@ export class ContratoComponent {
     this.contractService.deleteContract(id)
     .pipe(
       catchError(err => {
-        this.messageriaService.messagesRequest('Ocorreu um Erro',err.error.message,'messages','warning')
+        this.messageriaService.messagesRequest('Ocorreu um Erro',err.error.message,'messages','danger')
         return of();
       })
-    )
-    .subscribe(()=>{this.router.navigate([`/user/client360/${this.contrato.idcliente}`])})
+    ).subscribe(()=>{
+      this.messageriaService.messagesRequest('Sucesso!', 'Contrato Excluído Com Sucesso!', 'messages', 'success')
+      this.router.navigate([`/user/client360/${this.contrato.idcliente}`])})
   }
 
 }

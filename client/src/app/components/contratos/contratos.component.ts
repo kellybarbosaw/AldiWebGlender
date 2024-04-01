@@ -6,6 +6,7 @@ import { catchError, Observable, of, Subject } from 'rxjs';
 import { Contract } from '../../models/contract.model';
 import { ContractService } from '../../services/contract.service';
 import { LoginService } from '../../services/login.service';
+import { MensageriaService } from '../../services/mensageria.service';
 
 @Component({
   selector: 'app-contratos',
@@ -28,11 +29,18 @@ export class ContratosComponent {
   qtdContrato = 0;
   qtdMostrado = 5;
 
-  constructor(private contractService: ContractService, private loginService: LoginService) { }
+  constructor(
+    private contractService: ContractService, 
+    private loginService: LoginService,
+    private messageriaService: MensageriaService
+    ) { }
+
   ngOnInit(){
     this.paginas = [];
-    this.contractService.getContractsWithHeaders(this.offset, this.limit).pipe(
+    this.contractService.getContractsWithHeaders(this.offset, this.limit)
+    .pipe(
       catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
           alert("Seu iToken foi expirado! Realize o login novamente")
@@ -51,12 +59,11 @@ export class ContratosComponent {
         if(this.qtdMostrado > this.qtdContrato) this.qtdMostrado = this.qtdContrato
 
       },
-      error: (error) => {
-        console.error('Houve um erro ao obter os clientes:', error);
+      error: (err) => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
       }
     });
   }
-
 
   excludeContrato(id: number, event: string | null) {
     if (!event) this.contratoExclude = id;
@@ -67,11 +74,14 @@ export class ContratosComponent {
     this.contractService.deleteContract(id)
       .pipe(
         catchError(err => {
-          alert(err.error.message)
+          this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
           return of();
         })
       )
-      .subscribe(() => { this.ngOnInit() })
+      .subscribe(() => { 
+        this.messageriaService.messagesRequest('Sucesso!', 'Cliente Excluído Com Sucesso!', 'messages', 'success')
+        this.ngOnInit() 
+      })
   }
 
   buscar() {

@@ -6,6 +6,7 @@ import { TarefaService } from '../../services/tarefa.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { MensageriaService } from '../../services/mensageria.service';
 
 @Component({
   selector: 'app-tarefas',
@@ -27,29 +28,17 @@ export class TarefasComponent {
   qtdTarefas = 0;
   qtdMostrado = 5;
 
-  constructor(private tarefaService: TarefaService, private loginService: LoginService){
-    // setTimeout(() => {
-
-    //   this.allTarefa$ = this.tarefaService.allTarefa()
-    //     .pipe(
-    //       catchError(err => {
-    //         this.error$.next(true)
-    //         if (err.statusText === "Unauthorized") {
-    //           alert("Seu iToken foi expirado! Realize o login novamente")
-    //           this.loginService.deslogar();
-    //         }
-    //         return of();
-    //       })
-    //     );
-
-    // }, 1000);
-    // this.error$.next(true)
+  constructor(
+    private tarefaService: TarefaService, 
+    private loginService: LoginService,
+    private messageriaService: MensageriaService){
 
   }
   ngOnInit() {
     this.paginas = [];
     this.tarefaService.getTarefasWithHeaders(this.offset, this.limit).pipe(
       catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
           alert("Seu iToken foi expirado! Realize o login novamente")
@@ -68,8 +57,8 @@ export class TarefasComponent {
         if(this.qtdMostrado > this.qtdTarefas) this.qtdMostrado = this.qtdTarefas
 
       },
-      error: (error) => {
-        console.error('Houve um erro ao obter tarefas:', error);
+      error: (err) => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
       }
     });
   }
@@ -84,10 +73,13 @@ export class TarefasComponent {
     this.tarefaService.deleteTarefa(id)
     .pipe(
       catchError(err => {
-        alert(err.error.msg)
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         return of();
       })
-      ).subscribe(() => { this.ngOnInit() })
+      ).subscribe(() => { 
+        this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
+        this.ngOnInit()
+       })
   }
 
   buscar() {

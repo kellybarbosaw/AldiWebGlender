@@ -67,6 +67,7 @@ const tarefaController = {
       usuariocriacao: req.body.usuariocriacao,
       usuarioalteracao: req.body.usuarioalteracao,
     });
+    
     try {
       const salvarTarefa = await db.insertATarefa(novaTarefa);
       res.status(200).send(salvarTarefa);

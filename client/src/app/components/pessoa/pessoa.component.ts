@@ -13,6 +13,7 @@ import { Cidade } from '../../models/cep/cidade.model';
 import { User } from '../../models/users.model';
 import { OrgaoEmissor } from '../../models/cep/orgaoEmissor.model';
 import { NgxMaskDirective } from 'ngx-mask';
+import { MensageriaService } from '../../services/mensageria.service';
 
 
 
@@ -64,7 +65,8 @@ export class PessoaComponent {
     private router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private cep: CepService
+    private cep: CepService,
+    private messageriaService: MensageriaService
   ) {
     this.pessoa.idpessoa = this.route.snapshot.params['id'];
   }
@@ -81,6 +83,7 @@ export class PessoaComponent {
         .pessoaCurrent(this.route.snapshot.params['id'])
         .pipe(
           catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
             this.error$.next(true)
             if (err.statusText === "Unauthorized") {
               alert("Seu iToken foi expirado! Realize o login novamente")
@@ -162,8 +165,7 @@ export class PessoaComponent {
       this.pessoa.usuariocriacao = localStorage.getItem('user')!;
       this.pessoa.usuarioalteracao = localStorage.getItem('user')!;
 
-      this.pessoaService
-        .registerPessoa({
+      this.pessoaService.registerPessoa({
           nome: this.pessoa.nome,
           cpf: this.pessoa.cpf,
           dtnascimento: this.pessoa.dtnascimento,
@@ -182,9 +184,9 @@ export class PessoaComponent {
           dtalteracao: this.pessoa.dtalteracao,
           usuariocriacao: this.pessoa.usuariocriacao,
           usuarioalteracao: this.pessoa.usuarioalteracao,
-        })
-        .pipe(
+        }).pipe(
           catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
             this.error$.next(true)
             if (err.statusText === "Unauthorized") {
               alert("Seu iToken foi expirado! Realize o login novamente")
@@ -192,18 +194,18 @@ export class PessoaComponent {
             }
             return of();
           })
-        )
-        .subscribe(() => {
+        ).subscribe(() => {
+          this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
           this.router.navigate(['/user/pessoas']);
         });
     } else if (this.event === 'Editar') {
       this.pessoa.dtalteracao = this.formatService.dateNow();
       this.pessoa.usuarioalteracao = localStorage.getItem('user')!;
 
-      this.pessoaService
-        .editPessoa(this.pessoa)
+      this.pessoaService.editPessoa(this.pessoa)
         .pipe(
           catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
             this.error$.next(true)
             if (err.statusText === "Unauthorized") {
               alert("Seu iToken foi expirado! Realize o login novamente")
@@ -211,8 +213,8 @@ export class PessoaComponent {
             }
             return of();
           })
-        )
-        .subscribe(() => {
+        ).subscribe(() => {
+          this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
           this.router.navigate(['/user/pessoas']);
         });
     } else {

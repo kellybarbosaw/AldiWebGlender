@@ -6,6 +6,7 @@ import { User } from '../../models/users.model';
 import { UsuariosService } from "../../services/usuarios.service";
 import { LoginService } from '../../services/login.service';
 import { FormsModule } from '@angular/forms';
+import { MensageriaService } from '../../services/mensageria.service';
 
 
 @Component({
@@ -29,12 +30,15 @@ export class UsuariosComponent {
   constructor(
     private usuariosService:UsuariosService, 
     private router: Router,
-    private loginService: LoginService){
+    private loginService: LoginService,
+    private messageriaService: MensageriaService
+    ){
   }
   ngOnInit() {
     this.paginas = [];
     this.usuariosService.getUsersWithHeaders(this.offset, this.limit).pipe(
       catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
           alert("Seu iToken foi expirado! Realize o login novamente")
@@ -53,8 +57,8 @@ export class UsuariosComponent {
         if(this.qtdMostrado > this.qtdUsuarios) this.qtdMostrado = this.qtdUsuarios
 
       },
-      error: (error) => {
-        console.error('Houve um erro ao obter os clientes:', error);
+      error: (err) => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
       }
     });
   }
@@ -67,10 +71,13 @@ export class UsuariosComponent {
     alert("deseja realmente deletar esse iten?" + usuario);
     this.usuariosService.deleteUser(usuario).pipe(
       catchError(err => {
-        alert(err.statusText)
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         return of();
       })
-    ).subscribe(()=>{this.ngOnInit()})
+    ).subscribe(()=>{
+      this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Excluído Com Sucesso!', 'messages', 'success')
+      this.ngOnInit()
+    })
   }
 
   buscar() {

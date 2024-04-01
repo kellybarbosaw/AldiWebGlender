@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormatsService } from '../../services/formats.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { MensageriaService } from '../../services/mensageria.service';
+import { Subject, catchError, of } from 'rxjs';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-usuario',
@@ -14,6 +17,8 @@ import { UsuariosService } from '../../services/usuarios.service';
   styleUrl: './usuario.component.scss'
 })
 export class UsuarioComponent {
+  error$ = new Subject<boolean>();
+
 
   User = {
     usuario: '',
@@ -35,7 +40,14 @@ export class UsuarioComponent {
   }
   event = "Cadastrar"
 
-  constructor(private usuarioService: UsuariosService, private router: Router, private route: ActivatedRoute,private formatService: FormatsService) {
+  constructor(
+    private usuarioService: UsuariosService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private formatService: FormatsService,
+    private messageriaService: MensageriaService,
+    private loginService: LoginService
+    ) {
 
     if (this.route.snapshot.params['event'] === "new") {
       this.event = "Cadastrar"
@@ -80,14 +92,38 @@ export class UsuarioComponent {
         usuarioalteracao: this.User.usuarioalteracao,
         senha: this.User.senha,
         email: this.User.email,
-      }).subscribe((data) => { this.router.navigate([`/user/usuarios`]) })
+      }).pipe(
+        catchError(err => {
+          this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
+          this.error$.next(true)
+          if (err.statusText === "Unauthorized") {
+            alert("Seu iToken foi expirado! Realize o login novamente")
+            this.loginService.deslogar();
+          }
+          return of();
+        })
+      ).subscribe(() => { 
+        this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
+        this.router.navigate([`/user/usuarios`]) 
+      })
 
     }else if (this.event === 'Editar') {
       alert("editar")
       this.User.dataalteracao = this.formatService.dateNow(),
       this.User.usuarioalteracao = localStorage.getItem('user')!
 
-      this.usuarioService.editUser(this.User).subscribe(()=>{
+      this.usuarioService.editUser(this.User).pipe(
+        catchError(err => {
+          this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
+          this.error$.next(true)
+          if (err.statusText === "Unauthorized") {
+            alert("Seu iToken foi expirado! Realize o login novamente")
+            this.loginService.deslogar();
+          }
+          return of();
+        })
+      ).subscribe(()=>{
+        this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
         this.router.navigate([`/user/usuarios`]) 
       })
 

@@ -41,8 +41,8 @@
                         <td>{{pessoa.CPF | mask: 'CPF_CNPJ'}}</td>
                         <td>{{pessoa.NATURALIDADE}}</td>
                         <td style="text-align: left;"><i [routerLink]="['/user/pessoa/',pessoa.IDPESSOA]" class="bi bi-pencil-square"></i></td>
-                        <td><button (click)="excludePessoa(pessoa.IDPESSOA!,null)" type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></button>
                         <td>
+                            <button (click)="excludePessoa(pessoa.IDPESSOA!,null)" type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></button>
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -53,7 +53,7 @@
                                         <div class="modal-body">Tem certeza que deseja excluir esse item?</div>
                                         <div class="modal-footer">
                                             <button (click)="excludePessoa(pessoa.IDPESSOA!,'clear')" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                                            <button (click)="deletPessoa(pessoaExclude)" type="button" class="btn btn-danger btn-stage">{{event}}</button>
+                                            <button (click)="deletPessoa(pessoaExclude)" type="button" class="btn btn-danger btn-stage" data-bs-dismiss="modal">{{event}}</button>
                                         </div>
                                     </div>
                                 </div>

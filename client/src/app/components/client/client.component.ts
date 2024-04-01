@@ -12,6 +12,8 @@ import { CepService } from '../../services/cep.service';
 import { Pais } from '../../models/cep/pais.model';
 import { Estado } from '../../models/cep/estado.model';
 import { Cidade } from '../../models/cep/cidade.model';
+import { MensageriaService } from '../../services/mensageria.service';
+
 
 
 
@@ -102,7 +104,8 @@ export class ClientComponent {
     private router: Router,
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private cep: CepService
+    private cep: CepService,
+    private messageriaService: MensageriaService
   ) {
     this.client.idcliente = this.route.snapshot.params['id']
   }
@@ -120,6 +123,7 @@ export class ClientComponent {
         .clientCurrent(this.route.snapshot.params['id'])
         .pipe(
           catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
             this.error$.next(true)
             if (err.statusText === "Unauthorized") {
               alert("Seu iToken foi expirado! Realize o login novamente")
@@ -212,7 +216,6 @@ export class ClientComponent {
       alert('preencha os campos');
       this.camposPreenchidos = (
         form.controls['pessoafisoujur'].valid &&
-        //form.controls['cgccfo'].valid && 
         form.controls['nome'].valid &&
         form.controls['nomefantasia'].valid &&
         form.controls['inscrestadual'].valid &&
@@ -228,29 +231,6 @@ export class ClientComponent {
         form.controls['pais'].valid &&
         form.controls['email'].valid &&
         form.controls['telefone'].valid
-        // form.controls['ruaentrega'].valid &&
-        // form.controls['numeroentrega'].valid &&
-        // form.controls['complementoentrega'].valid &&
-        // form.controls['bairroentrega'].valid &&
-        // form.controls['cidadeentrega'].valid &&
-        // form.controls['codetdentrega'].valid &&
-        // form.controls['cepentrega'].valid &&
-        // form.controls['telefoneentrega'].valid &&
-        // form.controls['codmunicipioentrega'].valid &&
-        // form.controls['paisentrega'].valid &&
-        // form.controls['emailentrega'].valid &&
-        // form.controls['ruapgto'].valid &&
-        // form.controls['numeropgto'].valid &&
-        // form.controls['complementopgto'].valid &&
-        // form.controls['bairropgto'].valid &&
-        // form.controls['cidadepgto'].valid &&
-        // form.controls['codetdpgto'].valid &&
-        // form.controls['ceppgto'].valid &&
-        // form.controls['telefonepgto'].valid &&
-        // form.controls['codmunicipiopgto'].valid &&
-        // form.controls['paispgto'].valid &&
-        // form.controls['emailpgto'].valid 
-
       );
       this.botaoClicado = true;
       return;
@@ -269,6 +249,7 @@ export class ClientComponent {
         this.clientService.registerPessoaFisica(this.client, this.dtnascimento)
           .pipe(
             catchError(err => {
+              this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
               this.error$.next(true)
               if (err.statusText === "Unauthorized") {
                 alert("Seu iToken foi expirado! Realize o login novamente")
@@ -276,8 +257,10 @@ export class ClientComponent {
               }
               return of();
             })
-          )
-          .subscribe((data) => { this.router.navigate(['/user/clients']) })
+          ).subscribe((data) => { 
+            this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
+            this.router.navigate(['/user/clients']) 
+          })
 
       } else {
         this.clientService.registerClient({
@@ -326,9 +309,10 @@ export class ClientComponent {
           usuariocriacao: this.client.usuariocriacao,
           usuarioalteracao: this.client.usuarioalteracao,
           tipocliente: this.client.tipocliente,
-        })
-          .pipe(
+          
+        }).pipe(
             catchError(err => {
+              this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
               this.error$.next(true)
               if (err.statusText === "Unauthorized") {
                 alert("Seu iToken foi expirado! Realize o login novamente")
@@ -336,8 +320,8 @@ export class ClientComponent {
               }
               return of();
             })
-          )
-          .subscribe((data) => {
+          ).subscribe(() => {
+            this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
            this.router.navigate(['/user/clients']) })
       }
 
@@ -347,6 +331,7 @@ export class ClientComponent {
       this.clientService.editClient(this.client)
         .pipe(
           catchError(err => {
+            this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
             this.error$.next(true)
             if (err.statusText === "Unauthorized") {
               alert("Seu iToken foi expirado! Realize o login novamente")
@@ -356,6 +341,7 @@ export class ClientComponent {
           })
         )
         .subscribe(() => {
+          this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
           this.router.navigate(['/user/clients'])
         })
     } else {

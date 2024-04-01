@@ -60,7 +60,6 @@ export class VendaComponent {
     private loginService: LoginService,
     private messageriaService: MensageriaService) {
 
-    console.log("construtor")
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'
       this.contrato.idcliente = this.route.snapshot.params['id'];
@@ -182,6 +181,7 @@ export class VendaComponent {
         this.contractService.editContract(this.contrato)
           .pipe(
             catchError(err => {
+              this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
               alert(err.error.message)
               this.error$.next(true)
               if (err.statusText === "Unauthorized") {
@@ -191,6 +191,7 @@ export class VendaComponent {
               return of();
             })
           ).subscribe(() => {
+            this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
             this.router.navigate([`/user/contrato/${this.contrato.idvenda}`])
           })
 

@@ -8,6 +8,7 @@ import { PessoaService } from '../../services/pessoa.service';
 import { RouterLink } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { NgxMaskPipe } from 'ngx-mask';
+import { MensageriaService } from '../../services/mensageria.service';
 
 
 @Component({
@@ -31,30 +32,18 @@ export class PessoasComponent {
   qtdPessoas = 0;
   qtdMostrado = 5;
 
-  constructor(private pessoaService: PessoaService, private loginService: LoginService){
-
-    // setTimeout(() => {
-
-    //   this.allPessoa$ = this.pessoaService.allPessoa()
-    //     .pipe(
-    //       catchError(err => {
-    //         this.error$.next(true)
-    //         if (err.statusText === "Unauthorized") {
-    //           alert("Seu iToken foi expirado! Realize o login novamente")
-    //           this.loginService.deslogar();
-    //         }
-    //         return of();
-    //       })
-    //     );
-
-    // }, 1000);
-    // // this.error$.next(true)
+  constructor(
+    private pessoaService: PessoaService, 
+    private loginService: LoginService,
+    private messageriaService: MensageriaService
+    ){
 
   }
   ngOnInit() {
     this.paginas = [];
     this.pessoaService.getPessoasWithHeaders(this.offset, this.limit).pipe(
       catchError(err => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         this.error$.next(true)
         if (err.statusText === "Unauthorized") {
           alert("Seu iToken foi expirado! Realize o login novamente")
@@ -73,12 +62,11 @@ export class PessoasComponent {
         if(this.qtdMostrado > this.qtdPessoas) this.qtdMostrado = this.qtdPessoas
 
       },
-      error: (error) => {
-        console.error('Houve um erro ao obter pessoas:', error);
+      error: (err) => {
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
       }
     });
   }
-
 
   event ="Excluir";
   excludePessoa(id:number,event:string|null){
@@ -90,10 +78,12 @@ export class PessoasComponent {
     this.pessoaService.deletePessoa(id)
     .pipe(
       catchError(err => {
-        alert(err.error.msg)
+        this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
         return of();
       })
-    ).subscribe(() => { this.ngOnInit() })
+    ).subscribe(() => { 
+      this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Excluído Com Sucesso!', 'messages', 'success')
+      this.ngOnInit() })
   }
 
   buscar() {
