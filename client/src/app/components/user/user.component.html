@@ -28,7 +28,7 @@
                         <i class="bi bi-arrow-down-short"></i>
                     </a>
                     <div class="collapse" id="clientCollapse">
-                        <a class="dashboard-nav-item">Visão 360</a>
+                        <!-- <a class="dashboard-nav-item">Visão 360</a> -->
                         <a [routerLink]="['/user/client']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Novo Cliente</a>
                         <a [routerLink]="['/user/clients']" [routerLinkActive]="['activated']"
@@ -59,6 +59,18 @@
                     <div class="collapse" id="contratosCollapse">
                         <a [routerLink]="['/user/contratos']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Contratos</a>
+                    </div>
+                </div>
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#projetosCollapse">
+                        <i class="bi bi-layout-text-window-reverse"></i>
+                        <span class="txt-link">Projetos</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="projetosCollapse">
+                        <a [routerLink]="['/user/projetos']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Todas Projetos</a>
                     </div>
                 </div>
                 
@@ -131,7 +143,10 @@
                     <div *ngSwitchCase="'admin'">
                         <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                             <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
-                                data-bs-targeT="#configCollapse">Configurações<i class="bi bi-arrow-down-short"></i>
+                                data-bs-targeT="#configCollapse">
+                                <i class="bi bi-gear"></i>
+                                <span class="txt-link">Config</span>
+                                <i class="bi bi-arrow-down-short"></i>
                             </a>
                             <div class="collapse" id="configCollapse">
                                 <a href="/user/usuario/new/0" class="dashboard-nav-item">Cadastrar Usuários</a>
@@ -142,13 +157,20 @@
                     </div>
                 </div>
 
-                <a class="dashboard-nav-item">Perfil</a>
+                <a class="d-flex justify-content-between dashboard-nav-item" >
+                    <i class="bi bi-person-gear"></i>
+                    <span class="txt-link">Perfil</span>
+                    <i class="bi bi-arrow-down-short"></i>
+                </a>
             </nav>
 
         </div>
         <div>
             <div class="nav-item-divider"></div>
-            <a href="/home" class="dashboard-nav-item" (click)="deslogar()">Logout </a>
+            <a href="/home" class="d-flex gap-3 dashboard-nav-item" (click)="deslogar()">
+                <i class="bi bi-box-arrow-left"></i>
+                <span class="txt-link">Logout</span> 
+            </a>
         </div>
 
     </div>

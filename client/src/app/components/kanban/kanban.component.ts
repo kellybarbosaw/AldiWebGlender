@@ -12,7 +12,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { TarefaComponent } from '../tarefa/tarefa.component';
+import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
+import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
+import { Observable } from 'rxjs';
+import { ProjetoTarefadbDB } from '../../models/projetoTarefa.model';
 
 /**
  * @title Drag&Drop connected sorting group
@@ -28,8 +31,9 @@ export class DialogContentExampleDialog {}
   styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent implements DoCheck {
+  projetoTarefa$ = new Observable<ProjetoTarefadbDB[]>();
 
-  constructor(public dialog: MatDialog) {}
+
 
   todo: string[] = [];
   emAndamento: string[] = [];
@@ -42,6 +46,49 @@ export class KanbanComponent implements DoCheck {
   newConcluido: string = '';
   newImpedidos: string = '';
   newNaoPlanejados: string = '';
+
+
+  teste:string[] = ['Cadastrar Clientes','Cadastrar Pessoas','Cadastrar Objetos']
+
+  constructor(public dialog: MatDialog,
+    private projetoTarefaService: ProjetoTarefaService) {}
+
+
+   ngOnInit(){
+    this.testeInfoBanco();
+   }
+
+   testeInfoBanco(){
+    this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('25');
+    this.projetoTarefaService.selecProjetoTarefaDoProjeto('25').subscribe((data)=>{
+ 
+ 
+     data.forEach(element => {
+       var teste;
+       switch (element.ETAPA.toString()) {
+         case '1':
+           this.todo.push( element.TITULOTAREFA.trim());
+           break;
+         case '2':
+           this.emAndamento.push( element.TITULOTAREFA.trim());
+           break;
+         case '3':
+           this.concluido.push( element.TITULOTAREFA.trim());
+           break;
+         case '4':
+           this.impedidos.push( element.TITULOTAREFA.trim());
+           break;
+         case '5':
+           this.naoPlanejados.push( element.TITULOTAREFA.trim());
+           break;
+       
+         default:
+           break;
+       }
+       
+     });
+    })
+   }
 
   openDialog() {
     const dialogRef = this.dialog.open(TarefaComponent);
@@ -76,6 +123,7 @@ export class KanbanComponent implements DoCheck {
 
   addTodo() {
     if (this.newTodo.trim() !== '') {
+      console.log(this.newTodo.trim())
       this.todo.push(this.newTodo.trim());
       this.newTodo = ''; // Limpar entrada após adicionar
     }

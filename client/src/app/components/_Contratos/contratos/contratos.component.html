@@ -1,0 +1,89 @@
+<div class="panel">
+    <div>
+        <div class="panel-heading">
+
+            <a href="/user/client" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> Novo Contrato</a>
+
+            <form class="form-horizontal pull-right">
+                <div class="form-group">
+                    <label>Show : </label>
+                    <select [(ngModel)]="limit" name="limit" class="form-control" (change)="buscar()" >
+                        <option value=5 selected>5</option>
+                        <option value=10>10</option>
+                        <option value=15>15</option>
+                        <option value=20>20</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="conteudo">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID Contrato</th>
+                        <th>Cliente</th>
+                        <th>Descrição</th>
+                        <th>Comercial</th>
+                        <th style="text-align: center;">Editar</th>
+                        <th style="text-align: justify;">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="allContratos$ | async as client; else loadingError">
+                    <tr *ngFor="let contrato of allContratos$ | async">
+                        <td>
+                            {{contrato.IDVENDA}}
+                        </td>
+                        <td>{{contrato.NOMECLIENTE}}</td>
+                        <td>{{contrato.DESCRICAOVENDA}}</td>
+                        <td>{{contrato.COMERCIALVENDAcol}}</td>
+                        <td style="text-align: center;"><i [routerLink]="['/user/clientes/vendas/edit/',contrato.IDVENDA]" class="bi bi-pencil-square"></i></td>
+                        <td><button (click)="excludeContrato(contrato.IDVENDA!,null)" type="button" class="btn btn-danger botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></button>
+                        <td>
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Excluir</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">Tem certeza que deseja excluir esse item?</div>
+                                    <div class="modal-footer">
+                                        <button (click)="excludeContrato(contrato.IDVENDA!,'clear')" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                                        <button (click)="deletContrato(contratoExclude)" type="button" class="btn btn-danger btn-stage" data-bs-dismiss="modal">Excluir</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>  
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #loadingError>
+                <div *ngIf="error$ |async; else loading">
+                    <span class="loadingMensage alert alert-warning">Error ao Carregar, Tente mais tarde</span>
+                </div>
+                <ng-template #loading>
+                    <span class="loadingMensage alert alert-warning">Carregando...</span>
+                </ng-template>
+            </ng-template>
+
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="d-flex flex-column align-items-center">
+            <div>Mostrando <b>{{qtdMostrado}}</b> dos <b>{{qtdContrato}}</b> Contratos</div>
+            <div>
+                <ul class="pagination">
+                    <li><a (click)="passar('back')">«</a></li>
+                    <div *ngFor="let pag of paginas">
+                        <li [class.active]="paginaAtual === pag" ><a (click)="paginar(pag)">{{pag}}</a></li>
+                    </div>
+                    <li><a (click)="passar('next')">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
