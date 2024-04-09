@@ -1,0 +1,44 @@
+<div class="panel">
+    <h2 class="fonte"><b>TAREFA</b></h2>
+    <hr>
+    <div class="customer-pessoa bg-light">
+        <div class="formCadastro d-flex justify-content-center">
+            <form #form="ngForm" (ngSubmit)="registerTarefa(form)">
+                <div>
+                    <div class="form-group">
+                        <label>Título da tarefa:</label>
+                        <input [(ngModel)]="tarefa.titulotarefa" type="text" class="form-control"
+                            placeholder="Título da tarefa" name="titulotarefa" required
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !tarefa.titulotarefa}">
+                    </div>
+
+                    <div class="form-group espaco">
+                        <label>Descrição da tarefa:</label>
+                        <textarea [(ngModel)]="tarefa.descricaotarefa" type="text" class="form-control"
+                            placeholder="Descrição da tarefa" name="descricaotarefa" required maxlength="300"
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !tarefa.descricaotarefa}"></textarea>
+                    </div>
+                    <div class="form-group d-flex flex-row">
+                        <div class="form-group espaco">
+                            <label>Horas estimadas:</label>
+                            <input [(ngModel)]="tarefa.horasestimadas" type="text" class="form-control" mask="0*:00:00"
+                                placeholder="00:00:00" name="horasestimadas" required
+                                [ngClass]="{'campo-nao-preenchido': botaoClicado && !tarefa.horasestimadas}">
+                        </div>
+                        <!--Campos de log aqui: -->
+                        <!-- data criação, usuário criação --> 
+                        <!-- data alteração, usuário alteração -->
+                    </div>
+                </div>
+                <div style='text-align:right'>
+                    <div class="btn btn-primary btn-stage" (click)="registerTarefa(form)">{{event}}</div>
+                </div>
+            </form>
+            <div class="botao-com-espaco">
+                <div>
+                    <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

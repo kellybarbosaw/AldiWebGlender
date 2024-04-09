@@ -1,0 +1,180 @@
+<div class="panel">
+
+    <h2 class="fonte"><b>PESSOA</b><hr></h2>
+    <div class="btn-group">
+        <button class="btn btn-light" (click)="mudarEtapa(1)">ETAPA 1</button>
+        <button class="btn btn-light" (click)="mudarEtapa(2)">ETAPA 2</button>
+        <button class="btn btn-light" (click)="mudarEtapa(3)">ETAPA 3</button>
+    </div>
+
+<div class="customer-pessoa bg-light">
+    <div class="formCadastro justify-content-left ">
+        <div class="botao-com-espaco" >
+            <div>
+                <a href="/user/pessoas" class="btn btn-danger btn-stage">Sair</a>
+            </div>
+        </div>
+        <form class="form d-flex flex-column justify-content-between" #form="ngForm" (ngSubmit)="registerPessoa(form)">
+            <h5 class="titleStage">ETAPA: {{stage}}</h5>
+            <section class="stage_1 currentBody spaceForm current ">
+                <div class="nextSection">
+                    <!-- <div class="form-group">
+                        <label>ID_Pessoa</label>
+                        <input [(ngModel)]="pessoa.idpessoa" type="text" class="form-control" 
+                        disabled name="idpessoa">
+                    </div>
+                    -->
+                    <div class="form-group mb-3 mt-0">
+                        <label>Nome:</label>
+                        <div class="form-group mb-3">
+                            <input [(ngModel)]="pessoa.nome" type="text" class="form-control"
+                                placeholder="Nome" name="nome" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.nome}" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>CPF:</label>
+                        <input [(ngModel)]="pessoa.cpf" type="text" class="form-control" placeholder="CPF" id="cpf"
+                            name="cpf" style="width: 400px" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.cpf}" mask="000.000.000-00">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Data de Nascimento:</label>
+                        <input [(ngModel)]="pessoa.dtnascimento" type="date" class="form-control"
+                            placeholder="Data de Nascimento" name="dtnascimento" style="width: auto" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.dtnascimento}">
+                    </div>
+                </div>
+            
+                <div class="d-flex justify-content-between w-100">
+                    <div></div>
+                    <div class="btn btn-success btn-stage" (click)="mudarEtapa(2)">Próximo</div>
+                </div>
+            </section>
+
+            <section class="stage_2 currentBody spaceForm ">
+                <div class="nextSection">
+                    <div class="form-group espaco">
+                        <label>Nacionalidade:</label>
+                        <select [(ngModel)]="pessoa.nacionalidade" type="text"
+                            class="form-control" required
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.nacionalidade}"
+                            placeholder="Nacionalidade" name="nacionalidade"
+                            (click)="buscarCep('estado',pessoa.nacionalidade)">
+                            <option value="" disabled selected hidden>Selecione a
+                                Nacionalidade</option>
+                            <option *ngFor="let pais of paises$ | async"
+                                [ngValue]="pais.CODPAIS">
+                                {{pais.DESCRICAO}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group espaco">
+                        <label>Estado Emissor ident:</label>
+                        <select [(ngModel)]="pessoa.estadoemissorident" type="text"
+                            class="form-control" required
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.estadoemissorident}"
+                            placeholder="Estado Emissor ident" name="estadoemissorident"
+                            (click)="buscarCep('cidade',pessoa.estadoemissorident)">
+                            <option value="" disabled selected hidden>Selecione o Estado
+                                Emissor da identidade
+                            </option>
+                            <option *ngFor="let estado of estado$ | async"
+                                [ngValue]="estado.CODETD">
+                                {{estado.NOME}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group espaco">
+                        <label>Naturalidade:</label>
+                        <select [(ngModel)]="pessoa.naturalidade" type="text"
+                            class="form-control" required
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.naturalidade}"
+                            placeholder="Naturalidade" name="naturalidade">
+                            <option value="" disabled selected hidden>Selecione a Cidade
+                            </option>
+                            <option *ngFor="let cidade of cidade$ | async"
+                                [ngValue]="cidade.DESCRICAO">
+                                {{cidade.DESCRICAO}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group d-flex flex-row">
+                        <div class="flex-grow-1 espaco">
+                            <div class="flex-grow-1 espaco">
+                                <label>Bairro</label>
+                                <input [(ngModel)]="pessoa.bairro" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.bairro}"
+                                    placeholder="Bairro" name="bairro" maxlength="45">
+                            </div>
+                            <label>Complemento:</label>
+                            <input [(ngModel)]="pessoa.complemento" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.complemento}"
+                                placeholder="Complemento" name="complemento" maxlength="45">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rua:</label>
+                        <input [(ngModel)]="pessoa.rua" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.rua}"
+                            placeholder="Rua" name="rua" maxlength="45">
+                    </div>
+                    <div class="form-group espaco">
+                        <label>Número:</label>
+                        <input [(ngModel)]="pessoa.numero" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.numero}"
+                            placeholder="Número" name="numero" maxlength="8" mask="0*">
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-between w-100">
+                    <div class="btn btn-success btn-stage" (click)="mudarEtapa(1)">Voltar</div>
+                    <div class="btn btn-success btn-stage" (click)="mudarEtapa(3)">Próximo</div>
+                </div>
+            </section>
+
+            <section class="stage_3 currentBody spaceForm">
+                <div class="nextSection">
+                    <!-- <div class="form-group">
+                        <label>Usuário:</label>
+                        <input [(ngModel)]="pessoa.usuario" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.usuario}"
+                        placeholder="Usuário" name="usuario">
+                    </div> -->
+                    <div class="form-group espaco">
+                        <label>Número Identidade:</label>
+                        <input [(ngModel)]="pessoa.nroidentidade" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.nroidentidade}"
+                        placeholder="Nº Identidade"
+                            name="nroidentidade" mask="00 000 000-0">
+                    </div>
+                    <div class="form-group espaco">
+                        <label>Órgão emissor:</label>
+                        <select [(ngModel)]="pessoa.orgaoemissorident" type="text"
+                            class="form-control" placeholder="Órgão emissor ident"
+                            name="orgaoemissorident" required
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.orgaoemissorident}">
+                            <option value="" disabled selected hidden>Selecione o Órgão
+                                Emissor</option>
+                            <option *ngFor="let OrgaoE of orgaoEmissor$ | async"
+                                [ngValue]="OrgaoE.sigla">
+                                {{OrgaoE.nome}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Z Usuário:</label>
+                        <select [(ngModel)]="pessoa.zusuario_usuario" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !pessoa.zusuario_usuario}"
+                        placeholder="Usuário" name="zusuario_usuario">
+                        <option value="" disabled selected hidden>Selecione o Usuario</option>
+                        <option *ngFor="let usuario of zusuarios$ | async"
+                            [ngValue]="usuario.USUARIO">
+                            {{usuario.NOME}}
+                        </option>
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="d-flex justify-content-between w-100">
+                    <div class="btn btn-success btn-stage" (click)="mudarEtapa(2)">Voltar</div>
+                    <div class="btn btn-primary btn-stage" (click)="registerPessoa(form)">{{event}}</div>
+                </div>
+            </section>
+        </form>
+    </div>
+</div>
+</div>

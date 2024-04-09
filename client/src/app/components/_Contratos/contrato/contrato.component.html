@@ -1,0 +1,78 @@
+<div class="panel">
+    <div>
+        <div [routerLink]="['/user/client360/',contrato.idcliente]" class="btn btn-danger mb-4">Voltar</div>
+    </div>
+    <form class="form">
+        <h4>Contratos:</h4>
+
+        <div class="d-flex justify-content-between gap-5">
+            <div class="form-group">
+                <label>ID_Contrato</label>
+                <input [(ngModel)]="contrato.idvenda" type="text" class="form-control" disabled name="idcontrato">
+            </div>
+            <div class="form-group flex-fill">
+                <label>Cliente</label>
+                <input [(ngModel)]="contrato.nomeCliente" type="text" class="form-control" disabled name="cliente">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <input [(ngModel)]="contrato.statusvenda" type="text" class="form-control" disabled name="status">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Descrição</label>
+            <input [(ngModel)]="contrato.descricaovenda" type="textarea" class="form-control" disabled name="descricao">
+        </div>
+        <div>
+            <div class="form-group">
+                <label>Data assinatura</label>
+                <input [(ngModel)]="contrato.dtassinatura" type="text" class="form-control" id="dtassinatura" disabled
+                    name="dtassinatura">
+            </div>
+            <div class="form-group">
+                <label>Data conclusao</label>
+                <input [(ngModel)]="contrato.dtconclusao" type="text" class="form-control" disabled name="dtconclusao">
+            </div>
+
+        </div>
+        <div class="btn btn-primary mt-1" [routerLink]="['/user/clientes/vendas/edit/',contrato.idvenda]">Editar</div>
+        <div (click)="excludeContrato(contrato.idvenda!,null)" class="btn btn-danger mt-1 botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></div>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Excluir</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Tem certeza que deseja excluir esse item?</div>
+                <div class="modal-footer">
+                    <button (click)="excludeContrato(contrato.idvenda!,'clear')" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                    <button (click)="deleteContract(contratoExclude)" type="button" class="btn btn-danger btn-stage" data-bs-dismiss="modal">Excluir</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+    <section class="container-section">
+        <h4>Projetos:</h4>
+        <div class="d-flex flex-wrap gap-1">
+            <div *ngFor="let projectC of projectClient$ | async">
+                <div class="container-project" [routerLink]="['/user/contract/projeto/',projectC.IDPROJETO!]">
+                    <h5>Desc: {{projectC.DESCRICAO}}</h5>
+                    <div>Data Inicio: {{projectC.DTINCIOPROJETO | date:'longDate'}}</div>
+                    <div>Data Fim: {{projectC.DTCONCLUSAOPROJETO | date:'longDate'}}</div>
+                    <div>Status: {{projectC.STATUSPROJETO}}</div>
+                </div>
+
+            </div>
+            <div class="container-project plus-project" [routerLink]="['/user/projeto/new',contrato.idvenda]">
+                <p>Novo Projeto</p>
+                <i class="bi bi-plus-circle"></i>
+            </div>
+        </div>
+    </section>
+</div>

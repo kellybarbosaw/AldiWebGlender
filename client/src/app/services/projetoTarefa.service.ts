@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {ProjetoTarefa, CreateProjetoTarefa } from '../models/projetoTarefa.model';
+import {ProjetoTarefa, CreateProjetoTarefa, ProjetoTarefadbDB } from '../models/projetoTarefa.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,6 @@ export class ProjetoTarefaService {
   constructor(private httpClient: HttpClient) {}
 
   registerProjetoTarefa(newProjetoTarefa: CreateProjetoTarefa) {
-    console.log(newProjetoTarefa)
     return this.httpClient.post<CreateProjetoTarefa>(this.url, newProjetoTarefa)
   }
 
@@ -32,6 +31,10 @@ export class ProjetoTarefaService {
 
   deleteProjetoTarefa(id:string){
     return this.httpClient.delete<void>(`${this.url}/${id}`)
+  }
+
+  selecProjetoTarefaDoProjeto(id: String){
+    return this.httpClient.get<ProjetoTarefadbDB[]>(`${this.url}/projeto/${id}`)
   }
 
 }

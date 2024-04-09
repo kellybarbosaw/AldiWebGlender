@@ -23,7 +23,7 @@ const registerValidateUpdate = (data) => {
     horasestimadas: joi.string().allow(null, ""),
     datacriacao: joi.string().allow(null, ""),
     dataalteracao: joi.string().allow(null, ""),
-    usuariocriacao: joi.string().required().max(50),
+    usuariocriacao: joi.string().max(50),
     usuarioalteracao: joi.string().required().max(50)
 
   });

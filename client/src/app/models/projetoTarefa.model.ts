@@ -19,4 +19,24 @@ export interface ProjetoTarefa{
     saldohoras: string,
     etapa: string
 }
+export interface ProjetoTarefadbDB{
+    IDPROJETOTAREFA?: string,
+
+    IDTAREFA: string,
+    IDPROJETO: string,
+    STATUSTAREFA: string,
+
+    TITULOTAREFA: string,
+    DESCRICAOTAREFA: string,
+    DATAINICIOPREVISTA: string,
+    DATAFIMPREVISTA: string,
+    DTCRIACAO: string,
+    DTALTERACAO: string,
+    USUARIOCRIACAO: string,
+    USUARIOALTERACAO: string,
+    HORASESTIMADAS: string,
+    HORASGASTAS: string,
+    SALDOHORAS: string,
+    ETAPA: string
+}
 export type CreateProjetoTarefa = Omit<ProjetoTarefa,"idprojetotarefa">;

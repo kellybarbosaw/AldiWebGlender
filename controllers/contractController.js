@@ -1,20 +1,41 @@
 const db = require('../db_Querys/db_contracts');
-const {registerValidate,registerValidateUpdate} = require('./validates/ContractValidate');
+const { registerValidate, registerValidateUpdate } = require('./validates/ContractValidate');
 
 
 const contractController = {
-    select: async function (req,res){
-
+    select: async function (req, res) {
+        let offset = req.query.offset;
+        let limit = req.query.limit;
+        let result = [];
         let contract = [];
+
+        function estruturar(clients, offset, limit) {
+            let indexClient = parseInt(offset);
+
+            if (!offset && !limit) {
+                result = clients;
+            } else {
+                for (let index = 0; index < limit; index++) {
+
+                    if (clients[indexClient] !== undefined) {
+                        result.push(clients[indexClient])
+                    }
+                    indexClient += 1;
+                }
+            }
+        }
+
         try {
             contract = await db.selectContracts();
-            res.send(contract);
+            estruturar(contract, offset, limit)
+            res.setHeader('Quantidades_Registros', contract.length);
+            res.send(result);
         } catch (error) {
             res.status(400).send(error)
         }
     },
 
-    selectId: async function (req,res){
+    selectId: async function (req, res) {
         try {
             let selectContracts = await db.selectContractID(req.params.id);
             res.status(200).send(selectContracts[0]);
@@ -23,7 +44,7 @@ const contractController = {
         }
     },
 
-    selectContractsClient: async function (req,res){
+    selectContractsClient: async function (req, res) {
         try {
             let selectContracts = await db.selectContractClient(req.params.id);
             res.status(200).send(selectContracts);
@@ -32,28 +53,40 @@ const contractController = {
         }
     },
 
-    register: async function (req,res){
+    register: async function (req, res) {
 
-        const {error} = registerValidate(req.body)
-        if(error){return res.status(400).send(error.message)};
-        
+        const adjustDataForValidation = (data) => {
+            // Aqui você pode ajustar seus dados conforme necessário
+            // Por exemplo, convertendo strings vazias em null
+            const adjustedData = { ...data };
+            if (adjustedData.dtcontato === '') adjustedData.dtcontato = null;
+            if (adjustedData.dtcontrato === '') adjustedData.dtcontrato = null;
+            if (adjustedData.dtassinatura === '') adjustedData.dtassinatura = null;
+            if (adjustedData.dtconclusao === '') adjustedData.dtconclusao = null;
 
-        const newContract = new Object ({
-            idcliente: req.body.idcliente,
-            descricaovenda: req.body.descricaovenda,
-            statusvenda: req.body.statusvenda,
-            idprojeto: req.body.idprojeto,
-            comercialvendacol: req.body.comercialvendacol,
-    
-            dtcontato: req.body.dtcontato,
-            dtcontrato:req.body.dtcontrato,
-            dtassinatura: req.body.dtassinatura,
-            dtconclusao: req.body.dtconclusao,
-            dtcriacao: req.body.dtcriacao,
-            dtalteracao: req.body.dtalteracao,
-    
-            usuariocriacao: req.body.usuariocriacao,
-            usuarioalteracao: req.body.usuarioalteracao,
+            return adjustedData;
+        };
+
+        const adjustedData = adjustDataForValidation(req.body);
+        const { error } = registerValidate(adjustedData);
+        if (error) { return res.status(400).send(error.message) };
+
+        const newContract = new Object({
+            idcliente: adjustedData.idcliente,
+            descricaovenda: adjustedData.descricaovenda,
+            statusvenda: adjustedData.statusvenda,
+            idprojeto: adjustedData.idprojeto,
+            comercialvendacol: adjustedData.comercialvendacol,
+
+            dtcontato: adjustedData.dtcontato,
+            dtcontrato: adjustedData.dtcontrato,
+            dtassinatura: adjustedData.dtassinatura,
+            dtconclusao: adjustedData.dtconclusao,
+            dtcriacao: adjustedData.dtcriacao,
+            dtalteracao: adjustedData.dtalteracao,
+
+            usuariocriacao: adjustedData.usuariocriacao,
+            usuarioalteracao: adjustedData.usuarioalteracao,
         })
 
         try {
@@ -65,38 +98,49 @@ const contractController = {
 
     },
 
-    update: async function (req,res){
-        
-        const {error} = registerValidateUpdate(req.body)
-        if(error){return res.status(400).send(error.message)};
-   
-        const updateContract = new Object ({
-            idcliente: req.body.idcliente,
-            descricaovenda: req.body.descricaovenda,
-            statusvenda: req.body.statusvenda,
-            idprojeto: req.body.idprojeto,
-            comercialvendacol: req.body.comercialvendacol,
-    
-            dtcontato: req.body.dtcontato,
-            dtcontrato:req.body.dtcontrato,
-            dtassinatura: req.body.dtassinatura,
-            dtconclusao: req.body.dtconclusao,
-            dtcriacao: req.body.dtcriacao,
-            dtalteracao: req.body.dtalteracao,
-    
-            usuariocriacao: req.body.usuariocriacao,
-            usuarioalteracao: req.body.usuarioalteracao,
+    update: async function (req, res) {
+
+        const adjustDataForValidation = (data) => {
+            const adjustedData = { ...data };
+            if (adjustedData.dtcontato === '') adjustedData.dtcontato = null;
+            if (adjustedData.dtcontrato === '') adjustedData.dtcontrato = null;
+            if (adjustedData.dtassinatura === '') adjustedData.dtassinatura = null;
+            if (adjustedData.dtconclusao === '') adjustedData.dtconclusao = null;
+
+            return adjustedData;
+        };
+
+        const adjustedData = adjustDataForValidation(req.body);
+        const { error } = registerValidateUpdate(adjustedData);
+        if (error) { return res.status(400).send(error.message) };
+
+        const updateContract = new Object({
+            idcliente: adjustedData.idcliente,
+            descricaovenda: adjustedData.descricaovenda,
+            statusvenda: adjustedData.statusvenda,
+            idprojeto: adjustedData.idprojeto,
+            comercialvendacol: adjustedData.comercialvendacol,
+
+            dtcontato: adjustedData.dtcontato,
+            dtcontrato: adjustedData.dtcontrato,
+            dtassinatura: adjustedData.dtassinatura,
+            dtconclusao: adjustedData.dtconclusao,
+
+            dtcriacao: adjustedData.dtcriacao,
+            dtalteracao: adjustedData.dtalteracao,
+            usuariocriacao: adjustedData.usuariocriacao,
+            usuarioalteracao: adjustedData.usuarioalteracao,
         })
 
         try {
-            const savedContract = await db.updateContract(req.body.idvenda,updateContract);
+            const savedContract = await db.updateContract(req.body.idvenda, updateContract);
             res.status(200).send(savedContract);
         } catch (error) {
             res.status(400).send(error)
         }
     },
 
-    delete: async function (req,res){
+    delete: async function (req, res) {
 
         try {
             const delContract = await db.deleteContract(req.params.id);

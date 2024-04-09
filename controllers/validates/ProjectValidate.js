@@ -32,7 +32,7 @@ const registerValidateUpdate = (data) => {
         idcliente: Joi.string().required(),
         dtcriacao: Joi.string().allow(null,""),
         dtalteracao: Joi.string().allow(null,""),
-        usuariocriacao: Joi.string().required().max(50),
+        usuariocriacao: Joi.string().max(50),
         usuarioalteracao: Joi.string().required().max(50),
         statusprojeto: Joi.number().required(),
         idvenda: Joi.number().required(),
