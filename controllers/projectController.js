@@ -1,20 +1,41 @@
 const db = require('../db_Querys/db_projects');
-const {registerValidate,registerValidateUpdate} = require('./validates/ProjectValidate');
+const { registerValidate, registerValidateUpdate } = require('./validates/ProjectValidate');
 
 
 const projectController = {
-    select: async function (req,res){
-
+    select: async function (req, res) {
+        let offset = req.query.offset;
+        let limit = req.query.limit;
+        let result = [];
         let projects = [];
+
+        function estruturar(projects, offset, limit) {
+            let indexProjects = parseInt(offset);
+
+            if (!offset && !limit) {
+                result = projects;
+            } else {
+                for (let index = 0; index < limit; index++) {
+
+                    if (projects[indexProjects] !== undefined) {
+                        result.push(projects[indexProjects])
+                    }
+                    indexProjects += 1;
+                }
+            }
+        }
+
         try {
             projects = await db.selectAllProjects();
-            res.send(projects);
+            estruturar(projects, offset, limit)
+            res.setHeader('Quantidades_Registros', projects.length);
+            res.send(result);
         } catch (error) {
             res.status(400).send(error)
         }
     },
 
-    selectId: async function (req,res){
+    selectId: async function (req, res) {
         try {
             let selectProject = await db.selectProject(req.params.id);
             res.status(200).send(selectProject[0]);
@@ -23,7 +44,7 @@ const projectController = {
         }
     },
 
-    selectProjectsContract: async function (req,res){
+    selectProjectsContract: async function (req, res) {
         try {
             let selectProjects = await db.selectProjectsContract(req.params.id);
             res.status(200).send(selectProjects);
@@ -32,7 +53,7 @@ const projectController = {
         }
     },
 
-    selectProjectsClients: async function (req,res){
+    selectProjectsClients: async function (req, res) {
         try {
             let selectProjects = await db.selectProjectsClients(req.params.id);
             res.status(200).send(selectProjects);
@@ -41,14 +62,14 @@ const projectController = {
         }
     },
 
-    register: async function (req,res){
+    register: async function (req, res) {
 
 
-        const {error} = registerValidate(req.body)
-        if(error){return res.status(400).send(error.message)};
-        
+        const { error } = registerValidate(req.body)
+        if (error) { return res.status(400).send(error.message) };
 
-        const newProjectt = new Object ({
+
+        const newProjectt = new Object({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             idcliente: req.body.idcliente,
@@ -58,13 +79,13 @@ const projectController = {
             usuarioalteracao: req.body.usuarioalteracao,
             statusprojeto: req.body.statusprojeto,
             idvenda: req.body.idvenda,
-            dtinicioprojeto: req.body.dtinicioprojeto, 
-            dtconclusaoprojeto: req.body.dtconclusaoprojeto, 
-            horasestimadas: req.body.horasestimadas ,
+            dtinicioprojeto: req.body.dtinicioprojeto,
+            dtconclusaoprojeto: req.body.dtconclusaoprojeto,
+            horasestimadas: req.body.horasestimadas,
             horasgastas: req.body.horasgastas,
             saldohoras: req.body.saldohoras,
             valorprojeto: req.body.valorprojeto,
-            valorconsumido: req.body.valorconsumido 
+            valorconsumido: req.body.valorconsumido
         })
 
         try {
@@ -76,12 +97,12 @@ const projectController = {
 
     },
 
-    update: async function (req,res){
+    update: async function (req, res) {
 
-        const {error} = registerValidateUpdate(req.body)
-        if(error){return res.status(400).send(error.message)};
-   
-        const updateProject = new Object ({
+        const { error } = registerValidateUpdate(req.body)
+        if (error) { return res.status(400).send(error.message) };
+
+        const updateProject = new Object({
             idprojeto: req.body.idprojeto,
             titulo: req.body.titulo,
             descricao: req.body.descricao,
@@ -92,24 +113,24 @@ const projectController = {
             usuarioalteracao: req.body.usuarioalteracao,
             statusprojeto: req.body.statusprojeto,
             idvenda: req.body.idvenda,
-            dtinicioprojeto: req.body.dtinicioprojeto, 
-            dtconclusaoprojeto: req.body.dtconclusaoprojeto, 
-            horasestimadas: req.body.horasestimadas ,
+            dtinicioprojeto: req.body.dtinicioprojeto,
+            dtconclusaoprojeto: req.body.dtconclusaoprojeto,
+            horasestimadas: req.body.horasestimadas,
             horasgastas: req.body.horasgastas,
             saldohoras: req.body.saldohoras,
             valorprojeto: req.body.valorprojeto,
-            valorconsumido: req.body.valorconsumido 
+            valorconsumido: req.body.valorconsumido
         })
 
         try {
-            const savedProject = await db.updateProject(req.body.idprojeto,updateProject);
+            const savedProject = await db.updateProject(req.body.idprojeto, updateProject);
             res.status(200).send(savedProject);
         } catch (error) {
             res.status(400).send(error)
         }
     },
 
-    delete: async function (req,res){
+    delete: async function (req, res) {
 
         try {
             const delProject = await db.deleteProject(req.params.id);

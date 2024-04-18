@@ -1,29 +1,30 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component'
-import { ClientsComponent } from './components/clients/clients.component';
-import { ClientComponent } from './components/client/client.component';
+import { ClientsComponent } from './components/_Clientes/clients/clients.component';
+import { ClientComponent } from './components/_Clientes/client/client.component';
 import { SiteComponent } from './components/site/site.component';
 import { UserComponent } from './components/user/user.component';
-import { VendaComponent } from './components/venda/venda.component';
-import { Client360Component } from './components/client360/client360.component';
-import { ContratoComponent } from "./components/contrato/contrato.component";
-import { ProjetoComponent } from "./components/projeto/projeto.component";
-import { ProjectsComponent } from './components/projects/projects.component';
-import { UsuarioComponent } from './components/usuario/usuario.component';
-import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { VendaComponent } from './components/_Contratos/venda/venda.component';
+import { Client360Component } from './components/_Clientes/client360/client360.component';
+import { ContratoComponent } from "./components/_Contratos/contrato/contrato.component";
+import { ProjetoComponent } from "./components/_Projetos/projeto/projeto.component";
+import { ProjectsComponent } from './components/_Projetos/projects/projects.component';
+import { UsuarioComponent } from './components/_Usuarios/usuario/usuario.component';
+import { UsuariosComponent } from './components/_Usuarios/usuarios/usuarios.component';
 import { RecursoComponent } from './components/recurso/recurso.component';
 import { HomeComponent } from './components/home/home.component';
-import { TarefaComponent } from './components/tarefa/tarefa.component';
+import { TarefaComponent } from './components/_Tarefas/tarefa/tarefa.component';
 import { TarefaStatusComponent } from './components/tarefa-status/tarefa-status.component';
 import { ApontamentoComponent } from './components/apontamento/apontamento.component';
-import { PessoaComponent } from './components/pessoa/pessoa.component';
+import { PessoaComponent } from './components/_Pessoas/pessoa/pessoa.component';
 import { ProjetoTarefaComponent } from './components/projeto-tarefa/projeto-tarefa.component';
 import { authorizedGuard } from './guard/authorized.guard';
-import { PessoasComponent } from './components/pessoas/pessoas.component';
-import { ContratosComponent } from './components/contratos/contratos.component';
+import { PessoasComponent } from './components/_Pessoas/pessoas/pessoas.component';
+import { ContratosComponent } from './components/_Contratos/contratos/contratos.component';
 import { KanbanComponent } from './components/kanban/kanban.component';
-import { TarefasComponent } from './components/tarefas/tarefas.component';
 import { ProjetoStatusComponent } from './components/projetoStatus/projetoStatus.component';
+import { TarefasComponent } from './components/_Tarefas/tarefas/tarefas.component';
+import { ProjetosComponent } from './components/_Projetos/projetos/projetos.component';
 
 
 export const routes: Routes = [
@@ -45,16 +46,16 @@ export const routes: Routes = [
                 component: HomeComponent
             },
             {
-                path: 'clients',
-                component: ClientsComponent
-            },
-            {
                 path: 'kanban',
                 component: KanbanComponent,
             },
             {
                 path: 'kanban/:id',
                 component: KanbanComponent,
+            },
+            {
+                path: 'clients',
+                component: ClientsComponent
             },
             {
                 path: 'client',
@@ -91,6 +92,10 @@ export const routes: Routes = [
             {
                 path: 'projeto/:event/:id',
                 component: ProjectsComponent
+            },
+            {
+                path: 'projetos',
+                component: ProjetosComponent
             },
             {
                 path:'usuarios',

@@ -45,7 +45,7 @@ const userController = {
         const selectUser = await db.selectUser(req.body.email);
 
         if(selectUser[0] !== null && selectUser[0].length > 0){
-            return res.status(400).send('Email already exists');
+            return res.status(400).send({ message: 'E-mail já Existe!'});
         }
         
 
@@ -128,7 +128,7 @@ const userController = {
         const selectUser = await db.selectForUser(req.body.usuario);
 
         if (selectUser[0] !== null && selectUser[0].length > 1) {
-            return res.status(400).send('User already exists');
+            return res.status(400).send({ message:'Usuário Já exists'});
         }
 
         const UpdateUser = new Object({

@@ -112,6 +112,15 @@ const projetoTarefaController = {
       res.status(400).send(error);
     }
   },
+
+  selectAProjetoTarefaWithIdProjeto:async function (req, res) {
+    try {
+      let selectProjetoTarefas = await db.selectAProjetoTarefaWithIdProjeto(req.params.id);
+      res.status(200).send(selectProjetoTarefas[0]);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  },
 };
 
 module.exports = projetoTarefaController;

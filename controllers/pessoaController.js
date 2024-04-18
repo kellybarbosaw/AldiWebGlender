@@ -55,7 +55,7 @@ const pessoaController = {
     const selectPessoa = await db.selectZPessoaCpf(req.body.cpf);
 
     if (selectPessoa[0] !== null && selectPessoa[0].length > 0) {
-      return res.status(400).send("Essa pessoa já existe!");
+      return res.status(400).send({ message:"Essa pessoa já existe!"});
     }
 
     const novaPessoa = new Object({
@@ -92,11 +92,17 @@ const pessoaController = {
       return res.status(400).send(error.message);
     }
 
-    const selectPessoa = await db.selectZPessoa(req.body.idpessoa);
+    const selectPessoa = await db.selectZPessoaCpf(req.body.cpf);
+    const pessoaAtual = await db.selectZPessoa(req.body.idpessoa);
 
-    if (selectPessoa[0] !== null && selectPessoa[0].length > 1) {
-      return res.status(400).send("Essa Pessoa ja existe!");
+    if(selectPessoa[0].length >= 1){
+      if(selectPessoa[0][0].CPF !== pessoaAtual[0][0].CPF){
+        if (selectPessoa[0] !== null && selectPessoa[0].length >= 1 ) {
+          return res.status(400).send({ message:"Esse CPF Já está Cadastrado!"});
+        }
+      }
     }
+
 
     const updatePessoa = new Object({
 

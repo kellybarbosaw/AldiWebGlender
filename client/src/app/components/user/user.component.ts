@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { LoginService } from '../../services/login.service';
-import { ClientsComponent } from '../clients/clients.component';
+import { ClientsComponent } from '../_Clientes/clients/clients.component';
 
 
 @Component({

@@ -18,6 +18,14 @@ const connect = db.connect
     return projetoTarefa;
   
   }
+  async function selectAProjetoTarefaWithIdProjeto(idprojeto) {
+    const conn = await connect();
+    const projetoTarefa = await conn.query(
+      "SELECT * FROM APROJETOTAREFA WHERE IDPROJETO = ?;",
+      idprojeto
+    );
+    return projetoTarefa;
+  }
   async function selectAProjetoTarefaTitulo(titulotarefa) {
     const conn = await connect();
     const projetoTarefa = await conn.query(
@@ -81,4 +89,4 @@ const connect = db.connect
     return await conn.query(sql, values);
   }
 
-  module.exports = {selectAProjetoTarefas,selectAProjetoTarefa,insertAProjetoTarefa,updateAProjetoTarefa,deleteAProjetoTarefa,selectAProjetoTarefaTitulo};
+  module.exports = {selectAProjetoTarefas,selectAProjetoTarefa,insertAProjetoTarefa,updateAProjetoTarefa,deleteAProjetoTarefa,selectAProjetoTarefaTitulo,selectAProjetoTarefaWithIdProjeto};
