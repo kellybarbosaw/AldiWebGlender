@@ -22,6 +22,7 @@ import { authorizedGuard } from './guard/authorized.guard';
 import { PessoasComponent } from './components/_Pessoas/pessoas/pessoas.component';
 import { ContratosComponent } from './components/_Contratos/contratos/contratos.component';
 import { KanbanComponent } from './components/kanban/kanban.component';
+import { ProjetoStatusComponent } from './components/projetoStatus/projetoStatus.component';
 import { TarefasComponent } from './components/_Tarefas/tarefas/tarefas.component';
 import { ProjetosComponent } from './components/_Projetos/projetos/projetos.component';
 
@@ -168,6 +169,14 @@ export const routes: Routes = [
                 path: 'projetoTarefa/:id',
                 component: ProjetoTarefaComponent
             },
+            {
+                path: 'projetoStatus',
+                component: ProjetoStatusComponent
+            },
+            // {
+            //     path: 'projetoStatus/:id',
+            //     component: ProjetoStatusComponent
+            // },
             {
                 path: '**',
                 component: HomeComponent
