@@ -14,13 +14,17 @@ const tarefaRouter = require("./routes/tarefaRoutes");
 const projetoTarefaRouter = require('./routes/projetoTarefaRoutes');
 const serviceCepRouter = require('./routes/serviceCepRoutes');
 
+const https = require('https');
+const fs = require('fs');
+
+
 const cors = require('cors');
 const path = require('path');
 
 //tudo que vier de requisião com url '/user' , pegamos do body com express.json e usamos o 
 //userRouter(gerenciador de rotas de cada modulo) para identificar o restante da rota e mandar para o controlador correto
 app.use(cors({
-    origin:"http://localhost:4200",
+    origin:"https://aldiweb.com.br",
     methods:["GET","POST","PUT","DELETE"],
     exposedHeaders: ['Quantidades_Registros']
 }))
@@ -41,7 +45,10 @@ app.use('/projetoTarefa', express.json(), projetoTarefaRouter);
 app.use('/cep', express.json(), serviceCepRouter);
 
 
-
+const options = {
+    key: fs.readFileSync('server.key'),     // Caminho para sua chave privada
+    cert: fs.readFileSync('server.cert')    // Caminho para seu certificado
+};
 
 
 //NÃO MEXER AQUI EM BAIXO
@@ -61,4 +68,9 @@ if (process.env.NODE_ENV != 'development') {
     // })
 }
 
-app.listen(process.env.PORT, () => { console.log("Server Running on Port: "+process.env.PORT)});
+// app.listen(process.env.PORT, () => { console.log("Server Running on Port: "+process.env.PORT)});
+
+
+https.createServer(options, app).listen(process.env.PORT, () => {
+    console.log(`Servidor HTTPS iniciado na porta ${process.env.PORT}`);
+});
