@@ -23,6 +23,7 @@ import { PessoasComponent } from './components/pessoas/pessoas.component';
 import { ContratosComponent } from './components/contratos/contratos.component';
 import { KanbanComponent } from './components/kanban/kanban.component';
 import { TarefasComponent } from './components/tarefas/tarefas.component';
+import { ProjetoStatusComponent } from './components/projetoStatus/projetoStatus.component';
 
 
 export const routes: Routes = [
@@ -163,6 +164,14 @@ export const routes: Routes = [
                 path: 'projetoTarefa/:id',
                 component: ProjetoTarefaComponent
             },
+            {
+                path: 'projetoStatus',
+                component: ProjetoStatusComponent
+            },
+            // {
+            //     path: 'projetoStatus/:id',
+            //     component: ProjetoStatusComponent
+            // },
             {
                 path: '**',
                 component: HomeComponent

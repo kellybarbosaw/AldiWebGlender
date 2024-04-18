@@ -1,153 +1,113 @@
-<div class="customer-pessoa bg-light">
+<div class="panel">
+  <h2 class="fonte"><b>TAREFAS DO PROJETO</b></h2><hr/>
+  <div class="customer-pessoa bg-light">
     <div class="formCadastro d-flex justify-content-center">
-      <form>
+      <form #form="ngForm" (ngSubmit)="registerProjetoTarefa(form)">
         <div>
-          <h2 class="fonte">TAREFAS DO PROJETO</h2>
-          <hr />
-          <div class="form-group">
+          <div class="form-group mb-3">
             <label>Id tarefa</label>
             <input [(ngModel)]="projetoTarefa.idtarefa" type="number" class="form-control"
-            placeholder="Id tarefa já precisa estar criado" name="idtarefa">
-        </div>
-        <div class="form-group">
-          <label>Id projeto</label>
-          <input [(ngModel)]="projetoTarefa.idprojeto" type="number" class="form-control" 
-          placeholder="Id projeto já precisa estar criado" name="idprojeto">
-      </div>
-      <div class="form-group">
-        <label>Status da Tarefa</label>
-        <input [(ngModel)]="projetoTarefa.statustarefa" type="number" class="form-control"
-        placeholder="Status da Tarefa já precisa estar criado" name="statustarefa">
-    </div>
-           <div class="form-group">
+            placeholder="Id tarefa já precisa estar criado" name="idtarefa"
+            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.idtarefa}">
+          </div>
+
+          <!-- <select [(ngModel)]="projetoTarefa.titulotarefa" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.titulotarefa}"
+                  placeholder="Usuário" name="titulotarefa">
+                  <option value="" disabled selected hidden>Selecione a tarefa</option>
+                  <option *ngFor="let tarefa of tarefas$ | async"
+                      [ngValue]="titulotarefa.TITULO">
+                      {{usuario.NOME}}
+                  </option>
+                </select> -->
+
+          <div class="form-group mb-3">
+            <label>Id projeto</label>
+            <input [(ngModel)]="projetoTarefa.idprojeto" type="number" class="form-control" 
+            placeholder="Id projeto já precisa estar criado" name="idprojeto"
+            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.idprojeto}">
+          </div>
+
+          <div class="form-group mb-3">
+            <label>Status da Tarefa</label>
+            <input [(ngModel)]="projetoTarefa.statustarefa" type="number" class="form-control"
+            placeholder="Status da Tarefa já precisa estar criado" name="statustarefa"
+            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.statustarefa}">
+          </div>
+
+          <div class="form-group mb-3">
             <label>Título da tarefa</label>
-            <input
-              [(ngModel)]="projetoTarefa.titulotarefa"
-              type="text"
-              class="form-control"
-              name="titulotarefa"
-              placeholder="Título da tarefa"
-            />
+            <input [(ngModel)]="projetoTarefa.titulotarefa" type="text" 
+            class="form-control" name="titulotarefa" placeholder="Título da tarefa"
+            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.titulotarefa}"/>
           </div>
   
-          <div class="form-group espaco">
+          <div class="form-group mb-3">
             <label>Descrição da tarefa:</label>
-            <input
-              [(ngModel)]="projetoTarefa.descricaotarefa"
-              type="text"
-              class="form-control"
-              placeholder="Descrição da tarefa"
-              name="descricaotarefa"
-            />
+            <textarea
+              [(ngModel)]="projetoTarefa.descricaotarefa "type="text" class="form-control"
+              placeholder="Descrição da tarefa" name="descricaotarefa" maxlength="300"
+              [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.descricaotarefa}">
+            </textarea>
           </div>
   
-          <div class="form-group d-flex flex-row ">
+          <div class="form-group d-flex flex-row mb-3">
             <div class="form-group ">
-              <label>Data de inicio: </label>
+              <label>Data de início: </label>
               <input
-                [(ngModel)]="projetoTarefa.datainicioprevista"
-                type="date"
-                class="form-control"
-                name="datainicioprevista"
-              />
+                [(ngModel)]="projetoTarefa.datainicioprevista" type="date" class="form-control" name="datainicioprevista"
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.datainicioprevista}"/>
             </div>
   
             <div class="form-group espacoCampo">
-              <label>Data Final: </label>
+              <label>Data final: </label>
               <input
-                [(ngModel)]="projetoTarefa.datafimprevista"
-                type="date"
-                class="form-control"
-                name="datafimprevista"
-              />
-            </div>
-  
-            <div class="form-group">
-              <label>Data de criação: </label>
-              <input
-                [(ngModel)]="projetoTarefa.dtcriacao"
-                type="date"
-                class="form-control"
-                name="dtcriacao"
-              />
-            </div>
-  
-            <div class="form-group espacoCampo">
-              <label>Data de alteração:</label>
-              <input
-                [(ngModel)]="projetoTarefa.dtalteracao"
-                type="date"
-                class="form-control"
-                name="dtalteracao"
-              />
+                [(ngModel)]="projetoTarefa.datafimprevista" type="date" class="form-control" name="datafimprevista"
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.datafimprevista}"/>
             </div>
           </div>
-  
-          <div class="form-group espaco">
-            <label>Criação do usuário:</label>
-            <input
-              [(ngModel)]="projetoTarefa.usuariocriacao"
-              type="text"
-              class="form-control"
-              placeholder="Criação do usuário"
-              name="usuariocriacao"
-            />
-          </div>
-  
-          <div class="form-group">
-            <label>Alteração do usuário:</label>
-            <input
-              [(ngModel)]="projetoTarefa.usuarioalteracao"
-              type="text"
-              class="form-control"
-              placeholder="Alteração do usuário"
-              name="usuarioalteracao"
-            />
-          </div>
+
+          <!--Campos de log aqui: -->
+          <!-- data criação, usuário criação --> 
+          <!-- data alteração, usuário alteração -->
   
           <div class="form-group d-flex flex-row">
-  
-          <div class="form-group">
-  
+            <div class="form-group mb-3">
               <label>Horas estimadas: </label>
-              <input [(ngModel)]="projetoTarefa.horasestimadas" type="time" class="form-control"
-               name="horasestimadas" style="width: auto">
+              <input [(ngModel)]="projetoTarefa.horasestimadas" type="text" class="form-control" mask="0*:00:00"
+              placeholder="00:00:00" name="horasestimadas" required
+              [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.horasestimadas}">
+            </div>
   
+            <div class="form-group espacoCampo mb-3">
+                <label>Horas gastas: </label>
+                <input [(ngModel)]="projetoTarefa.horasgastas" type="text" class="form-control"
+                name="horasgastas" mask="0*:00:00" placeholder="00:00:00"
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.horasgastas}">
+            </div>
+  
+            <div class="form-group mb-3">
+                <label>Saldo de horas: </label>
+                <input [(ngModel)]="projetoTarefa.saldohoras" type="text" class="form-control"
+                name="saldohoras" mask="0*:00:00" placeholder="00:00:00"
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.saldohoras}">
+            </div>
           </div>
-  
-          <div class="form-group espacoCampo">
-  
-              <label>Horas gastas: </label>
-              <input [(ngModel)]="projetoTarefa.horasgastas" type="time" class="form-control"
-               name="horasgastas" style="width: auto">
-  
+          <div class="form-group mb-3">
+            <label>Etapa</label>
+            <input [(ngModel)]="projetoTarefa.etapa" type="number" class="form-control"
+            placeholder="Qual a etapa?" name="etapa"
+            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.etapa}">
           </div>
-  
-          <div class="form-group ">
-  
-              <label>Saldo de horas: </label>
-              <input [(ngModel)]="projetoTarefa.saldohoras" type="time" class="form-control"
-               name="saldohoras" style="width: auto">
-  
-          </div>
-      </div>
-      <div class="form-group">
-        <label>Etapa</label>
-        <input [(ngModel)]="projetoTarefa.etapa" type="number" class="form-control"
-        placeholder="Qual a etapa?" name="etapa">
-    </div>
-  
         </div>
         <div style="text-align: right"> 
-          <div class="btn btn-primary btn-stage" (click)="registerProjetoTarefa()">
-            {{ event }}
-          </div>
+          <div class="btn btn-primary btn-stage" (click)="registerProjetoTarefa(form)">{{event}}</div>
         </div>
       </form>
       <div class="botao-com-espaco">
         <div>
-          <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+          <a href="/login" class="btn btn-danger btn-stage">Sair</a>
         </div>
       </div>
     </div>
   </div>
+</div>

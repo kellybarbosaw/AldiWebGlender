@@ -10,10 +10,17 @@
     </div><br>
 
     <div class="customer-client bg-light">
-        <div class="formCadastro d-flex justify-content-center overflow-auto" data-bs-spy="scroll">
+        <div class="formCadastro  justify-content-center ">
 
-            <form class="form d-flex flex-column justify-content-between" #form="ngForm"
-                (ngSubmit)="registerClient(form)">
+            <div class="botao-com-espaco" >
+                <div>
+                    <a href="/user/clients" class="btn btn-primary btn-stage mt-3 m-1">Voltar</a>
+                </div>
+                <div>
+                    <a href="/login" class="btn btn-danger btn-stage mt-3 m-1 mr-3">Sair</a>
+                </div>
+            </div>
+            <form class="form d-flex flex-column justify-content-between margin" #form="ngForm" (ngSubmit)="registerClient(form)">
                 <H5 class="titleStage">ETAPA: {{stageName}}</H5>
                 <section class="stage_1 currentBody spaceForm current ">
                     <div class="nextSection">
@@ -103,7 +110,7 @@
                             <label>PAGREC:</label>
                             <select [(ngModel)]="client.pagrec" type="text" class="form-control" name="pagrec" required
                                 [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.pagrec}">
-                                <option value="" disabled selected hidden>Selecione</option>
+                                <option value=0 disabled selected hidden>Selecione</option>
                                 <option value=1>Cliente</option>
                                 <option value=2>Fornecedor</option>
                                 <option value=3>Ambos</option>
@@ -429,9 +436,9 @@
 
 
             </form>
-            <div>
+            <!-- <div>
                 <a href="/user/clients" class="btn btn-danger btn-stage">Sair</a>
-            </div>
+            </div> -->
 
         </div>
     </div>
