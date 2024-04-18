@@ -33,8 +33,11 @@ export class ProjetoTarefaService {
     return this.httpClient.delete<void>(`${this.url}/${id}`)
   }
 
+  tarefaProjetoTarefa() {
+    return this.httpClient.get<any>(`${this.url}/tarefa`);
+  }
+
   selecProjetoTarefaDoProjeto(id: String){
     return this.httpClient.get<ProjetoTarefadbDB[]>(`${this.url}/projeto/${id}`)
   }
-
 }

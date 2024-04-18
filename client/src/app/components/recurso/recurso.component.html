@@ -1,8 +1,9 @@
+<div class="panel">
+    <h2 class="fonte"><b>RECURSO</b></h2><hr>
 <div class="customer-pessoa bg-light">
-    <div class="formCadastro d-flex justify-content-center ">
+    <div class="formCadastro d-flex justify-content-left ">
         <form>
                 <div>
-                    <h2 class="fonte">RECURSO</h2><hr>
                     <div class="form-group">
                         <label>ID_Pessoa</label>
                         <input [(ngModel)]="recurso.idpessoa" type="text" class="form-control" id="idpessoa" name="idpessoa">
@@ -72,8 +73,13 @@
         </form>
         <div class="botao-com-espaco" >
             <div>
-                <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+                <a href="/user/recursos" class="btn btn-primary btn-stage m-1">Voltar</a>
+            </div>
+            <div>
+                <a href="/login" class="btn btn-danger btn-stage m-1">Sair</a>
             </div>
         </div>
+        
     </div>
+</div>
 </div>
