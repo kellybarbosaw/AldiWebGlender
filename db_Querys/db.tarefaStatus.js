@@ -15,38 +15,32 @@ async function selectATarefaStatus(id){
 }
 async function insertATarefaStatus(tarefaStatus){
     const conn = await connect();
-    const sql = "INSERT INTO ATAREFASTATUS (TITULO, DESCRICAO, ATIVO, CONCLUIDO, CANCELADO, DATACRIACAO, DATAALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO, ATAREFASTATUScol)  VALUES (?,?,?,?,?,?,?,?,?,?);";
+    const sql = "INSERT INTO ATAREFASTATUS (TITULO, DESCRICAO, DATACRIACAO, DATAALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO, STATUS)  VALUES (?,?,?,?,?,?,?);";
     const values = 
     [
         tarefaStatus.titulo,
         tarefaStatus.descricao,
-        tarefaStatus.ativo,
-        tarefaStatus.concluido,
-        tarefaStatus.cancelado,
         tarefaStatus.datacriacao,
         tarefaStatus.dataalteracao,
         tarefaStatus.usuariocriacao,
         tarefaStatus.usuarioalteracao,
-        tarefaStatus.atarefastatuscol
+        tarefaStatus.status,
     ];
 
     await conn.query(sql,values );
 }
 async function updateATarefaStatus(id, tarefaStatus){
     const conn = await connect();
-    const sql = 'UPDATE ATAREFASTATUS SET TITULO=?, DESCRICAO=?, ATIVO=?, CONCLUIDO=?, CANCELADO=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, ATAREFASTATUScol=? WHERE IDSTATUS = ?';
+    const sql = 'UPDATE ATAREFASTATUS SET TITULO=?, DESCRICAO=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, STATUS=? WHERE IDSTATUS = ?';
     const values = [
 
         tarefaStatus.titulo,
         tarefaStatus.descricao,
-        tarefaStatus.ativo,
-        tarefaStatus.concluido,
-        tarefaStatus.cancelado,
         tarefaStatus.datacriacao,
         tarefaStatus.dataalteracao,
         tarefaStatus.usuariocriacao,
         tarefaStatus.usuarioalteracao,
-        tarefaStatus.atarefastatuscol,
+        tarefaStatus.status,
         id
     ];
 

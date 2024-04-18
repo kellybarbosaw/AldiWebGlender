@@ -2,16 +2,21 @@ import { Component } from '@angular/core';
 import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { FormatsService } from '../../services/formats.service';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-projetoTarefa',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule,NgxMaskDirective],
   templateUrl: './projeto-tarefa.component.html',
   styleUrl: './projeto-tarefa.component.scss',
 })
 export class ProjetoTarefaComponent {
+  camposPreenchidos: boolean = true;
+  botaoClicado: boolean = false;
+
   projetoTarefa = {
     idprojetotarefa:'',
     idtarefa: '',
@@ -35,6 +40,7 @@ export class ProjetoTarefaComponent {
 
   constructor(
     private projetoTarefaService: ProjetoTarefaService,
+    private formatService: FormatsService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -63,28 +69,38 @@ export class ProjetoTarefaComponent {
             (this.projetoTarefa.horasgastas = data.HORASGASTAS),
             (this.projetoTarefa.saldohoras = data.SALDOHORAS),
             (this.projetoTarefa.etapa = data.ETAPA);
+
+            this.projetoTarefa.datainicioprevista = this.formatService.formatDate(data.DATAINICIOIMPREVISTA!);
+            this.projetoTarefa.datafimprevista = this.formatService.formatDate(data.DATAFIMPREVISTA!);
         });
       // console.log(this.pessoa)
       this.event = 'Editar';
     }
   }
-  registerProjetoTarefa() {
+  registerProjetoTarefa(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
     if (
       !this.projetoTarefa.titulotarefa ||
       !this.projetoTarefa.descricaotarefa ||
       !this.projetoTarefa.datainicioprevista ||
       !this.projetoTarefa.datafimprevista ||
-      !this.projetoTarefa.dtcriacao ||
-      !this.projetoTarefa.dtalteracao ||
-      !this.projetoTarefa.usuariocriacao ||
-      !this.projetoTarefa.usuarioalteracao ||
       !this.projetoTarefa.horasestimadas ||
       !this.projetoTarefa.horasgastas ||
       !this.projetoTarefa.saldohoras ||
       !this.projetoTarefa.etapa
     ) {
-      alert('preencha os campos');
+      alert('Preencha todos os campos');
+      this.camposPreenchidos = (
+        form.controls['titulotarefa'].valid &&
+        form.controls['descricaotarefa'].valid &&
+        form.controls['datainicioprevista'].valid &&
+        form.controls['datafimprevista'].valid &&
+        form.controls['horasestimadas'].valid &&
+        form.controls['horasgastas'].valid &&
+        form.controls['saldohoras'].valid &&
+        form.controls['etapa'].valid
+      );
+      this.botaoClicado = true;
       return;
     } else {
       alert('Formulário enviado!');
@@ -92,6 +108,11 @@ export class ProjetoTarefaComponent {
 
     //VERIFICAÇÃO DE EVENTO DO BOTÃO
     if (this.event === 'Cadastrar') {
+      this.projetoTarefa.dtcriacao = this.formatService.dateNow();
+      this.projetoTarefa.dtalteracao = this.formatService.dateNow();
+      this.projetoTarefa.usuariocriacao = localStorage.getItem('user')!;
+      this.projetoTarefa.usuarioalteracao = localStorage.getItem('user')!;
+
       this.projetoTarefaService
         .registerProjetoTarefa({
           idtarefa: this.projetoTarefa.idtarefa,
@@ -115,7 +136,8 @@ export class ProjetoTarefaComponent {
           this.router.navigate(['/user/projetoTarefa']);
         });
     } else if (this.event === 'Editar') {
-      console.log('editando');
+      this.projetoTarefa.dtalteracao = this.formatService.dateNow();
+      this.projetoTarefa.usuarioalteracao = localStorage.getItem('user')!;
 
       this.projetoTarefaService
 

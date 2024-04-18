@@ -128,24 +128,24 @@ export class KanbanComponent implements DoCheck {
       this.newTodo = ''; // Limpar entrada após adicionar
     }
   }
-  addEmAndamento() {
-    if (this.newEmAndamento.trim() !== '') {
-      this.emAndamento.push(this.newEmAndamento.trim());
-      this.newEmAndamento = ''; // Limpar entrada após adicionar
-    }
-  }
-  addConcluido() {
-    if (this.newConcluido.trim() !== '') {
-      this.concluido.push(this.newConcluido.trim());
-      this.newConcluido = ''; // Limpar entrada após adicionar
-    }
-  }
-  addImpedidos() {
-    if (this.newImpedidos.trim() !== '') {
-      this.impedidos.push(this.newImpedidos.trim());
-      this.newImpedidos = ''; // Limpar entrada após adicionar
-    }
-  }
+  // addEmAndamento() {
+  //   if (this.newEmAndamento.trim() !== '') {
+  //     this.emAndamento.push(this.newEmAndamento.trim());
+  //     this.newEmAndamento = ''; // Limpar entrada após adicionar
+  //   }
+  // }
+  // addConcluido() {
+  //   if (this.newConcluido.trim() !== '') {
+  //     this.concluido.push(this.newConcluido.trim());
+  //     this.newConcluido = ''; // Limpar entrada após adicionar
+  //   }
+  // }
+  // addImpedidos() {
+  //   if (this.newImpedidos.trim() !== '') {
+  //     this.impedidos.push(this.newImpedidos.trim());
+  //     this.newImpedidos = ''; // Limpar entrada após adicionar
+  //   }
+  // }
   addNaoPlanejados() {
     if (this.newNaoPlanejados.trim() !== '') {
       this.naoPlanejados.push(this.newNaoPlanejados.trim());

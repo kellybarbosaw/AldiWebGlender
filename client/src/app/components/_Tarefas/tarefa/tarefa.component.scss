@@ -32,9 +32,10 @@ form{
 }
 
 .botao-com-espaco {
-    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
     margin-left: 20px;
-    display: inline-block;
 }
 
 .onoff input.toggle {

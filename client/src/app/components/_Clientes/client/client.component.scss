@@ -38,6 +38,7 @@ form{
 }
 .nextSection{
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .titleStage{
@@ -62,4 +63,12 @@ form{
 }
 .espaco{
     padding-block: 5px;
+}
+.botao-com-espaco {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+.margin{
+    margin-left: 30px;
 }

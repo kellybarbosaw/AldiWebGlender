@@ -1,0 +1,21 @@
+.form-group label {
+    font-weight: bold;
+}
+.form-group{
+    margin: 25px;
+}
+.d-flex > div {
+    flex-basis: 15%;
+    padding-left: 10px;
+    margin-bottom: 16px;
+}
+.botao-com-espaco {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+.btn-stage{
+    width: 100px;
+    margin: 0%;
+    margin-top: 15px;
+}

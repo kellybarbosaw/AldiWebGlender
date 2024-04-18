@@ -39,14 +39,11 @@ const tarefaStatusController = {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             nomefantasia: req.body.nomefantasia,
-            ativo: req.body.ativo,
-            concluido: req.body.concluido,
-            cancelado: req.body.cancelado,
             datacriacao: req.body.datacriacao,
             dataalteracao: req.body.dataalteracao,
             usuariocriacao: req.body.usuariocriacao,
             usuarioalteracao: req.body.usuarioalteracao,
-            atarefastatuscol: req.body.atarefastatuscol,
+            status: req.body.status,
         })
 
         try {
@@ -73,14 +70,11 @@ const tarefaStatusController = {
             titulo: req.body.titulo,
             descricao: req.body.descricao,
             nomefantasia: req.body.nomefantasia,
-            ativo: req.body.ativo,
-            concluido: req.body.concluido,
-            cancelado: req.body.cancelado,
             datacriacao: req.body.datacriacao,
             dataalteracao: req.body.dataalteracao,
             usuariocriacao: req.body.usuariocriacao,
             usuarioalteracao: req.body.usuarioalteracao,
-            atarefastatuscol: req.body.atarefastatuscol,
+            status: req.body.status,
         })
 
         try {
