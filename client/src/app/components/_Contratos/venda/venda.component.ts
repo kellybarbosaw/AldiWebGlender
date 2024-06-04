@@ -101,9 +101,10 @@ export class VendaComponent {
 
         })
 
-    } else {
-      alert("algo deu errado")
-    }
+    } 
+    // else {
+    //   alert("algo deu errado")
+    // }
   }
 
   ngOnInit() { }

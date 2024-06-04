@@ -91,6 +91,10 @@ export class ApontamentoComponent {
     if (this.event === "Cadastrar") {
       this.apontamentoService.passartempoparaaprojetotarefa(`${hr}` , this.apontamento.idprojetotarefa)
 
+      this.apontamento.dtcriacao = this.formatService.dateNow();
+      this.apontamento.dtmodificacao = this.formatService.dateNow();
+      this.apontamento.usuariocriacao = localStorage.getItem('user')!;
+      this.apontamento.usuarioalteracao = localStorage.getItem('user')!;
 
       this.apontamentoService.registerApontamento({
 
@@ -109,7 +113,8 @@ export class ApontamentoComponent {
 
 })
     } else if (this.event === "Editar") {
-      console.log("editando")
+      this.apontamento.dtmodificacao = this.formatService.dateNow();
+      this.apontamento.usuarioalteracao = localStorage.getItem('user')!;
 
       this.apontamentoService.editApontamento({
         

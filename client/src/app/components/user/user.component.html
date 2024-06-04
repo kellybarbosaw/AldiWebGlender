@@ -1,4 +1,4 @@
-<div class='dashboard'>
+<div class='dashboard scrollable-div'>
     <div class="dashboard-nav">
         <div>
             <header>
@@ -9,6 +9,9 @@
             </header>
 
             <nav class="dashboard-nav-list">
+                <div class="btn-expandir">
+                    <i class="bi bi-list"></i>
+                </div>
                 <a [routerLink]="['/user']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}"
                     class="dashboard-nav-item">
                     <i class="bi bi-house-door"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -48,7 +51,19 @@
                         <a [routerLink]="['/user/pessoas']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Pessoa</a>
                     </div>
-                </div>
+                </div> 
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#recursoCollapse">
+                        <i class="bi bi-tools"></i>
+                        <span class="txt-link">Recursos</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="recursoCollapse">
+                        <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Novo Recurso</a>
+                        <a [routerLink]="['/user/recursos']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todos Recursos</a>
+                    </div>
+                </div>           
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#contratosCollapse">
@@ -56,6 +71,10 @@
                         <span class="txt-link">Contratos</span>
                         <i class="bi bi-arrow-down-short"></i>
                     </a>
+                    <div class="collapse" id="contratosCollapse">
+                        <a [routerLink]="['/user/clientes/vendas/new/1']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Novo Contrato</a>
+                    </div>
                     <div class="collapse" id="contratosCollapse">
                         <a [routerLink]="['/user/contratos']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Contratos</a>
@@ -68,6 +87,14 @@
                         <span class="txt-link">Projetos</span>
                         <i class="bi bi-arrow-down-short"></i>
                     </a>
+                    <div class="collapse" id="projetosCollapse">
+                        <a [routerLink]="['/user/c/projeto/0']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Novo Projeto</a>
+                    </div>
+                    <div class="collapse" id="projetosCollapse">
+                        <a [routerLink]="['/user/projeto/new/0']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">New Projeto</a>
+                    </div>
                     <div class="collapse" id="projetosCollapse">
                         <a [routerLink]="['/user/projetos']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Projetos</a>

@@ -6,7 +6,7 @@ import { FormatsService } from '../../../services/formats.service';
 import { CommonModule } from '@angular/common';
 import { catchError, of, Subject, Observable } from 'rxjs';
 import { LoginService } from '../../../services/login.service';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { CepService } from '../../../services/cep.service';
 import { Pais } from '../../../models/cep/pais.model';
@@ -20,7 +20,7 @@ import { MensageriaService } from '../../../services/mensageria.service';
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, RouterOutlet, CommonModule, NgxMaskDirective],
+  imports: [FormsModule, HttpClientModule, RouterOutlet, CommonModule, NgxMaskDirective, RouterLink],
   providers: [],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
@@ -442,6 +442,30 @@ export class ClientComponent {
       this.consultarCEP();
     }
   };
+  popularEnderecoEntrega(){
+    this.client.cepentrega = this.client.cep;
+      this.client.paisentrega = this.client.pais;
+      this.client.codetdentrega = this.client.codetd;
+      this.client.cidadeentrega = this.client.cidade;
+      this.client.bairroentrega = this.client.bairro;
+      this.client.ruaentrega = this.client.rua;
+      this.client.numeroentrega = this.client.numero;
+      this.client.complementoentrega = this.client.complemento;
+      this.client.telefoneentrega = this.client.telefone;
+      this.client.emailentrega = this.client.email;
+  }
+  popularEnderecoPgto(){
+    this.client.ceppgto = this.client.cep;
+      this.client.paispgto = this.client.pais;
+      this.client.codetdpgto = this.client.codetd;
+      this.client.cidadepgto = this.client.cidade;
+      this.client.bairropgto = this.client.bairro;
+      this.client.ruapgto = this.client.rua;
+      this.client.numeropgto = this.client.numero;
+      this.client.complementopgto = this.client.complemento;
+      this.client.telefonepgto = this.client.telefone;
+      this.client.emailpgto = this.client.email;
+  }
 
   consultarCEP() {
     this.cep.buscarCep(this.client.cep.replace(/[^\d]+/g, ''))

@@ -1,3 +1,4 @@
+import { KanbanComponent } from './../../kanban/kanban.component';
 import { FormControl, FormsModule, NgForm, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener } from '@angular/core';
@@ -66,6 +67,8 @@ export class TarefaComponent {
       this.event = 'Editar';
     }
   }
+
+
   registerTarefa(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
     if (

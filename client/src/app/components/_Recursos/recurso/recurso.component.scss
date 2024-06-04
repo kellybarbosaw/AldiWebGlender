@@ -32,10 +32,9 @@ form{
 }
 
 .botao-com-espaco {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 10px;
+    margin-bottom: 15px;
     margin-left: 20px;
+    display: inline-block;
 }
 
 .onoff input.toggle {
@@ -44,4 +43,27 @@ form{
 
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
+}
+
+.teste{
+    visibility: hidden;
+}
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 90px;
+    line-height: 40px;
+}
+
+.large-input {
+    width: 700px;
+}
+
+.icon-container i {
+    font-size: 22px;
+}
+::ng-deep .dialog-with-scrollbar .mat-dialog-content {
+    overflow-y: auto;
 }

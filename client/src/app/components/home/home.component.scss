@@ -7,8 +7,8 @@
 }
 .flip-card {
     background-color: transparent;
-    width: 260px;
-    height: 260px;
+    width: 200px;
+    height: 200px;
     perspective: 1000px;
     border-radius: 10px;
 }
@@ -52,6 +52,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px;
+    font-size: 13px;
 }
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
@@ -64,7 +65,7 @@
 // SLIDER HOME
 section.slider{
     width: 75%;
-    height: auto;
+    height: 50%;
     padding: 0 !important;
     overflow: hidden;
     border: 5px solid #000000;
@@ -73,7 +74,7 @@ section.slider{
 
 .slider-content{
     width: 550%;
-    height: auto;
+    height: 50%;
     display: flex;
 }
 
@@ -133,4 +134,12 @@ section.slider{
 
 #radio3:checked ~ .primeiro{
     margin-left: -50%;
+}
+@media only screen and (max-width: 500px){
+    .slider, .slider-content{
+        display: none;
+        }
+        .flip-card-container {
+            display: grid;
+          }
 }

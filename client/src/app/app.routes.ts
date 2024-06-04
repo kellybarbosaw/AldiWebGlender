@@ -11,7 +11,7 @@ import { ProjetoComponent } from "./components/_Projetos/projeto/projeto.compone
 import { ProjectsComponent } from './components/_Projetos/projects/projects.component';
 import { UsuarioComponent } from './components/_Usuarios/usuario/usuario.component';
 import { UsuariosComponent } from './components/_Usuarios/usuarios/usuarios.component';
-import { RecursoComponent } from './components/recurso/recurso.component';
+import { RecursoComponent } from './components/_Recursos/recurso/recurso.component';
 import { HomeComponent } from './components/home/home.component';
 import { TarefaComponent } from './components/_Tarefas/tarefa/tarefa.component';
 import { TarefaStatusComponent } from './components/tarefa-status/tarefa-status.component';
@@ -25,6 +25,8 @@ import { KanbanComponent } from './components/kanban/kanban.component';
 import { ProjetoStatusComponent } from './components/projetoStatus/projetoStatus.component';
 import { TarefasComponent } from './components/_Tarefas/tarefas/tarefas.component';
 import { ProjetosComponent } from './components/_Projetos/projetos/projetos.component';
+import { RecursosComponent } from './components/_Recursos/recursos/recursos.component';
+
 
 
 export const routes: Routes = [
@@ -86,7 +88,7 @@ export const routes: Routes = [
                 component: ContratoComponent
             },
             {
-                path: 'contract/projeto/:id',
+                path: 'c/projeto/:id',
                 component: ProjetoComponent
             },
             {
@@ -128,6 +130,10 @@ export const routes: Routes = [
             {
                 path: 'recurso/:id',
                 component: RecursoComponent
+            },
+            {
+                path: 'recursos',
+                component: RecursosComponent
             },
             {
                 path: 'home',
