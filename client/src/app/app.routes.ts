@@ -8,7 +8,7 @@ import { VendaComponent } from './components/_Contratos/venda/venda.component';
 import { Client360Component } from './components/_Clientes/client360/client360.component';
 import { ContratoComponent } from "./components/_Contratos/contrato/contrato.component";
 import { ProjetoComponent } from "./components/_Projetos/projeto/projeto.component";
-import { ProjectsComponent } from './components/_Projetos/projects/projects.component';
+import { ProjectsComponent } from './components/backup/projects/projects.component';
 import { UsuarioComponent } from './components/_Usuarios/usuario/usuario.component';
 import { UsuariosComponent } from './components/_Usuarios/usuarios/usuarios.component';
 import { RecursoComponent } from './components/recurso/recurso.component';

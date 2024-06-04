@@ -70,9 +70,14 @@ if (process.env.NODE_ENV != 'development') {
     // })
 }
 
-// app.listen(process.env.PORT, () => { console.log("Server Running on Port: "+process.env.PORT)});
 
 
-https.createServer(options, app).listen(process.env.PORT, () => {
-    console.log(`Servidor HTTPS iniciado na porta ${process.env.PORT}`);
-});
+// RODAR API EM DESENVOLVIMENTO
+app.listen(process.env.PORT, () => { console.log("Server Running on Port: "+process.env.PORT)});
+
+
+
+// RODAR API EM PRE PRODUÇÃO
+// https.createServer(options, app).listen(process.env.PORT, () => {
+//     console.log(`Servidor HTTPS iniciado na porta ${process.env.PORT}`);
+// });

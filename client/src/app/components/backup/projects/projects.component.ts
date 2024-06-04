@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ContractService } from '../../../services/contract.service';
@@ -11,12 +11,16 @@ import { Subject, catchError, of } from 'rxjs';
 import { LoginService } from '../../../services/login.service';
 import { NgxMaskDirective } from 'ngx-mask';
 import { MensageriaService } from '../../../services/mensageria.service';
+import { PesquisaClientesComponent } from "../../_pesquisas_seleção/pesquisa-clientes/pesquisa-clientes.component";
+import { PesquisaContratosComponent } from "../../_pesquisas_seleção/pesquisa-contratos/pesquisa-contratos.component";
+
+
 
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule,FormsModule, HttpClientModule, NgxMaskDirective, RouterLink],
+  imports: [CommonModule,FormsModule, HttpClientModule, NgxMaskDirective, RouterLink, PesquisaClientesComponent, PesquisaContratosComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
@@ -26,6 +30,7 @@ export class ProjectsComponent {
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
 
+  infoteste!: string;
 
 
   Project = {
@@ -61,6 +66,10 @@ export class ProjectsComponent {
     }
   event = 'Cadastrar';
 
+  busca_cliente_contrato = "cliente";
+  nomeCli = 'cliente'
+  nomeCon = 'contrato'
+
 
   constructor(
     private formatService: FormatsService,
@@ -76,6 +85,9 @@ export class ProjectsComponent {
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'
       this.Project.idvenda = this.route.snapshot.params['id'];
+      console.log(this.Project.idvenda)
+      console.log(this.route.snapshot.params['id'])
+      // if (this.Project.idvenda  == 0) alert( 'novo cliente')
       this.contractService.contractCurrent(this.Project.idvenda)
       .pipe(
         catchError(err => {
@@ -145,7 +157,6 @@ export class ProjectsComponent {
     }
   }
 
-  
   clientContractCurrent() {
     this.clientService.clientCurrent(this.Project.idcliente.toString())
       .pipe(
@@ -163,7 +174,6 @@ export class ProjectsComponent {
         this.client.nome = datas[0].NOME;
       })
   }
-
 
   registerProject (form: NgForm) { 
     if (!this.Project.dtinicioprojeto || !this.Project.titulo || !this.Project.descricao || !this.Project.dtconclusaoprojeto 
@@ -239,5 +249,14 @@ export class ProjectsComponent {
     }
   }
 
-  
+  recebeClienteEscolhido(event:{nome:string; idcliente:number}){
+    this.client.nome = event.nome;
+    this.client.idcliente = event.idcliente;
+  }
+
+  mudar(nome:string){
+    if(nome === 'cliente') this.busca_cliente_contrato = nome
+    if(nome === 'contrato') this.busca_cliente_contrato = nome
+  }
+
 }

@@ -1,0 +1,65 @@
+<div class="panel">
+    <div>
+        <div class="panel-heading">
+            
+            <a href="/user/client" class="btn btn-sm btn-primary pull-left"><i class="bi bi-person-plus"></i> Novo
+                Cliente</a>
+
+            <form class="form-horizontal pull-right">
+                <div class="form-group">
+                    <label>Show : </label>
+                    <select [(ngModel)]="limit" name="limit" class="form-control" (change)="buscar()" >
+                        <option value=5 selected>5</option>
+                        <option value=10>10</option>
+                        <option value=15>15</option>
+                        <option value=20>20</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="conteudo">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Razão Social</th>
+                        <th>CPF / CNPJ</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="allClient$ | async as client; else loadingError">
+                    <tr *ngFor="let client of allClient$ | async" (click)="selecionarCliente(client.NOME, client.IDCLIENTE!)" data-bs-dismiss="modal">
+                        <td>
+                            {{client.IDCLIENTE}}
+                        </td>
+                        <td>{{client.NOME}}</td>
+                        <td>{{client.CGCCFO | mask: 'CPF_CNPJ'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #loadingError>
+                <div *ngIf="error$ |async; else loading">
+                    <span class="loadingMensage alert alert-warning">Error ao Carregar, Tente mais tarde</span>
+                </div>
+                <ng-template #loading>
+                    <span class="loadingMensage alert alert-warning">Carregando...</span>
+                </ng-template>
+            </ng-template>
+
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div class="d-flex flex-column align-items-center">
+            <div>Mostrando <b>{{qtdMostrado}}</b> dos <b>{{qtdClients}}</b> Clientes</div>
+            <div>
+                <ul class="pagination">
+                    <li><a (click)="passar('back')">«</a></li>
+                    <div *ngFor="let pag of paginas">
+                        <li [class.active]="paginaAtual === pag" ><a (click)="paginar(pag)">{{pag}}</a></li>
+                    </div>
+                    <li><a (click)="passar('next')">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
