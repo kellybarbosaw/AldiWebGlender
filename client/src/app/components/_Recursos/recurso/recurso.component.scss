@@ -32,9 +32,9 @@ form{
 }
 
 .botao-com-espaco {
-    margin-bottom: 15px;
-    margin-left: 20px;
-    display: inline-block;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0px;
 }
 
 .onoff input.toggle {
@@ -44,26 +44,37 @@ form{
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
 }
-
-.teste{
-    visibility: hidden;
-}
-.icon-container {
+.cb{
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 90px;
-    line-height: 40px;
+    justify-content: space-between;
+    }
+@media only screen and (max-width: 1030px){
+    .media{
+    margin-right: 10px;
+    }
+    .espacoCampo{
+        padding-inline: 0px;
+    }
+    .botao-com-espaco{
+        margin-bottom: 15px;
+    }
+    .radioD{
+        margin: 10px;
+    }
+    .radioA{
+        margin-right: 10px;
+    }
+    .cb{
+        display: flex;
+        align-items: center;
+        margin-bottom: 2px;
+    }
 }
-
-.large-input {
-    width: 700px;
+.espacamento {
+    display: flex;
+    flex-direction: row;
 }
-
-.icon-container i {
-    font-size: 22px;
-}
-::ng-deep .dialog-with-scrollbar .mat-dialog-content {
-    overflow-y: auto;
+.espacamento  > div{
+    margin-right: 10px;
 }

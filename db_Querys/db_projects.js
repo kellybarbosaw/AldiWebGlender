@@ -5,7 +5,7 @@ const connect = db.connect
 //GERENCIAMENTO DE PROJETOS
 async function selectAllProjects() {
     const conn = await connect();
-    const [rows] = await conn.query('SELECT P.*, Z.NOME AS NOMECLIENTE, A.DESCRICAOVENDA  FROM APROJETO P INNER JOIN AVENDACOMERCIAL A ON A.IDVENDA = P.IDVENDA INNER JOIN ZCLIENTE Z ON P.IDCLIENTE = Z.IDCLIENTE;');
+    const [rows] = await conn.query('SELECT P.*, Z.NOME AS NOMECLIENTE, A.DESCRICAOVENDA  FROM APROJETO P LEFT JOIN AVENDACOMERCIAL A ON A.IDVENDA = P.IDVENDA INNER JOIN ZCLIENTE Z ON P.IDCLIENTE = Z.IDCLIENTE;');
     return rows;
 }
 async function selectProject(id) {
@@ -62,7 +62,13 @@ async function selectprojetoTarefa(){
     return rows;
 }
 
+async function selectRecursos(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT IDRECURSO FROM ZRECURSOS;');
+    return rows;
+}
+
 //EXPORTANDO QUERY
 module.exports = {
-    selectprojetoTarefa,selectContratos, selectTarefas, selectClients, selectProjectsClients, selectAllProjects, selectProject, selectProjectsContract, insertProject, updateProject, deleteProject
+    selectRecursos,selectprojetoTarefa,selectContratos, selectTarefas, selectClients, selectProjectsClients, selectAllProjects, selectProject, selectProjectsContract, insertProject, updateProject, deleteProject
 };

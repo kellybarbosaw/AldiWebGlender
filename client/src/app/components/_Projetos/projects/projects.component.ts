@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ContractService } from '../../../services/contract.service';
@@ -36,6 +36,7 @@ export class ProjectsComponent {
   contrato$ = new Observable<Project[]>();
   projetoTarefa$ = new Observable<Project[]>();
 
+  infoteste!: string;
 
 
   Project = {
@@ -81,6 +82,10 @@ export class ProjectsComponent {
     }
   event = 'Cadastrar';
 
+  busca_cliente_contrato = "cliente";
+  nomeCli = 'cliente'
+  nomeCon = 'contrato'
+
 
   constructor(
     private formatService: FormatsService,
@@ -102,6 +107,9 @@ export class ProjectsComponent {
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'
       this.Project.idvenda = this.route.snapshot.params['id'];
+      console.log(this.Project.idvenda)
+      console.log(this.route.snapshot.params['id'])
+      // if (this.Project.idvenda  == 0) alert( 'novo cliente')
       this.contractService.contractCurrent(this.Project.idvenda)
       .pipe(
         catchError(err => {
@@ -171,7 +179,6 @@ export class ProjectsComponent {
     }
   }
 
-  
   clientContractCurrent() {
     this.clientService.clientCurrent(this.Project.idcliente.toString())
       .pipe(
@@ -312,5 +319,14 @@ export class ProjectsComponent {
     }
   }
 
-  
+  recebeClienteEscolhido(event:{nome:string; idcliente:number}){
+    this.client.nome = event.nome;
+    this.client.idcliente = event.idcliente;
+  }
+
+  mudar(nome:string){
+    if(nome === 'cliente') this.busca_cliente_contrato = nome
+    if(nome === 'contrato') this.busca_cliente_contrato = nome
+  }
+
 }
