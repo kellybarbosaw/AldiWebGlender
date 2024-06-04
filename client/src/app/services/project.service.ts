@@ -19,6 +19,7 @@ export class ProjectService {
   constructor(private httpClient: HttpClient) { }
 
   registerProject(newProject: CreateProject) {
+    console.log(newProject)
     return this.httpClient.post<CreateProject>(this.url, newProject)
   }
 
@@ -47,4 +48,19 @@ export class ProjectService {
     return this.httpClient.delete<void>(`${this.url}/${id}`)
   }
 
+  clientProject(dados:any){
+    return this.httpClient.get<any>(`${this.url}/client`);
+  }
+
+  tarefaProject(dados:any){
+    return this.httpClient.get<any>(`${this.url}/tarefa`);
+  }
+
+  contratoProject(dados:any){
+    return this.httpClient.get<any>(`${this.url}/contrato`);
+  }
+
+  projetoTarefaProject(dados:any){
+    return this.httpClient.get<any>(`${this.url}/projetoTarefa`);
+  }
 }

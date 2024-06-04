@@ -17,7 +17,9 @@ export interface Project{
     VALORPROJETO?: number,
     VALORCONSUMIDO?: number,
     NOMECLIENTE?: string,
-    DESCRICAOVENDA?: string
+    DESCRICAOVENDA?: string,
+    NOME: string,
+    TITULOTAREFA: string
 }
 
 export interface CreateProject{

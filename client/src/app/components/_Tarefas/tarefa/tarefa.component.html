@@ -1,6 +1,11 @@
 <div class="panel">
-    <h2 class="fonte"><b>TAREFA</b></h2>
-    <hr>
+    <div class="cb">
+        <h2 class="fonte"><b>TAREFA</b></h2><hr>
+        <div class="botao-com-espaco">
+            <a href="/user/tarefas" class="btn btn-dark btn-stage mt-3 m-1 mb-3">Voltar</a>
+        </div>
+    </div><hr>
+
     <div class="customer-pessoa bg-light">
         <div class="formCadastro d-flex justify-content-left">
             <form #form="ngForm" (ngSubmit)="registerTarefa(form)">
@@ -30,18 +35,11 @@
                         <!-- data alteração, usuário alteração -->
                     </div>
                 </div>
-                <div style='text-align:right'>
+                <div class="d-flex justify-content-between w-100">
+                    <a href="/login" class="btn btn-danger btn-stage btnResponsivo">Sair</a>
                     <div class="btn btn-primary btn-stage" (click)="registerTarefa(form)">{{event}}</div>
                 </div>
             </form>
-            <div class="botao-com-espaco" >
-                <div>
-                    <a href="/user/tarefas" class="btn btn-primary btn-stage m-1">Voltar</a>
-                </div>
-                <div>
-                    <a href="/login" class="btn btn-danger btn-stage m-1">Sair</a>
-                </div>
-            </div>
         </div>
     </div>
 </div>

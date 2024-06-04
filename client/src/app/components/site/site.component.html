@@ -17,36 +17,45 @@
             <img src="../../../assets/images/LogoEscrita.png" alt="Logo">
           </a>
           <ul class="nav-list">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Sobre nós</a></li>
-            <li><a href="#">Soluções</a></li>
-            <li><a href="#">Principais Módulos</a></li>
-            <li><a href="#">Contato</a></li>
-          </ul>
-          <li><a [routerLink]="['/login']" class="login" >
-            <i class="bi bi-box-arrow-in-right"></i>&nbsp;Login</a></li>
+            <li><a href="#sobreNos">Sobre nós</a></li>
+            <li><a href="#solucoes">Soluções</a></li>
+            <li><a href="#atendimento">Principais Módulos</a></li>
+            <li><a href="#vamosC">Contato</a></li>
+            <li><a [routerLink]="['/login']" class="login" >
+              <i class="bi bi-box-arrow-in-right"></i>&nbsp;Login</a></li>
+            </ul>
+            <li><a [routerLink]="['/login']" class="login" >
+              <i class="bi bi-box-arrow-in-right"></i>&nbsp;Login</a></li>
         </nav>
         <section class="banner">
           <div class="banner-text">
-            <!-- <h1>ALDIWEbB</h1>
+            <!-- <h1>ALDIWEB</h1>
             <p>Tecnologia para sua empresa</p> -->
           </div>
         </section>
       </div>
     </header>
-    <section class="quem-somos">
+    <section class="quem-somos" id="sobreNos">
       <div class="container">
         <div class=".quem-somos-texto">
           <h3><b>SOBRE NÓS</b></h3><br>
-            <p>Ter e fazer parte de uma empresa exige trabalho e esforço enorme, por isso sabemos o quanto é importante que sejamos profissionais comprometidos com qualidade, prazos e acima de tudo com resultados.
-            Estamos aqui para servir sua empresa!</p><br>
-
-            <p>Uma empresa multidisciplinar com profissionais capacitados e especialista em tecnologia e inovação, 
-              com os nossos serviços sua empresa vai encontrar soluções ágeis, modernas e totalmente personalizada 
-              para implantação de sistemas, adaptação de perfomance, diagnóstico de crise, BPO, serviços de suporte e 
-              consultoria. Tudo isso interligado com a qualidade, prazo, profissionais comprometidos com os resultados, 
-              segurança, exigências legais e seguindo nosso maior sonho de ajudar e apoiar empresas a crescerem e se 
-              tornarem ainda mais competitivas no mercado.</p>
+          
+          <h5><b>MISSÃO</b></h5><br>
+          <p>Humanizar as relações entre pessoas e tecnologia através de soluções inovadoras e simples, visando atingir o potencial do seu negócio. 
+          </p> <br>
+          <h5><b>VISÃO</b></h5><br>
+          <p>Ser referência no Brasil em soluções tecnológicas, que apoiam o desenvolvimento das pessoas e o crescimento das empresas.
+          </p><br>
+          <h5><b>VALORES</b></h5><br>
+          <ul style="margin-left: 25px;">
+            <li>Transparência</li>
+            <li>Cuidar de quem faz a nossa empresa (pessoas)</li>
+            <li>Paixão por Inovação</li>
+            <li>Foco nas necessidades do cliente</li>
+            <li>Diversidade e inclusão</li>
+            <li>Honestidade</li>
+            <li>Segurança</li>
+          </ul>
         </div>
         
         <div class=".quem-somos-img">
@@ -55,27 +64,27 @@
       </div>
     </section>
     
-    <section class="quem-somos">
+    <section class="quem-somos" id="diferencial">
       <div class="flex container">
-        
         <div class=".quem-somos-texto">
           <h3><b>NOSSO DIFERENCIAL</b></h3><br>
-          <p>A ALDIWEB nasceu de um sonho genuíno em fazer diferença na vida das pessoas e se transformou em uma 
-            missão de vida quando percebemos que servir o proxímo se tratava muito mais do que simplesmente ajudar!</p><br>
 
-          <p>Somos focados e apaixonados por processo e estamos sempre em busca de parceiros para desenvolver 
-            nossas soluções agregando valor a sua empresa, trabalhamos com sistema de gestão da qualidade (SGQ) para 
-            continuamente garantir o atendimento aos requisitos legais e estatais, buscando constantemente o 
-            aperfeiçoamento dos nossos serviços através de políticas internas, segurança nas informações e capacitação do nosso time.
-          </p>
+          <p>Uma empresa multidisciplinar com profissionais capacitados e especialista em tecnologia e inovação, 
+            com os nossos serviços sua empresa vai encontrar soluções ágeis, modernas e totalmente personalizada 
+            para implantação de sistemas, adaptação de perfomance, diagnóstico de crise, BPO, serviços de suporte e 
+            consultoria.
+          </p><br>
+            <p>Tudo isso interligado com a qualidade, prazo, profissionais comprometidos com os resultados, 
+            segurança, exigências legais e seguindo nosso maior sonho de ajudar e apoiar empresas a crescerem e se 
+            tornarem ainda mais competitivas no mercado.</p>
         </div>
         <div class=".quem-somos-img mm">
-          <img src="../../../assets/images/cuboAldiWeb.png" width="500px" height="500px">
+          <img src="../../../assets/images/cuboAldiWeb.png" width="400px" height="400px">
         </div>
       </div>
     </section>
 
-    <section class="solucoes">
+    <section class="solucoes" id="solucoes">
       <div class="container">
         <div class="border"></div>
         <h3><b>NOSSAS SOLUÇÕES</b></h3>
@@ -99,7 +108,7 @@
 
           <div class="card-item">
             <img src="../../../assets/images/IconST.png">
-            <p clas="titulo"><b>Suporte Totvs</b></p>
+            <p clas="titulo"><b>Atenção Continuada</b></p>
             <p class="texto">Atendimento: atuamos com todos os módulos da líder 
               absoluta em sistema e plataforma de gestão TOTVS.
               </p>
@@ -130,7 +139,7 @@
 
     <div class="border"></div>
 
-    <section class="quem-somos">
+    <section class="quem-somos" id="atendimento">
       <div class="container">
         <div class=".quem-somos-texto">
           <h3><b>ATENDIMENTO PARA OS MÓDULOS</b></h3><br>
@@ -146,7 +155,7 @@
         </div>
         
         <div class=".quem-somos-img">
-          <img src="../../../assets/images/totvsLogo.webp" alt="" width="450" height="155">
+          <img src="../../../assets/images/totvsLogo.webp" alt="" width="400" height="110">
         </div>
       </div>
     </section>
@@ -167,11 +176,11 @@
 
     <div class="border"></div>
 
-    <section class="vamosC" style="background-image: url('../../../assets/images/VamosC.jpg');">
+    <section class="vamosC" style="background-image: url('../../../assets/images/VamosC.jpg');" id="vamosC">
       <div class="container">
         <section class="bannerr">
           <div class="bannerr-text">
-            <h1>VAMOS CONVERSAR?</h1>
+            <h1><b>VAMOS CONVERSAR?</b></h1>
             <p>A ALDI WEB oferece para seus clientes um contato diferenciado, flexível e ajustado para a realidade da sua empresa</p>
           </div>
         </section>
@@ -181,7 +190,7 @@
     <section class="quem-somos">
       <div class="container">
         <div class=".fale-conosco-img">
-          <img src="../../../assets/images/faleConosco.png" alt="" width="500" height="500" class="rounded-image">
+          <img src="../../../assets/images/faleConosco.png" alt="" width="400" height="400" class="rounded-image">
         </div>
         <div class=".quem-somos-texto">
           <h3><b>FALE CONOSCO</b></h3><br>

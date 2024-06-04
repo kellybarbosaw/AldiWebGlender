@@ -1,26 +1,37 @@
 <div class="panel">
-    <div>
-        <div [routerLink]="['/user/client360/',Project.idcliente]" class="btn btn-danger mb-4">Voltar</div>
+    <div class="cb">
+        <h2 class="fonte"><b>PROJETO</b></h2><hr>
+        <div class="botao-com-espaco" >
+            <div>
+                <a href="/login" class="btn btn-danger mb-4">Sair</a>
+            </div>
+        </div>
+    </div><hr>
+    <div class="botao-com-espaco">
+        <div>
+            <div [routerLink]="['/user/client360/',Project.idcliente]" class="btn btn-dark mb-4">Voltar</div>
+        </div>
     </div>
+    
 
 
-    <h4>Projeto: {{Project.titulo}}</h4>
+    <h5><b>PROJETO:</b> {{Project.titulo}}</h5>
     <form class="form">
         <div class="d-flex justify-content-between">
             <div class="form-group">
-                <label>ID_projeto</label>
+                <label>ID_projeto:</label>
                 <input [(ngModel)]="Project.idprojeto" type="text" class="form-control" disabled name="idprojeto">
             </div>
             <div class="form-group">
-                <label>Cliente</label>
+                <label>Cliente:</label>
                 <input [(ngModel)]="Project.idcliente" type="text" class="form-control" disabled name="cliente">
             </div>
             <div class="form-group">
-                <label>Status</label>
+                <label>Status:</label>
                 <input [(ngModel)]="Project.statusprojeto" type="text" class="form-control" disabled name="statusprojeto">
             </div>
             <div class="form-group">
-                <label>Responsável</label>
+                <label>Responsável:</label>
                 <input [(ngModel)]="Project.usuariocriacao" type="text" class="form-control" disabled name="usuariocriacao">
             </div>
         </div>
@@ -32,31 +43,34 @@
             <label>Descrição:</label>
             <input [(ngModel)]="Project.descricao" type="textarea" class="form-control" disabled name="descricao">
         </div>
-        <div>
-            <div class="form-group">
-                <label>Inicio Projeto</label>
+        <div class="form-group d-flex flex-row">
+            <div class="form-group mb-3 espacoCampo">
+                <label>Início Projeto:</label>
                 <input [(ngModel)]="Project.dtinicioprojeto" type="date" class="form-control" id="dtinicioprojeto" disabled name="dtinicioprojeto">
             </div>
-            <div class="form-group">
-                <label>Fim Previsto Projeto</label>
+            <div class="form-group mb-3">
+                <label>Fim Previsto Projeto:</label>
                 <input [(ngModel)]="Project.dtconclusaoprojeto" type="date" class="form-control" id="dtconclusaoprojeto" disabled name="dtconclusaoprojeto">
             </div>
-            
         </div>
         <div class="pt-3">
-            <h5><b>Horas:</b></h5>
-            <div class="form-group">
-                <label>Horas Estimadas</label>
-                <input [(ngModel)]="Project.horasestimadas" type="text" class="form-control" disabled name="horasestimadas">
+            <h5><b>HORAS:</b></h5>
+            <div class="form-group d-flex flex-row">
+                <div class="form-group mb-3 espacoCampo">
+                    <label>Horas Estimadas:</label>
+                    <input [(ngModel)]="Project.horasestimadas" type="text" class="form-control" disabled name="horasestimadas">
+                </div>
+                <div class="form-group mb-3">
+                    <label>Horas Gastas:</label>
+                    <input [(ngModel)]="Project.horasgastas" type="text" class="form-control" disabled name="horasgastas">
+                </div>
             </div>
-            <div class="form-group">
-                <label>Horas Gastas</label>
-                <input [(ngModel)]="Project.horasgastas" type="text" class="form-control" disabled name="horasgastas">
-            </div>
-            
         </div>
-        <div class="btn btn-primary mt-1" (click)="editProject()">Editar</div>
-        <div (click)="excludeProject(Project.idprojeto!,null)" class="btn btn-danger mt-1 botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></div>
+        <div class="botao-com-espaco">
+            <div class="btn btn-primary mb-4" (click)="editProject()">Editar</div>
+            <div (click)="excludeProject(Project.idprojeto!,null)" class="btn btn-danger  botaoExcluir" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash-fill"></i></div>
+        </div>
+        
 
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">

@@ -86,7 +86,7 @@ export const routes: Routes = [
                 component: ContratoComponent
             },
             {
-                path: 'contract/projeto/:id',
+                path: 'c/projeto/:id',
                 component: ProjetoComponent
             },
             {

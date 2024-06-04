@@ -56,13 +56,19 @@ form{
 .btn-stage{
     width: 100px;
     margin: 0%;
-    margin: 0.5rem 0;
+    margin-top: 15px;
 }
 
 .form-group label {
     font-weight: bold;
     display: block;
     margin-bottom: 10px;
+}
+
+.cb{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .espacoCampo{
@@ -93,4 +99,12 @@ h2.fonte {
 }
 .btn-group{
     margin-top: 0;
+}
+@media only screen and (max-width: 1200px){
+    .media {
+        margin-bottom: 20px;
+    }
+    .bt{
+        justify-content: space-between;
+        }
 }

@@ -163,3 +163,9 @@
     right: 0;
     transform: translateX(0);
 }
+@media only screen and (max-width: 1200px){
+    .corpo {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}

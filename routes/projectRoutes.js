@@ -6,6 +6,11 @@ const authProfile = require('../controllers/accessController');
 
 
 router.get('/',auth,projectController.select);
+router.get('/client',auth,projectController.selectClients);
+router.get('/tarefa',auth,projectController.selectTarefas);
+router.get('/contrato',auth,projectController.selectContratos);
+router.get('/recurso',auth,projectController.selectRecursos);
+router.get('/projetoTarefa',auth,projectController.selectprojetoTarefa);
 router.get('/:id',auth,projectController.selectId);
 router.get('/client/:id',auth,projectController.selectProjectsClients);
 router.get('/contract/:id',auth,projectController.selectProjectsContract);

@@ -45,3 +45,22 @@ form{
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
 }
+.cb{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+@media only screen and (max-width: 1030px){
+    .botao-com-espaco{
+        margin-bottom: 15px;
+    }
+    .btnResponsivo{
+        margin-right: 10px;
+    }
+    .cb{
+        display: flex;
+        align-items: center;
+        margin-bottom: 2px;
+    }
+    
+}

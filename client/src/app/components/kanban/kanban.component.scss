@@ -1,5 +1,5 @@
 .example-container {
-    width: 400px;
+    width: 200px;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
@@ -8,7 +8,7 @@
   
   .example-list {
     border: solid 1px #ccc;
-    min-height: 60px;
+    min-height: 40px;
     background: white;
     border-radius: 4px;
     overflow: hidden;
@@ -26,9 +26,11 @@
     box-sizing: border-box;
     cursor: move;
     background: white;
-    font-size: 14px;
+    font-size: 2px;
   }
-  
+  h5{
+    font-size: 15px;
+  }
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;
@@ -71,4 +73,11 @@
   }
   .card-header.naoPlanejados{
     background-color: #fff693;
+  }
+  @media only screen and (max-width: 1030px){
+    .card{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    }
   }

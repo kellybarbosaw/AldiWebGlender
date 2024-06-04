@@ -41,8 +41,34 @@ async function deleteProject(id) {
     const values = [id];
     return await conn.query(sql, values);
 }
+async function selectClients(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT NOME, IDCLIENTE FROM ZCLIENTE;');
+    return rows;
+}
+async function selectTarefas(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT TITULOTAREFA FROM ATAREFA;');
+    return rows;
+}
+async function selectContratos(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT DESCRICAOVENDA, IDVENDA FROM AVENDACOMERCIAL;');
+    return rows;
+}
+async function selectprojetoTarefa(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT TITULOTAREFA FROM APROJETOTAREFA;');
+    return rows;
+}
+
+async function selectRecursos(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT IDRECURSO FROM ZRECURSOS;');
+    return rows;
+}
 
 //EXPORTANDO QUERY
 module.exports = {
-    selectProjectsClients, selectAllProjects, selectProject, selectProjectsContract, insertProject, updateProject, deleteProject
+    selectRecursos,selectprojetoTarefa,selectContratos, selectTarefas, selectClients, selectProjectsClients, selectAllProjects, selectProject, selectProjectsContract, insertProject, updateProject, deleteProject
 };

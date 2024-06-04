@@ -1,4 +1,4 @@
-<div class='dashboard'>
+<div class='dashboard scrollable-div'>
     <div class="dashboard-nav">
         <div>
             <header>
@@ -9,6 +9,9 @@
             </header>
 
             <nav class="dashboard-nav-list">
+                <div class="btn-expandir">
+                    <i class="bi bi-list"></i>
+                </div>
                 <a [routerLink]="['/user']" [routerLinkActive]="['activated']" [routerLinkActiveOptions]="{exact: true}"
                     class="dashboard-nav-item">
                     <i class="bi bi-house-door"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -57,6 +60,10 @@
                         <i class="bi bi-arrow-down-short"></i>
                     </a>
                     <div class="collapse" id="contratosCollapse">
+                        <a [routerLink]="['/user/clientes/vendas/new/1']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Novo Contrato</a>
+                    </div>
+                    <div class="collapse" id="contratosCollapse">
                         <a [routerLink]="['/user/contratos']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Contratos</a>
                     </div>
@@ -68,6 +75,14 @@
                         <span class="txt-link">Projetos</span>
                         <i class="bi bi-arrow-down-short"></i>
                     </a>
+                    <div class="collapse" id="projetosCollapse">
+                        <a [routerLink]="['/user/c/projeto/0']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">Novo Projeto</a>
+                    </div>
+                    <div class="collapse" id="projetosCollapse">
+                        <a [routerLink]="['/user/projeto/new/0']" [routerLinkActive]="['activated']"
+                            class="dashboard-nav-item">New Projeto</a>
+                    </div>
                     <div class="collapse" id="projetosCollapse">
                         <a [routerLink]="['/user/projetos']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Projetos</a>

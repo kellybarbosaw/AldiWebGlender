@@ -46,3 +46,11 @@ form{
 .espaco{
     padding-block: 5px;
 }
+@media only screen and (max-width: 1030px){
+    .botao-com-espaco{
+        margin-bottom: 15px;
+    }
+    .btnResponsivo{
+        margin-right: 15px;
+    }
+}

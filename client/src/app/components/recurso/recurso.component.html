@@ -1,9 +1,21 @@
 <div class="panel">
-    <h2 class="fonte"><b>RECURSO</b></h2><hr>
+    <div class="cb">
+        <h2 class="fonte"><b>RECURSO</b></h2><hr>
+        <div class="botao-com-espaco" style="margin-right: 10px;">
+            <a href="/login" class="btn btn-danger btn-stage mt-3 m-1 mb-3">Sair</a>
+        </div>
+    </div><hr>
+
+    <div class="espacamento">
+        <div [routerLink]="['/user/pessoa']" class="btn btn-success mb-4">Cadastrar Pessoa</div>
+        <div [routerLink]="['/user/projetoTarefa']" class="btn btn-success mb-4">Cadastrar Tarefas do Projeto</div>
+    </div>
+    
 <div class="customer-pessoa bg-light">
     <div class="formCadastro d-flex justify-content-left ">
         <form>
                 <div>
+                    
                     <div class="form-group">
                         <label>ID_Pessoa</label>
                         <input [(ngModel)]="recurso.idpessoa" type="text" class="form-control" id="idpessoa" name="idpessoa">
@@ -23,7 +35,7 @@
                             </select>
                     </div>
                     <div class="form-group d-flex flex-row">
-                        <div class="form-group espaco">
+                        <div class="form-group espaco media">
                             <label>Data Início:</label>
                             <input [(ngModel)]="recurso.datainicio" type="date" class="form-control" name="datainicio" id="datainicio" style="width: auto">
                         </div>
@@ -31,17 +43,17 @@
                             <label>Data Final:</label>
                             <input [(ngModel)]="recurso.datafim" type="date" class="form-control"  name="datafim" id="datafim" style="width: auto">
                         </div>
-                        <div class="form-group espaco">
+                        <!-- <div class="form-group espaco">
                             <label>Data de Criação:</label>
                             <input [(ngModel)]="recurso.datacriacao" type="date" class="form-control"  name="datacriacao" id="datacriacao" style="width: auto">
                         </div>
                         <div class="form-group espaco espacoCampo">
                             <label>Data de alteração:</label>
                             <input [(ngModel)]="recurso.dataalteracao" type="date" class="form-control" name="dataalteracao" id="dataalteracao" style="width: auto" >
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="form-group espaco">
+                    <!-- <div class="form-group espaco">
                         <label>Criação do usuário:</label>
                         <input [(ngModel)]="recurso.usuariocriacao" type="text" class="form-control"
                             placeholder="Criação do usuário" name="usuariocriacao">
@@ -51,13 +63,13 @@
                             <label>Alteração do usuário:</label>
                             <input [(ngModel)]="recurso.usuarioalteracao" type="text" class="form-control"
                                 placeholder="Alteração do usuário" name="usuarioalteracao">
-                        </div>
+                        </div> -->
                     <div class="form-group espaco">
                         <label>Situação do usuário:</label>
-                        <label style="display: inline-block;">Ativo</label>
+                        <label style="display: inline-block;" class="radioA">Ativo</label>
                         <input type="radio" [(ngModel)]="recurso.ativo" id="ativo" name="ativo" value=1 style="display: inline-block; width: 5%;">
                         
-                        <label style="display: inline-block;">Desativo</label>
+                        <label style="display: inline-block;" class="radioD">Desativo</label>
                         <input type="radio" [(ngModel)]="recurso.ativo" id="desativo" name="desativo" value=2 style="display: inline-block; width: 5%;">
                     </div>
                     <div class="form-group espaco">
@@ -67,19 +79,11 @@
                     </div>
 
                 </div>
-                <div style='text-align:right'>
+                <div class="d-flex justify-content-between w-100">
+                    <a href="/user/recursos" class="btn btn-dark btn-stage btnResponsivo">Voltar</a>
                     <div class="btn btn-primary btn-stage" (click)="registerRecurso()">{{event}}</div>
                 </div>
         </form>
-        <div class="botao-com-espaco" >
-            <div>
-                <a href="/user/recursos" class="btn btn-primary btn-stage m-1">Voltar</a>
-            </div>
-            <div>
-                <a href="/login" class="btn btn-danger btn-stage m-1">Sair</a>
-            </div>
-        </div>
-        
     </div>
 </div>
 </div>
