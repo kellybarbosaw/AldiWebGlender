@@ -31,7 +31,7 @@ const registerValidateUpdate = (data) => {
         usuariocriacao: Joi.string().required().max(50),
         usuarioalteracao: Joi.string().required().max(50),
         ativo: Joi.number().required(),
-        valorhr: Joi.number().required(),
+        valorhr: Joi.number().required()
 
     })
     return schema.validate(data);
