@@ -1,66 +1,44 @@
-
-<div class="customer-pessoa bg-light">
-    <div class="formCadastro d-flex justify-content-center ">
-        <form>
-            <div>
-                <h2 class="fonte">APONTAMENTO</h2><hr>
-                <div class="form-group espaco">
-                    <label>ID_projetoTarefa:</label>
-                    <input [(ngModel)]="apontamento.idprojetotarefa" type="number" class="form-control" placeholder="ID_projetoTarefa" name="idprojetotarefa">
-                </div>
-                    
-                <div class="form-group d-flex flex-row">
-                    <div class="form-group espaco">
-                        <label>Data:</label>
-                        <input [(ngModel)]="apontamento.data" type="date" class="form-control" name="data">
-                    </div>
-                        
-                    <div class="form-group espaco espacoCampo">
-                        <label>Hora início:</label>
-                        <input [(ngModel)]="apontamento.horainicio" type="time" class="form-control" name="horainicio" id="horainicio">
-                    </div>
-                        
-                    <div class="form-group espaco">
-                        <label>Hora final:</label>
-                        <input [(ngModel)]="apontamento.horafinal" type="time" class="form-control" name="horafinal" id="horafinal"> 
-                    </div>
-                </div>
-                    
-                <div class="form-group espaco">
-                    <label>Descrição:</label>
-                    <input [(ngModel)]="apontamento.descricao" type="text" class="form-control" placeholder="Descrição" name="descricao">
-                </div>
-
-                <div class="form-group d-flex flex-row espaco">
-                    <div class="form-group espaco">
-                        <label>Data criação:</label>
-                        <input [(ngModel)]="apontamento.dtcriacao" type="date" class="form-control"placeholder="Data criação" name="dtcriacao" disabled>
-                    </div>
-                    
-                    <div class="form-group espacoCampo espaco">
-                        <label>Data modificação:</label>
-                        <input [(ngModel)]="apontamento.dtmodificacao" type="date" class="form-control" placeholder="Data modificação" name="dtmodificacao" disabled>
-                    </div>
-                </div>
-
-                <div class="form-group espaco">
-                    <label>Criação do usuário:</label>
-                    <input [(ngModel)]="apontamento.usuariocriacao" type="text" class="form-control" placeholder="Criação do usuário" name="usuariocriacao">
-                </div>
-                    
-                <div class="form-group espaco">
-                    <label>Alteração do usuário:</label>
-                    <input [(ngModel)]="apontamento.usuarioalteracao" type="text" class="form-control" placeholder="Alteração do usuário" name="usuarioalteracao">
-                </div>
-            </div>
-                <div style='text-align:right'>
-                    <div class="btn btn-primary btn-stage" (click)="registerApontamento()">{{event}}</div>
-                </div>
-            </form>
-                <div class="botao-com-espaco" >
+<div class="panel">
+    <h2 class="fonte"><b>APONTAMENTO</b></h2><hr>
+        <div class="customer-pessoa bg-light">
+            <div class="formCadastro d-flex justify-content-left">
+                <form>
                     <div>
-                        <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+                        <div class="form-group espaco">
+                            <label>ID_projetoTarefa:</label>
+                            <input [(ngModel)]="apontamento.idprojetotarefa" type="number" class="form-control" placeholder="ID_projetoTarefa" name="idprojetotarefa">
+                        </div>
+                    
+                        <div class="form-group d-flex flex-row">
+                            <div class="form-group mt-2">
+                                <label>Data:</label>
+                                <input [(ngModel)]="apontamento.data" type="date" class="form-control" name="data">
+                            </div>
+                        </div>
+
+                        <div class="form-group d-flex flex-row">
+                            <div class="form-group mt-2 m-2">
+                                <label>Hora Início:</label>
+                                <input [(ngModel)]="apontamento.horainicio" type="time" class="form-control" name="horainicio" id="horainicio">
+                            </div>
+                    
+                            <div class="form-group mt-2">
+                                <label>Hora Final:</label>
+                                <input [(ngModel)]="apontamento.horafinal" type="time" class="form-control" name="horafinal" id="horafinal"> 
+                            </div>
+                        </div>
+                    
+                        <div class="form-group espaco">
+                            <label>Descrição:</label>
+                            <textarea [(ngModel)]="apontamento.descricao" type="text" class="form-control" placeholder="Descrição" name="descricao"></textarea>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="d-flex justify-content-between w-100">
+                        <a href="/login" class="btn btn-danger btn-stage btnResponsivo">Sair</a>
+                        <div class="btn btn-primary btn-stage" (click)="registerApontamento()">{{event}}</div>
+                    </div>
+            </form>
         </div>
     </div>
+</div>

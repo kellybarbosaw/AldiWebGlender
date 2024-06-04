@@ -7,20 +7,22 @@ import { ContractService } from '../../../services/contract.service';
 import { ProjectService } from '../../../services/project.service';
 import { FormatsService } from "../../../services/formats.service";
 import { ClientService } from '../../../services/client.service';
-import { Subject, catchError, of } from 'rxjs';
+import { Observable, Subject, catchError, of } from 'rxjs';
 import { LoginService } from '../../../services/login.service';
 import { NgxMaskDirective } from 'ngx-mask';
 import { MensageriaService } from '../../../services/mensageria.service';
-import { PesquisaClientesComponent } from "../../_pesquisas_seleção/pesquisa-clientes/pesquisa-clientes.component";
-import { PesquisaContratosComponent } from "../../_pesquisas_seleção/pesquisa-contratos/pesquisa-contratos.component";
-
-
+import { ClientComponent } from '../../_Clientes/client/client.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { VendaComponent } from '../../_Contratos/venda/venda.component';
+import { Project } from '../../../models/project.model';
+import { TarefaComponent } from '../../_Tarefas/tarefa/tarefa.component';
+import { ProjetoTarefaComponent } from '../../projeto-tarefa/projeto-tarefa.component';
 
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule,FormsModule, HttpClientModule, NgxMaskDirective, RouterLink, PesquisaClientesComponent, PesquisaContratosComponent],
+  imports: [CommonModule,FormsModule, HttpClientModule, NgxMaskDirective, RouterLink, MatDialogModule],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
@@ -29,6 +31,10 @@ export class ProjectsComponent {
   error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+  client$ = new Observable<Project[]>();
+  tarefas$ = new Observable<Project[]>();
+  contrato$ = new Observable<Project[]>();
+  projetoTarefa$ = new Observable<Project[]>();
 
   infoteste!: string;
 
@@ -49,12 +55,22 @@ export class ProjectsComponent {
       horasestimadas: '',
       horasgastas: '',
       saldohoras: '',
+      nome: '',
+      tarefas: '',
+      contrato: '',
+      titulotarefa: '',
       valorprojeto: null || 0,
       valorconsumido: null || 0
     }
     client = {
       idcliente: 0,
       nome: ''
+    }
+    tarefa = {
+      titulotarefa: ''
+    }
+    projetoTarefa = {
+      titulotarefa: ''
     }
     contrato = {
       idvenda: 0,
@@ -79,8 +95,14 @@ export class ProjectsComponent {
     private route: ActivatedRoute,
     private clientService: ClientService,
     private loginService: LoginService,
-    private messageriaService: MensageriaService
+    private messageriaService: MensageriaService,
+    public dialog: MatDialog
     ) {
+
+      this.client$ = projectService.clientProject(this.Project.nome);
+      this.tarefas$ = projectService.tarefaProject(this.Project.tarefas);
+      this.contrato$ = projectService.contratoProject(this.Project.contrato);
+      this.projetoTarefa$ = projectService.projetoTarefaProject(this.Project.titulotarefa);
 
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'
@@ -129,8 +151,8 @@ export class ProjectsComponent {
         this.Project.titulo = data.TITULO,
         this.Project.descricao = data.DESCRICAO,
         this.Project.idcliente = data.IDCLIENTE,
-        this.Project.dtcriacao = this.formatService.format(data.DTCRIACAO!,null,"date"),
-        this.Project.dtalteracao = this.formatService.format(data.DTALTERACAO!,null,"date"),
+        this.Project.dtcriacao = this.formatService.formatDate(data.DTCRIACAO!),
+        this.Project.dtalteracao = this.formatService.formatDate(data.DTALTERACAO!),
         this.Project.usuariocriacao = data.USUARIOCRIACAO,
         this.Project.usuarioalteracao = data.USUARIOALTERACAO,
         this.Project.statusprojeto = data.STATUSPROJETO,
@@ -141,8 +163,8 @@ export class ProjectsComponent {
         this.Project.valorprojeto = data.VALORPROJETO!,
         this.Project.valorconsumido = data.VALORCONSUMIDO!
 
-        this.Project.dtinicioprojeto = this.formatService.format(data.DTINCIOPROJETO!,"dtinicioprojeto","date")
-        this.Project.dtconclusaoprojeto = this.formatService.format(data.DTCONCLUSAOPROJETO!,"dtconclusaoprojeto","date")
+        this.Project.dtinicioprojeto = this.formatService.formatDate(data.DTINCIOPROJETO!)
+        this.Project.dtconclusaoprojeto = this.formatService.formatDate(data.DTCONCLUSAOPROJETO!)
 
         this.contractService.contractCurrent(this.Project.idvenda).subscribe((data)=>{
           this.contrato.idvenda = data[0].IDVENDA!;
@@ -175,6 +197,54 @@ export class ProjectsComponent {
       })
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(ClientComponent, {
+      width: '1000px',
+      height: '500px',
+      panelClass: 'dialog-with-scrollbar'
+  });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openContrato() {
+    const dialogRef = this.dialog.open(VendaComponent, {
+      width: '1000px',
+      height: '500px',
+      panelClass: 'dialog-with-scrollbar'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openTarefas() {
+    const dialogRef = this.dialog.open(TarefaComponent, {
+      width: '1000px',
+      height: '500px',
+      panelClass: 'dialog-with-scrollbar'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openProjetoTarefa() {
+    const dialogRef = this.dialog.open(ProjetoTarefaComponent, {
+      width: '1000px',
+      height: '500px',
+      panelClass: 'dialog-with-scrollbar'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   registerProject (form: NgForm) { 
     if (!this.Project.dtinicioprojeto || !this.Project.titulo || !this.Project.descricao || !this.Project.dtconclusaoprojeto 
     ) {
@@ -190,7 +260,7 @@ export class ProjectsComponent {
     }
 
     if (this.event === 'Cadastrar') {
-
+      
       this.Project.dtcriacao = this.formatService.dateNow(),
       this.Project.dtalteracao = this.formatService.dateNow(),
       this.Project.usuariocriacao = localStorage.getItem('user')!,
@@ -199,7 +269,7 @@ export class ProjectsComponent {
       this.projectService.registerProject({
         titulo: this.Project.titulo,
         descricao: this.Project.descricao,
-        idcliente: this.Project.idcliente,
+        idcliente: this.Project.idcliente.replace(/[^0-9]/g, ''),
         dtcriacao: this.Project.dtcriacao,
         dtalteracao: this.Project.dtalteracao,
         usuariocriacao: this.Project.usuariocriacao,

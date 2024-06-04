@@ -101,7 +101,13 @@ a {
 
     display: flex;
     flex-direction: column;
+    box-shadow: 3px 0 0 #f68926;
+    //width: 50px;
 }
+// .dashboard-nav-list:hover{
+// width: 150px;
+// transition: all 0.5s ease;
+// }
 
 .collapse .dashboard-nav-item{
     background-color: #b2060051 ;
@@ -128,8 +134,24 @@ a {
 .dashboard-nav-dropdown {
     display: flex;
     flex-direction: column;
+    //width: 45px;
 }
+// .dashboard-nav-dropdown:hover{
+//     width: 150px;
+//     transition: all 0.5s ease;
+//     }
 
+// .txt-link{
+//     width: 50px;
+//     overflow: hidden;
+
+// }.txt-link:hover{
+//     width: 150px;
+//     transition: all 0.5s ease;
+// }
+// .btn-expandir{
+//     overflow: hidden;
+// }
 
 .dashboard-nav .dashboard-nav-dropdown-toggle:after {
     border-top-color: rgba(255, 255, 255, 0.72);
@@ -253,4 +275,10 @@ a {
     .dashboard-compact .dashboard-toolbar {
         left: 0;
     }
+}
+.btn-expandir{
+    color:white;
+    width: 100%;
+    padding-left: 10px;
+    font-size: 24px;
 }

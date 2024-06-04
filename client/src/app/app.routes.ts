@@ -8,7 +8,6 @@ import { VendaComponent } from './components/_Contratos/venda/venda.component';
 import { Client360Component } from './components/_Clientes/client360/client360.component';
 import { ContratoComponent } from "./components/_Contratos/contrato/contrato.component";
 import { ProjetoComponent } from "./components/_Projetos/projeto/projeto.component";
-import { ProjectsComponent } from './components/backup/projects/projects.component';
 import { UsuarioComponent } from './components/_Usuarios/usuario/usuario.component';
 import { UsuariosComponent } from './components/_Usuarios/usuarios/usuarios.component';
 import { RecursoComponent } from './components/recurso/recurso.component';
@@ -25,6 +24,7 @@ import { KanbanComponent } from './components/kanban/kanban.component';
 import { ProjetoStatusComponent } from './components/projetoStatus/projetoStatus.component';
 import { TarefasComponent } from './components/_Tarefas/tarefas/tarefas.component';
 import { ProjetosComponent } from './components/_Projetos/projetos/projetos.component';
+import { ProjectsComponent } from './components/_Projetos/projects/projects.component';
 
 
 export const routes: Routes = [
@@ -86,7 +86,7 @@ export const routes: Routes = [
                 component: ContratoComponent
             },
             {
-                path: 'contract/projeto/:id',
+                path: 'c/projeto/:id',
                 component: ProjetoComponent
             },
             {
@@ -96,6 +96,10 @@ export const routes: Routes = [
             {
                 path: 'projetos',
                 component: ProjetosComponent
+            },
+            {
+                path: 'projeto',
+                component: ProjectsComponent
             },
             {
                 path:'usuarios',

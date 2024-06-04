@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PessoaService } from '../../../services/pessoa.service';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../../services/formats.service';
 import { catchError, of, Subject, Observable } from 'rxjs';
 import { LoginService } from '../../../services/login.service';
@@ -20,7 +20,7 @@ import { MensageriaService } from '../../../services/mensageria.service';
 @Component({
   selector: 'app-pessoa',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterOutlet, CommonModule, NgxMaskDirective],
+  imports: [FormsModule, CommonModule, RouterOutlet, CommonModule, NgxMaskDirective, RouterLink],
   templateUrl: './pessoa.component.html',
   styleUrl: './pessoa.component.scss',
 })
@@ -149,7 +149,6 @@ export class PessoaComponent {
         form.controls['naturalidade'].valid &&
         form.controls['nacionalidade'].valid &&
         form.controls['nroidentidade'].valid &&
-        form.controls['orgaoemissorident'].valid &&
         form.controls['estadoemissorident'].valid &&
         form.controls['zusuario_usuario'].valid
 

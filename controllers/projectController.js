@@ -138,7 +138,43 @@ const projectController = {
         } catch (error) {
             res.status(400).send(error)
         }
-    }
+    },
+    selectClients: async function (req, res) {
+        let client = [];
+        try {
+            client = await db.selectClients();
+            res.send(client);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    },
+    selectTarefas: async function (req, res) {
+        let tarefas = [];
+        try {
+            tarefas = await db.selectTarefas();
+            res.send(tarefas);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    },
+    selectContratos: async function (req, res) {
+        let contratos = [];
+        try {
+            contratos = await db.selectContratos();
+            res.send(contratos);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    },
+    selectprojetoTarefa: async function (req, res) {
+        let projetoTarefa = [];
+        try {
+            projetoTarefa = await db.selectprojetoTarefa();
+            res.send(projetoTarefa);
+        } catch (error) {
+            res.status(400).send(error);
+        }
+    },
 }
 
 module.exports = projectController

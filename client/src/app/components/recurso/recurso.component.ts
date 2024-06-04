@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { RecursoService } from '../../services/recurso.service';
 
 @Component({
   selector: 'app-recurso',
   standalone: true,
-  imports: [FormsModule,HttpClientModule,FormsModule,CommonModule,RouterOutlet],
+  imports: [FormsModule,HttpClientModule,FormsModule,CommonModule,RouterOutlet,RouterLink],
   templateUrl: './recurso.component.html',
   styleUrl: './recurso.component.scss'
 })

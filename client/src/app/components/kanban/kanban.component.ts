@@ -16,6 +16,9 @@ import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
 import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
 import { Observable } from 'rxjs';
 import { ProjetoTarefadbDB } from '../../models/projetoTarefa.model';
+import { TarefaService } from '../../services/tarefa.service';
+import { Project } from '../../models/project.model';
+import { ProjectService } from '../../services/project.service';
 
 /**
  * @title Drag&Drop connected sorting group
@@ -32,7 +35,11 @@ export class DialogContentExampleDialog {}
 })
 export class KanbanComponent implements DoCheck {
   projetoTarefa$ = new Observable<ProjetoTarefadbDB[]>();
+  tarefas$ = new Observable<Project[]>();
 
+  tarefa = {
+    titulotarefa: ''
+  }
 
 
   todo: string[] = [];
@@ -51,12 +58,16 @@ export class KanbanComponent implements DoCheck {
   teste:string[] = ['Cadastrar Clientes','Cadastrar Pessoas','Cadastrar Objetos']
 
   constructor(public dialog: MatDialog,
-    private projetoTarefaService: ProjetoTarefaService) {}
+    private tarefaService: TarefaService,
+    private projectService: ProjectService,
+    private projetoTarefaService: ProjetoTarefaService) {
+      this.tarefas$ = projectService.tarefaProject(this.tarefa);
+    }
 
 
-   ngOnInit(){
-    this.testeInfoBanco();
-   }
+  // ngOnInit(){
+  //   this.testeInfoBanco();
+  // }
 
    testeInfoBanco(){
     this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('2');
@@ -91,7 +102,11 @@ export class KanbanComponent implements DoCheck {
    }
 
   openDialog() {
-    const dialogRef = this.dialog.open(TarefaComponent);
+    const dialogRef = this.dialog.open(TarefaComponent, {
+      width: '900px',
+      height: '450px',
+      panelClass: 'dialog-with-scrollbar'
+  });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

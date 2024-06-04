@@ -53,6 +53,11 @@ form{
     margin: 0%;
     margin-top: 15px;
 }
+.bt{
+    width: 70px;
+    margin: 0%;
+    margin-top: 15px;
+}
 .form-group label {
     font-weight: bold;
     display: block;
@@ -71,4 +76,41 @@ form{
 }
 .margin{
     margin-left: 30px;
+}
+.cb{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.end {
+    display: flex;
+    align-items: center;
+}
+.end label {
+    margin-right: 10px;
+}
+@media only screen and (max-width: 1030px){
+    .btn-group{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    }
+    .botao-com-espaco{
+        margin: 0px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .radioD{
+        margin: 10px;
+    }
+    .radioA{
+        margin-right: 10px;
+    }
+}
+.espacamento {
+    display: flex;
+    flex-direction: row;
+}
+.espacamento  > div {
+    margin-right: 10px;
 }

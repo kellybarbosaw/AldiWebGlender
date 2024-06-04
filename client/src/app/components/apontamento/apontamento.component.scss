@@ -24,15 +24,10 @@ form{
     margin-bottom: 10px;
 }
 
-.teste{
-    margin: 0 15px;
-    margin-bottom: 20px;
-}
-
 .botao-com-espaco {
-    margin-bottom: 15px;
-    margin-left: 20px;
-    display: inline-block;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
 }
 
 .onoff input.toggle {
@@ -42,9 +37,11 @@ form{
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
 }
-.espacoCampo{
-    padding-inline: 20px;
+.m{
+    margin-left: 0px;
 }
-.espaco{
-    padding-block: 5px;
+@media only screen and (max-width: 1030px){
+    .btnResponsivo{
+    margin-right: 10px;
+    }
 }

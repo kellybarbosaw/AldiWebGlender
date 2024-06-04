@@ -22,3 +22,11 @@
 .container-contract:hover{
     background-color: #B20600d9 !important;
 }
+.botao-com-espaco {
+    display: flex;
+    flex-direction: row;
+}
+.botao-com-espaco > div,
+.espacoCampo {
+    margin-right: 10px;
+}
