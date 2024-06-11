@@ -56,7 +56,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of emAndamento" cdkDrag>
           <mat-icon class="mr-2">hourglass_top</mat-icon>
-          {{item}}
+          <p>{{item}}</p>
         </div>
         <!-- <div class="input-group mb-3">
           <input type="text" class="form-control  mt-2" [(ngModel)]="newEmAndamento" placeholder="Insira uma tarefa em andamento" style="width: 100px; height: 30px; margin-left: 10px;">

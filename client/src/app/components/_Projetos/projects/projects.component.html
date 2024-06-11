@@ -38,15 +38,15 @@
         <div class="form-group d-flex flex-row mt-3">
             <div class="form-group">
                 <label>Cliente</label>
-                <select [(ngModel)]="Project.idcliente" type="text" class="form-control large-input" name="nome">
-                    <option value="" disabled selected hidden>Selecione um Cliente</option>
-                    <option *ngFor="let client of client$ | async">
-                        {{ client.NOME }} {{client.IDCLIENTE}}
+                <select [(ngModel)]="Project.idcliente" type="text" class="form-control large-input" name="nome" (click)="BuscarContratosDoCliente()">
+                    <option value="" selected hidden>Selecione um Cliente</option>
+                    <option *ngFor="let client of client$ | async" value="{{client.IDCLIENTE}}">
+                        {{client.NOME}}
                     </option>                  
                 </select>
             </div>
             <div class="form-group icon-container align-items-center">
-                <i (click)="openDialog()" class="bi bi-plus-circle-fill"></i>
+                <i (click)="openDialog()"class="bi bi-plus-circle-fill"></i>
             </div>
         </div>
 
@@ -55,13 +55,8 @@
                 <label>Contrato</label>
                 <select [(ngModel)]="Project.idvenda" type="text" class="form-control large-input" name="descricaovenda">
                     <option value="" disabled selected hidden>Selecione um Contrato</option>
-<<<<<<< HEAD
-                    <option *ngFor="let contrato of contrato$ | async">
-                        {{ contrato.DESCRICAOVENDA }}  {{ contrato.IDVENDA}}
-=======
-                    <option *ngFor="let contrato of contrato$ | async" {{ contrato.IDVENDA}}>
+                    <option *ngFor="let contrato of contratosDoCliente$ | async" value="{{ contrato.IDVENDA}}">
                         {{ contrato.DESCRICAOVENDA }}  
->>>>>>> 48f6753c7e84a063109edc55175f39a0977b1d7d
                     </option>
                 </select>
             </div>
@@ -72,7 +67,7 @@
 
         <div class="form-group d-flex flex-row">
             <div class="form-group">
-                <label>Tarefa</label>
+                <label style="background-color: red">Tarefa</label>
                 <select [(ngModel)]="tarefa.titulotarefa" type="text" class="form-control large-input" name="tarefas">
                     <option value="" disabled selected hidden>Selecione uma Tarefa</option>
                     <option *ngFor="let tarefa of tarefas$ | async">
@@ -87,7 +82,7 @@
 
         <div class="form-group d-flex flex-row">
             <div class="form-group">
-                <label>Tarefas do Projeto</label>
+                <label style="background-color: red">Tarefas do Projeto</label>
                 <select [(ngModel)]="projetoTarefa.titulotarefa" type="text" class="form-control large-input" name="tarefas">
                     <option value="" disabled selected hidden>Selecione uma SubTarefa</option>
                     <option *ngFor="let projetoTarefa of projetoTarefa$ | async">

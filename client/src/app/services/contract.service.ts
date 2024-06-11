@@ -13,6 +13,8 @@ export class ContractService {
 
   private url = `${environment.api}/contract`;
   private urlproject = `${environment.api}/project/contract`;
+  private urlcontract = `${environment.api}/contract/client`;
+
 
   private contractSubject = new BehaviorSubject<Contract[]>([]);
   public allContract$ = this.contractSubject.asObservable();
@@ -49,5 +51,9 @@ export class ContractService {
 
   projectsContract(id:number){
     return this.httpClient.get<Project[]>(`${this.urlproject}/${id}`) 
+  }
+
+  contractsClient(id:number){
+    return this.httpClient.get<Contract[]>(`${this.urlcontract}/${id}`) 
   }
 }

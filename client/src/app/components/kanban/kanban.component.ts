@@ -1,5 +1,5 @@
-import {Component, DoCheck} from '@angular/core';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { Component, DoCheck } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {
   CdkDragDrop,
   CdkDrag,
@@ -24,12 +24,12 @@ import { ProjectService } from '../../services/project.service';
  * @title Drag&Drop connected sorting group
  */
 
-export class DialogContentExampleDialog {}
+export class DialogContentExampleDialog { }
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CdkDropListGroup, CdkDropList, CdkDrag,FormsModule,
-    DragDropModule,CommonModule,MatIconModule, MatDialogModule],
+  imports: [CdkDropListGroup, CdkDropList, CdkDrag, FormsModule,
+    DragDropModule, CommonModule, MatIconModule, MatDialogModule],
   templateUrl: './kanban.component.html',
   styleUrls: ['./kanban.component.scss']
 })
@@ -55,58 +55,59 @@ export class KanbanComponent implements DoCheck {
   newNaoPlanejados: string = '';
 
 
-  teste:string[] = ['Cadastrar Clientes','Cadastrar Pessoas','Cadastrar Objetos']
+  teste: string[] = ['Cadastrar Clientes', 'Cadastrar Pessoas', 'Cadastrar Objetos']
 
   constructor(public dialog: MatDialog,
     private tarefaService: TarefaService,
     private projectService: ProjectService,
     private projetoTarefaService: ProjetoTarefaService) {
-      this.tarefas$ = projectService.tarefaProject(this.tarefa);
-    }
+    this.tarefas$ = projectService.tarefaProject(this.tarefa);
+  }
 
 
-  // ngOnInit(){
-  //   this.testeInfoBanco();
-  // }
+  ngOnInit() {
+    this.testeInfoBanco();
+  }
 
-   testeInfoBanco(){
+  testeInfoBanco() {
     this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('2');
-    this.projetoTarefaService.selecProjetoTarefaDoProjeto('2').subscribe((data)=>{
- 
- 
-     data.forEach(element => {
-       var teste;
-       switch (element.ETAPA.toString()) {
-         case '1':
-           this.todo.push( element.TITULOTAREFA.trim());
-           break;
-         case '2':
-           this.emAndamento.push( element.TITULOTAREFA.trim());
-           break;
-         case '3':
-           this.concluido.push( element.TITULOTAREFA.trim());
-           break;
-         case '4':
-           this.impedidos.push( element.TITULOTAREFA.trim());
-           break;
-         case '5':
-           this.naoPlanejados.push( element.TITULOTAREFA.trim());
-           break;
-       
-         default:
-           break;
-       }
-       
-     });
+    this.projetoTarefaService.selecProjetoTarefaDoProjeto('2').subscribe((data) => {
+
+      data.forEach(element => {
+        // console.log(element)
+        switch (element.ETAPA.toString()) {
+          case '1':
+            this.todo.push(element.TITULOTAREFA.trim());
+            break;
+          case '2':
+            this.emAndamento.push(element.TITULOTAREFA.trim());
+            break;
+          case '3':
+            this.concluido.push(element.TITULOTAREFA.trim());
+            break;
+          case '4':
+            this.impedidos.push(element.TITULOTAREFA.trim());
+            break;
+          case '5':
+            this.naoPlanejados.push(element.TITULOTAREFA.trim());
+            break;
+
+          default:
+            break;
+        }
+
+        console.log(this.emAndamento)
+
+      });
     })
-   }
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(TarefaComponent, {
       width: '900px',
       height: '450px',
       panelClass: 'dialog-with-scrollbar'
-  });
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
