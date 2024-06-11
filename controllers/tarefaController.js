@@ -66,6 +66,7 @@ const tarefaController = {
       dataalteracao: req.body.dataalteracao,
       usuariocriacao: req.body.usuariocriacao,
       usuarioalteracao: req.body.usuarioalteracao,
+      status: req.body.status,
     });
     
     try {
@@ -101,6 +102,7 @@ const tarefaController = {
       dataalteracao: req.body.dataalteracao,
       usuariocriacao: req.body.usuariocriacao,
       usuarioalteracao: req.body.usuarioalteracao,
+      status: req.body.status,
     });
 
     try {

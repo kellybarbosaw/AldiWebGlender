@@ -12,13 +12,12 @@ import {
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
 import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
 import { Observable } from 'rxjs';
 import { ProjetoTarefadbDB } from '../../models/projetoTarefa.model';
-import { TarefaService } from '../../services/tarefa.service';
-import { Project } from '../../models/project.model';
-import { ProjectService } from '../../services/project.service';
+import { ProjetoTarefaComponent } from '../projeto-tarefa/projeto-tarefa.component';
+import { RouterLink } from '@angular/router';
+import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
 
 /**
  * @title Drag&Drop connected sorting group
@@ -29,18 +28,12 @@ export class DialogContentExampleDialog {}
   selector: 'app-kanban',
   standalone: true,
   imports: [CdkDropListGroup, CdkDropList, CdkDrag,FormsModule,
-    DragDropModule,CommonModule,MatIconModule, MatDialogModule],
+    DragDropModule,CommonModule,MatIconModule, MatDialogModule, RouterLink],
   templateUrl: './kanban.component.html',
   styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent implements DoCheck {
   projetoTarefa$ = new Observable<ProjetoTarefadbDB[]>();
-  tarefas$ = new Observable<Project[]>();
-
-  tarefa = {
-    titulotarefa: ''
-  }
-
 
   todo: string[] = [];
   emAndamento: string[] = [];
@@ -58,51 +51,46 @@ export class KanbanComponent implements DoCheck {
   teste:string[] = ['Cadastrar Clientes','Cadastrar Pessoas','Cadastrar Objetos']
 
   constructor(public dialog: MatDialog,
-    private tarefaService: TarefaService,
-    private projectService: ProjectService,
     private projetoTarefaService: ProjetoTarefaService) {
-      this.tarefas$ = projectService.tarefaProject(this.tarefa);
     }
 
 
-  // ngOnInit(){
-  //   this.testeInfoBanco();
-  // }
+  ngOnInit(){
+    this.testeInfoBanco();
+  }
 
-   testeInfoBanco(){
-    this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('2');
-    this.projetoTarefaService.selecProjetoTarefaDoProjeto('2').subscribe((data)=>{
- 
- 
-     data.forEach(element => {
-       var teste;
-       switch (element.ETAPA.toString()) {
-         case '1':
-           this.todo.push( element.TITULOTAREFA.trim());
-           break;
-         case '2':
-           this.emAndamento.push( element.TITULOTAREFA.trim());
-           break;
-         case '3':
-           this.concluido.push( element.TITULOTAREFA.trim());
-           break;
-         case '4':
-           this.impedidos.push( element.TITULOTAREFA.trim());
-           break;
-         case '5':
-           this.naoPlanejados.push( element.TITULOTAREFA.trim());
-           break;
-       
-         default:
-           break;
-       }
-       
-     });
+  testeInfoBanco(){
+    this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('1');
+    this.projetoTarefaService.selecProjetoTarefaDoProjeto('1').subscribe((data)=>{
+
+
+    data.forEach(element => {
+      var teste;
+      switch (element.ETAPA.toString()) {
+        case '1':
+          this.todo.push( element.TITULOTAREFA.trim());
+          break;
+        case '2':
+          this.emAndamento.push( element.TITULOTAREFA.trim());
+          break;
+        case '3':
+          this.concluido.push( element.TITULOTAREFA.trim());
+          break;
+        case '4':
+          this.impedidos.push( element.TITULOTAREFA.trim());
+          break;
+        case '5':
+          this.naoPlanejados.push( element.TITULOTAREFA.trim());
+          break;
+        default:
+          break;
+      }
+    });
     })
-   }
+  }
 
   openDialog() {
-    const dialogRef = this.dialog.open(TarefaComponent, {
+    const dialogRef = this.dialog.open(ProjetoTarefaComponent, {
       width: '900px',
       height: '450px',
       panelClass: 'dialog-with-scrollbar'
@@ -112,6 +100,18 @@ export class KanbanComponent implements DoCheck {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  // openEdit() {
+  //   const dialogRef = this.dialog.open(TarefaComponent, {
+  //     width: '900px',
+  //     height: '450px',
+  //     panelClass: 'dialog-with-scrollbar'
+  // });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log(`Dialog result: ${result}`);
+  //   });
+  // }
 
   ngDoCheck() {
     // Força a detecção de alterações para atualizar a visualização quando novas tarefas são adicionadas
@@ -168,4 +168,3 @@ export class KanbanComponent implements DoCheck {
     }
   }
 }
-
