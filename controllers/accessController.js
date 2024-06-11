@@ -6,7 +6,7 @@ module.exports = function (req, res, next) {
     if(!token) return res.status(401).send('Access Denied');
 
     err = {
-        msg:'Your Not Admin: Access Denied!'
+        msg:'Your Not Admin: Access Denied!!'
     }
 
     if (req.user.perfil !== 'admin') return res.status(401).send(err);
