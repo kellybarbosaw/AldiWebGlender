@@ -26,6 +26,8 @@ import { TarefasComponent } from './components/_Tarefas/tarefas/tarefas.componen
 import { ProjetosComponent } from './components/_Projetos/projetos/projetos.component';
 import { RecursosComponent } from './components/_Recursos/recursos/recursos.component';
 import { ProjectsComponent } from './components/_Projetos/projects/projects.component';
+import { TipoRecursoComponent } from './components/_TipoRecursos/tipoRecurso/tipoRecurso.component';
+import { TipoRecursosComponent } from './components/_TipoRecursos/tipoRecursos/tipoRecursos.component';
 
 
 export const routes: Routes = [
@@ -137,6 +139,18 @@ export const routes: Routes = [
             {
                 path: 'recursos',
                 component: RecursosComponent
+            },
+            {
+                path: 'tipoRecurso',
+                component: TipoRecursoComponent
+            },
+            {
+                path: 'tipoRecursos',
+                component: TipoRecursosComponent
+            },
+            {
+                path: 'tipoRecurso/:id',
+                component: TipoRecursoComponent
             },
             {
                 path: 'home',
