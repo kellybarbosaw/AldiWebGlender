@@ -1,3 +1,4 @@
+import { ProjectService } from './../../services/project.service';
 import { Component } from '@angular/core';
 import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -5,6 +6,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormatsService } from '../../services/formats.service';
 import { NgxMaskDirective } from 'ngx-mask';
+import { Project } from '../../models/project.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { Tarefas } from '../../models/tarefa.model';
+import { TarefaService } from '../../services/tarefa.service';
 
 @Component({
   selector: 'app-projetoTarefa',
@@ -16,12 +21,14 @@ import { NgxMaskDirective } from 'ngx-mask';
 export class ProjetoTarefaComponent {
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+  ztarefas$ = new Observable<Tarefas[]>();
+  zprojeto$ = new Observable<Project[]>();
 
   projetoTarefa = {
     idprojetotarefa:'',
     idtarefa: '',
     idprojeto: '',
-    statustarefa: '',
+    //statustarefa: '',
     titulotarefa: '',
     descricaotarefa: '',
     datainicioprevista: '',
@@ -40,10 +47,16 @@ export class ProjetoTarefaComponent {
 
   constructor(
     private projetoTarefaService: ProjetoTarefaService,
+    private tarefaService: TarefaService,
+    private ProjectService: ProjectService,
     private formatService: FormatsService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+
+    this.ztarefas$ = this.tarefaService.selectTarefa();
+    this.zprojeto$ = this.ProjectService.selectContrato();
+    
     this.projetoTarefa.idprojetotarefa = this.route.snapshot.params['id'];
 
     if (this.route.snapshot.params['id'] === undefined) {
@@ -56,7 +69,7 @@ export class ProjetoTarefaComponent {
           const data = datas[0];
             (this.projetoTarefa.idtarefa = data.IDTAREFA),
             (this.projetoTarefa.idprojeto = data.IDPROJETO),
-            (this.projetoTarefa.statustarefa = data.STATUSTAREFA),
+            //(this.projetoTarefa.statustarefa = data.STATUSTAREFA),
             (this.projetoTarefa.titulotarefa = data.TITULOTAREFA),
             (this.projetoTarefa.descricaotarefa = data.DESCICAOTAREFA),
             (this.projetoTarefa.datainicioprevista = data.DATAINICIOIMPREVISTA),
@@ -117,7 +130,7 @@ export class ProjetoTarefaComponent {
         .registerProjetoTarefa({
           idtarefa: this.projetoTarefa.idtarefa,
           idprojeto: this.projetoTarefa.idprojeto,
-          statustarefa: this.projetoTarefa.statustarefa,
+          //statustarefa: this.projetoTarefa.statustarefa,
           titulotarefa: this.projetoTarefa.titulotarefa,
           descricaotarefa: this.projetoTarefa.descricaotarefa,
           datainicioprevista: this.projetoTarefa.datainicioprevista,
@@ -133,7 +146,7 @@ export class ProjetoTarefaComponent {
         })
         .subscribe((data: any) => {
           console.log(data);
-          this.router.navigate(['/user/projetoTarefa']);
+          this.router.navigate(['/user/kanban']);
         });
     } else if (this.event === 'Editar') {
       this.projetoTarefa.dtalteracao = this.formatService.dateNow();
@@ -146,7 +159,7 @@ export class ProjetoTarefaComponent {
           idprojetotarefa: this.projetoTarefa.idprojetotarefa,
           idtarefa: this.projetoTarefa.idtarefa,
           idprojeto: this.projetoTarefa.idprojeto,
-          statustarefa: this.projetoTarefa.statustarefa,
+          //statustarefa: this.projetoTarefa.statustarefa,
           titulotarefa: this.projetoTarefa.titulotarefa,
           descricaotarefa: this.projetoTarefa.descricaotarefa,
           datainicioprevista: this.projetoTarefa.datainicioprevista,
@@ -163,10 +176,11 @@ export class ProjetoTarefaComponent {
         })
         .subscribe((data: any) => {
           console.log(data);
-          this.router.navigate(['/user/projetoTarefa']);
+          this.router.navigate(['/user/kanban']);
         });
     } else {
       alert('Error!');
     }
+    //this.router.navigate(['/kanban']);
   }
 }

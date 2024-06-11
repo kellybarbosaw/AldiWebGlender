@@ -40,4 +40,9 @@ export class ProjetoTarefaService {
   selecProjetoTarefaDoProjeto(id: String){
     return this.httpClient.get<ProjetoTarefadbDB[]>(`${this.url}/projeto/${id}`)
   }
+  
+  selectProjeto(dados:any){
+    console.log(dados);
+    return this.httpClient.get<any>(`${this.url}/projeto`);
+  }
 }

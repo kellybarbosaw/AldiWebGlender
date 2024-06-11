@@ -4,7 +4,7 @@ export interface ProjetoTarefa{
 
     idtarefa: string,
     idprojeto: string,
-    statustarefa: string,
+    //statustarefa: string,
 
     titulotarefa: string,
     descricaotarefa: string,
@@ -24,7 +24,7 @@ export interface ProjetoTarefadbDB{
 
     IDTAREFA: string,
     IDPROJETO: string,
-    STATUSTAREFA: string,
+    //STATUSTAREFA: string,
 
     TITULOTAREFA: string,
     DESCRICAOTAREFA: string,

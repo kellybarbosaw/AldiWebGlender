@@ -47,4 +47,8 @@ export class TarefaService {
     return this.httpClient.delete<void>(`${this.url}/${id}`)
   }
 
+  selectTarefa(){
+    return this.httpClient.get<any>(this.url);
+  }
+
 }
