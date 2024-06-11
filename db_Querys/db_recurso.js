@@ -5,7 +5,7 @@ const connect = db.connect
 //GERENCIAMENTO DE RECURSO
 async function selectZRecursos(){
     const conn = await connect();
-    const [rows] = await conn.query('SELECT * FROM ZRECURSOS;');
+    const [rows] = await conn.query('SELECT zrecursos.*, tiporecurso.DESCRICAO, zpessoa.NOME FROM zrecursos INNER JOIN tiporecurso ON zrecursos.TIPORECURSO = TIPORECURSO.IDTIPO INNER JOIN zpessoa ON zpessoa.IDPESSOA = zrecursos.IDPESSOA');
     return rows;
 }
 async function selectZRecurso(id){
@@ -39,7 +39,7 @@ async function insertZRecurso(recurso){
 }
 async function updateZRecurso(id, recurso){
     const conn = await connect();
-    const sql = 'UPDATE ZRECURSOS SET IDPESSOA=?, TIPORECURSO=?, DATAINICIO=?, DATAFIM=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, ATIVO=?, VALORHR=? WHERE IDRECURSO = ?';
+    const sql = 'UPDATE ZRECURSOS SET IDPESSOA=?, TIPORECURSO=?, DATAINICIO=?, DATAFIM=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, ATIVO=?, VALORHR=?, WHERE IDRECURSO = ?';
     const values = [
 
         recurso.idpessoa,
@@ -63,5 +63,15 @@ async function deleteZRecurso(recurso){
     const values = [recurso];
     return await conn.query(sql,values);
 }
+async function selectZpessoas() {
+    const conn = await connect();
+    const [rows] = await conn.query("SELECT IDPESSOA, NOME FROM ZPESSOA;");
+    return rows;
+}
+async function selectTipoRecurso() {
+    const conn = await connect();
+    const [rows] = await conn.query("SELECT IDTIPO, DESCRICAO FROM TIPORECURSO;");
+    return rows;
+}
 
-module.exports = {updateZRecurso,deleteZRecurso,insertZRecurso,selectZRecursoTipo,selectZRecursos,selectZRecurso};
+module.exports = {selectTipoRecurso, selectZpessoas,updateZRecurso,deleteZRecurso,insertZRecurso,selectZRecursoTipo,selectZRecursos,selectZRecurso};

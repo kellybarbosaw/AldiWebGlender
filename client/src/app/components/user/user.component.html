@@ -51,7 +51,19 @@
                         <a [routerLink]="['/user/pessoas']" [routerLinkActive]="['activated']"
                             class="dashboard-nav-item">Todas Pessoa</a>
                     </div>
-                </div>
+                </div> 
+                <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
+                    <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
+                        data-bs-targeT="#recursoCollapse">
+                        <i class="bi bi-tools"></i>
+                        <span class="txt-link">Recursos</span>
+                        <i class="bi bi-arrow-down-short"></i>
+                    </a>
+                    <div class="collapse" id="recursoCollapse">
+                        <a [routerLink]="['/user/recurso']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Novo Recurso</a>
+                        <a [routerLink]="['/user/recursos']" [routerLinkActive]="['activated']" class="dashboard-nav-item">Todos Recursos</a>
+                    </div>
+                </div>           
                 <div data-ls-module="collapse" data-target="#accordeon0" class="ls-collapse ">
                     <a class="d-flex justify-content-between dashboard-nav-item" data-bs-toggle="collapse"
                         data-bs-targeT="#contratosCollapse">

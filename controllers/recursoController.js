@@ -47,7 +47,7 @@ const recursoController = {
             usuariocriacao: req.body.usuariocriacao,
             usuarioalteracao: req.body.usuarioalteracao,
             ativo: req.body.ativo,
-            valorhr: req.body.valorhr,
+            valorhr: req.body.valorhr
         })
         
         try {
@@ -83,7 +83,7 @@ const recursoController = {
             usuariocriacao: req.body.usuariocriacao,
             usuarioalteracao: req.body.usuarioalteracao,
             ativo: req.body.ativo,
-            valorhr: req.body.valorhr,
+            valorhr: req.body.valorhr
         })
 
         try {
@@ -104,7 +104,27 @@ const recursoController = {
         } catch (error) {
             res.status(400).send(error)
         }
-    }
+    },
+    selectZpessoas:async function (req, res) {
+        let pessoas = [];
+        try {
+            pessoas = await db.selectZpessoas();
+          res.send(pessoas);
+        } catch (error) {
+          res.status(400).send(error);
+        }
+      },
+
+      selectTipoRecurso: async function (req, res) {
+
+        let tipoRecurso = [];
+        try {
+            tipoRecurso = await db.selectTipoRecurso();
+            res.send(tipoRecurso);
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    },
 };
 
 module.exports = recursoController

@@ -55,8 +55,13 @@
                 <label>Contrato</label>
                 <select [(ngModel)]="Project.idvenda" type="text" class="form-control large-input" name="descricaovenda">
                     <option value="" disabled selected hidden>Selecione um Contrato</option>
+<<<<<<< HEAD
+                    <option *ngFor="let contrato of contrato$ | async">
+                        {{ contrato.DESCRICAOVENDA }}  {{ contrato.IDVENDA}}
+=======
                     <option *ngFor="let contrato of contrato$ | async" {{ contrato.IDVENDA}}>
                         {{ contrato.DESCRICAOVENDA }}  
+>>>>>>> 48f6753c7e84a063109edc55175f39a0977b1d7d
                     </option>
                 </select>
             </div>
