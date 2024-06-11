@@ -1,0 +1,27 @@
+<div class="panel">
+    <div class="customer-pessoa bg-light">
+        <div class="formCadastro d-flex justify-content-center ">
+            <form #form="ngForm" (ngSubmit)="registerTipoRecurso(form)" >
+                    <div>
+                        <h2 class="fonte">Tipo Recurso</h2><hr>
+    
+                        <div class="form-group d-flex flex-row">
+                            <div class="form-group">
+                                <label>Tipo Recurso:</label>
+                                <input [(ngModel)]="tipoRecurso.descricao" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !tipoRecurso.descricao}"
+                                    placeholder="nome" name="descricao" >
+                            </div>
+                    </div>
+                    </div>
+                    <div style='text-align:right'>
+                        <div class="btn btn-primary btn-stage" (click)="registerTipoRecurso(form)">{{event}}</div>
+                    </div>
+            </form>
+            <div class="botao-com-espaco" >
+                <div>
+                    <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
