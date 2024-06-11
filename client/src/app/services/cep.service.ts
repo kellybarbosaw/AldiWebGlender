@@ -50,7 +50,7 @@ export class CepService {
   
     return this.httpClient.get<any>(`${this.urlCnpj}/${cnpj}/days/1`, httpOptions)
   }
-  
+
   buscarCep(cep:any){
     return this.httpClient.get<any>(`${this.urlCepapi}/${cep}/json/`)
   };

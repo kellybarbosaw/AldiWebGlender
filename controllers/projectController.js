@@ -68,7 +68,7 @@ const projectController = {
         const { error } = registerValidate(req.body)
         if (error) { return res.status(400).send(error.message) };
 
-
+        
         const newProjectt = new Object({
             titulo: req.body.titulo,
             descricao: req.body.descricao,
@@ -87,6 +87,8 @@ const projectController = {
             valorprojeto: req.body.valorprojeto,
             valorconsumido: req.body.valorconsumido
         })
+
+        if(newProjectt.idvenda === '0') newProjectt.idvenda = null;
 
         try {
             const savedProject = await db.insertProject(newProjectt);
@@ -121,6 +123,8 @@ const projectController = {
             valorprojeto: req.body.valorprojeto,
             valorconsumido: req.body.valorconsumido
         })
+
+        if(newProjectt.idvenda === '0') newProjectt.idvenda = null;
 
         try {
             const savedProject = await db.updateProject(req.body.idprojeto, updateProject);

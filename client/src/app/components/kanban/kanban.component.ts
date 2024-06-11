@@ -1,5 +1,5 @@
-import {Component, DoCheck} from '@angular/core';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { Component, DoCheck } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {
   CdkDragDrop,
   CdkDrag,
@@ -23,7 +23,7 @@ import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
  * @title Drag&Drop connected sorting group
  */
 
-export class DialogContentExampleDialog {}
+export class DialogContentExampleDialog { }
 @Component({
   selector: 'app-kanban',
   standalone: true,
@@ -48,7 +48,7 @@ export class KanbanComponent implements DoCheck {
   newNaoPlanejados: string = '';
 
 
-  teste:string[] = ['Cadastrar Clientes','Cadastrar Pessoas','Cadastrar Objetos']
+  teste: string[] = ['Cadastrar Clientes', 'Cadastrar Pessoas', 'Cadastrar Objetos']
 
   constructor(public dialog: MatDialog,
     private projetoTarefaService: ProjetoTarefaService) {
@@ -94,7 +94,7 @@ export class KanbanComponent implements DoCheck {
       width: '900px',
       height: '450px',
       panelClass: 'dialog-with-scrollbar'
-  });
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);

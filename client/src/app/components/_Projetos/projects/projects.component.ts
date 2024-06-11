@@ -15,6 +15,7 @@ import { ClientComponent } from '../../_Clientes/client/client.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { VendaComponent } from '../../_Contratos/venda/venda.component';
 import { Project } from '../../../models/project.model';
+import { Contract } from '../../../models/contract.model';
 import { TarefaComponent } from '../../_Tarefas/tarefa/tarefa.component';
 import { ProjetoTarefaComponent } from '../../projeto-tarefa/projeto-tarefa.component';
 
@@ -34,6 +35,7 @@ export class ProjectsComponent {
   client$ = new Observable<Project[]>();
   tarefas$ = new Observable<Project[]>();
   contrato$ = new Observable<Project[]>();
+  contratosDoCliente$ = new Observable<Contract[]>();
   projetoTarefa$ = new Observable<Project[]>();
 
   infoteste!: string;
@@ -246,6 +248,7 @@ export class ProjectsComponent {
   }
 
   registerProject (form: NgForm) { 
+    console.log(this.Project)
     if (!this.Project.dtinicioprojeto || !this.Project.titulo || !this.Project.descricao || !this.Project.dtconclusaoprojeto 
     ) {
       alert('preencha os campos');
@@ -328,5 +331,11 @@ export class ProjectsComponent {
     if(nome === 'cliente') this.busca_cliente_contrato = nome
     if(nome === 'contrato') this.busca_cliente_contrato = nome
   }
+
+  BuscarContratosDoCliente(){
+    this.contratosDoCliente$ = this.contractService.contractsClient(parseInt(this.Project.idcliente));
+    console.log(this.Project)
+  }
+
 
 }
