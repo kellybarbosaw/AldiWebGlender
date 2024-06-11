@@ -63,4 +63,8 @@ export class ProjectService {
   projetoTarefaProject(dados:any){
     return this.httpClient.get<any>(`${this.url}/projetoTarefa`);
   }
+
+  selectContrato(){
+    return this.httpClient.get<any>(this.url);
+  }
 }

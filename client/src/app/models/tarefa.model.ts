@@ -7,7 +7,8 @@ export interface Tarefas {
     DATACRIACAO : string,
     DATAALTERACAO : string,
     USUARIOCRIACAO : string,
-    USUARIOALTERACAO : string
+    USUARIOALTERACAO : string,
+    STATUS: number
     }
 
 
@@ -20,7 +21,8 @@ export interface Tarefa {
     datacriacao : string,
     dataalteracao : string,
     usuariocriacao : string,
-    usuarioalteracao : string
+    usuarioalteracao : string,
+    status: number
     }
 
     export type CreateTarefa = Omit<Tarefa,"idtarefa">;

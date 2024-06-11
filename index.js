@@ -25,7 +25,8 @@ const path = require('path');
 //tudo que vier de requisião com url '/user' , pegamos do body com express.json e usamos o 
 //userRouter(gerenciador de rotas de cada modulo) para identificar o restante da rota e mandar para o controlador correto
 app.use(cors({
-    origin:"https://aldiweb.com.br",
+    // origin:"https://aldiweb.com.br",
+    origin:"http://localhost:4200",
     methods:["GET","POST","PUT","DELETE"],
     exposedHeaders: ['Quantidades_Registros']
 }))

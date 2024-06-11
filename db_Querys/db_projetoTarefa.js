@@ -37,7 +37,7 @@ const connect = db.connect
   async function insertAProjetoTarefa(projetoTarefa) {
     const conn = await connect(); //IDPESSOA
     const sql =
-      "INSERT INTO APROJETOTAREFA (IDPROJETO, IDTAREFA, TITULOTAREFA, DESCRICAOTAREFA, DATAINICIOPREVISTA, DATAFIMPREVISTA, DTCRIACAO, DTALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO, STATUSTAREFA, HORASESTIMADAS, HORASGASTAS, SALDOHORAS, ETAPA)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      "INSERT INTO APROJETOTAREFA (IDPROJETO, IDTAREFA, TITULOTAREFA, DESCRICAOTAREFA, DATAINICIOPREVISTA, DATAFIMPREVISTA, DTCRIACAO, DTALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO, HORASESTIMADAS, HORASGASTAS, SALDOHORAS, ETAPA)  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     const values = [
       projetoTarefa.idprojeto,
       projetoTarefa.idtarefa,
@@ -49,7 +49,7 @@ const connect = db.connect
       projetoTarefa.dtalteracao,
       projetoTarefa.usuariocriacao,
       projetoTarefa.usuarioalteracao,
-      projetoTarefa.statustarefa,
+      //projetoTarefa.statustarefa,
       projetoTarefa.horasestimadas,
       projetoTarefa.horasgastas,
       projetoTarefa.saldohoras,
@@ -61,7 +61,7 @@ const connect = db.connect
   async function updateAProjetoTarefa(id, projetoTarefa) {
     const conn = await connect();
     const sql =
-      "UPDATE APROJETOTAREFA SET IDPROJETO=?, IDTAREFA=?, TITULOTAREFA=?, DESCRICAOTAREFA=?, DATAINICIOPREVISTA=?, DATAFIMPREVISTA=?, DTCRIACAO=?, DTALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, STATUSTAREFA=?, HORASESTIMADAS=?, HORASGASTAS=?, SALDOHORAS=?, ETAPA=? WHERE IDPROJETOTAREFA= ?;"
+      "UPDATE APROJETOTAREFA SET IDPROJETO=?, IDTAREFA=?, TITULOTAREFA=?, DESCRICAOTAREFA=?, DATAINICIOPREVISTA=?, DATAFIMPREVISTA=?, DTCRIACAO=?, DTALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, HORASESTIMADAS=?, HORASGASTAS=?, SALDOHORAS=?, ETAPA=? WHERE IDPROJETOTAREFA= ?;"
     const values = [
       projetoTarefa.idprojeto,
       projetoTarefa.idtarefa,
@@ -73,7 +73,7 @@ const connect = db.connect
       projetoTarefa.dtalteracao,
       projetoTarefa.usuariocriacao,
       projetoTarefa.usuarioalteracao,
-      projetoTarefa.statustarefa,
+      //projetoTarefa.statustarefa,
       projetoTarefa.horasestimadas,
       projetoTarefa.horasgastas,
       projetoTarefa.saldohoras,
@@ -88,5 +88,15 @@ const connect = db.connect
     const values = [projetoTarefa];
     return await conn.query(sql, values);
   }
+  async function selectTarefa(){
+    const conn = await connect();
+    const [rows] = await conn.query("SELECT TITULOTAREFA FROM ATAREFA;");
+    return rows;
+}
+  async function selectProjeto(){
+    const conn = await connect();
+    const [rows] = await conn.query('SELECT TITULO FROM APROJETO;');
+    return rows;
+}
 
-  module.exports = {selectAProjetoTarefas,selectAProjetoTarefa,insertAProjetoTarefa,updateAProjetoTarefa,deleteAProjetoTarefa,selectAProjetoTarefaTitulo,selectAProjetoTarefaWithIdProjeto};
+  module.exports = {selectProjeto,selectTarefa,selectAProjetoTarefas,selectAProjetoTarefa,insertAProjetoTarefa,updateAProjetoTarefa,deleteAProjetoTarefa,selectAProjetoTarefaTitulo,selectAProjetoTarefaWithIdProjeto};

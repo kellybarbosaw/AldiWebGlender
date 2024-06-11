@@ -6,14 +6,14 @@ const connect = db.connect
 async function selectATarefas() {
     const conn = await connect();
     const [rows] = await conn.query(
-      "SELECT IDTAREFA, TITULOTAREFA, DESCRICAOTAREFA, HORASESTIMADAS, DATE_FORMAT(DATACRIACAO,'%Y/%m/%d') as DATACRIACAO, DATE_FORMAT(DATAALTERACAO,'%Y/%m/%d') as DATAALTERACAO , USUARIOCRIACAO, USUARIOALTERACAO FROM ATAREFA;"
+      "SELECT IDTAREFA, TITULOTAREFA, DESCRICAOTAREFA, HORASESTIMADAS, DATE_FORMAT(DATACRIACAO,'%Y/%m/%d') as DATACRIACAO, DATE_FORMAT(DATAALTERACAO,'%Y/%m/%d') as DATAALTERACAO , USUARIOCRIACAO, USUARIOALTERACAO, STATUS FROM ATAREFA;"
     );
     return rows;
   }
   async function selectATarefa(id) {
     const conn = await connect();
     const tarefa = await conn.query(
-      "SELECT IDTAREFA, TITULOTAREFA, DESCRICAOTAREFA, HORASESTIMADAS, DATE_FORMAT(DATACRIACAO,'%Y/%m/%d') as DATACRIACAO, DATE_FORMAT(DATAALTERACAO,'%Y/%m/%d') as DATAALTERACAO , USUARIOCRIACAO, USUARIOALTERACAO FROM ATAREFA WHERE IDTAREFA =?",
+      "SELECT IDTAREFA, TITULOTAREFA, DESCRICAOTAREFA, HORASESTIMADAS, DATE_FORMAT(DATACRIACAO,'%Y/%m/%d') as DATACRIACAO, DATE_FORMAT(DATAALTERACAO,'%Y/%m/%d') as DATAALTERACAO , USUARIOCRIACAO, USUARIOALTERACAO, STATUS FROM ATAREFA WHERE IDTAREFA =?",
       id
     );
     return tarefa;
@@ -29,7 +29,7 @@ async function selectATarefas() {
   async function insertATarefa(tarefa) {
     const conn = await connect();
     const sql =
-      "INSERT INTO ATAREFA (TITULOTAREFA, DESCRICAOTAREFA, HORASESTIMADAS, DATACRIACAO, DATAALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO) VALUES (?,?,?,?,?,?,?);";
+      "INSERT INTO ATAREFA (TITULOTAREFA, DESCRICAOTAREFA, HORASESTIMADAS, DATACRIACAO, DATAALTERACAO, USUARIOCRIACAO, USUARIOALTERACAO, STATUS) VALUES (?,?,?,?,?,?,?,?);";
     const values = [
       tarefa.titulotarefa,
       tarefa.descricaotarefa,
@@ -38,19 +38,21 @@ async function selectATarefas() {
       tarefa.dataalteracao,
       tarefa.usuariocriacao,
       tarefa.usuarioalteracao,
+      tarefa.status,
     ];
     await conn.query(sql, values);
   }
   async function updateATarefa(id, tarefa) {
     const conn = await connect();
     const sql =
-      "UPDATE ATAREFA SET TITULOTAREFA= ?, DESCRICAOTAREFA= ?, HORASESTIMADAS= ?, DATAALTERACAO= ?, USUARIOALTERACAO= ? WHERE IDTAREFA= ?";
+      "UPDATE ATAREFA SET TITULOTAREFA= ?, DESCRICAOTAREFA= ?, HORASESTIMADAS= ?, DATAALTERACAO= ?, USUARIOALTERACAO= ?, STATUS=? WHERE IDTAREFA= ?";
     const values = [
       tarefa.titulotarefa,
       tarefa.descricaotarefa,
       tarefa.horasestimadas,
       tarefa.dataalteracao,
       tarefa.usuarioalteracao,
+      tarefa.status,
       id,
     ];
     return await conn.query(sql, values);

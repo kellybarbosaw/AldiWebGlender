@@ -31,6 +31,7 @@ export class TarefaComponent {
     dataalteracao: '',
     usuariocriacao: '',
     usuarioalteracao: '',
+    status: 0
   };
 
   event = 'Cadastrar';
@@ -58,7 +59,8 @@ export class TarefaComponent {
             (this.tarefa.datacriacao = data.DATACRIACAO),
             (this.tarefa.dataalteracao = data.DATAALTERACAO),
             (this.tarefa.usuariocriacao = data.USUARIOCRIACAO),
-            (this.tarefa.usuarioalteracao = data.USUARIOALTERACAO);
+            (this.tarefa.usuarioalteracao = data.USUARIOALTERACAO),
+            (this.tarefa.status = data.STATUS);
 
             this.tarefa.datacriacao = this.formatService.formatDate(data.DATACRIACAO!);
           this.tarefa.dataalteracao = this.formatService.formatDate(data.DATAALTERACAO!);
@@ -74,13 +76,15 @@ export class TarefaComponent {
     if (
       !this.tarefa.titulotarefa ||
       !this.tarefa.descricaotarefa ||
-      !this.tarefa.horasestimadas
+      !this.tarefa.horasestimadas ||
+      !this.tarefa.status 
     ) {
       alert('Preencha todos os campos');
       this.camposPreenchidos = (
         form.controls['titulotarefa'].valid &&
         form.controls['descricaotarefa'].valid &&
-        form.controls['horasestimadas'].valid
+        form.controls['horasestimadas'].valid &&
+        form.controls['status'].valid
 
       );
       this.botaoClicado = true;
@@ -103,6 +107,7 @@ export class TarefaComponent {
           dataalteracao: this.tarefa.dataalteracao,
           usuariocriacao: this.tarefa.usuariocriacao,
           usuarioalteracao: this.tarefa.usuarioalteracao,
+          status: this.tarefa.status
         }).pipe(
           catchError(err => {
             this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
@@ -132,6 +137,7 @@ export class TarefaComponent {
           dataalteracao: this.tarefa.dataalteracao,
           usuariocriacao: this.tarefa.usuariocriacao,
           usuarioalteracao: this.tarefa.usuarioalteracao,
+          status: this.tarefa.status
         }).pipe(
           catchError(err => {
             this.messageriaService.messagesRequest('Ocorreu um Error', err.error.message, 'messages', 'danger')
