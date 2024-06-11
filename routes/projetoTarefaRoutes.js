@@ -6,6 +6,8 @@ const authProfile = require('../controllers/accessController');
 
 router.get("/",auth, projetoTarefaController.select);
 router.get("/:id",auth, projetoTarefaController.selectId);
+router.get('/tarefas',auth,projetoTarefaController.selectTarefa);
+router.get('/projeto',auth,projetoTarefaController.selectProjeto);
 router.get("/projeto/:id", projetoTarefaController.selectAProjetoTarefaWithIdProjeto);
 router.post("/",auth, projetoTarefaController.register);
 router.put("/",auth,authProfile, projetoTarefaController.update);

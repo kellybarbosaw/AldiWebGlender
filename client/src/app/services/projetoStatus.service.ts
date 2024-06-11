@@ -33,4 +33,8 @@ export class ProjetoStatusService {
   deleteProjetoStatus(id:string){
     return this.httpClient.delete<void>(`${this.url}/${id}`)
   }
+
+  selectStatusTarefa(){
+    return this.httpClient.get<any>(this.url);
+  }
 }

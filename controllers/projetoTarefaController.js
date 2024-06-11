@@ -121,6 +121,25 @@ const projetoTarefaController = {
       res.status(400).send(error);
     }
   },
+  selectTarefa: async function (req, res) {
+    let tarefas = [];
+    try {
+        tarefas = await db.selectTarefa();
+        res.send(tarefas);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+},
+
+selectProjeto: async function (req, res) {
+  let projetos = [];
+  try {
+    projetos = await db.selectProjeto();
+      res.send(projetos);
+  } catch (error) {
+      res.status(400).send(error);
+  }
+},
 };
 
 module.exports = projetoTarefaController;
