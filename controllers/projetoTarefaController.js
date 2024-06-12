@@ -104,6 +104,16 @@ const projetoTarefaController = {
     }
   },
 
+  updateEtapa: async function (req, res) {
+    try {
+      const salvarProjetoTarefa = await db.updateAProjetoTarefaEtapa(req.params.id,req.body.etapa);
+      res.status(200).send(salvarProjetoTarefa);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+
+  },
+
   delete: async function (req, res) {
     try {
       const deleteProjetoTarefa = await db.deleteAProjetoTarefa(req.params.id);

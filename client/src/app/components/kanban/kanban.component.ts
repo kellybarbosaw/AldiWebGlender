@@ -13,11 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { ProjetoTarefadbDB } from '../../models/projetoTarefa.model';
 import { ProjetoTarefaComponent } from '../projeto-tarefa/projeto-tarefa.component';
 import { RouterLink } from '@angular/router';
 import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
+import { Console } from 'console';
 
 /**
  * @title Drag&Drop connected sorting group
@@ -27,19 +28,19 @@ export class DialogContentExampleDialog { }
 @Component({
   selector: 'app-kanban',
   standalone: true,
-  imports: [CdkDropListGroup, CdkDropList, CdkDrag,FormsModule,
-    DragDropModule,CommonModule,MatIconModule, MatDialogModule, RouterLink],
+  imports: [CdkDropListGroup, CdkDropList, CdkDrag, FormsModule,
+    DragDropModule, CommonModule, MatIconModule, MatDialogModule, RouterLink],
   templateUrl: './kanban.component.html',
   styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent implements DoCheck {
   projetoTarefa$ = new Observable<ProjetoTarefadbDB[]>();
 
-  todo: string[] = [];
-  emAndamento: string[] = [];
-  concluido: string[] = [];
-  impedidos: string[] = [];
-  naoPlanejados: string[] = [];
+  todo:  Object[] = [];
+  emAndamento: Object[] = [];
+  concluido: Object[] = [];
+  impedidos: Object[] = [];
+  naoPlanejados: Object[] = [];
 
   newTodo: string = '';
   newEmAndamento: string = '';
@@ -52,40 +53,51 @@ export class KanbanComponent implements DoCheck {
 
   constructor(public dialog: MatDialog,
     private projetoTarefaService: ProjetoTarefaService) {
-    }
-
-
-  ngOnInit(){
-    this.testeInfoBanco();
   }
 
-  testeInfoBanco(){
-    this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('1');
-    this.projetoTarefaService.selecProjetoTarefaDoProjeto('1').subscribe((data)=>{
+
+  ngOnInit() {
+    this.testeInfoBanco();
+    console.log("this.todo")
+    console.log(this.todo)
+  }
+
+  recarregar() {
+    this.todo = [];
+    this.emAndamento = [];
+    this.concluido = [];
+    this.impedidos = [];
+    this.naoPlanejados = []
+
+    this.ngOnInit();
+  }
+
+  testeInfoBanco() {
+    this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('25');
+    this.projetoTarefaService.selecProjetoTarefaDoProjeto('25').subscribe((data) => {
 
 
-    data.forEach(element => {
-      var teste;
-      switch (element.ETAPA.toString()) {
-        case '1':
-          this.todo.push( element.TITULOTAREFA.trim());
-          break;
-        case '2':
-          this.emAndamento.push( element.TITULOTAREFA.trim());
-          break;
-        case '3':
-          this.concluido.push( element.TITULOTAREFA.trim());
-          break;
-        case '4':
-          this.impedidos.push( element.TITULOTAREFA.trim());
-          break;
-        case '5':
-          this.naoPlanejados.push( element.TITULOTAREFA.trim());
-          break;
-        default:
-          break;
-      }
-    });
+      data.forEach(element => {
+        switch (element.ETAPA.toString()) {
+          case '1':
+            this.todo.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
+            break;
+          case '2':
+            this.emAndamento.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
+            break;
+          case '3':
+            this.concluido.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
+            break;
+          case '4':
+            this.impedidos.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
+            break;
+          case '5':
+            this.naoPlanejados.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
+            break;
+          default:
+            break;
+        }
+      });
     })
   }
 
@@ -121,7 +133,21 @@ export class KanbanComponent implements DoCheck {
     this.todo = [...this.todo];
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  testeF() {
+    this.projetoTarefaService.editProjetoTarefaEtapa(5, 10)
+      .pipe(
+        catchError(err => {
+          console.log(err)
+          return of();
+        })
+      ).subscribe((data) => {
+        this.recarregar();
+      })
+    // this.projetoTarefaService.deleteProjetoTarefa(`2`)
+  }
+
+  drop(event: CdkDragDrop<object[]>) {
+
     if (event.previousContainer === event.container) {
       // Se o item for descartado na mesma lista, basta reordenar a lista
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -133,6 +159,8 @@ export class KanbanComponent implements DoCheck {
         event.previousIndex,
         event.currentIndex
       );
+      console.log(event)
+      console.log(event.container.data)
     }
   }
 
@@ -164,7 +192,11 @@ export class KanbanComponent implements DoCheck {
   addNaoPlanejados() {
     if (this.newNaoPlanejados.trim() !== '') {
       this.naoPlanejados.push(this.newNaoPlanejados.trim());
+      console.log(this.newNaoPlanejados.trim())
+      // this.projetoTarefaService.editProjetoTarefaEtapa()
       this.newNaoPlanejados = ''; // Limpar entrada após adicionar
     }
   }
+
+
 }
