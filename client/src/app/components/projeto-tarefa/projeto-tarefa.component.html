@@ -16,15 +16,6 @@
                 </select>
           </div>
 
-          <!-- <select [(ngModel)]="projetoTarefa.titulotarefa" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.titulotarefa}"
-                  placeholder="Usuário" name="titulotarefa">
-                  <option value="" disabled selected hidden>Selecione a tarefa</option>
-                  <option *ngFor="let tarefa of tarefas$ | async"
-                      [ngValue]="titulotarefa.TITULO">
-                      {{usuario.NOME}}
-                  </option>
-                </select> -->
-
           <div class="form-group mb-3">
             <label>Projeto:</label>
             <select [(ngModel)]="projetoTarefa.idprojeto" type="number" class="form-control" 
@@ -36,13 +27,6 @@
                     </option>                  
                 </select>
           </div>
-
-          <!-- <div class="form-group mb-3">
-            <label>Status da Tarefa</label>
-            <input [(ngModel)]="projetoTarefa.statustarefa" type="number" class="form-control"
-            placeholder="Status da Tarefa já precisa estar criado" name="statustarefa"
-            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.statustarefa}">
-          </div> -->
 
           <div class="form-group mb-3">
             <label>Título da tarefa do projeto</label>
@@ -98,15 +82,11 @@
             <div class="form-group mb-3">
                 <label>Saldo de horas: </label>
                 <input [(ngModel)]="projetoTarefa.saldohoras" type="text" class="form-control"
-                name="saldohoras" mask="0*:00:00" placeholder="00:00:00"
-                [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.saldohoras}">
+                name="saldohoras" mask="0*:00:00" placeholder="00:00:00" disabled>
             </div>
           </div>
           <div class="form-group mb-3">
             <label>Etapa</label>
-            <!-- <input [(ngModel)]="projetoTarefa.etapa" type="number" class="form-control"
-            placeholder="Qual a etapa?" name="etapa"
-            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.etapa}"> -->
             <select [(ngModel)]="projetoTarefa.etapa" type="number" class="form-control"
             placeholder="Qual a etapa?" name="etapa"
             [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.etapa}">

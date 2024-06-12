@@ -99,7 +99,6 @@ export class ProjetoTarefaComponent {
       !this.projetoTarefa.datafimprevista ||
       !this.projetoTarefa.horasestimadas ||
       !this.projetoTarefa.horasgastas ||
-      !this.projetoTarefa.saldohoras ||
       !this.projetoTarefa.etapa
     ) {
       alert('Preencha todos os campos');
@@ -110,7 +109,6 @@ export class ProjetoTarefaComponent {
         form.controls['datafimprevista'].valid &&
         form.controls['horasestimadas'].valid &&
         form.controls['horasgastas'].valid &&
-        form.controls['saldohoras'].valid &&
         form.controls['etapa'].valid
       );
       this.botaoClicado = true;
