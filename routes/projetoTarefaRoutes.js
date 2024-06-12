@@ -11,6 +11,7 @@ router.get('/projeto',auth,projetoTarefaController.selectProjeto);
 router.get("/projeto/:id", projetoTarefaController.selectAProjetoTarefaWithIdProjeto);
 router.post("/",auth, projetoTarefaController.register);
 router.put("/",auth,authProfile, projetoTarefaController.update);
+router.put("/mudarEtapa/:id",auth, projetoTarefaController.updateEtapa);
 router.delete("/:id",auth,authProfile, projetoTarefaController.delete);
 
 module.exports = router;

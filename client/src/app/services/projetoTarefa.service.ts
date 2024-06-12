@@ -25,8 +25,11 @@ export class ProjetoTarefaService {
   }
 
   editProjetoTarefa(projetoTarefa:ProjetoTarefa){
-    console.log(projetoTarefa)
     return this.httpClient.put<ProjetoTarefa>(this.url, projetoTarefa)
+  }
+
+  editProjetoTarefaEtapa(etapa:number,id:number){
+  return this.httpClient.put<ProjetoTarefa>(`${this.url}/mudarEtapa/${id}`, {"etapa":etapa})
   }
 
   deleteProjetoTarefa(id:string){
