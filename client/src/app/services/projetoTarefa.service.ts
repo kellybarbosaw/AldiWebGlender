@@ -28,7 +28,7 @@ export class ProjetoTarefaService {
     return this.httpClient.put<ProjetoTarefa>(this.url, projetoTarefa)
   }
 
-  editProjetoTarefaEtapa(etapa:number,id:number){
+  editProjetoTarefaEtapa(etapa:number,id:string){
   return this.httpClient.put<ProjetoTarefa>(`${this.url}/mudarEtapa/${id}`, {"etapa":etapa})
   }
 

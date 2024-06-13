@@ -10,7 +10,6 @@
 <div class="panel">
 <div cdkDropListGroup>
   <h2 class="text-center mt-4 mb-4"><b>QUADRO KANBAN</b><hr></h2>
-  <button class="btn btn-danger" (click)="testeF()">teste</button>
 
     <!-- <div class="input-group mb-3">
       <input type="text" class="form-control" [(ngModel)]="newTodo" placeholder="Insira uma nova Tarefa" style="width: 200px; height: 40px;">
@@ -32,7 +31,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of todo" cdkDrag>
           <mat-icon class="mr-2">task</mat-icon>
-          {{ item }}
+          {{ item.TITULOTAREFA }}
         </div>
       <div class="card" (click)="openDialog()">
         <div class="input-group mb-3">
@@ -54,7 +53,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of emAndamento" cdkDrag>
           <mat-icon class="mr-2">hourglass_top</mat-icon>
-          <p>{{item}}</p>
+          <p>{{item.TITULOTAREFA}}</p>
         </div>
       </div>
     </div>
@@ -71,7 +70,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of concluido" cdkDrag>
           <mat-icon class="mr-2">check_circle_outline</mat-icon>
-          {{item}}
+          {{item.TITULOTAREFA}}
         </div>
       </div>
     </div>
@@ -90,7 +89,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of impedidos" cdkDrag>
           <mat-icon class="mr-2">warning</mat-icon>
-          {{item}}
+          {{item.TITULOTAREFA}}
         </div>
       </div>
     </div>
@@ -108,7 +107,7 @@
         (cdkDropListDropped)="drop($event)">
         <div class="example-box" *ngFor="let item of naoPlanejados" cdkDrag>
           <mat-icon class="mr-2">highlight_off</mat-icon>
-          {{item}}
+          {{item.TITULOTAREFA}}
         </div>
       <div class="card" (click)="openDialog()">
         <div class="input-group mb-3">
