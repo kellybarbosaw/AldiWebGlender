@@ -18,6 +18,10 @@ import { ProjetoTarefadbDB } from '../../models/projetoTarefa.model';
 import { ProjetoTarefaComponent } from '../projeto-tarefa/projeto-tarefa.component';
 import { RouterLink } from '@angular/router';
 import { TarefaComponent } from '../_Tarefas/tarefa/tarefa.component';
+import { Client } from '../../models/client.model';
+import { ClientService } from "../../services/client.service";
+import { ProjectService } from '../../services/project.service';
+import { Project } from '../../models/project.model';
 
 /**
  * @title Drag&Drop connected sorting group
@@ -47,16 +51,38 @@ export class KanbanComponent implements DoCheck {
   newImpedidos: string = '';
   newNaoPlanejados: string = '';
 
+  client$ = new Observable<Client[]>();
+  Projetos$ = new Observable<Project[]>();
 
-  teste: string[] = ['Cadastrar Clientes', 'Cadastrar Pessoas', 'Cadastrar Objetos']
+  clienteEscolhido = {
+    idcliente: 0,
+    nome: ''
+  }
+
+  ProjetoEscolhido = {
+    idprojeto: 0,
+    nome: ''
+  }
+
+
+  // teste: string[] = ['Cadastrar Clientes', 'Cadastrar Pessoas', 'Cadastrar Objetos']
 
   constructor(public dialog: MatDialog,
-    private projetoTarefaService: ProjetoTarefaService) {
+    private projetoTarefaService: ProjetoTarefaService,
+    private clienteService: ClientService,
+    private projetoService: ProjectService
+  ) {
   }
 
 
   ngOnInit() {
-    this.testeInfoBanco();
+    // this.SeparaTarefasPorEtapa(this.projetoTarefa);
+    this.client$ = this.clienteService.Allclients();
+    this.Projetos$ = this.projetoService.allProjects();
+
+    this.projetoTarefaService.allProjetoTarefa().subscribe((data) => {
+      this.SeparaTarefasPorEtapa(data)
+    });
   }
 
   recarregar() {
@@ -65,38 +91,70 @@ export class KanbanComponent implements DoCheck {
     this.concluido = [];
     this.impedidos = [];
     this.naoPlanejados = []
-
-    this.ngOnInit();
   }
 
-  testeInfoBanco() {
-    this.projetoTarefa$ = this.projetoTarefaService.selecProjetoTarefaDoProjeto('25');
-    this.projetoTarefaService.selecProjetoTarefaDoProjeto('25').subscribe((data) => {
+  buscarTarefasFiltro() {
+    this.recarregar();
 
+    if (this.ProjetoEscolhido.idprojeto != 0) {
+      this.BuscaTaredasPorProjeto(this.ProjetoEscolhido.idprojeto.toString());
+    } else if (this.ProjetoEscolhido.idprojeto == 0 && this.clienteEscolhido.idcliente != 0) {
+      this.BuscaTaredasPorCliente(this.clienteEscolhido.idcliente.toString());
+    }
+    else {
+      this.ngOnInit();
+    }
+  }
 
-      data.forEach(element => {
-        switch (element.ETAPA.toString()) {
-          case '1':
-            // this.todo.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
-            this.todo.push(element);
-            break;
-          case '2':
-            this.emAndamento.push(element);
-            break;
-          case '3':
-            this.concluido.push(element);
-            break;
-          case '4':
-            this.impedidos.push(element);
-            break;
-          case '5':
-            this.naoPlanejados.push(element);
-            break;
-          default:
-            break;
-        }
-      });
+  tarefasBuscaCliente(idCliente: number) {
+    if (this.clienteEscolhido.idcliente != 0) this.Projetos$ = this.projetoService.projectsWithClients(idCliente)
+    else this.Projetos$ = this.projetoService.allProjects();
+  }
+
+  // tarefasBuscaProjeto(idprojeto: number) {
+  //   this.recarregar();
+  //   this.BuscaTaredasPorProjeto(idprojeto.toString());
+  // }
+
+  BuscaTaredasPorProjeto(idprojeto: string) {
+    this.projetoTarefa$ = this.projetoTarefaService.selectProjetoTarefaDoProjeto(idprojeto);
+    this.projetoTarefaService.selectProjetoTarefaDoProjeto(idprojeto).subscribe((data) => {
+
+      this.SeparaTarefasPorEtapa(data)
     })
+  }
+  BuscaTaredasPorCliente(idCliente: string) {
+    this.projetoTarefaService.selectProjetoTarefaComCliente(idCliente).subscribe((data) => {
+
+      this.SeparaTarefasPorEtapa(data)
+    })
+  }
+
+
+  SeparaTarefasPorEtapa(data: ProjetoTarefadbDB[]) {
+
+    data.forEach(element => {
+      switch (element.ETAPA.toString()) {
+        case '1':
+          this.todo.push(element);
+          break;
+        case '2':
+          this.emAndamento.push(element);
+          break;
+        case '3':
+          this.concluido.push(element);
+          break;
+        case '4':
+          this.impedidos.push(element);
+          break;
+        case '5':
+          this.naoPlanejados.push(element);
+          break;
+        default:
+          break;
+      }
+    });
+
   }
 
   openDialog() {
@@ -131,7 +189,7 @@ export class KanbanComponent implements DoCheck {
     this.todo = [...this.todo];
   }
 
-  TrocarEtapa(etapa:number, id:string) {
+  TrocarEtapa(etapa: number, id: string) {
     this.projetoTarefaService.editProjetoTarefaEtapa(etapa, id)
       .pipe(
         catchError(err => {
@@ -156,22 +214,22 @@ export class KanbanComponent implements DoCheck {
         event.previousIndex,
         event.currentIndex
       );
-        let idTroca = event.container.data[event.currentIndex].IDPROJETOTAREFA!;
+      let idTroca = event.container.data[event.currentIndex].IDPROJETOTAREFA!;
       switch (event.container.id) {
         case "cdk-drop-list-0":
-          this.TrocarEtapa(1,idTroca)
+          this.TrocarEtapa(1, idTroca)
           break;
         case "cdk-drop-list-1":
-          this.TrocarEtapa(2,idTroca)
+          this.TrocarEtapa(2, idTroca)
           break;
         case "cdk-drop-list-2":
-          this.TrocarEtapa(3,idTroca)
+          this.TrocarEtapa(3, idTroca)
           break;
         case "cdk-drop-list-3":
-          this.TrocarEtapa(4,idTroca)
+          this.TrocarEtapa(4, idTroca)
           break;
         case "cdk-drop-list-4":
-          this.TrocarEtapa(5,idTroca)
+          this.TrocarEtapa(5, idTroca)
           break;
         default:
           console.log(event.container.id)
@@ -185,7 +243,6 @@ export class KanbanComponent implements DoCheck {
 
     }
   }
-
   addTodo() {
     if (this.newTodo.trim() !== '') {
       console.log(this.newTodo.trim())

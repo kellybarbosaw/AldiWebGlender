@@ -334,7 +334,6 @@ export class ProjectsComponent {
 
   BuscarContratosDoCliente(){
     this.contratosDoCliente$ = this.contractService.contractsClient(parseInt(this.Project.idcliente));
-    console.log(this.Project)
   }
 
 
