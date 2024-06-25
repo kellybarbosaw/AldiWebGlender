@@ -23,6 +23,14 @@ const projetoTarefaController = {
       res.status(400).send(error);
     }
   },
+  selectIdClient: async function (req, res) {
+    try {
+      let selectProjetoTarefa = await db.selectAProjetoTarefaWithClient(req.params.id);
+      res.status(200).send(selectProjetoTarefa[0]);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  },
 
   register: async function (req, res) {
     const { error } = registerValidate(req.body);

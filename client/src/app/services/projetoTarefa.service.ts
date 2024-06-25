@@ -17,7 +17,7 @@ export class ProjetoTarefaService {
   }
 
   allProjetoTarefa(){
-    return this.httpClient.get<ProjetoTarefa[]>(this.url)
+    return this.httpClient.get<ProjetoTarefadbDB[]>(this.url)
   }
 
   projetoTarefaCurrent(id: String){
@@ -40,8 +40,12 @@ export class ProjetoTarefaService {
     return this.httpClient.get<any>(`${this.url}/tarefa`);
   }
 
-  selecProjetoTarefaDoProjeto(id: String){
+  selectProjetoTarefaDoProjeto(id: String){
     return this.httpClient.get<ProjetoTarefadbDB[]>(`${this.url}/projeto/${id}`)
+  }
+
+  selectProjetoTarefaComCliente(idCliente: String){
+    return this.httpClient.get<ProjetoTarefadbDB[]>(`${this.url}/cliente/${idCliente}`)
   }
   
   selectProjeto(dados:any){

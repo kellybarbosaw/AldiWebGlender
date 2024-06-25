@@ -6,6 +6,7 @@ const authProfile = require('../controllers/accessController');
 
 
 router.get('/',auth,clientController.select);
+router.get('/all/',auth,clientController.selectAll);
 router.get('/:id',auth,clientController.selectId);
 router.post('/',auth,clientController.register);
 router.put('/',auth,authProfile,clientController.update);
