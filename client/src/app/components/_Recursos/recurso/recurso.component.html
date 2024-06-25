@@ -1,11 +1,17 @@
 <div class="panel">
+    <div class="cb">
+        <h2 class="fonte"><b>RECURSO</b></h2><hr>
+        <div class="botao-com-espaco" >
+            <div>
+                <a href="/login" class="btn btn-danger mb-4 btn-stage">Sair</a>
+            </div>
+        </div>
+    </div><hr>
     <div class="customer-pessoa bg-light">
-        <div class="formCadastro d-flex justify-content-center ">
+        <div class="formCadastro d-flex justify-content-left ">
             <form #form="ngForm" (ngSubmit)="registerRecurso(form)" >
                     <div>
-                        <h2 class="fonte">RECURSO</h2><hr>
-    
-                            <div class="form-group d-flex flex-row">
+                        <div class="form-group d-flex flex-row">
                         <div class="form-group">
                             <label>Nome Pessoa</label>
                             <select [(ngModel)]="recurso.idpessoa" type="text" class="form-control" id="idpessoa" name="idpessoa"
@@ -64,11 +70,6 @@
                         <div class="btn btn-primary btn-stage" (click)="registerRecurso(form)">{{event}}</div>
                     </div>
             </form>
-            <div class="botao-com-espaco" >
-                <div>
-                    <a href="/user" class="btn btn-danger btn-stage">Sair</a>
-                </div>
-            </div>
         </div>
     </div>
     </div>

@@ -1,5 +1,5 @@
 import { ProjectService } from './../../services/project.service';
-import { Component } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import { ProjetoTarefaService } from '../../services/projetoTarefa.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,15 +10,20 @@ import { Project } from '../../models/project.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { Tarefas } from '../../models/tarefa.model';
 import { TarefaService } from '../../services/tarefa.service';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-projetoTarefa',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterModule,NgxMaskDirective],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} }
+  ],
   templateUrl: './projeto-tarefa.component.html',
   styleUrl: './projeto-tarefa.component.scss',
 })
-export class ProjetoTarefaComponent {
+export class ProjetoTarefaComponent{
+  isModal: boolean;
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
   ztarefas$ = new Observable<Tarefas[]>();
@@ -51,9 +56,13 @@ export class ProjetoTarefaComponent {
     private ProjectService: ProjectService,
     private formatService: FormatsService,
     private router: Router,
+    @Optional() public dialogRef: MatDialogRef<ProjetoTarefaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { isModal: boolean },
     private route: ActivatedRoute
   ) {
 
+    console.log('Data recebido:', data);
+    this.isModal = data.isModal;
     this.ztarefas$ = this.tarefaService.selectTarefa();
     this.zprojeto$ = this.ProjectService.selectContrato();
     
@@ -86,8 +95,17 @@ export class ProjetoTarefaComponent {
             this.projetoTarefa.datainicioprevista = this.formatService.formatDate(data.DATAINICIOIMPREVISTA!);
             this.projetoTarefa.datafimprevista = this.formatService.formatDate(data.DATAFIMPREVISTA!);
         });
-      // console.log(this.pessoa)
       this.event = 'Editar';
+    }
+  }
+
+  ngAfterViewInit() {
+    console.log(this.isModal); // deve imprimir true
+  }
+
+  onCloseClick(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
   registerProjetoTarefa(form: NgForm) {
@@ -99,7 +117,6 @@ export class ProjetoTarefaComponent {
       !this.projetoTarefa.datafimprevista ||
       !this.projetoTarefa.horasestimadas ||
       !this.projetoTarefa.horasgastas ||
-      !this.projetoTarefa.saldohoras ||
       !this.projetoTarefa.etapa
     ) {
       alert('Preencha todos os campos');
@@ -110,7 +127,6 @@ export class ProjetoTarefaComponent {
         form.controls['datafimprevista'].valid &&
         form.controls['horasestimadas'].valid &&
         form.controls['horasgastas'].valid &&
-        form.controls['saldohoras'].valid &&
         form.controls['etapa'].valid
       );
       this.botaoClicado = true;

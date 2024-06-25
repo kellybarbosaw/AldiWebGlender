@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ClientService } from '../../../services/client.service';
 import { FormatsService } from '../../../services/formats.service';
@@ -13,15 +13,18 @@ import { Pais } from '../../../models/cep/pais.model';
 import { Estado } from '../../../models/cep/estado.model';
 import { Cidade } from '../../../models/cep/cidade.model';
 import { MensageriaService } from '../../../services/mensageria.service';
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ProjectsComponent } from '../../_Projetos/projects/projects.component';
 
 
 
 @Component({
   selector: 'app-client',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, RouterOutlet, CommonModule, NgxMaskDirective, RouterLink],
-  providers: [],
+  imports: [FormsModule, HttpClientModule, RouterOutlet, 
+    CommonModule, NgxMaskDirective, RouterLink, MatDialogModule],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
@@ -30,6 +33,8 @@ export class ClientComponent {
   error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+  isModal: boolean;
+  
 
   client = {
     idcliente: 0,
@@ -105,9 +110,23 @@ export class ClientComponent {
     private route: ActivatedRoute,
     private loginService: LoginService,
     private cep: CepService,
-    private messageriaService: MensageriaService
+    private messageriaService: MensageriaService,
+    @Optional() public dialogRef: MatDialogRef<ProjectsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { isModal: boolean },
   ) {
+    console.log('Data recebido:', data);
+    this.isModal = data.isModal;
     this.client.idcliente = this.route.snapshot.params['id']
+  }
+
+  ngAfterViewInit() {
+    console.log(this.isModal); // deve imprimir true
+  }
+
+  onCloseClick(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
   ngOnInit() {
