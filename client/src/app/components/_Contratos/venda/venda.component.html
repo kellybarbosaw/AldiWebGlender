@@ -3,19 +3,15 @@
         <h2 class="fonte"><b>CONTRATO</b></h2><hr>
         <div class="botao-com-espaco" >
             <div>
-                <a href="/login" class="btn btn-danger mb-4">Sair</a>
+                <a href="/login" class="btn btn-danger mb-4 btn-stage">Sair</a>
             </div>
         </div>
     </div><hr>
     
-    <div *ngIf="event === 'Editar'; else elseBlock">
-        <div>
-            <div [routerLink]="['/user/contrato/',contrato.idvenda]" class="btn btn-dark mb-4">Voltar</div>
-        </div>
-    </div>
+    
     <ng-template #elseBlock>
         <div>
-            <div [routerLink]="['/user/client360/',contrato.idcliente]" class="btn btn-dark mb-4">Voltar</div>
+            <div [routerLink]="['/user/client360/',contrato.idcliente]" class="btn btn-dark mb-4 btn-stage">Voltar</div>
         </div>
     </ng-template>
 
@@ -75,8 +71,13 @@
                     name="dtconclusao">
             </div>
         </div>
-        <div style="text-align: right;">
-            <div class="btn btn-primary" (click)="registerContract(form)">{{event}}</div>
+        <div class="d-flex justify-content-between w-100 mt-2">
+            <div *ngIf="event === 'Editar'; else elseBlock">
+                <div [routerLink]="['/user/contrato/',contrato.idvenda]" class="btn btn-dark btn-stage">Voltar</div>
+            </div> 
+            <div>
+                <div class="btn btn-primary btn-stage" (click)="registerContract(form)">{{event}}</div>
+            </div> 
         </div>
     </form>
     

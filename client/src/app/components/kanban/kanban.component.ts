@@ -1,5 +1,5 @@
 import { Component, DoCheck } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
   CdkDragDrop,
   CdkDrag,
@@ -77,7 +77,7 @@ export class KanbanComponent implements DoCheck {
       data.forEach(element => {
         switch (element.ETAPA.toString()) {
           case '1':
-            // this.todo.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
+            this.todo.push({id:element.IDPROJETOTAREFA, titulo:element.TITULOTAREFA.trim()});
             this.todo.push(element);
             break;
           case '2':
@@ -103,25 +103,11 @@ export class KanbanComponent implements DoCheck {
     const dialogRef = this.dialog.open(ProjetoTarefaComponent, {
       width: '900px',
       height: '450px',
-      panelClass: 'dialog-with-scrollbar'
+      panelClass: 'dialog-with-scrollbar',
+      data: { isModal: true },
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.componentInstance.isModal = true;
   }
-
-  // openEdit() {
-  //   const dialogRef = this.dialog.open(TarefaComponent, {
-  //     width: '900px',
-  //     height: '450px',
-  //     panelClass: 'dialog-with-scrollbar'
-  // });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(`Dialog result: ${result}`);
-  //   });
-  // }
 
   ngDoCheck() {
     // Força a detecção de alterações para atualizar a visualização quando novas tarefas são adicionadas

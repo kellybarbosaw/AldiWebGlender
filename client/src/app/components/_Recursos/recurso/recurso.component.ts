@@ -128,11 +128,9 @@ export class RecursoComponent {
       width: '1000px',
       height: '500px',
       panelClass: 'dialog-with-scrollbar',
+      data: { isModal: true },
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
+    dialogRef.componentInstance.isModal = true;
   }
   shouldHide = false;
 
