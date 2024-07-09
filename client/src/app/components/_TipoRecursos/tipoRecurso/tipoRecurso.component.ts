@@ -1,18 +1,17 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Subject, catchError, of } from 'rxjs';
+import { LoginService } from '../../../services/login.service';
+import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { FormatsService } from '../../../services/formats.service';
-import { catchError, of, Subject } from 'rxjs';
-import { LoginService } from '../../../services/login.service';
-import { NgxMaskDirective } from 'ngx-mask';
 import { MensageriaService } from '../../../services/mensageria.service';
 import { TipoRecursoService } from '../../../services/tipoRecurso.service';
+import { FormatsService } from '../../../services/formats.service';
 
 @Component({
   selector: 'app-tipoRecurso',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterOutlet, NgxMaskDirective, RouterLink],
+  imports: [FormsModule, CommonModule, RouterOutlet, RouterLink],
   templateUrl: './tipoRecurso.component.html',
   styleUrl: './tipoRecurso.component.scss'
 })
@@ -113,7 +112,7 @@ export class TipoRecursoComponent {
           })
         ).subscribe(() => {
           this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
-          this.router.navigate(['/user/tipoRecuso']);
+          this.router.navigate(['/user/recurso']);
         });
     } else if (this.event === 'Editar') {
       this.tipoRecurso.dtmodificacao = this.formatService.dateNow();
@@ -132,7 +131,7 @@ export class TipoRecursoComponent {
           })
         ).subscribe(() => {
           this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Editado Com Sucesso!', 'messages', 'success')
-          this.router.navigate(['/user/tipoRecurso']);
+          this.router.navigate(['/user/recurso']);
         });
     } else {
       alert('Error!');

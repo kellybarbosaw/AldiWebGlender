@@ -39,7 +39,7 @@ async function insertZRecurso(recurso){
 }
 async function updateZRecurso(id, recurso){
     const conn = await connect();
-    const sql = 'UPDATE ZRECURSOS SET IDPESSOA=?, TIPORECURSO=?, DATAINICIO=?, DATAFIM=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, ATIVO=?, VALORHR=?, WHERE IDRECURSO = ?';
+    const sql = 'UPDATE ZRECURSOS SET IDPESSOA=?, TIPORECURSO=?, DATAINICIO=?, DATAFIM=?, DATACRIACAO=?, DATAALTERACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=?, ATIVO=?, VALORHR=? WHERE IDRECURSO = ?';
     const values = [
 
         recurso.idpessoa,

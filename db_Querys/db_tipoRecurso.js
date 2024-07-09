@@ -10,20 +10,20 @@ async function selectTipoRecursos(){
 }
 async function selectTipoRecurso(id){
     const conn = await connect();
-    const tipoRecurso = await conn.query('SELECT * FROM TIPORECURSO WHERE IDTIPO = ?',id);
+    const tipoRecurso = await conn.query('SELECT * FROM TIPORECURSO WHERE IDTIPO = ?;',id);
     return tipoRecurso;
 }
 async function selectTipoRecursoDescricao(descricao) {
     const conn = await connect();
     const tipoRecurso = await conn.query(
-      "SELECT * FROM TIPORECURSO WHERE DESCRICAO = ?",
+      "SELECT * FROM TIPORECURSO WHERE DESCRICAO = ?;",
       descricao
     );
     return tipoRecurso;
   }
 async function insertTipoRecurso(tipoRecurso){
     const conn = await connect(); 
-    const sql = "INSERT INTO TIPORECURSO (DESCRICAO, DTCRIACAO, DTMODIFICACAO, USUARIOCRIACAO, USUARIOALTERACAO)  VALUES (?,?,?,?,?,?);";
+    const sql = "INSERT INTO TIPORECURSO (DESCRICAO, DTCRIACAO, DTMODIFICACAO, USUARIOCRIACAO, USUARIOALTERACAO)  VALUES (?,?,?,?,?);";
     const values = 
     [
         tipoRecurso.descricao,
@@ -37,7 +37,7 @@ async function insertTipoRecurso(tipoRecurso){
 }
 async function updateTipoRecurso(id, tipoRecurso){
     const conn = await connect();
-    const sql = 'UPDATE TIPORECURSO SET DESCRICAO=?, DTCRIACAO=?, DTMODIFICACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=? WHERE = IDTIPO=?;';
+    const sql = 'UPDATE TIPORECURSO SET DESCRICAO=?, DTCRIACAO=?, DTMODIFICACAO=?, USUARIOCRIACAO=?, USUARIOALTERACAO=? WHERE IDTIPO=?;';
     const values = [
 
         tipoRecurso.descricao,

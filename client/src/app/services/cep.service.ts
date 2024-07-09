@@ -40,7 +40,7 @@ export class CepService {
   buscarCnpj(cnpj: any) {
     const headers = new HttpHeaders({
       Accept: 'application/json',
-      Authorization: 'Bearer e4da68e48a89b5879b8847ee974987e0eb8db45a1afbee577cebe5cd65d3e52a',
+      Authorization: 'Bearer 5127a36571723e23134014797dadb582050824d303a79ffba8689ef0ded84984',
     });
     const httpOptions = {
       method: 'GET',
@@ -48,10 +48,22 @@ export class CepService {
       withCredentials: true
     };
   
-    return this.httpClient.get<any>(`${this.urlCnpj}/${cnpj}/days/1`, httpOptions)
-  }
+    return this.httpClient.get<any>(`${this.urlCnpj}/${cnpj}`, httpOptions)
+  };
 
   buscarCep(cep:any){
-    return this.httpClient.get<any>(`${this.urlCepapi}/${cep}/json/`)
+
+    
+    const headers = new HttpHeaders({
+      Accept: 'application/json',
+      
+    });
+    const httpOptions = {
+      method: 'GET',
+      headers: headers,
+      withCredentials: true
+    };
+
+    return this.httpClient.get<any>(`${this.urlCepapi}/${cep}/json/`, httpOptions)
   };
 }

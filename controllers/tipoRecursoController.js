@@ -12,17 +12,17 @@ const tipoRecursoController = {
     let tipoRecursos = [];
 
     function estruturar(tipoRecursos, offset, limit) {
-      let indexTipoRecursos = parseInt(offset);
+      let indexTipoRecurso = parseInt(offset);
 
       if (!offset && !limit) {
         result = tipoRecursos;
       } else {
         for (let index = 0; index < limit; index++) {
 
-          if (tipoRecursos[indexTipoRecursos] !== undefined) {
-            result.push(tipoRecursos[indexTipoRecursos])
+          if (tipoRecursos[indexTipoRecurso] !== undefined) {
+            result.push(tipoRecursos[indexTipoRecurso])
           }
-          indexTipoRecursos += 1;
+          indexTipoRecurso += 1;
         }
       }
     }

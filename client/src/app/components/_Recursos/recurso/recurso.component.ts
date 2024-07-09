@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { catchError, of, Subject, Observable } from 'rxjs';
 import { NgxMaskDirective } from 'ngx-mask';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -14,6 +14,8 @@ import { RecursoService } from '../../../services/recurso.service';
 import { PessoaComponent } from '../../_Pessoas/pessoa/pessoa.component';
 import { Recursos } from '../../../models/recurso.model';
 import { MensageriaService } from '../../../services/mensageria.service';
+import { TipoRecursoComponent } from '../../_TipoRecursos/tipoRecurso/tipoRecurso.component';
+import { TipoRecursosComponent } from '../../_TipoRecursos/tipoRecursos/tipoRecursos.component';
 
 @Component({
   selector: 'app-recurso',
@@ -25,7 +27,9 @@ import { MensageriaService } from '../../../services/mensageria.service';
     CommonModule,
     RouterOutlet,
     NgxMaskDirective,
-    MatDialogModule
+    MatDialogModule,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './recurso.component.html',
   styleUrl: './recurso.component.scss',
@@ -123,6 +127,7 @@ export class RecursoComponent {
       }
     }, 100);
   }
+
   openPessoa() {
     const dialogRef = this.dialog.open(PessoaComponent, {
       width: '1000px',
@@ -132,6 +137,31 @@ export class RecursoComponent {
     });
     dialogRef.componentInstance.isModal = true;
   }
+
+  openTipoRecurso() {
+    const dialogRef = this.dialog.open(TipoRecursoComponent, {
+      width: '1000px',
+      height: '500px',
+      panelClass: 'dialog-with-scrollbar'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openTipoRecursos() {
+    const dialogRef = this.dialog.open(TipoRecursosComponent, {
+      width: '1000px',
+      height: '500px',
+      panelClass: 'dialog-with-scrollbar'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   shouldHide = false;
 
   toggleHide() {
@@ -139,34 +169,36 @@ export class RecursoComponent {
   }
   registerRecurso(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
-    if (
-      !this.recurso.idpessoa ||
-      !this.recurso.tiporecurso ||
-      !this.recurso.datainicio ||
-      !this.recurso.datafim ||
-      !this.recurso.datacriacao ||
-      !this.recurso.dataalteracao ||
-      !this.recurso.usuariocriacao ||
-      !this.recurso.usuarioalteracao ||
-      !this.recurso.ativo ||
-      !this.recurso.valorhr
-    ) {
-      alert('preencha os campos');
-      this.camposPreenchidos =(
-        form.controls['idpessoa'].valid &&
-        form.controls['tiporecurso'].valid &&
-        form.controls['datainicio'].valid &&
-        form.controls['datafim'].valid &&
-        form.controls['datacriacao'].valid &&
-        form.controls['dataalteracao'].valid &&
-        form.controls['usuariocriacao'].valid &&
-        form.controls['usuarioalteracao'].valid &&
-        form.controls['ativo'].valid &&
-        form.controls['valorhr'].valid 
-      );
-      this.botaoClicado = true;
-      return;
-    }
+    // if (
+    //   !this.recurso.idpessoa ||
+    //   !this.recurso.tiporecurso ||
+    //   !this.recurso.datainicio ||
+    //   !this.recurso.datafim ||
+    //   !this.recurso.datacriacao ||
+    //   !this.recurso.dataalteracao ||
+    //   !this.recurso.usuariocriacao ||
+    //   !this.recurso.usuarioalteracao ||
+    //   !this.recurso.ativo ||
+    //   !this.recurso.valorhr
+    // ) {
+    //   alert('preencha os campos');
+    //    this.camposPreenchidos =(
+    //      form.controls['idpessoa'].valid &&
+    //      form.controls['tiporecurso'].valid &&
+    //      form.controls['datainicio'].valid &&
+    //      form.controls['datafim'].valid &&
+    //      form.controls['datacriacao'].valid &&
+    //      form.controls['dataalteracao'].valid &&
+    //      form.controls['usuariocriacao'].valid &&
+    //      form.controls['usuarioalteracao'].valid &&
+    //      form.controls['ativo'].valid &&
+    //      form.controls['valorhr'].valid
+    //    );
+    //   this.botaoClicado = true;
+    //   console.log(this.camposPreenchidos)
+    //   console.log(this.recurso)
+    //   return;
+    // }
 
     // VALIDAÇÃO DA DATA
     if (new Date(this.recurso.datafim) < new Date(this.recurso.datainicio)) {
@@ -183,8 +215,8 @@ export class RecursoComponent {
       (this.recurso.usuarioalteracao = localStorage.getItem('user')!);
       this.recursoService
         .registerRecurso({
-          idpessoa: this.recurso.idpessoa.replace(/[^0-9]/g, ''),
-          tiporecurso: this.recurso.tiporecurso.replace(/[^0-9]/g, ''),
+          idpessoa: this.recurso.idpessoa,
+          tiporecurso: this.recurso.tiporecurso,
           datainicio: this.recurso.datainicio,
           datafim: this.recurso.datafim,
           datacriacao: this.recurso.datacriacao,
