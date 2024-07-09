@@ -213,13 +213,14 @@ export class KanbanComponent implements DoCheck {
           break;
         case "cdk-drop-list-3":
           this.TrocarEtapa(4, idTroca)
+          this.openDialog();
           break;
         case "cdk-drop-list-4":
           this.TrocarEtapa(5, idTroca)
           break;
         default:
           console.log(event.container.id)
-          alert("error!")
+          //alert("error!")
           break;
       }
 

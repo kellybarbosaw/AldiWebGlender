@@ -54,7 +54,7 @@
             <div class="form-group ">
                 <label>Contrato</label>
                 <select [(ngModel)]="Project.idvenda" type="text" class="form-control large-input" name="descricaovenda">
-                    <option value="" disabled selected hidden>Selecione um Contrato</option>
+                    <option value=0 disabled selected hidden>Selecione um Contrato</option>
                     <option *ngFor="let contrato of contratosDoCliente$ | async" value="{{ contrato.IDVENDA}}">
                         {{ contrato.DESCRICAOVENDA }}  
                     </option>
