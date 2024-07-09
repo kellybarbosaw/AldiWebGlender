@@ -35,12 +35,18 @@
         </div>
         <div class="form-group mt-2">
             <label>Descrição</label>
-            <input [(ngModel)]="contrato.descricaovenda" type="textarea" class="form-control" name="descricaovenda"
+            <textarea [(ngModel)]="contrato.descricaovenda" type="textarea" class="form-control" name="descricaovenda"
                 maxLength="50" [ngClass]="{'campo-nao-preenchido': botaoClicado && !contrato.descricaovenda}">
+            </textarea>
         </div>
         <div class="form-group mt-2">
-            <label>ID PROJETO</label>
-            <input [(ngModel)]="contrato.idprojeto" type="number" class="form-control" name="idprojeto">
+            <label>Projeto</label>
+            <select [(ngModel)]="contrato.idprojeto" type="number" class="form-control" name="idprojeto">
+                <option value=0 disabled selected hidden>Selecione um projeto</option>
+                <option *ngFor="let project of Projetos$ | async" value="{{project.IDPROJETO}}">
+                    {{project.TITULO}}
+                </option>
+            </select>
         </div>
         <div class="form-group mt-2">
             <label>Vendedor</label>

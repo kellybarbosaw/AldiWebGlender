@@ -11,6 +11,8 @@ import { catchError, of, Subject, Observable } from 'rxjs';
 import { LoginService } from '../../../services/login.service';
 import { Console } from 'console';
 import { MensageriaService } from '../../../services/mensageria.service';
+import { Project } from '../../../models/project.model';
+import { ProjectService } from '../../../services/project.service';
 
 
 
@@ -26,6 +28,7 @@ export class VendaComponent {
   error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+  Projetos$ = new Observable<Project[]>();
 
   contrato = {
     idvenda: 0,
@@ -58,6 +61,7 @@ export class VendaComponent {
     private route: ActivatedRoute,
     private clientService: ClientService,
     private loginService: LoginService,
+    private projetoService: ProjectService,
     private messageriaService: MensageriaService) {
 
     if (this.route.snapshot.params['event'] === 'new') {
@@ -107,7 +111,7 @@ export class VendaComponent {
     // }
   }
 
-  ngOnInit() { }
+  ngOnInit() { this.Projetos$ = this.projetoService.allProjects();}
 
   clientContractCurrent() {
     this.clientService.clientCurrent(this.contrato.idcliente.toString())
