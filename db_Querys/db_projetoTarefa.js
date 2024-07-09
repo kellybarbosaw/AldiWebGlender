@@ -16,7 +16,14 @@ const connect = db.connect
       id
     );
     return projetoTarefa;
-  
+  }
+  async function selectAProjetoTarefaWithClient(idClient) {
+    const conn = await connect();
+    const projetoTarefa = await conn.query(
+      "SELECT *  FROM APROJETOTAREFA APT INNER JOIN APROJETO AP ON APT.IDPROJETO = AP.IDPROJETO WHERE AP.IDCLIENTE = ?",
+      idClient
+    );
+    return projetoTarefa;
   }
   async function selectAProjetoTarefaWithIdProjeto(idprojeto) {
     const conn = await connect();
@@ -82,6 +89,16 @@ const connect = db.connect
     ];
     return await conn.query(sql, values); 
   }
+  async function updateAProjetoTarefaEtapa(idprojetotarefa, etapa) {
+    const conn = await connect();
+    const sql ="UPDATE APROJETOTAREFA SET ETAPA=? WHERE IDPROJETOTAREFA=?;"
+    const values = [
+      etapa,
+      idprojetotarefa
+    ];
+    return await conn.query(sql, values); 
+  }
+
   async function deleteAProjetoTarefa(projetoTarefa) {
     const conn = await connect();
     const sql = "DELETE FROM APROJETOTAREFA WHERE IDPROJETOTAREFA=?;";
@@ -99,4 +116,4 @@ const connect = db.connect
     return rows;
 }
 
-  module.exports = {selectProjeto,selectTarefa,selectAProjetoTarefas,selectAProjetoTarefa,insertAProjetoTarefa,updateAProjetoTarefa,deleteAProjetoTarefa,selectAProjetoTarefaTitulo,selectAProjetoTarefaWithIdProjeto};
+  module.exports = {selectProjeto,selectTarefa,selectAProjetoTarefas,selectAProjetoTarefa,insertAProjetoTarefa,updateAProjetoTarefa,deleteAProjetoTarefa,selectAProjetoTarefaTitulo,selectAProjetoTarefaWithIdProjeto,updateAProjetoTarefaEtapa,selectAProjetoTarefaWithClient};

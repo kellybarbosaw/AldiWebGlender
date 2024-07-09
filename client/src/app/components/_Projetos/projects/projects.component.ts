@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Output } from '@angular/core';
+import { Component, Inject, Optional, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ContractService } from '../../../services/contract.service';
@@ -12,7 +12,7 @@ import { LoginService } from '../../../services/login.service';
 import { NgxMaskDirective } from 'ngx-mask';
 import { MensageriaService } from '../../../services/mensageria.service';
 import { ClientComponent } from '../../_Clientes/client/client.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { VendaComponent } from '../../_Contratos/venda/venda.component';
 import { Project } from '../../../models/project.model';
 import { Contract } from '../../../models/contract.model';
@@ -24,8 +24,11 @@ import { ProjetoTarefaComponent } from '../../projeto-tarefa/projeto-tarefa.comp
   selector: 'app-projects',
   standalone: true,
   imports: [CommonModule,FormsModule, HttpClientModule, NgxMaskDirective, RouterLink, MatDialogModule],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} }
+  ],
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss'
+  styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent {
   datenow = '2024-01-16';
@@ -202,13 +205,13 @@ export class ProjectsComponent {
   openDialog() {
     const dialogRef = this.dialog.open(ClientComponent, {
       width: '1000px',
-      height: '500px',
-      panelClass: 'dialog-with-scrollbar'
+      height: '501px',
+      panelClass: 'dialog-with-scrollbar',
+      data: { isModal: true }
   });
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+  dialogRef.componentInstance.isModal = true;
+
   }
 
   openContrato() {
@@ -334,7 +337,6 @@ export class ProjectsComponent {
 
   BuscarContratosDoCliente(){
     this.contratosDoCliente$ = this.contractService.contractsClient(parseInt(this.Project.idcliente));
-    console.log(this.Project)
   }
 
 

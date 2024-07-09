@@ -79,6 +79,10 @@ export class ClientService {
       );
   }
 
+  Allclients() {
+    return this.httpClient.get<Client[]>(`${this.url}/all/`)
+  }
+
   clientCurrent(id: String) {
     return this.httpClient.get<Client[]>(`${this.url}/${id}`)
   }

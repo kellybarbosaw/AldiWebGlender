@@ -36,6 +36,17 @@ const clientController = {
         }
     },
 
+    selectAll: async function (req, res) {
+        let clients = [];
+
+        try {
+            clients = await db.selectZClientes();
+            res.status(200).send(clients);
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    },
+
     selectId: async function (req, res) {
         try {
             let selectClient = await db.selectZClienteID(req.params.id);

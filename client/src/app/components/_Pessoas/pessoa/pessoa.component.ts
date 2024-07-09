@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PessoaService } from '../../../services/pessoa.service';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
@@ -14,6 +14,8 @@ import { User } from '../../../models/users.model';
 import { OrgaoEmissor } from '../../../models/cep/orgaoEmissor.model';
 import { NgxMaskDirective } from 'ngx-mask';
 import { MensageriaService } from '../../../services/mensageria.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ProjetoTarefaComponent } from '../../projeto-tarefa/projeto-tarefa.component';
 
 
 
@@ -21,6 +23,9 @@ import { MensageriaService } from '../../../services/mensageria.service';
   selector: 'app-pessoa',
   standalone: true,
   imports: [FormsModule, CommonModule, RouterOutlet, CommonModule, NgxMaskDirective, RouterLink],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} }
+  ],
   templateUrl: './pessoa.component.html',
   styleUrl: './pessoa.component.scss',
 })
@@ -28,6 +33,7 @@ export class PessoaComponent {
   error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+  isModal: boolean;
 
   pessoa = {
     idpessoa: 0,
@@ -66,9 +72,22 @@ export class PessoaComponent {
     private route: ActivatedRoute,
     private loginService: LoginService,
     private cep: CepService,
-    private messageriaService: MensageriaService
+    private messageriaService: MensageriaService,
+    @Optional() public dialogRef: MatDialogRef<PessoaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { isModal: boolean },
   ) {
+    this.isModal = data.isModal;
     this.pessoa.idpessoa = this.route.snapshot.params['id'];
+  }
+
+  ngAfterViewInit() {
+    console.log(this.isModal); // deve imprimir true
+  }
+
+  onCloseClick(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
   ngOnInit() {
