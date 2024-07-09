@@ -14,6 +14,7 @@ const tarefaRouter = require("./routes/tarefaRoutes");
 const projetoTarefaRouter = require('./routes/projetoTarefaRoutes');
 // const projetoStatusRouter = require('./routes/projetoStatusRoutes');
 const serviceCepRouter = require('./routes/serviceCepRoutes');
+const tipoRecurso = require('./routes/tipoRecursoRoutes');
 
 const https = require('https');
 const fs = require('fs');
@@ -42,6 +43,8 @@ app.use('/apontamento', express.json(), apontamentoRouter);
 app.use('/pessoa', express.json(), pessoaRouter);
 app.use('/tarefa', express.json(), tarefaRouter);
 app.use('/projetoTarefa', express.json(), projetoTarefaRouter);
+app.use('/tipoRecurso', express.json(), tipoRecurso);
+
 // app.use('/projetoStatus', express.json(), projetoStatusRouter);
 
 //Serviços Auxiliares
