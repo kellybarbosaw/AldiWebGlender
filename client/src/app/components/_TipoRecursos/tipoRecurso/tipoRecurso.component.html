@@ -1,27 +1,27 @@
 <div class="panel">
+    <div class="cb">
+        <h2 class="fonte"><b>TIPO DE RECURSO</b></h2><hr>
+        <!-- <div class="botao-com-espaco">
+            <a href="/user/recurso" class="btn btn-dark btn-stage mt-3 m-1 mb-3">Voltar</a>
+        </div> -->
+    </div><hr>
+
     <div class="customer-pessoa bg-light">
-        <div class="formCadastro d-flex justify-content-center ">
-            <form #form="ngForm" (ngSubmit)="registerTipoRecurso(form)" >
-                    <div>
-                        <h2 class="fonte">Tipo Recurso</h2><hr>
-    
-                        <div class="form-group d-flex flex-row">
-                            <div class="form-group">
-                                <label>Tipo Recurso:</label>
-                                <input [(ngModel)]="tipoRecurso.descricao" type="text" class="form-control" required [ngClass]="{'campo-nao-preenchido': botaoClicado && !tipoRecurso.descricao}"
-                                    placeholder="nome" name="descricao" >
-                            </div>
-                    </div>
-                    </div>
-                    <div style='text-align:right'>
-                        <div class="btn btn-primary btn-stage" (click)="registerTipoRecurso(form)">{{event}}</div>
-                    </div>
-            </form>
-            <div class="botao-com-espaco" >
+        <div class="formCadastro d-flex justify-content-left">
+            <form #form="ngForm" (ngSubmit)="registerTipoRecurso(form)">
                 <div>
-                    <a href="/user" class="btn btn-danger btn-stage">Sair</a>
+                    <div class="form-group">
+                        <label>Nome:</label>
+                        <input [(ngModel)]="tipoRecurso.descricao" type="text" class="form-control"
+                            placeholder="Tipo de Recurso" name="descricao" required
+                            [ngClass]="{'campo-nao-preenchido': botaoClicado && !tipoRecurso.descricao}">
+                    </div>
                 </div>
-            </div>
+                <div class="d-flex justify-content-between w-100">
+                    <a href="/user/recurso" class="btn btn-dark btn-stage mt-3 m-1 mb-3">Voltar</a>
+                    <a  [routerLink]="['/user/recurso']" class="btn btn-primary btn-stage  mt-3 m-1 mb-3" (click)="registerTipoRecurso(form)">{{event}}</a>
+                </div>
+            </form>
         </div>
     </div>
-    </div>
+</div>

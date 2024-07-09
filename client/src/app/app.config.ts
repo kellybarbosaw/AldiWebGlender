@@ -1,6 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
@@ -17,8 +16,9 @@ export const TokenInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, n
 
   const clonedReq = req.clone({
     setHeaders:{
-      'authorization_token': token,
-      Authorization: 'Bearer e4da68e48a89b5879b8847ee974987e0eb8db45a1afbee577cebe5cd65d3e52a'
+    'authorization_token': token,
+    authorization: 'Bearer 5127a36571723e23134014797dadb582050824d303a79ffba8689ef0ded84984'
+      
     }
   });
   return next(clonedReq)

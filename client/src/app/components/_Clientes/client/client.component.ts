@@ -414,7 +414,7 @@ export class ClientComponent {
       });
       this.client.numero = result.numero;
       this.client.codetd = result.uf;
-      this.client.cep = result.cep;
+      this.client.cep = result.cep.replace(/[^\d]+/g, '');
       this.client.telefone = result.telefone;
       this.client.email = result.email;
       this.client.ruapgto = this.client.rua;
@@ -423,7 +423,7 @@ export class ClientComponent {
       this.client.bairropgto = this.client.bairro;
       this.client.cidadepgto = this.client.cidade;
       this.client.codetdpgto = this.client.codetd;
-      this.client.ceppgto = this.client.cep;
+      this.client.ceppgto = this.client.cep.replace(/[^\d]+/g, '');
       this.client.telefonepgto = this.client.telefone;
       this.client.paispgto = this.client.pais;
       this.client.emailpgto = this.client.email;
@@ -434,7 +434,7 @@ export class ClientComponent {
       this.client.bairroentrega = this.client.bairro;
       this.client.cidadeentrega = this.client.cidade;
       this.client.codetdentrega = this.client.codetd;
-      this.client.cepentrega = this.client.cep;
+      this.client.cepentrega = this.client.cep.replace(/[^\d]+/g, '');
       this.client.telefoneentrega = this.client.telefone;
       this.client.paisentrega = this.client.pais;
       this.client.emailentrega = this.client.email;

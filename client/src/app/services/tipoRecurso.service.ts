@@ -13,10 +13,12 @@ export class TipoRecursoService {
 
 private tipoRecursosSubject = new BehaviorSubject<TipoRecursos[]>([]);
 public allTipoRecursos$ = this.tipoRecursosSubject.asObservable();
+
 constructor(private httpClient: HttpClient) { }
 
 registerTipoRecurso(newTipoRecurso: CreateTipoRecurso) {
   return this.httpClient.post<CreateTipoRecurso>(this.url, newTipoRecurso)
+  
 }
 
 getTipoRecursosWithHeaders(offset: number, limit: number): Observable<{ tipoRecursos: TipoRecursos[], headers: HttpHeaders }> {
