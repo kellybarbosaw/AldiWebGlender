@@ -26,7 +26,12 @@
 
         <div class="form-group">
             <label>Cliente</label>
-            <input [(ngModel)]="client.nome" type="text" class="form-control" name="nome">
+            <select [(ngModel)]="client.nome" type="text" class="form-control large-input" name="nome">
+                <option value=0 disable selected hidden>Selecione um Cliente</option>
+                <option *ngFor="let client of client$ | async" value="client.IDCLIENTE">
+                    {{client.NOME}}
+                </option>                  
+            </select>
         </div>
         <div class="form-group mt-2">
             <label>Status</label>

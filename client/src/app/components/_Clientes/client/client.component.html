@@ -90,17 +90,14 @@
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mb-3">
                                 <label>I.E:</label>
-                                <input [(ngModel)]="client.inscrestadual" type="text" class="form-control" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrestadual}"
+                                <input [(ngModel)]="client.inscrestadual" type="text" class="form-control"
                                     placeholder="Inscrição Estadual" name="inscrestadual" maxLength="20">
 
                             </div>
                             <div class="form-group mb-3 espacoCampo">
                                 <label>I.M:</label>
                                 <input [(ngModel)]="client.inscrmunicipal" type="text" class="form-control"
-                                    placeholder="Inscrição Municipal" name="inscrmunicipal" required
-                                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !client.inscrmunicipal}"
-                                    maxLength="20">
+                                    placeholder="Inscrição Municipal" name="inscrmunicipal" maxLength="20">
                             </div>
                         </div>
                         <div class="form-group">

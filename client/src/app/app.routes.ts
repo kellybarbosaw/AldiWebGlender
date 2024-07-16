@@ -28,6 +28,7 @@ import { RecursosComponent } from './components/_Recursos/recursos/recursos.comp
 import { ProjectsComponent } from './components/_Projetos/projects/projects.component';
 import { TipoRecursoComponent } from './components/_TipoRecursos/tipoRecurso/tipoRecurso.component';
 import { TipoRecursosComponent } from './components/_TipoRecursos/tipoRecursos/tipoRecursos.component';
+import { VisaoProjetoComponent } from './components/visaoProjeto/visaoProjeto.component';
 
 
 export const routes: Routes = [
@@ -91,6 +92,14 @@ export const routes: Routes = [
             {
                 path: 'c/projeto/:id',
                 component: ProjetoComponent
+            },
+            {
+                path: 'visaoProjeto',
+                component: VisaoProjetoComponent
+            },
+            {
+                path: 'visaoProjeto/:id',
+                component: VisaoProjetoComponent
             },
             {
                 path: 'projeto/:event/:id',
