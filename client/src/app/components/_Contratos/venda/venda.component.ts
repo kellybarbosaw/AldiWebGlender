@@ -13,6 +13,7 @@ import { Console } from 'console';
 import { MensageriaService } from '../../../services/mensageria.service';
 import { Project } from '../../../models/project.model';
 import { ProjectService } from '../../../services/project.service';
+import { Client } from '../../../models/client.model';
 
 
 
@@ -29,6 +30,7 @@ export class VendaComponent {
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
   Projetos$ = new Observable<Project[]>();
+  client$ = new Observable<Client[]>();
 
   contrato = {
     idvenda: 0,
@@ -63,6 +65,8 @@ export class VendaComponent {
     private loginService: LoginService,
     private projetoService: ProjectService,
     private messageriaService: MensageriaService) {
+
+    this.client$ = clientService.Allclients();
 
     if (this.route.snapshot.params['event'] === 'new') {
       this.event = 'Cadastrar'

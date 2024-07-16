@@ -225,8 +225,7 @@ export class ClientComponent {
 
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
 
-    if (!this.client.cgccfo || !this.client.nome || !this.client.nomefantasia ||
-      !this.client.inscrestadual || !this.client.inscrmunicipal || !this.client.telefone ||
+    if (!this.client.cgccfo || !this.client.nome || !this.client.nomefantasia || !this.client.telefone ||
       !this.client.email || !this.client.rua || !this.client.numero ||
       !this.client.complemento || !this.client.bairro || !this.client.cep ||
       !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
@@ -237,8 +236,6 @@ export class ClientComponent {
         form.controls['pessoafisoujur'].valid &&
         form.controls['nome'].valid &&
         form.controls['nomefantasia'].valid &&
-        form.controls['inscrestadual'].valid &&
-        form.controls['inscrmunicipal'].valid &&
         form.controls['pagrec'].valid &&
         form.controls['rua'].valid &&
         form.controls['numero'].valid &&
