@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../../models/project.model';
 import { ProjectService } from '../../services/project.service';
@@ -15,11 +15,8 @@ import { FormatsService } from '../../services/formats.service';
   templateUrl: './visaoProjeto.component.html',
   styleUrl: './visaoProjeto.component.scss'
 })
-export class VisaoProjetoComponent {
-  projectExclude = 0;
-  Projetos$ = new Observable<Project[]>();
-  idProjeto: number = 0;
-  project: Project | null = null;
+export class VisaoProjetoComponent implements OnInit{
+  Projetos$ = new Observable<Project[]>;
 
   Project = {
     idprojeto: 0,
@@ -38,17 +35,39 @@ export class VisaoProjetoComponent {
     horasgastas: '',
     saldohoras: '',
     valorprojeto: 0,
-    valorconsumido: 0
+    valorconsumido: 0,
+    nome: ''
     }
+    client = {
+      idcliente: 0,
+      nome: ''
+    }
+    projetoTarefa = {
+      idprojetotarefa:'',
+      idtarefa: '',
+      idprojeto: '',
+      titulotarefa: '',
+      descricaotarefa: '',
+      datainicioprevista: '',
+      datafimprevista: '',
+      dtcriacao: '',
+      dtalteracao: '',
+      usuariocriacao: '',
+      usuarioalteracao: '',
+      horasestimadas: '',
+      horasgastas: '',
+      saldohoras: '',
+      etapa: ''
+    };
 
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute, 
     private formatService: FormatsService,
-    private projetoService: ProjectService,) {
+    private projetoService: ProjectService,
+    private router: Router) {
 
     this.Project.idprojeto = this.route.snapshot.params['id']
-    this.Project.titulo = this.route.snapshot.params['id']
 
     this.projectService.projectCurrent(this.route.snapshot.params['id'])
       .subscribe((datas) => {
@@ -71,6 +90,69 @@ export class VisaoProjetoComponent {
         this.Project.dtinicioprojeto = this.formatService.format(data.DTCRIACAO!, "dtinicioprojeto","date");
         this.Project.dtconclusaoprojeto = this.formatService.format(data.DTCONCLUSAOPROJETO!, "dtconclusaoprojeto","date");
       });
+      console.log(this.Projetos$);
   }
-  ngOnInit() { this.Projetos$ = this.projetoService.allProjects();}
+  ngOnInit(): void {
+    this.Projetos$ = this.projetoService.allProjects();
+  }
+
+  clearFields(): void {
+    this.Project.titulo = '';
+    this.Project.descricao = '';
+    this.Project.idcliente = '';
+    this.Project.dtcriacao = '';
+    this.Project.dtalteracao = '';
+    this.Project.usuariocriacao = '';
+    this.Project.usuarioalteracao = '';
+    this.Project.statusprojeto = 0;
+    this.Project.idvenda = 0;
+    this.Project.dtinicioprojeto = '';
+    this.Project.dtconclusaoprojeto = '';
+    this.Project.horasestimadas = '';
+    this.Project.horasgastas = '';
+    this.Project.saldohoras = '';
+    this.Project.valorprojeto = 0;
+    this.Project.valorconsumido = 0;
+  }
+  onProjectChanges(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedProjectId = selectElement.value;
+    console.log(selectedProjectId);
+    // Obtém o caminho atual
+    const currentUrl = '/user/visaoProjeto/' + selectedProjectId;
+
+    // Navega para o mesmo caminho, o que efetivamente recarrega a página
+    this.router.navigateByUrl('/user/visaoProjeto' + selectedProjectId, { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
+  onProjectChange(event: number) {
+    this.Projetos$.subscribe(projects => {
+      console.log('Projetos$ emitted:', projects);
+      const selectedProject = projects.find(project => project.IDPROJETO === event);
+      console.log('selectedProject:', selectedProject);
+      if (selectedProject) {
+        this.Project = {
+          idprojeto: selectedProject.IDPROJETO!,
+          titulo: selectedProject.TITULO,
+          descricao: selectedProject.DESCRICAO,
+          idcliente: selectedProject.IDCLIENTE,
+          dtcriacao: selectedProject.DTCRIACAO,
+          dtalteracao: selectedProject.DTALTERACAO!,
+          usuariocriacao: selectedProject.USUARIOCRIACAO,
+          usuarioalteracao: selectedProject.USUARIOALTERACAO,
+          statusprojeto: selectedProject.STATUSPROJETO,
+          idvenda: selectedProject.IDVENDA,
+          horasestimadas: selectedProject.HORASESTIMADAS!,
+          horasgastas: selectedProject.HORASGASTAS!,
+          saldohoras: selectedProject.SALDOHORAS!,
+          valorprojeto: selectedProject.VALORPROJETO!,
+          valorconsumido: selectedProject.VALORCONSUMIDO!,
+          nome: selectedProject.NOME!,
+          dtinicioprojeto: this.formatService.format(selectedProject.DTCRIACAO!, "dtinicioprojeto", "date"),
+          dtconclusaoprojeto: this.formatService.format(selectedProject.DTCONCLUSAOPROJETO!, "dtconclusaoprojeto", "date"),
+        };
+      }
+    });
+  }
 }

@@ -13,8 +13,8 @@
     </div>
 
     <div class="form-group mt-2">
-        <label>Projeto:</label>
-        <select [(ngModel)]="Project.idprojeto" type="number" class="form-control" name="idprojeto">
+        <label>Selecione um Projeto:</label>
+        <select [(ngModel)]="Project.idprojeto" (change)="onProjectChanges($event)" type="number" class="form-control" name="idprojeto">
             <option value=0 disabled selected hidden>Selecione um projeto</option>
             <option *ngFor="let project of Projetos$ | async" value="{{project.IDPROJETO}}">
                 {{project.TITULO}}
@@ -25,7 +25,7 @@
     <form class="form">
         <div class="d-flex justify-content-between">
             <div class="form-group mt-3">
-                <label>Id projeto:</label>
+                <label>Id Projeto:</label>
                 <input [(ngModel)]="Project.idprojeto" type="text" class="form-control" disabled name="idprojeto">
             </div>
             <div class="form-group mt-3">
@@ -47,8 +47,8 @@
 
         <div class="form-group mt-3">
             <label>Descrição:</label>
-            <input [(ngModel)]="Project.descricao" type="textarea" class="form-control" disabled name="descricao"
-            value="{{Project.descricao}}">
+            <textarea [(ngModel)]="Project.descricao" type="textarea" class="form-control" disabled name="descricao"
+            value="{{Project.descricao}}"></textarea>
         </div>
         <div class="form-group d-flex flex-row">
             <div class="form-group mb-3 mt-3 espacoCampo">
