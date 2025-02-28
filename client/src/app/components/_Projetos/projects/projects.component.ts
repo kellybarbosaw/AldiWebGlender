@@ -184,6 +184,12 @@ export class ProjectsComponent {
     }
   }
 
+  onSubmit() {
+    this.projectService.registerProject(this.Project).subscribe(idprojeto => {
+      this.router.navigate(['/criarPT'], { queryParams: { idprojeto } });
+    });
+  }
+
   clientContractCurrent() {
     this.clientService.clientCurrent(this.Project.idcliente.toString())
       .pipe(

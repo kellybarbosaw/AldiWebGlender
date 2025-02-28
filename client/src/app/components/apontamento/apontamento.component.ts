@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { ApontamentoService } from '../../services/apontamento.service';
 import { FormatsService } from '../../services/formats.service';
 import { AppComponent } from "../../app.component";
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
     selector: 'app-apontamento',
@@ -13,7 +14,7 @@ import { AppComponent } from "../../app.component";
     templateUrl: './apontamento.component.html',
     styleUrl: './apontamento.component.scss',
     providers: [FormatsService],
-    imports: [FormsModule, HttpClientModule, FormsModule, CommonModule, RouterOutlet, AppComponent]
+    imports: [FormsModule, HttpClientModule, FormsModule, CommonModule, RouterOutlet, AppComponent, NgxMaskDirective]
 })
 
 export class ApontamentoComponent {
@@ -58,8 +59,8 @@ export class ApontamentoComponent {
             this.apontamento.dtcriacao = this.formatService.formatDate(data.DTCRIACAO!);
             this.apontamento.dtmodificacao = this.formatService.formatDate(data.DTMODIFICACAO!);
 
-            this.apontamento.horainicio = this.formatService.formatTime(data.HORAINICIO);
-            this.apontamento.horafinal = this.formatService.formatTime(data.HORAFINAL);
+            this.apontamento.horainicio = this.formatService.formatDate(data.HORAINICIO);
+            this.apontamento.horafinal = this.formatService.formatDate(data.HORAFINAL);
         })
       this.event = "Editar"
     }
@@ -100,8 +101,10 @@ export class ApontamentoComponent {
 
         idprojetotarefa: parseInt(this.apontamento.idprojetotarefa),
         data: this.apontamento.data,
-        horainicio: `${this.apontamento.data} ${this.apontamento.horainicio}`,
-        horafinal: `${this.apontamento.data} ${this.apontamento.horafinal}`,
+        // horainicio: `${this.apontamento.data} ${this.apontamento.horainicio}`,
+        // horafinal: `${this.apontamento.data} ${this.apontamento.horafinal}`,
+        horainicio: this.apontamento.horainicio,
+        horafinal: this.apontamento.horafinal,
         descricao: this.apontamento.descricao,
         dtcriacao: this.apontamento.dtcriacao,
         dtmodificacao: this.apontamento.dtmodificacao,

@@ -147,7 +147,6 @@ export class PessoaComponent {
       !this.pessoa.dtnascimento ||
       !this.pessoa.rua ||
       !this.pessoa.numero ||
-      !this.pessoa.complemento ||
       !this.pessoa.bairro ||
       !this.pessoa.naturalidade ||
       !this.pessoa.nacionalidade ||
@@ -163,7 +162,6 @@ export class PessoaComponent {
         form.controls['dtnascimento'].valid &&
         form.controls['rua'].valid &&
         form.controls['numero'].valid &&
-        form.controls['complemento'].valid &&
         form.controls['bairro'].valid &&
         form.controls['naturalidade'].valid &&
         form.controls['nacionalidade'].valid &&

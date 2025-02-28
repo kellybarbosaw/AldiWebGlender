@@ -1,0 +1,120 @@
+<div class="panel-color">
+    <div class="calendar">
+        <h2 class="fonte">AGENDA</h2><hr>
+        <div class="calendario-titulo">
+            <div>
+                <button (click)="alterarMes(-1)">Anterior</button>
+            </div>
+            <div class="calendario-titulo-mes-ano">
+                {{ dataAtual | date: 'MMMM yyyy' }}
+            </div>
+            <div>
+                <button (click)="alterarMes(1)">Próximo</button>
+            </div>
+        </div>
+
+        <div class="calendario-dias">
+            <!-- Exibição dos dias da semana -->
+            <ng-container *ngFor="let dia of diasCalendario; let i = index">
+                <div *ngIf="i < 7">
+                    <strong>{{ dia | date: 'EEEEE' }}</strong>
+                </div>
+            </ng-container>
+    
+            <!-- Exibição dos dias do mês com as empresas trabalhadas -->
+            <div
+                *ngFor="let dia of diasCalendario; let i = index"
+                class="calendario-dia"
+                [class.calendario-quebrar-linha]="i % 7 === 0"
+                [class.calendario-dia-nao-faz-parte-mes-atual]="isDiaDesabilitado(dia)"
+                [class.calendario-dia-desabilitado]="isDiaDesabilitado(dia)"
+                (click)="onDiaClick(dia)"
+                >
+                <span>{{ dia | date: 'dd' }}</span>
+                <ng-container *ngFor="let agenda of getAgendasDoDia(dia)">
+                    <p 
+                        class="empresa-trabalhada bubble"
+                        [ngClass]="getClassePorStatus(agenda.STATUS)">
+                        {{ agenda.EMPRESATRABALHADA }}
+                    </p>
+                </ng-container>
+            </div>
+        </div>
+        <!-- <a href="/login" class="btn btn-dark btn-stage btnResponsivo">Sair</a> -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" *ngIf="mostrarModal">
+        <div class="modal-conteudo">
+            <h3>NOVA AGENDA</h3>
+            <form #form="ngForm" (ngSubmit)="registerAgenda(form)">
+                <label for="data">Data:</label>
+                <input type="date" id="data" [(ngModel)]="dataModal" name="data" required 
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.data}"/>
+
+                <label for="atividade">Atividade Realizada:</label>
+                <textarea type="text" id="atividade" [(ngModel)]="agenda.atividade" name="atividade" required
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.atividade}"></textarea>
+
+                <label for="empresaTrabalhada">Empresa Trabalhada:</label>
+                <input type="text" id="empresaTrabalhada" [(ngModel)]="agenda.empresaTrabalhada" name="empresaTrabalhada" 
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.empresaTrabalhada}"/>
+
+                <label for="horaInicio">Hora Inicial:</label>
+                <input type="time" id="horaInicio" [(ngModel)]="agenda.horainicio" name="horaInicio" (ngModelChange)="calcularHorasPrevistas()" required
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.horainicio}"/>
+
+                <label for="horaFim">Hora Final:</label>
+                <input type="time" id="horaFim" [(ngModel)]="agenda.horafinal" name="horaFim" (ngModelChange)="calcularHorasPrevistas()" required
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.horafinal}"/>
+
+                <label for="horaAlmoco">Hora Almoço:</label>
+                <input type="time" id="horaAlmoco" [(ngModel)]="agenda.horaalmoco" name="horaAlmoco" (ngModelChange)="calcularHorasPrevistas()" required
+                [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.horaalmoco}"/>
+                <p><strong>Horas Previstas:</strong> {{ agenda.horaprevista }}</p>
+
+                <label for="horarealizada">Horas Realizadas:</label>
+                <input type="time" id="horarealizada" [(ngModel)]="agenda.horarealizada" name="horarealizada" [value]="agenda.horarealizada" required/>
+
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select [(ngModel)]="agenda.status" type="text" class="form-control" name="status" required
+                    [ngClass]="{'campo-nao-preenchido': botaoClicado && !agenda.status}">
+                        <option value=0 disabled selected hidden>Selecione</option>
+                        <option value=1>Agenda Concluída</option>
+                        <option value=2>Agenda Cancelada</option>
+                        <option value=3>Agenda Impedida</option>
+                        <option value=4>Agenda Em Andamento</option>
+                        <option value=5>Agenda Não Apontada</option>
+                    </select>
+                </div>
+
+                <!-- <div class="btn btn-primary btn-stage" style="margin-right: 15px" (click)="registerAgenda(form)">{{event}}</div> -->
+                <button type="submit" class="btn-stage" style="margin-right: 15px">{{ event === 'Cadastrar' ? 'Cadastrar' : 'Editar' }}</button>
+                <button class="btn-stage" (click)="fecharModal()">Fechar</button>
+
+                <div *ngIf="agendasDoDiaModal && agendasDoDiaModal.length > 0; else semAgendas">
+                    <h3 style="margin-top: 20px;">AGENDA DO DIA {{ dataModal | date: 'dd/MM/yyyy' }}</h3>
+                    <ul>
+                        <li *ngFor="let agenda of agendasDoDiaModal" class="card-item">
+                            <p><strong>Atividade:</strong> {{ agenda.ATIVIDADE }}</p>
+                            <p><strong>Empresa:</strong> {{ agenda.EMPRESATRABALHADA }}</p>
+                            <p><strong>Hora Inicial:</strong> {{ agenda.HORAINICIO }}</p>
+                            <p><strong>Hora Final:</strong> {{ agenda.HORAFINAL }}</p>
+                            <p><strong>Quantidade de Hora Almoço:</strong> {{ agenda.HORAALMOCO }}</p>
+                            <p><strong>Horas Previstas:</strong> {{ agenda.HORAPREVISTA }}</p>
+                            <p><strong>Status:</strong> {{ getStatusText(agenda.STATUS) }}</p>
+                            <p><strong>Horas Realizadas:</strong> {{ agenda.horarealizada }}</p>
+                            <td style="text-align: center;">
+                                <i class="bi bi-pencil-square fs-6" (click)="abrirModalEdicao(agenda)"> Editar</i>
+                            </td>
+                        </li>
+                    </ul>
+                </div>
+                <ng-template #semAgendas>
+                    <p>Nenhuma agenda cadastrada para este dia.</p>
+                </ng-template>
+            </form>
+        </div>
+    </div>
+</div>

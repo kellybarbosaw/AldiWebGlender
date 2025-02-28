@@ -35,7 +35,19 @@
     border: none;
     width: 100%;
     box-sizing: border-box;
-    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.panel-color {
+    background: linear-gradient(to bottom, black, #e17C28);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Altura total da tela para destacar o degradê */
 }
 
 .campo-nao-preenchido {
@@ -148,6 +160,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     display: block;
     margin-bottom: 10px;
 }
+.btn-stage{
+    width: 100px;
+    margin: 0%;
+    margin-top: 15px;
+}
+
 //===================================================================
 @media only screen and (max-width: 1030px){
     .panel { height: 100%; width: 100%;}

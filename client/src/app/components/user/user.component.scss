@@ -80,7 +80,7 @@ a {
 }
 
 .dashboard-nav {
-    background-color: #00092C;
+    background-color: #000000;
 }
 
 .dashboard-nav a {
@@ -101,7 +101,7 @@ a {
 
     display: flex;
     flex-direction: column;
-    box-shadow: 3px 0 0 #f68926;
+    box-shadow: 3px 0 0 #e17C28;
     //width: 50px;
 }
 // .dashboard-nav-list:hover{
@@ -121,14 +121,14 @@ a {
 }
 
 .dashboard-nav-item:hover {
-    background:#f68926;
+    background:#e17C28;
     border-bottom: 2px solid white;
     padding-bottom: 20px;
 }
 
 .active {
     // background-color: #fe8902;
-    background-color: #f68926;
+    background-color: #e17C28;
 }
 
 .dashboard-nav-dropdown {
@@ -181,7 +181,7 @@ a {
 }
 
 .dashboard-nav-dropdown-item:hover {
-    background: #f68926;
+    background: #e17C28;
 }
 
 
@@ -191,7 +191,7 @@ a {
     justify-content: end;
     align-items: center;
     min-height: 50px;
-    background-color: #00092C;
+    background-color: #000000;
     // padding: 8px 27px;
     top: 0;
     right: 0;
@@ -208,7 +208,7 @@ a {
 
 }
 .user-logged i{
-    color: #f68926;
+    color: #e17C28;
     margin-right: 5px;
     font-size: 28px;
 
@@ -223,7 +223,7 @@ a {
 }
 
 .activated{
-    background-color: #f68926 !important; 
+    background-color: #e17C28 !important; 
 }
 
 @media (min-width: 992px) {
@@ -282,3 +282,16 @@ a {
     padding-left: 10px;
     font-size: 24px;
 }
+
+.dashboard-nav {
+    transition: transform 0.3s ease;
+}
+
+.menu-fechado {
+    transform: translateX(-100%); /* Move o menu para fora da tela */
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+

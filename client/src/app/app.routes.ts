@@ -29,16 +29,24 @@ import { ProjectsComponent } from './components/_Projetos/projects/projects.comp
 import { TipoRecursoComponent } from './components/_TipoRecursos/tipoRecurso/tipoRecurso.component';
 import { TipoRecursosComponent } from './components/_TipoRecursos/tipoRecursos/tipoRecursos.component';
 import { VisaoProjetoComponent } from './components/visaoProjeto/visaoProjeto.component';
+import { CriarPTComponent } from './components/criarPT/criarPTcomponent';
+import { AgendaComponent } from './components/agenda/agenda.component';
+import { AldiwebsiteComponent } from './components/aldiwebsite/aldiwebsite.component';
+import { TesteComponent } from './components/teste/teste.component';
 
 
 export const routes: Routes = [
     {
         path: 'home',
-        component: SiteComponent
+        component: AldiwebsiteComponent
     },
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'teste',
+        component: TesteComponent
     },
     {
         path: 'user',
@@ -204,6 +212,18 @@ export const routes: Routes = [
             {
                 path: 'projetoStatus',
                 component: ProjetoStatusComponent
+            },
+            {
+                path: 'criarPT',
+                component: CriarPTComponent
+            },
+            {
+                path: 'aldiwebsite',
+                component: AldiwebsiteComponent
+            },
+            {
+                path: 'agenda',
+                component: AgendaComponent
             },
             // {
             //     path: 'projetoStatus/:id',

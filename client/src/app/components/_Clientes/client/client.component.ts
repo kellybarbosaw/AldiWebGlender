@@ -226,9 +226,8 @@ export class ClientComponent {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
 
     if (!this.client.cgccfo || !this.client.nome || !this.client.nomefantasia || !this.client.telefone ||
-      !this.client.email || !this.client.rua || !this.client.numero ||
-      !this.client.complemento || !this.client.bairro || !this.client.cep ||
-      !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
+      !this.client.email || !this.client.rua || !this.client.numero || !this.client.bairro 
+      || !this.client.cep || !this.client.pagrec || !this.client.cidade || !this.client.codetd ||
       !this.client.cep || !this.client.email || !this.client.pais
     ) {
       alert('preencha os campos');
@@ -239,7 +238,6 @@ export class ClientComponent {
         form.controls['pagrec'].valid &&
         form.controls['rua'].valid &&
         form.controls['numero'].valid &&
-        form.controls['complemento'].valid &&
         form.controls['bairro'].valid &&
         form.controls['cidade'].valid &&
         form.controls['codetd'].valid &&
@@ -338,7 +336,7 @@ export class ClientComponent {
             })
           ).subscribe(() => {
             this.messageriaService.messagesRequest('Sucesso!', 'Cadastro Realizado Com Sucesso!', 'messages', 'success')
-           this.router.navigate(['/user/clients']) })
+            this.router.navigate(['/user/clients']) })
       }
 
     } else if (this.event === "Editar") {

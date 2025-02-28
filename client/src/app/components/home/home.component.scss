@@ -38,13 +38,17 @@
 }
 
 .flip-card-front {
-    background-color: #ff9d00;
-    color: black;
+    background-color: #e17C28;
+    color: #000000;
     border-radius: 10px;
 }
 
+.flip-card-front h5{
+    margin-top: 15px;
+}
+
 .flip-card-back {
-    background-color: #ff9d00;
+    background-color: #e17C28;
     color: black;
     transform: rotateY(180deg);
     display: flex;
@@ -56,6 +60,7 @@
 }
 .fonte{
     font-family: 'Bebas Neue', sans-serif bold;
+    font-weight: bold;
 }
 .espacamento{
     padding-top: 20px;
@@ -64,7 +69,7 @@
 
 // SLIDER HOME
 section.slider{
-    width: 75%;
+    width: 80%;
     height: 50%;
     padding: 0 !important;
     overflow: hidden;
@@ -83,7 +88,7 @@ section.slider{
 }
 
 .slide-box{
-    width: 25%;
+    width: 24%;
     height: auto;
     position: relative;
     text-align: center;
@@ -91,15 +96,15 @@ section.slider{
 }
 
 .slide-box img{
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: start;
 }
 
 .nav-manual, .nav-auto{
     position: absolute;
-    width: 50%;
-    margin-top: 45%;
+    width: 65%;
+    margin-top: 37%;
     display: flex;
     justify-content: center;
 }
@@ -141,5 +146,5 @@ section.slider{
         }
         .flip-card-container {
             display: grid;
-          }
+        }
 }

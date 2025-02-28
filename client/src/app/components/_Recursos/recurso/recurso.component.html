@@ -18,15 +18,15 @@
                             required [ngClass]="{'campo-nao-preenchido': botaoClicado && !recurso.idpessoa}" placeholder="Nome" name="idpessoa">
                                 <option value="" disabled selected hidden>Nome</option>
                                 <option *ngFor="let pessoa of zpessoas$ | async"
-                                  [ngValue]="pessoa.IDPESSOA">
-                                  {{ pessoa.NOME }}
+                                    [ngValue]="pessoa.IDPESSOA">
+                                    {{ pessoa.NOME }}
                                 </option>                  
                             </select>
                         </div>
                         <div class="form-group icon-container align-items-center ">
                             <i (click)="openPessoa()" class="bi bi-plus-circle-fill"></i>
                         </div>
-                    </div>
+                        </div>
     
                     <div class="form-group d-flex flex-row">
                         <div class="form-group espaco">
@@ -47,19 +47,19 @@
                     </div>
                         <div class="form-group d-flex flex-row">
                             <div class="form-group espaco">
-                                <label>Data Início:</label>
+                                <label>Data Inícioo:</label>
                                 <input [(ngModel)]="recurso.datainicio" type="date" class="form-control" name="datainicio" id="datainicio" style="width: auto"
                                 required [ngClass]="{'campo-nao-preenchido': botaoClicado && !recurso.datainicio}">
                             </div>
                             <div class="form-group espaco espacoCampo">
                                 <label>Data Final:</label>
-                                <input [(ngModel)]="recurso.datafim" type="date" class="form-control"  name="datafim" id="datafim" style="width: auto"
-                                required [ngClass]="{'campo-nao-preenchido': botaoClicado && !recurso.datafim}">
+                                <input [(ngModel)]="recurso.datafim" type="date" class="form-control"  
+                                name="datafim" id="datafim" style="width: auto">
                             </div>
     
                         </div>  
                         <div class="form-group espaco">
-                            <label>Situação do usuário:</label>
+                            <label>Situação do usuárioo:</label>
                             <label style="display: inline-block;">Ativo</label>
                             <input type="radio" [(ngModel)]="recurso.ativo" id="ativo" name="ativo" value=1 style="display: inline-block; width: 5%;">
                             
@@ -69,8 +69,7 @@
                         <div class="form-group espaco">
                             <label>Valor da hora:</label>
                             <input [(ngModel)]="recurso.valorhr" type="text" class="form-control" name="valorhr"
-                            prefix ="R$" mask="separator.2" thousandSeparator="," ng-init="recurso.valorhr = null"
-                            required [ngClass]="{'campo-nao-preenchido': botaoClicado && !recurso.valorhr}">
+                            prefix ="R$" mask="separator.2" thousandSeparator="," ng-init="recurso.valorhr = null">
                         </div>
     
                     </div>

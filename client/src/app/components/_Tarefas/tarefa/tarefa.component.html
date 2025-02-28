@@ -46,8 +46,10 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between w-100">
-                    <a href="/user/tarefas" class="btn btn-dark btn-stage btnResponsivo">Voltar</a>
-                    <div class="btn btn-primary btn-stage" (click)="registerTarefa(form)">{{event}}</div>
+                    <!-- <a href="/user/tarefas" class="btn btn-dark btn-stage btnResponsivo">Voltar</a> -->
+                    <a href="/user/tarefas" *ngIf="!isModal" class="btn btn-dark btn-stage mt-3 m-1 mr-3 mb-3">Voltar</a>
+                        <a *ngIf="isModal" (click)="onCloseClick()" class="btn btn-dark btn-stage mt-3 m-1 mr-3 mb-3">Fechar</a>
+                    <div class="btn btn-primary btn-stage mb-3" (click)="registerTarefa(form)">{{event}}</div>
                 </div>
             </form>
         </div>

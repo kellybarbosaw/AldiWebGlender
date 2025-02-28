@@ -5,16 +5,22 @@
       <form #form="ngForm" (ngSubmit)="registerProjetoTarefa(form)">
         <div>
           <div class="form-group mb-3">
-            <label>Tarefa</label>
-            <select [(ngModel)]="projetoTarefa.idtarefa" type="text" class="form-control"
-            placeholder="Id tarefa já precisa estar criado" name="idtarefa"
-            [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.idtarefa}">
-                    <option value="" disabled selected hidden>Selecione uma tarefa</option>
-                    <option *ngFor="let tarefa of ztarefas$ | async" value="{{tarefa.IDTAREFA}}">
-                        {{ tarefa.TITULOTAREFA }} 
-                    </option>                  
-                </select>
+            <label>Tarefa:</label>
+            <div class="form-group d-flex flex-row mt-3 align-items-center">
+              <select [(ngModel)]="projetoTarefa.idtarefa" type="text" class="form-control me-2" 
+                      placeholder="Id tarefa já precisa estar criado" name="idtarefa" 
+                      [ngClass]="{'campo-nao-preenchido': botaoClicado && !projetoTarefa.idtarefa}">
+                <option value="" disabled selected hidden>Selecione uma tarefa</option>
+                <option *ngFor="let tarefa of ztarefas$ | async" value="{{tarefa.IDTAREFA}}">
+                  {{ tarefa.TITULOTAREFA }} 
+                </option>                  
+              </select>
+              <div class="icon-container">
+                <i (click)="openDialog()" class="bi bi-plus-circle-fill icon-large"></i>
+              </div>
+            </div>
           </div>
+          
 
           <div class="form-group mb-3">
             <label>Projeto:</label>

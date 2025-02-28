@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { LoginService } from '../../services/login.service';
@@ -17,9 +17,29 @@ export class UserComponent {
 
   usuario:string | null= '';
   perfil:string | null= '';
+  menuAberto = true;
 
   constructor(private logiService:LoginService){}
   
+  showSidebar = false;
+
+  toggleSidebar(): void {
+    this.showSidebar = !this.showSidebar;
+  }
+
+  closeSidebar(): void {
+    if (this.showSidebar) {
+      this.showSidebar = false;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    if (window.innerWidth > 768 && this.showSidebar) {
+      this.showSidebar = false;
+    }
+  }
+
   ngOnInit(){
 
     this.usuario = this.logiService.user.name

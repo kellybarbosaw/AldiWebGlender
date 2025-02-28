@@ -34,6 +34,7 @@ export class UsuarioComponent {
   }
   dadosFicticios = {
     dtcriacao: '2024-01-29 12:26:00',
+    
     dtmodificacao: '2024-01-29 12:26:00',
     usuariocriacao: 'usuario teste criacao',
     usuarioalteracao: 'usuario teste alteracao',

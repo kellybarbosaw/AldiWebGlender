@@ -169,36 +169,34 @@ export class RecursoComponent {
   }
   registerRecurso(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS
-    // if (
-    //   !this.recurso.idpessoa ||
-    //   !this.recurso.tiporecurso ||
-    //   !this.recurso.datainicio ||
-    //   !this.recurso.datafim ||
-    //   !this.recurso.datacriacao ||
-    //   !this.recurso.dataalteracao ||
-    //   !this.recurso.usuariocriacao ||
-    //   !this.recurso.usuarioalteracao ||
-    //   !this.recurso.ativo ||
-    //   !this.recurso.valorhr
-    // ) {
-    //   alert('preencha os campos');
-    //    this.camposPreenchidos =(
-    //      form.controls['idpessoa'].valid &&
-    //      form.controls['tiporecurso'].valid &&
-    //      form.controls['datainicio'].valid &&
-    //      form.controls['datafim'].valid &&
-    //      form.controls['datacriacao'].valid &&
-    //      form.controls['dataalteracao'].valid &&
-    //      form.controls['usuariocriacao'].valid &&
-    //      form.controls['usuarioalteracao'].valid &&
-    //      form.controls['ativo'].valid &&
-    //      form.controls['valorhr'].valid
-    //    );
-    //   this.botaoClicado = true;
-    //   console.log(this.camposPreenchidos)
-    //   console.log(this.recurso)
-    //   return;
-    // }
+    if (
+      !this.recurso.idpessoa ||
+      !this.recurso.tiporecurso ||
+      !this.recurso.datainicio ||
+      // !this.recurso.datafim ||
+      // !this.recurso.datacriacao ||
+      // !this.recurso.dataalteracao ||
+      // !this.recurso.usuariocriacao ||
+      // !this.recurso.usuarioalteracao ||
+      !this.recurso.ativo
+    ) {
+      alert('preencha os campos');
+      this.camposPreenchidos =(
+        form.controls['idpessoa'].valid &&
+        form.controls['tiporecurso'].valid &&
+        form.controls['datainicio'].valid &&
+        //  form.controls['datafim'].valid &&
+        //  form.controls['datacriacao'].valid &&
+        //  form.controls['dataalteracao'].valid &&
+        //  form.controls['usuariocriacao'].valid &&
+        //  form.controls['usuarioalteracao'].valid &&
+        form.controls['ativo'].valid
+      );
+      this.botaoClicado = true;
+      console.log(this.camposPreenchidos)
+      console.log(this.recurso)
+      return;
+    }
 
     // VALIDAÇÃO DA DATA
     if (new Date(this.recurso.datafim) < new Date(this.recurso.datainicio)) {

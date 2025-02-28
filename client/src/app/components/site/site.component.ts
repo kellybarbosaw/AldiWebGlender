@@ -15,7 +15,10 @@ export class SiteComponent {
   constructor(private router:Router){
   }
 
-
+  aldiwebsite(){
+    this.router.navigate(['/aldiwebsite'])
+  }
+  
   login(){
     this.router.navigate(['/login'])
   }

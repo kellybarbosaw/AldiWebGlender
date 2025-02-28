@@ -11,20 +11,22 @@
                     
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mt-2">
-                                <label>Data:</label>
+                                <label>Data do apontamento:</label>
                                 <input [(ngModel)]="apontamento.data" type="date" class="form-control" name="data">
                             </div>
                         </div>
 
                         <div class="form-group d-flex flex-row">
                             <div class="form-group mt-2 m-2">
-                                <label>Hora Início:</label>
-                                <input [(ngModel)]="apontamento.horainicio" type="time" class="form-control" name="horainicio" id="horainicio">
+                                <label>Hora Inícioo:</label>
+                                <input [(ngModel)]="apontamento.horainicio" type="time" class="form-control" name="horainicio" 
+                                id="horainicio" >
                             </div>
-                    
+                            <!-- mask="XX/XX/XX 00:00:00" placeholder="XX/XX/XX 00:00:00" -->
                             <div class="form-group mt-2">
                                 <label>Hora Final:</label>
-                                <input [(ngModel)]="apontamento.horafinal" type="time" class="form-control" name="horafinal" id="horafinal"> 
+                                <input [(ngModel)]="apontamento.horafinal" type="time" class="form-control" name="horafinal" 
+                                id="horafinal"> 
                             </div>
                         </div>
                     

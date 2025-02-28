@@ -22,6 +22,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Razão Social</th>
+                        <th>PAGREC</th>
                         <th>Nome Fantasia</th>
                         <th>CPF / CNPJ</th>
                         <th style="text-align: center;">360º</th>
@@ -35,6 +36,7 @@
                             {{client.IDCLIENTE}}
                         </td>
                         <td>{{client.NOME}}</td>
+                        <td>{{client.PAGREC}}</td>
                         <td>{{client.NOMEFANTASIA}}</td>
                         <td>{{client.CGCCFO | mask: 'CPF_CNPJ'}}</td>
                         <td style="text-align: center;"><i [routerLink]="['/user/client360/',client.IDCLIENTE]" class="bi bi-search"></i></td>

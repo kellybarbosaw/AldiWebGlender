@@ -1,7 +1,7 @@
 import { KanbanComponent } from './../../kanban/kanban.component';
 import { FormControl, FormsModule, NgForm, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, Optional } from '@angular/core';
 import { TarefaService } from '../../../services/tarefa.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FormatsService } from '../../../services/formats.service';
@@ -9,11 +9,14 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { Subject, catchError, of } from 'rxjs';
 import { MensageriaService } from '../../../services/mensageria.service';
 import { LoginService } from '../../../services/login.service';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { ProjetoTarefaComponent } from '../../projeto-tarefa/projeto-tarefa.component';
 
 @Component({
   selector: 'app-tarefa',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule,NgxMaskDirective],
+  imports: [CommonModule, RouterOutlet, FormsModule,NgxMaskDirective, MatDialogModule],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
   templateUrl: './tarefa.component.html',
   styleUrl: './tarefa.component.scss',
 })
@@ -21,6 +24,7 @@ export class TarefaComponent {
   error$ = new Subject<boolean>();
   camposPreenchidos: boolean = true;
   botaoClicado: boolean = false;
+  isModal: boolean;
 
   tarefa = {
     idtarefa: '',
@@ -43,7 +47,10 @@ export class TarefaComponent {
     private route: ActivatedRoute, 
     private el: ElementRef,
     private loginService: LoginService,
-    private messageriaService: MensageriaService) {
+    private messageriaService: MensageriaService,
+    @Optional() public dialogRef: MatDialogRef<ProjetoTarefaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { isModal: boolean },) {
+    this.isModal = data.isModal;
     this.tarefa.idtarefa = this.route.snapshot.params['id'];
 
     if (this.route.snapshot.params['id'] === undefined) {
@@ -69,7 +76,15 @@ export class TarefaComponent {
       this.event = 'Editar';
     }
   }
+  ngAfterViewInit() {
+    console.log(this.isModal); // deve imprimir true
+  }
 
+  onCloseClick(): void {
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+  }
 
   registerTarefa(form: NgForm) {
     //VALIDAÇÃO DE CAMPOS PREENCHIDOS

@@ -15,6 +15,7 @@ const projetoTarefaRouter = require('./routes/projetoTarefaRoutes');
 // const projetoStatusRouter = require('./routes/projetoStatusRoutes');
 const serviceCepRouter = require('./routes/serviceCepRoutes');
 const tipoRecurso = require('./routes/tipoRecursoRoutes');
+const agendaRouter = require('./routes/agendaRoutes');
 
 const https = require('https');
 const fs = require('fs');
@@ -44,6 +45,7 @@ app.use('/pessoa', express.json(), pessoaRouter);
 app.use('/tarefa', express.json(), tarefaRouter);
 app.use('/projetoTarefa', express.json(), projetoTarefaRouter);
 app.use('/tipoRecurso', express.json(), tipoRecurso);
+app.use('/agenda', express.json(), agendaRouter);
 
 // app.use('/projetoStatus', express.json(), projetoStatusRouter);
 
