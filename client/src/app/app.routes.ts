@@ -33,9 +33,17 @@ import { CriarPTComponent } from './components/criarPT/criarPTcomponent';
 import { AgendaComponent } from './components/agenda/agenda.component';
 import { AldiwebsiteComponent } from './components/aldiwebsite/aldiwebsite.component';
 import { TesteComponent } from './components/teste/teste.component';
+import { ConsultoriaRMComponent } from './components/consultoriaRM/consultoriaRM.component';
+import { ConsultoriaProtheusComponent } from './components/consultoriaProtheus/consultoriaProtheus.component';
+import { ConsultoriaFluigComponent } from './components/consultoriaFluig/consultoriaFluig.component';
+import { ConsultoriaBPOComponent } from './components/consultoriaBPO/consultoriaBPO.component';
 
 
 export const routes: Routes = [
+    // {
+    //     path: 'home',
+    //     component: AldiwebsiteComponent
+    // },
     {
         path: 'home',
         component: AldiwebsiteComponent
@@ -44,8 +52,28 @@ export const routes: Routes = [
         path: 'login',
         component: LoginComponent
     },
+    // {
+    //     path: 'teste',
+    //     component: AldiwebsiteComponent
+    // },
     {
-        path: 'teste',
+        path: 'rm',
+        component: ConsultoriaRMComponent
+    },
+    {
+        path: 'protheus',
+        component: ConsultoriaProtheusComponent
+    },
+    {
+        path: 'fluig',
+        component: ConsultoriaFluigComponent
+    },
+    {
+        path: 'bpo',
+        component: ConsultoriaBPOComponent
+    },
+    {
+        path: 'cartao',
         component: TesteComponent
     },
     {

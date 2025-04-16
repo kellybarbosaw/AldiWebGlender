@@ -2,7 +2,7 @@
     <button (click)="toggleSidebar()" class="btn_icon_header">
         <i class="bi bi-list"></i>
     </button>
-    <div class="logo_header">
+    <div>
         <img src="../../../assets/images/logoNova.png" alt="Logo GN" class="img_logo_header" style="width: 100%; max-width: 180px; height: auto;">
     </div>
     <div class="navigation_header" [ngClass]="{'show-sidebar': showSidebar}">
@@ -23,68 +23,107 @@
     </div>
 
     <picture class="image-container">
-        <source srcset="../../../assets/images/baixo.png"  class="responsive-img" media="(max-width: 768px)">
-        <img src="../../../assets/images/mascoteCubo.GIF"  alt="Imagem Responsiva">
-        <!-- <img src="../../../assets/images/ladoAlado.png"  alt="Imagem Responsiva"> -->
+        <source srcset="../../../assets/images/baixo.png" media="(max-width: 768px)">
+        <img src="../../../assets/images/Home.png"  alt="Imagem Responsiva">
       </picture>
 </div>
 
-    <section class="banner">
+    <section class="bannerPrincipal">
         <div class="logoEscrita">
             <img src="../../../assets/images/awEscrita.png" alt="logo">
         </div>
         <div class="left">
             <h1>O poder da <br> gestão eficiente <br> nas suas mãos!</h1>
         </div>
-        <div class="right">
+        <div class="rightPrincipal">
             <p>
                 Na Aldi Web, somos uma consultoria especializada em soluções TOTVS, oferecendo serviços de excelência em RM, Fluig, Protheus e BDO. Nossa missão é otimizar processos, melhorar a eficiência e proporcionar resultados impactantes para sua empresa. Confie em nossa expertise para transformar suas operações e levar seu negócio ao próximo nível.
             </p>
         </div>
     </section>
 
-    <section class="bloco-cards">
+    <!-- <section class="fundoVideo">
+        <img src="../../../assets/images/cubogf.gif" alt="GIF animado" class="gif">
+    </section> -->
+    <!-- <video class="fundoVideo" autoplay muted loop playsinline>
+        <source src="../../../assets/images/cubogf.gif" media="(min-width: 769px)">
+        <source src="../../../assets/images/videoCelular.gif"  alt="Imagem Responsiva" media="(max-width: 768px)">
+        Seu navegador não suporta vídeos.
+    </video> -->
+    
+    <!-- Vídeo para telas grandes -->
+    <video class="full-video desktop-video" autoplay muted loop playsinline>
+        <source src="../../../assets/images/videoMaior.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
+
+    <!-- Vídeo para dispositivos móveis -->
+    <video class="full-video mobile-video" autoplay muted loop playsinline>
+        <source src="../../../assets/images/videoCelular.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos.
+    </video>
+    
+
+    <!-- <section class="bloco-cards">
         <div class="cards-container">
             <div class="card">
-                <img src="../../../assets/images/hex-rm.png" alt="RM">
-                <p> Otimizamos processos, automatizamos rotinas e garantimos um controle eficiente de recursos, financeiros e estoques, para que sua empresa alcance o máximo desempenho.</p>
-                <!-- <button>Saiba mais</button> -->
+                <img src="../../../assets/images/hex/hex-rm.png" alt="RM">
+                <p>Soluções de gestão de recursos para otimizar processos e controlar estoques com eficiência.</p>
+                <button class="buttonConsultorias" (click)="rm()">Saiba mais</button>
             </div>
 
             <div class="card">
-                <img src="../../../assets/images/hex-protheus.png" alt="FLUIG">
-                <p> Implementamos, personalizamos e otimizamos seu ERP para integrar processos, automatizar tarefas e elevar o desempenho de sua gestão empresarial.</p>
-                <!-- <button>Saiba mais</button> -->
+                <img src="../../../assets/images/hex/hex-protheus.png" alt="PROTHEUS">
+                <p>Consultoria para implementação e otimização do ERP Protheus, garantindo controle e eficiência.</p>
+                <button class="buttonConsultorias" (click)="protheus()">Saiba mais</button>
             </div>
 
             <div class="card">
-                <img src="../../../assets/images/hex-bpo.png" alt="PROTHEUS">
-                <p>BPO para uma gestão mais eficiente! Assumimos processos estratégicos da sua empresa, como financeiros, fiscais e contábeis, para que você foque no que realmente importa: o crescimento do seu negócio.</p>
-                <!-- <button>Saiba mais</button> -->
+                <img src="../../../assets/images/hex/hex-fluig.png" alt="FLUIG">
+                <p>Plataforma de automação e gestão de processos para integrar e agilizar a comunicação interna.</p>
+                <button class="buttonConsultorias" (click)="fluig()">Saiba mais</button>
             </div>
 
             <div class="card">
-                <img src="../../../assets/images/hex-fluig.png" alt="BPO">
-                <p>Transforme sua gestão com Fluig! Automatizamos fluxos, centralizamos informações e otimizamos a colaboração para tornar sua empresa mais ágil, integrada e produtiva.</p>
-                <!-- <button>Saiba mais</button> -->
+                <img src="../../../assets/images/hex/hex-bpo.png" alt="BPO">
+                <p>Gestão completa de folha de pagamento, com foco em conformidade e eficiência operacional.</p>
+                <button class="buttonConsultorias" (click)="bpo()">Saiba mais</button>
             </div>
         </div>
-    </section>
+    </section> -->
+
+    <section class="carousel-wrapper">
+        <div class="carousel" #carousel (scroll)="onScroll()">
+          <div class="card" *ngFor="let card of cards">
+            <img [src]="card.img" [alt]="card.alt" />
+            <p>{{ card.text }}</p>
+            <button class="buttonConsultorias" (click)="card.action()">Saiba mais</button>
+          </div>
+        </div>
+      
+        <div class="dots">
+          <span *ngFor="let card of cards; let idx = index"
+                [class.active]="idx === currentIndex"
+                (click)="scrollToCard(idx)">
+          </span>
+        </div>          
+      </section>
     
     <section class="hex-block">
         <div class="hex-container">
-        <div class="hex-item" *ngFor="let item of items">
-            <img [src]="item.img" [alt]="item.title" />
-            <div class="hex-text">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
+            <div class="hex-item" *ngFor="let item of items; let i = index"
+                [ngClass]="{'middle': i === 2 || i === 3}">
+                <img [src]="item.img" [alt]="item.title" />
+                <div class="hex-text">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.description }}</p>
+                </div>
             </div>
-        </div>
         </div>
     </section>
 
-    <section>
-        <h1 class="underline-effect">Nossos Clientes</h1>
+    <section class="clientes-section">
+        <h1 class="underline-effect texto-clientes">Nossos Clientes</h1>
         <div class="slider">
             <div class="slider-items">
                 <img src='../../../assets/images/1.png'>
@@ -105,37 +144,44 @@
 
     <section class="contact-section">
         <div class="contact-container">
-            <!-- <div class="form-container">
-                <form>
-                    <div class="input-group">
-                        <input type="text" placeholder="Seu Nome">
-                        <input type="text" placeholder="Sobrenome">
-                    </div>
-                    <input type="email" placeholder="Seu e-mail profissional">
-                    <input type="tel" placeholder="Seu celular com DDD">
-                    <input type="text" placeholder="Sua empresa">
-                    <textarea placeholder="Sua necessidade"></textarea>
-                </form>
-            </div> -->
-    
             <div class="info-container">
-                <button class="contact-button">Fale conosco</button>
+                <button class="faleButton">Fale conosco</button>
                 <h1>Transforme tecnologia em resultados!</h1>
                 <p>A Aldi Web é uma consultoria em TOTVS®, que transforma tecnologia em soluções reais para o seu negócio. Chegou a hora de fazer parte dessa revolução. Vamos juntos?</p>
                 <div class="contact-info">
-                    <img src="../../../assets/images/hex-email.png" alt="Ícone Hexagonal" width="45" height="40">
+                    <img src="../../../assets/images/hex/hex-email.png" alt="Ícone Hexagonal" width="45" height="40">
                     <span>{{ 'contato@aldiweb.com.br' }}</span>
                 </div>
+            </div>
+
+            <div class="form-container" id="faleConosco">
+                <form>
+                    <div class="input-group">
+                        <input type="text" placeholder="Seu Nome">
+                        <input type="text" placeholder="Seu Sobrenome">
+                    </div>
+                    <input type="email" placeholder="Seu e-mail profissional">
+                    <input type="tel" autocomplete="tel" pattern="^\(\d{2}\) \d{4,5}-\d{4}$" mask="(00) 00000-0000" placeholder="Seu celular com DDD">
+                    <input type="text" placeholder="Sua empresa">
+                    <textarea placeholder="Sua necessidade"></textarea>
+                    <button type="submit" class="enviar-button">Enviar</button>
+                    
+                     <!-- <input placeholder="Seu nome" [(ngModel)]="nome" />
+                     <input placeholder="Empresa" [(ngModel)]="empresa" />
+                     <input placeholder="Necessidade" [(ngModel)]="necessidade" />
+                     <input placeholder="E-mail do cliente" [(ngModel)]="destinatario" />
+                     <button (click)="enviar()">Enviar Pedido</button> -->
+                </form>
             </div>
         </div>
     </section>
 
     <section class="header-section">
-        <img src="../../../assets/images/logoRodape.png" alt="Logo" class="logo">
-            <a href="https://www.instagram.com/aldiweb" target="_blank" class="hexagonsi">
-                <i class="bi bi-instagram"></i>
+        <img src="../../../assets/images/logoRodapee.png" alt="Logo" class="logo">
+            <a href="https://www.instagram.com/aldiweb" target="_blank" >
+                <img src="../../../assets/images/hex/instagram.png" alt="Ícone Instagram" width="35" height="30" style="margin-right: 5px;">
             </a>
-            <a href="https://www.linkedin.com/aldiweb" target="_blank" class="hexagonsi">
-                <i class="bi bi-linkedin"></i>
+            <a href="https://www.linkedin.com/company/aldi-web/" target="_blank">
+                <img src="../../../assets/images/hex/linkedin.png" alt="Ícone Linkedin" width="35" height="30">
             </a>
     </section>

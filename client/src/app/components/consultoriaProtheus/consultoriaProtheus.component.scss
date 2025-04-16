@@ -1,0 +1,209 @@
+.fundoCorpo{
+    background-color: #762e00;
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'LeagueSpartan';
+    src: url('../../../assets/fonts/LeagueSpartan-Bold.otf') format('truetype');
+  }
+  @font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Comfortaa';
+    src: url('../../../assets/fonts/Comfortaa-Regular.ttf') format('truetype');
+  }
+  @font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Gruppo';
+    src: url('../../../assets/fonts/Gruppo-Regular.ttf') format('truetype');
+}
+.body {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  background-color: #b05002;
+  font-family: 'Gruppo', sans-serif;
+}
+.container {
+  width: 100%;
+  padding: 20px;
+  max-width: 1200px;
+}
+header {
+  display: flex;
+  padding: 20px;
+  text-align: left;
+  align-items: center;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  background-color: #efad81;
+  justify-content: space-between;
+}
+.container h1 {
+  padding: 30px;
+  color: #b05002;
+  font-size: 40px;
+  line-height: 0.8;
+  font-weight: bold;
+  font-family: 'League Spartan', sans-serif;
+  
+}
+h1 span {
+  color: #fff;
+  font-family: 'League Spartan', sans-serif;
+  text-shadow: 
+  0 0 5px #b05002,
+  0 0 10px #b05002,
+  0 0 20px #b05002,
+  0 0 40px #9a4f1e,
+  0 0 80px #9a4f1e;
+}
+.header-text {
+  color: #7b3000;
+  max-width: 400px;
+  line-height: 1.0;
+  font-size: 1.3rem;
+  text-align: right;
+  font-family: 'Gruppo', sans-serif;
+}
+.ImpulsioneC{
+  font-family: 'League Spartan', sans-serif;
+}
+main {
+  display: flex;
+  justify-content: center;
+}
+.grid {
+  gap: 20px;
+  display: grid;
+  max-width: 1200px;
+  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+// .card {
+//   display: flex;
+//   padding: 15px;
+//   text-align: left;
+//   align-items: center;
+//   border-radius: 50px;
+//   align-items: flex-start;
+//   background-color: #efad81;
+//   transition: transform 0.3s ease-in-out;
+// }
+// .card:hover {
+//   transform: scale(1.05);
+// }
+// .card img {
+//   padding: 0px;
+//   display: flex;
+//   height: 100px;
+//   max-width: 1500px;
+//   align-items: flex-start;
+// }
+// .card h2 {
+//   color: #9a4f1e;
+//   margin: 0 10px;
+//   font-size: 20px;
+//   line-height: 1.2;
+//   font-weight: bold;
+//   margin-bottom: 10px;
+//   font-family: 'Comfortaa', sans-serif;
+// }
+// .card p {
+//   color: #9a4f1e;
+//   margin: 0 10px;
+//   font-size: 18px;
+//   font-family: 'Gruppo', sans-serif;
+// }
+.cardC{
+  line-height: 1.2;
+}
+  //vídeo início
+.desktop-video {
+  display: block;
+}
+
+.mobile-video {
+    display: none;
+}
+
+.antes {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #efad81;
+  transition: transform 0.3s ease-in-out;
+  padding: 15px;
+  margin: 10px;
+  width: 100%;
+  height: 100%;
+
+  .antes:hover {
+    transform: scale(1.05);
+  }
+  
+  .imagem {
+    padding: 0px;
+    display: flex;
+    height: 100px;
+    max-width: 1500px;
+    align-items: flex-start;
+  }
+  .texto{
+    line-height: 1.0rem;
+  }
+
+  .texto p{
+    color: #9a4f1e;
+    margin: 0 10px;
+    font-size: 18px;
+    font-family: 'Gruppo', sans-serif;
+  }
+  .texto h2{
+    color: #9a4f1e;
+    margin: 0 10px;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: 'Comfortaa', sans-serif;
+  }
+}
+
+@media (max-width: 768px) {
+    header {
+        text-align: center;
+        flex-direction: column;
+    }
+    .header-text {
+        text-align: center;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    .card {
+        margin: 20px;
+        text-align: center;
+        flex-direction: column;
+    }
+    .card img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .desktop-video {
+      display: none;
+  }
+    .mobile-video {
+      display: block;
+  }
+  .container h1{
+    max-width: 100%;
+    padding: 0px;
+    margin: 10px 0px 10px 0px;
+    line-height: 0.9;
+  }
+}

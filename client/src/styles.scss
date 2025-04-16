@@ -172,3 +172,341 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     
 }
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Comfortaa';
+    src: url('assets/fonts/Comfortaa-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'LeagueSpartan';
+    src: url('assets/fonts/LeagueSpartan-Bold.otf') format('truetype');
+}
+@font-face {
+    font-style: normal;
+    font-weight: normal;
+    font-family: 'Gruppo';
+    src: url('assets/fonts/Gruppo-Regular.ttf') format('truetype');
+}
+
+// STYLE GERAL PARA TELA DE TIPOS DE CONSULTORIA
+.full-video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+// INICIO PRIMEIRA DA FAIXA APÓS O VÍDEO
+.banner {
+    display: flex;
+    color: #fde2d0;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 50px 15%;
+    align-items: center;
+    justify-content: space-between;
+    background: url("assets/images/bannerModulos.png") no-repeat center center/cover;
+}
+
+.left h1 {
+    line-height: 1;
+}
+.left {
+    flex: 1;
+    max-width: 40%;
+    font-family: 'LeagueSpartan';
+}
+.right {
+    flex: 1;
+    display: flex;
+    max-width: 50%;
+    text-align: right;
+    font-family: 'Gruppo';
+    align-items: flex-end;
+    flex-direction: column;
+    
+}
+.right p {
+    width: 400px;
+    text-align: right;
+    line-height: 1.2;
+    font-size: 1.3rem;
+    word-wrap: break-word;
+}
+
+.contact-button {
+    top: 43px;
+    color: #fde2d0;
+    cursor: pointer;
+    background: none;
+    padding: 3px 20px;
+    position: absolute;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #fde2d0;
+}
+
+.buttonFC {
+    color: #fde2d0;
+    cursor: pointer;
+    background: none;
+    padding: 3px 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #fde2d0;
+}
+.buttonFC:hover {
+    color: #944300;
+    background: #efad81;
+    border: 1px solid #944300;
+}
+// FIM DA FAIXA APÓS O VÍDEOo
+
+// INÍCIO CADS CONSULTORIAS
+.bloco-cards {
+    color: #983e05;
+    text-align: center;
+    padding: 5% 50px 9%;
+    background-color: #fde2d0;
+  }
+  
+  .cards-container {
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cardC {
+    width: 300px;
+    padding: 20px;
+    color: #983e05;
+    text-align: center;
+    border-radius: 50px;
+    border: 2px solid #983e05;
+    background-color: transparent;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  // Animação no hover
+  .cardC:hover {
+    background: #b05002;
+    transform: scale(1.05);
+  }
+  .cardC:hover p{
+    color: #fde2d0!important;
+  }
+  .cardC:hover button{
+    color: #b05002!important;
+    background-color: #fde2d0;
+  }
+  .cardC:hover .buttonConsultorias{
+    color: #b05002!important;
+    background-color: #fde2d0!important;
+  }
+  
+  // Imagem da colmeia
+  .cardC img {
+    width: 190px;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
+  }
+  
+  // Texto do card
+  .cardC h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .cardC p {
+    color: #983e05;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-family: 'Gruppo';
+  }
+  
+  // Botão do card
+  .cardC button {
+    color: #983e05;
+    font-size: 1rem;
+    cursor: pointer;
+    background: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-family: 'Comfortaa';
+    border: 2px solid #b05002;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .cardC button:hover {
+    color: #fde2d0;
+    background: #983e05;
+  }
+  // FIM CARDS CONSULTORIAS
+
+
+  //INÍCIO CARD COM IMAGEM LADO A LADO
+  .antes {
+    width: 100%;
+    margin: 10px;
+    height: 95%;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #efad81;
+    transition: transform 0.3s ease-in-out;
+  
+    .antes:hover {
+      transform: scale(1.05);
+    }
+    
+    .imagem {
+      padding: 0px;
+      display: flex;
+      height: 100px;
+      max-width: 1500px;
+      align-items: flex-start;
+    }
+    .texto{
+      line-height: 1.0rem;
+    }
+  
+    .texto p{
+      color: #9a4f1e;
+      margin: 0 10px;
+      font-size: 18px;
+      font-family: 'Gruppo', sans-serif;
+    }
+    .texto h2{
+      color: #9a4f1e;
+      margin: 0 10px;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-family: 'Comfortaa', sans-serif;
+    }
+  }
+  // FIM CARD COM IMAGEM LADO A LADO
+
+  // TELAS MENORES
+@media (max-width: 768px){
+    .banner {
+        padding: 40px 10%;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .contact-button {
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    .right,
+    .contact-button  {
+        max-width: 115% !important;
+    }
+    .right p {
+        width: 300px;
+        text-align: left;
+        line-height: 1.2;
+        font-size: 1.2rem;
+        word-wrap: break-word;
+    }
+    .left h1{
+        font-size: 1.0rem;
+        max-width: 115%;
+    }
+    // CARDS CONSULTORIAS
+    .cards-container {
+        align-items: center;
+        flex-direction: column;
+
+    }
+    .cardC {
+        width: 90%;
+        display: flex;
+        min-height: 60px;
+        flex-direction: column;
+    }
+    .antes {
+        width: 90%;
+        display: flex;
+        min-height: 60px;
+        flex-direction: column;
+    }
+    .imagem{
+        margin-bottom: 5px;
+    }
+    .texto{
+        text-align: center;
+    }
+}
+  // FIM DE TELAS MENORES
+
+// TELAS MÉDIAS
+@media (min-width: 768px) and (max-width: 1024px) {
+    .banner {
+        flex-direction: column;
+        padding: 100px 5%;
+        text-align: center;
+        align-items: center;
+    }
+
+    .left, .right {
+        max-width: 90%;
+        text-align: center;
+    }
+    .left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+    }
+
+    .right {
+        display: flex;
+        text-align: center;
+        align-items: flex-end;
+        flex-direction: column;
+    }
+
+    .right p {
+        max-width: 100%;
+        text-align: center;
+    }
+    .right h1 {
+        margin-top: 20px;
+    }
+
+    .buttonFC{
+        margin-top: auto;
+    }
+
+    .contact-button {
+        width: 20%;
+        max-width: 90px;
+        position: absolute;
+        align-self: center;
+        left: 20%;
+        top: 63px;
+        margin-bottom: 0; 
+    }
+    .left {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .left h1 {
+        font-size: 50px;
+        white-space: nowrap;
+    }
+}
+// FIM DE TELAS MÉDIAS
