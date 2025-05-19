@@ -6,18 +6,18 @@ const connect = db.connect
 //GERENCIAMENTO DE AGENDA
 async function selectAagendas(){
     const conn = await connect();
-    const [rows] = await conn.query('SELECT * FROM AGENDA;');
+    const [rows] = await conn.query('SELECT * FROM agenda;');
     return rows;
 }
 async function selectAagenda(id){
     const conn = await connect();
-    const agenda = await conn.query('SELECT * FROM AGENDA WHERE IDAGENDA = ?',id);
+    const agenda = await conn.query('SELECT * FROM agenda WHERE IDAGENDA = ?',id);
     return agenda;
 }
 async function selectAgendasByUsuarioCriacao(usuariocriacao) {
     console.log('Consultando agendas para o usuário:', usuariocriacao); // Adicione este log
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM AGENDA WHERE USUARIOCRIACAO = ?'; // Query filtrando pelo usuário
+        const query = 'SELECT * FROM agenda WHERE USUARIOCRIACAO = ?'; // Query filtrando pelo usuário
         db.query(query, [usuariocriacao], (err, results) => {
             if (err) {
                 console.error('Erro ao buscar agendas no banco de dados:', err);
@@ -32,7 +32,7 @@ async function selectAgendasByUsuarioCriacao(usuariocriacao) {
 
 async function insertAagenda(agenda){
     const conn = await connect();
-    const sql = "INSERT INTO AGENDA (HORAINICIO, HORAFINAL, HORAALMOCO, HORAPREVISTA, HORAREALIZADA, ATIVIDADE, DATA, EMPRESATRABALHADA, STATUS, USUARIOCRIACAO)  VALUES (?,?,?,?,?,?,?,?,?,?);";
+    const sql = "INSERT INTO agenda (HORAINICIO, HORAFINAL, HORAALMOCO, HORAPREVISTA, HORAREALIZADA, ATIVIDADE, DATA, EMPRESATRABALHADA, STATUS, USUARIOCRIACAO)  VALUES (?,?,?,?,?,?,?,?,?,?);";
     const values = 
     [
         agenda.horainicio,
@@ -51,7 +51,7 @@ async function insertAagenda(agenda){
 }
 async function updateAagenda(id, agenda){
     const conn = await connect();
-    const sql = 'UPDATE AGENDA SET HORAINICIO=?, HORAFINAL=?, HORAALMOCO=?, HORAPREVISTA=?, HORAREALIZADA=?, ATIVIDADE=?, DATA=?, EMPRESATRABALHADA=?, STATUS=? WHERE IDAGENDA = ?';
+    const sql = 'UPDATE agenda SET HORAINICIO=?, HORAFINAL=?, HORAALMOCO=?, HORAPREVISTA=?, HORAREALIZADA=?, ATIVIDADE=?, DATA=?, EMPRESATRABALHADA=?, STATUS=? WHERE IDAGENDA = ?';
     const values = [
 
         agenda.horainicio,
@@ -70,7 +70,7 @@ async function updateAagenda(id, agenda){
 }
 async function deleteAagenda(agenda){
     const conn = await connect();
-    const sql = 'DELETE FROM AGENDA WHERE IDAGENDA=?;';
+    const sql = 'DELETE FROM agenda WHERE IDAGENDA=?;';
     const values = [agenda];
     return await conn.query(sql,values);
 }

@@ -295,24 +295,24 @@ ul {
 }
 
 .calendario-dia {
-    position: relative;
     padding: 10px;
-    border: 1px solid #ccc;
     display: flex;
-    flex-direction: column;
+    min-height: 80px;
+    position: relative;
     align-items: center;
+    border: 1px solid #ccc;
+    flex-direction: column;
     justify-content: flex-start;
-    min-height: 80px; /* Ajuste para acomodar número e empresas */
 }
 
 .bubble {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 12px;
-    font-size: 14px;
-    text-align: center;
-    font-weight: bold;
     color: white;
+    font-size: 14px;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 12px;
+    display: inline-block;
 }
 .bubble-orange {
     background-color: #e17b28a1;
@@ -341,22 +341,23 @@ ul {
 }
 
 .panel-color {
-    background: linear-gradient(to top, black, #a55b1e);
     padding: 20px;
-    border-radius: 10px;
-    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    position: relative;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, #9a4314, #b75305);
 }
 
 .calendar {
-    background: white;
+    width: 100%;
     padding: 20px;
+    max-width: auto;
+    background: white;
+    margin-top: 30px;
+    text-align: center;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: auto;
-    width: 100%;
-    text-align: center;
 }

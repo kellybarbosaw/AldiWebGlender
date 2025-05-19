@@ -101,7 +101,7 @@ a {
 
     display: flex;
     flex-direction: column;
-    box-shadow: 3px 0 0 #e17C28;
+    box-shadow: 3px 0 0 #b75305;
     //width: 50px;
 }
 // .dashboard-nav-list:hover{
@@ -110,7 +110,7 @@ a {
 // }
 
 .collapse .dashboard-nav-item{
-    background-color: #b2060051 ;
+    background-color: black ;
 }
 
 .dashboard-nav-item {
@@ -121,14 +121,14 @@ a {
 }
 
 .dashboard-nav-item:hover {
-    background:#e17C28;
+    background:#b75305;
     border-bottom: 2px solid white;
     padding-bottom: 20px;
 }
 
 .active {
     // background-color: #fe8902;
-    background-color: #e17C28;
+    background-color: #b75305;
 }
 
 .dashboard-nav-dropdown {
@@ -181,7 +181,7 @@ a {
 }
 
 .dashboard-nav-dropdown-item:hover {
-    background: #e17C28;
+    background: #b75305;
 }
 
 
@@ -208,7 +208,7 @@ a {
 
 }
 .user-logged i{
-    color: #e17C28;
+    color: #b75305;
     margin-right: 5px;
     font-size: 28px;
 
@@ -223,8 +223,76 @@ a {
 }
 
 .activated{
-    background-color: #e17C28 !important; 
+    background-color: #b75305 !important; 
 }
+
+.toggleSidebar{
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 13px;
+}
+
+// INÍCIO HEADER
+.header,
+.navigation_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header {
+    height: 5.5em;
+    padding: 0 10%;
+    justify-content: space-between;
+    background-color: black !important;
+    box-shadow: 1px 1px 4px var(--color-dark4);
+}
+
+.img_logo_header {
+    width: 45px;
+}
+
+.navigation_header {
+    gap: 3em;
+    z-index: 2;
+}
+
+.navigation_header a {
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 5px;
+    text-decoration: none;
+    color: #b75305 !important;
+    transition: color 0.3s ease-in-out;
+}
+
+.navigation_header a::after {
+    width: 0;
+    left: 50%;
+    bottom: 0;
+    content: '';
+    height: 2px;
+    position: absolute;
+    background-color: #b75305;
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.navigation_header a:hover {
+    color: #b75305;
+}
+
+.navigation_header a:hover::after {
+    left: 0;
+    width: 100%;
+}
+
+.btn_icon_header {
+    border: none;
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--color-white);
+}
+// FIM HEADER
 
 @media (min-width: 992px) {
     .dashboard-app {
