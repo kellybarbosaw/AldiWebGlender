@@ -9,7 +9,7 @@ import { CreateAgenda, Agenda, AgendaUser } from '../models/agenda.model';
 })
 export class AgendaService {
   
-  private url = `${environment.api}/agenda`;
+  private url = `https://aldiwebglender.onrender.com/agenda`;
 
   constructor(private httpClient: HttpClient) { }
 
